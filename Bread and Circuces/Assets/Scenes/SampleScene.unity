@@ -154,9 +154,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridObject: {fileID: 1922432242218120001, guid: f8eabc73188673b43b518b9704d6de47, type: 3}
   Unit: {fileID: 4677609092252160450, guid: 0c4089b743962224d8f58b04a295002c, type: 3}
+  enemyUnit: {fileID: 47700082100138163, guid: 864841b6d777962449a025cf0cb10154, type: 3}
   gridSizeX: 10
   gridSizeY: 10
-  board: []
 --- !u!4 &66230
 Transform:
   m_ObjectHideFlags: 0

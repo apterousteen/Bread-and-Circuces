@@ -8,6 +8,7 @@ public class Board : MonoBehaviour
 {
     public GameObject gridObject;
     public GameObject Unit;
+    public GameObject enemyUnit;
 
     public int gridSizeX = 10;
     public int gridSizeY = 10;
@@ -45,67 +46,16 @@ public class Board : MonoBehaviour
                 board[i] = tempArr;
             }
         }
-        var startPos = board[4][6];
-        var newUnit = Instantiate(Unit, startPos.transform.position, gridObject.transform.rotation);
-        newUnit.transform.parent = startPos.gameObject.transform;
+        SpawnUnit(Unit, new Vector2(3, 5));
+        SpawnUnit(enemyUnit, new Vector2(3, 6));
     }
 
-    //public List<HexTile> GetTilesInRadius(HexTile tile, int distance)
-    //{
-    //    var result = new List<HexTile>();
-    //    int n = board.IndexOf(tile);
-    //    int a = gridSizeX;
-    //    int b = gridSizeY;
-    //    if(n / gridSizeX % 2 != 0)
-    //    {
-    //        a++;
-    //        b--;
-    //    }
-    //    for(int i = -distance; i <= distance; i++)
-    //    {
-    //        var num1 = n + i;
-    //        if (num1 >= 0 && num1 < board.Count)
-    //            result.Add(board[num1]);
-    //    }
-    //    for (int i = 1; i <= distance; i++)
-    //    {
-    //        for(int j = i - distance; j <= distance; j++)
-    //        {
-    //            var dif = i / 2;
-    //            if(n / gridSizeX % 2 == 0)
-    //                dif *= -1;
-    //            var num1 = n - i * a + j + dif;
-    //            var num2 = n + i * b + j + dif;
-    //            if(num1 >= 0 && num1 < board.Count)
-    //                result.Add(board[num1]);
-    //            if (num2 >= 0 && num2 < board.Count)
-    //                result.Add(board[num2]);
-    //        }
-    //    }
-    //    return result;
-    //}
-
-
-    //int ComputeDistanceHexGrid(Vector2 tileA, Vector2 tileB)
-    //{
-    //    var distance = new Vector2(tileA.x - tileB.x, tileA.y - tileB.y);
-    //    var diagonalMovement = new Vector2();
-    //    var lesserCoordinate = Mathf.Abs(distance.x) < Mathf.Abs(distance.y) ? Mathf.Abs(distance.x) : Mathf.Abs(distance.y);
-    //    diagonalMovement.x = (distance.x < 0) ? -lesserCoordinate : lesserCoordinate;
-    //    diagonalMovement.y = (distance.y < 0) ? -lesserCoordinate : lesserCoordinate;
-    //    var straightMovement = new Vector2(distance.x - diagonalMovement.x, distance.y - diagonalMovement.y);
-
-    //    var straightDistance = Mathf.Abs(straightMovement.x) + Mathf.Abs(straightMovement.y);
-    //    var diagonalDistance = Mathf.Abs(diagonalMovement.x);
-
-    //    if ((diagonalMovement.x < 0 && diagonalMovement.y > 0) ||
-    //   (diagonalMovement.x > 0 && diagonalMovement.y < 0))
-    //    {
-    //        diagonalDistance *= 2;
-    //    }
-
-    //    return (int)(straightDistance + diagonalDistance);
-    //}
+    void SpawnUnit(GameObject unit, Vector2 coordinates)
+    {
+        var startPos = board[(int)coordinates.x][(int)coordinates.y];
+        var newUnit = Instantiate(unit, startPos.transform.position, gridObject.transform.rotation);
+        newUnit.transform.parent = startPos.gameObject.transform;
+    }
 
     int ComputeDistanceHexGrid(Vector2 tileA, Vector2 tileB)
     {
@@ -137,6 +87,7 @@ public class Board : MonoBehaviour
                     result.Add(hex);
             }
         }
+        result.Remove(tile);
         return result;
     }
 
