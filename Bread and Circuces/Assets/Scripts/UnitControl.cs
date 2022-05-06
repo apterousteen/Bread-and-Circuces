@@ -9,9 +9,11 @@ public class UnitControl: MonoBehaviour
     private bool activated;
     private Camera mainCamera;
     private UnitInfo info;
+    private Board board;
 
     void Start()
     {
+        board = FindObjectOfType<Board>();
         info = gameObject.GetComponent<UnitInfo>();
         mainCamera = Camera.allCameras[0];
         activated = false;
@@ -19,7 +21,20 @@ public class UnitControl: MonoBehaviour
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        DispathInput();
+    }
+
+    void OnMouseDown()
+    {
+        if (!activated)
+            ActivateFigure();
+        else
+            DeactivateFigure();
+    }
+
+    void DispathInput()
+    {
+        if(Input.GetMouseButtonDown(1))
         {
             var raycastPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(raycastPosition, Vector2.zero);
@@ -28,37 +43,39 @@ public class UnitControl: MonoBehaviour
                 if (activated)
                 {
                     if (hit.collider.gameObject == this.gameObject)
-                        deactivateFigure();
+                        DeactivateFigure();
                     if (hit.collider.tag == "Hex")
                     {
                         var hittedTile = hit.collider.gameObject.GetComponent<HexTile>();
-                        if (hittedTile.isChosen)
+                        if (hittedTile.isChosen && board.GetCurrTeam() == info.teamSide)
+                        {
                             if (!hittedTile.isOccupied)
                                 HandleMovement(hittedTile);
-                            else HandleAttack(hittedTile);
+                            else 
+                                HandleAttack(hittedTile);
+                            board.SwitchPlayerTurn();
+                        }
                     }
                 }
                 else if (hit.collider.gameObject == this.gameObject)
-                    activateFigure();
+                    ActivateFigure();
             }
         }
     }
 
     void HandleMovement(HexTile hittedTile)
     {
-        deactivateFigure();
+        DeactivateFigure();
         MoveFigureOnObject(hittedTile);
     }
 
     void HandleAttack(HexTile hittedTile)
     {
-        Debug.Log("Entered HandleAttack");
         var targetUnit = hittedTile.gameObject.GetComponentInChildren<UnitInfo>();
         if (targetUnit.IsEnemy(info))
         {
-            Debug.Log("Attack was made");
             MakeAtack(targetUnit);
-            deactivateFigure();
+            DeactivateFigure();
         }
     }
 
@@ -67,11 +84,10 @@ public class UnitControl: MonoBehaviour
         posX = targetHex.transform.position.x;
         posY = targetHex.transform.position.y;
         transform.parent = targetHex.transform;
-        moveObject();
+        MoveObject();
     }
 
-    void moveObject(){
-        /*animation and shit*/
+    void MoveObject(){
         transform.position = new Vector3(posX, posY, transform.position.z);
     }
 
@@ -81,28 +97,22 @@ public class UnitControl: MonoBehaviour
         enemyUnit.SufferDamage(damageDealt);
     }
 
-    void OnMouseDown()
+    void ActivateFigure()
     {
-        if (!activated)
-            activateFigure();
-        else
-            deactivateFigure();
-    }
-
-    //called when figure being activated
-    void activateFigure()
-    {
+        if(board.ActiveUnitExist())
+            return;
         activated = true;
         var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
+        board.SetActiveUnit(this.gameObject);
         figureRenderer.material.SetColor("_Color", Color.yellow);
 
         ShowMovementArea(info.moveDistance, Color.green);
         ShowAttackArea(info.attackReachDistance, Color.red);
     }
 
-    //called when figure being deactivated
-    void deactivateFigure()
+    void DeactivateFigure()
     {
+        board.ClearActiveUnit();
         activated = false;
         var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
         figureRenderer.material.SetColor("_Color", Color.white);
@@ -112,8 +122,7 @@ public class UnitControl: MonoBehaviour
 
     void ShowMovementArea(int distance, Color hexColor)
     {
-        var tiles = FindObjectOfType<Board>().GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
-
+        var tiles = board.GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
         foreach (var tile in tiles)
         {
             var tileRenderer = tile.gameObject.GetComponent<SpriteRenderer>();
@@ -124,8 +133,7 @@ public class UnitControl: MonoBehaviour
 
     void ShowAttackArea(int distance, Color hexColor)
     {
-        var tiles = FindObjectOfType<Board>().GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
-
+        var tiles = board.GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
         foreach (var tile in tiles)
         {
             var tileRenderer = tile.gameObject.GetComponent<SpriteRenderer>();
@@ -133,7 +141,6 @@ public class UnitControl: MonoBehaviour
             {
                 if(tile.transform.GetChild(0).GetComponent<UnitInfo>().IsEnemy(info))
                 {
-                    Debug.Log("Highlight enemy");
                     tileRenderer.material.SetColor("_Color", hexColor);
                     tile.isChosen = true;
                 }
@@ -143,7 +150,7 @@ public class UnitControl: MonoBehaviour
 
     void HideArea(int distance)
     {
-        var tiles = FindObjectOfType<Board>().GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
+        var tiles = board.GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
 
         foreach (var tile in tiles)
         {
@@ -152,5 +159,4 @@ public class UnitControl: MonoBehaviour
             tile.isChosen = false;
         }
     }
-
 }

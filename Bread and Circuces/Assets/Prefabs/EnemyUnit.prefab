@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 47700082100138173}
   - component: {fileID: 4205143345167767067}
   - component: {fileID: 5349889018097230875}
+  - component: {fileID: 7671353750499134832}
   m_Layer: 7
   m_Name: EnemyUnit
   m_TagString: Unit
@@ -115,3 +116,15 @@ MonoBehaviour:
   damage: 3
   defence: 1
   teamSide: 1
+--- !u!114 &7671353750499134832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47700082100138163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 035daae0db9c7514682cd0d7bdddf239, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

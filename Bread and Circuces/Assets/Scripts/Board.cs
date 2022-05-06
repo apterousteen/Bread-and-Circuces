@@ -16,6 +16,10 @@ public class Board : MonoBehaviour
     private float dx = 0.86f;
     private float dy = 0.74f;
 
+    private Team currTeam = Team.Player;
+
+    private GameObject activeUnit = null;
+
     public HexTile[][] board;
 
     void Start()
@@ -48,6 +52,10 @@ public class Board : MonoBehaviour
         }
         SpawnUnit(Unit, new Vector2(3, 5));
         SpawnUnit(enemyUnit, new Vector2(3, 6));
+        SpawnUnit(Unit, new Vector2(1, 5));
+        SpawnUnit(enemyUnit, new Vector2(1, 6));
+        SpawnUnit(Unit, new Vector2(1, 3));
+        SpawnUnit(enemyUnit, new Vector2(2, 3));
     }
 
     void SpawnUnit(GameObject unit, Vector2 coordinates)
@@ -89,6 +97,44 @@ public class Board : MonoBehaviour
         }
         result.Remove(tile);
         return result;
+    }
+
+    public Team GetCurrTeam()
+    {
+        return currTeam;
+    }
+
+    public void SetCurrTeam(Team team)
+    {
+        currTeam = team;
+    }
+
+    public void SwitchPlayerTurn()
+    {
+        if(currTeam == Team.Player)
+            currTeam = Team.Enemy;
+        else if(currTeam == Team.Enemy)
+            currTeam = Team.Player;
+    }
+
+    public bool ActiveUnitExist()
+    {
+        return activeUnit != null;
+    }
+
+    public void ClearActiveUnit()
+    {
+        activeUnit = null;
+    }
+
+    public void SetActiveUnit(GameObject unit)
+    {
+        activeUnit = unit;
+    }
+
+    public GameObject GetActiveUnit()
+    {
+        return activeUnit;
     }
 
     void Update()
