@@ -47,10 +47,14 @@ public class UnitControl: MonoBehaviour
                     if (hit.collider.tag == "Hex")
                     {
                         var hittedTile = hit.collider.gameObject.GetComponent<HexTile>();
-                        if (hittedTile.isChosen)
+                        if (hittedTile.isChosen && board.GetCurrTeam() == info.teamSide)
+                        {
                             if (!hittedTile.isOccupied)
                                 HandleMovement(hittedTile);
-                            else HandleAttack(hittedTile);
+                            else 
+                                HandleAttack(hittedTile);
+                            board.SwitchPlayerTurn();
+                        }
                     }
                 }
                 else if (hit.collider.gameObject == this.gameObject)
@@ -89,13 +93,8 @@ public class UnitControl: MonoBehaviour
 
     void MakeAtack(UnitInfo enemyUnit)
     {
-        if(board.GetCurrTeam() != info.teamSide)
-            return;
-        
         var damageDealt = info.damage - enemyUnit.defence;
         enemyUnit.SufferDamage(damageDealt);
-
-        board.SwitchPlayerTurn();
     }
 
     void ActivateFigure()
@@ -124,7 +123,6 @@ public class UnitControl: MonoBehaviour
     void ShowMovementArea(int distance, Color hexColor)
     {
         var tiles = board.GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
-        print(tiles.Count);
         foreach (var tile in tiles)
         {
             var tileRenderer = tile.gameObject.GetComponent<SpriteRenderer>();
@@ -136,7 +134,6 @@ public class UnitControl: MonoBehaviour
     void ShowAttackArea(int distance, Color hexColor)
     {
         var tiles = board.GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
-        print(tiles.Count);
         foreach (var tile in tiles)
         {
             var tileRenderer = tile.gameObject.GetComponent<SpriteRenderer>();
@@ -162,5 +159,4 @@ public class UnitControl: MonoBehaviour
             tile.isChosen = false;
         }
     }
-
 }
