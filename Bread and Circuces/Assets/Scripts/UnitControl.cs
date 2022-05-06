@@ -19,7 +19,7 @@ public class UnitControl: MonoBehaviour
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(1))
         {
             var raycastPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(raycastPosition, Vector2.zero);
@@ -52,11 +52,9 @@ public class UnitControl: MonoBehaviour
 
     void HandleAttack(HexTile hittedTile)
     {
-        Debug.Log("Entered HandleAttack");
         var targetUnit = hittedTile.gameObject.GetComponentInChildren<UnitInfo>();
         if (targetUnit.IsEnemy(info))
         {
-            Debug.Log("Attack was made");
             MakeAtack(targetUnit);
             deactivateFigure();
         }
@@ -71,14 +69,18 @@ public class UnitControl: MonoBehaviour
     }
 
     void moveObject(){
-        /*animation and shit*/
         transform.position = new Vector3(posX, posY, transform.position.z);
     }
 
     void MakeAtack(UnitInfo enemyUnit)
     {
+        if(FindObjectOfType<Board>().getCurrTeam() != info.teamSide)
+            return;
+        
         var damageDealt = info.damage - enemyUnit.defence;
         enemyUnit.SufferDamage(damageDealt);
+
+        FindObjectOfType<Board>().switchPlayerTurn();
     }
 
     void OnMouseDown()
@@ -89,7 +91,6 @@ public class UnitControl: MonoBehaviour
             deactivateFigure();
     }
 
-    //called when figure being activated
     void activateFigure()
     {
         activated = true;
@@ -100,7 +101,6 @@ public class UnitControl: MonoBehaviour
         ShowAttackArea(info.attackReachDistance, Color.red);
     }
 
-    //called when figure being deactivated
     void deactivateFigure()
     {
         activated = false;
@@ -113,7 +113,7 @@ public class UnitControl: MonoBehaviour
     void ShowMovementArea(int distance, Color hexColor)
     {
         var tiles = FindObjectOfType<Board>().GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
-
+        print(tiles.Count);
         foreach (var tile in tiles)
         {
             var tileRenderer = tile.gameObject.GetComponent<SpriteRenderer>();
@@ -125,7 +125,7 @@ public class UnitControl: MonoBehaviour
     void ShowAttackArea(int distance, Color hexColor)
     {
         var tiles = FindObjectOfType<Board>().GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
-
+        print(tiles.Count);
         foreach (var tile in tiles)
         {
             var tileRenderer = tile.gameObject.GetComponent<SpriteRenderer>();
@@ -133,7 +133,6 @@ public class UnitControl: MonoBehaviour
             {
                 if(tile.transform.GetChild(0).GetComponent<UnitInfo>().IsEnemy(info))
                 {
-                    Debug.Log("Highlight enemy");
                     tileRenderer.material.SetColor("_Color", hexColor);
                     tile.isChosen = true;
                 }

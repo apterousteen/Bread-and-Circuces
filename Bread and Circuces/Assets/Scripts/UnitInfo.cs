@@ -25,6 +25,7 @@ public class UnitInfo : MonoBehaviour
     public void SufferDamage(int damageValue)
     {
         health -= damageValue;
+        displayInfo();
         CheckForAlive();
     }
 
@@ -37,5 +38,10 @@ public class UnitInfo : MonoBehaviour
     private void Die()
     {
         Destroy(gameObject);
+    }
+
+    public void displayInfo()
+    {
+        Debug.Log(teamSide + health);
     }
 }

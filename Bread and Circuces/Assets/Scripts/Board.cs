@@ -16,6 +16,8 @@ public class Board : MonoBehaviour
     private float dx = 0.86f;
     private float dy = 0.74f;
 
+    private Team currTeam = Team.Player;
+
     public HexTile[][] board;
 
     void Start()
@@ -89,6 +91,24 @@ public class Board : MonoBehaviour
         }
         result.Remove(tile);
         return result;
+    }
+
+    public Team getCurrTeam()
+    {
+        return currTeam;
+    }
+
+    public void setCurrTeam(Team team)
+    {
+        currTeam = team;
+    }
+
+    public void switchPlayerTurn()
+    {
+        if(currTeam == Team.Player)
+            currTeam = Team.Enemy;
+        else if(currTeam == Team.Enemy)
+            currTeam = Team.Player;
     }
 
     void Update()
