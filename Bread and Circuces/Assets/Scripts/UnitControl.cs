@@ -19,46 +19,47 @@ public class UnitControl: MonoBehaviour
 
     void Update()
     {
-        if(activated && Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0))
         {
-            HandleMovement();
-            HandleAttack();
+            var raycastPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(raycastPosition, Vector2.zero);
+            if(hit.collider != null)
+            {
+                if (activated)
+                {
+                    if (hit.collider.gameObject == this.gameObject)
+                        deactivateFigure();
+                    if (hit.collider.tag == "Hex")
+                    {
+                        var hittedTile = hit.collider.gameObject.GetComponent<HexTile>();
+                        if (hittedTile.isChosen)
+                            if (!hittedTile.isOccupied)
+                                HandleMovement(hittedTile);
+                            else HandleAttack(hittedTile);
+                    }
+                }
+                else if (hit.collider.gameObject == this.gameObject)
+                    activateFigure();
+            }
         }
     }
 
-    void HandleMovement()
+    void HandleMovement(HexTile hittedTile)
     {
-        var raycastPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(raycastPosition, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("Hexes"));
-        if (hit.collider != null)
-        {
-            var hittedTile = hit.collider.gameObject.GetComponent<HexTile>();
-            var coordinates = "(" + hittedTile.gridX + ", " + hittedTile.gridY + ")";
-            Debug.Log(coordinates);
-            if (hittedTile.isChosen && !hittedTile.isOccupied)
-            {
-                deactivateFigure();
-                MoveFigureOnObject(hittedTile);
-            }
-
-        }
+        deactivateFigure();
+        MoveFigureOnObject(hittedTile);
     }
 
-    void HandleAttack()
+    void HandleAttack(HexTile hittedTile)
     {
-        var raycastPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(raycastPosition, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("Units"));
-        if (hit.collider != null)
+        Debug.Log("Entered HandleAttack");
+        var targetUnit = hittedTile.gameObject.GetComponentInChildren<UnitInfo>();
+        if (targetUnit.IsEnemy(info))
         {
-            var targetUnit = hit.collider.gameObject.GetComponent<UnitInfo>();
-            if (hit.collider.gameObject.GetComponent<HexTile>().isChosen &&
-                targetUnit.IsEnemy(info))
-            {
-                MakeAtack(targetUnit);
-                deactivateFigure();
-            }
+            Debug.Log("Attack was made");
+            MakeAtack(targetUnit);
+            deactivateFigure();
         }
-        else Debug.Log("No Units Found!");
     }
 
     void MoveFigureOnObject(HexTile targetHex)

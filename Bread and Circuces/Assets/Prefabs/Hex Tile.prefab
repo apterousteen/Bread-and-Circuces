@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1521057680265254201}
   m_Layer: 6
   m_Name: Hex Tile
-  m_TagString: Untagged
+  m_TagString: Hex
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,9 +96,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2afdece2d9fe62419828c728aede2b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 1
   gridX: 0
   gridY: 0
+  isOccupied: 0
+  isChosen: 0
 --- !u!58 &1521057680265254201
 CircleCollider2D:
   m_ObjectHideFlags: 0
