@@ -9,15 +9,30 @@ public class UnitControl: MonoBehaviour
     private bool activated;
     private Camera mainCamera;
     private UnitInfo info;
+    private Board board;
 
     void Start()
     {
+        board = FindObjectOfType<Board>();
         info = gameObject.GetComponent<UnitInfo>();
         mainCamera = Camera.allCameras[0];
         activated = false;
     }
 
     void Update()
+    {
+        DispathInput();
+    }
+
+    void OnMouseDown()
+    {
+        if (!activated)
+            ActivateFigure();
+        else
+            DeactivateFigure();
+    }
+
+    void DispathInput()
     {
         if(Input.GetMouseButtonDown(1))
         {
@@ -28,7 +43,7 @@ public class UnitControl: MonoBehaviour
                 if (activated)
                 {
                     if (hit.collider.gameObject == this.gameObject)
-                        deactivateFigure();
+                        DeactivateFigure();
                     if (hit.collider.tag == "Hex")
                     {
                         var hittedTile = hit.collider.gameObject.GetComponent<HexTile>();
@@ -39,14 +54,14 @@ public class UnitControl: MonoBehaviour
                     }
                 }
                 else if (hit.collider.gameObject == this.gameObject)
-                    activateFigure();
+                    ActivateFigure();
             }
         }
     }
 
     void HandleMovement(HexTile hittedTile)
     {
-        deactivateFigure();
+        DeactivateFigure();
         MoveFigureOnObject(hittedTile);
     }
 
@@ -56,7 +71,7 @@ public class UnitControl: MonoBehaviour
         if (targetUnit.IsEnemy(info))
         {
             MakeAtack(targetUnit);
-            deactivateFigure();
+            DeactivateFigure();
         }
     }
 
@@ -65,44 +80,40 @@ public class UnitControl: MonoBehaviour
         posX = targetHex.transform.position.x;
         posY = targetHex.transform.position.y;
         transform.parent = targetHex.transform;
-        moveObject();
+        MoveObject();
     }
 
-    void moveObject(){
+    void MoveObject(){
         transform.position = new Vector3(posX, posY, transform.position.z);
     }
 
     void MakeAtack(UnitInfo enemyUnit)
     {
-        if(FindObjectOfType<Board>().getCurrTeam() != info.teamSide)
+        if(board.GetCurrTeam() != info.teamSide)
             return;
         
         var damageDealt = info.damage - enemyUnit.defence;
         enemyUnit.SufferDamage(damageDealt);
 
-        FindObjectOfType<Board>().switchPlayerTurn();
+        board.SwitchPlayerTurn();
     }
 
-    void OnMouseDown()
+    void ActivateFigure()
     {
-        if (!activated)
-            activateFigure();
-        else
-            deactivateFigure();
-    }
-
-    void activateFigure()
-    {
+        if(board.ActiveUnitExist())
+            return;
         activated = true;
         var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
+        board.SetActiveUnit(this.gameObject);
         figureRenderer.material.SetColor("_Color", Color.yellow);
 
         ShowMovementArea(info.moveDistance, Color.green);
         ShowAttackArea(info.attackReachDistance, Color.red);
     }
 
-    void deactivateFigure()
+    void DeactivateFigure()
     {
+        board.ClearActiveUnit();
         activated = false;
         var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
         figureRenderer.material.SetColor("_Color", Color.white);
@@ -112,7 +123,7 @@ public class UnitControl: MonoBehaviour
 
     void ShowMovementArea(int distance, Color hexColor)
     {
-        var tiles = FindObjectOfType<Board>().GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
+        var tiles = board.GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
         print(tiles.Count);
         foreach (var tile in tiles)
         {
@@ -124,7 +135,7 @@ public class UnitControl: MonoBehaviour
 
     void ShowAttackArea(int distance, Color hexColor)
     {
-        var tiles = FindObjectOfType<Board>().GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
+        var tiles = board.GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
         print(tiles.Count);
         foreach (var tile in tiles)
         {
@@ -142,7 +153,7 @@ public class UnitControl: MonoBehaviour
 
     void HideArea(int distance)
     {
-        var tiles = FindObjectOfType<Board>().GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
+        var tiles = board.GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
 
         foreach (var tile in tiles)
         {
