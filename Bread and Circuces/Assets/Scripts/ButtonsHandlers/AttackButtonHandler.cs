@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class AttackButtonHandler : MonoBehaviour
+public class AttackButtonHandler : ButtonHandler
 {
-    public void HandleClick()
-    {
-        print("Attack clicked");
-    }
+
 }

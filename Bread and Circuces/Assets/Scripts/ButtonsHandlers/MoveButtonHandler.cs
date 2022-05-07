@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class MoveButtonHandler : MonoBehaviour
+public class MoveButtonHandler : ButtonHandler
 {
-    public void HandleClick()
-    {
-        print("Move clicked");
-    }
+
 }
