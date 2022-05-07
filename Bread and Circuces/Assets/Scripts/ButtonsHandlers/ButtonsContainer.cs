@@ -13,10 +13,7 @@ public class ButtonsContainer : MonoBehaviour
         moveButton = FindObjectOfType<MoveButtonHandler>();
         attackButton = FindObjectOfType<AttackButtonHandler>();
         endTurnButton = FindObjectOfType<EndTurnButtonHandler>();
-    }
-
-    void Update()
-    {
+        DeactivateUnitButtons();
     }
 
     public int GetAction()
@@ -29,6 +26,11 @@ public class ButtonsContainer : MonoBehaviour
         if(attackButton.State)
         {
             return 2;
+        }
+
+        if(!moveButton.State && !attackButton.State)
+        {
+            return -1;
         }
 
         if(endTurnButton.State)

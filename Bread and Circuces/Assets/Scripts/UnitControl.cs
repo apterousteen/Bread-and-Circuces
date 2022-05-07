@@ -33,13 +33,9 @@ public class UnitControl: MonoBehaviour
     void OnMouseDown()
     {
         if (!activated)
-        {
             ActivateFigure();
-        }
         else
-        {
             DeactivateFigure();
-        }
     }
 
     void DispathInput()
@@ -76,13 +72,14 @@ public class UnitControl: MonoBehaviour
             return;
 
         int action = buttonsContainer.GetAction();
-        if(action == 1){
+        if(action == 1)
             ShowMovementArea(info.moveDistance);
-        }
+        
+        if(action == -1)
+            HideArea(info.moveDistance);
 
-        else if(action == 2){
+        else if(action == 2)
             ShowAttackArea(info.attackReachDistance);
-        }
 
         else if(action == 3){
             DeactivateFigure();
@@ -149,7 +146,12 @@ public class UnitControl: MonoBehaviour
 
     void ShowMovementArea(int distance)
     {
-        var tiles = distanceFinder.FindPaths(transform.parent.GetComponent<HexTile>(), distance);
+        List<HexTile> tiles = new List<HexTile>();
+        if(info.motionType == MotionType.RadiusType)
+            tiles = distanceFinder.FindPaths(transform.parent.GetComponent<HexTile>(), distance);
+        else if(info.motionType == MotionType.StraightType)
+            tiles = distanceFinder.FindStraightPaths(transform.parent.GetComponent<HexTile>(), distance);
+
         foreach (var tile in tiles)
         {
             var tileRenderer = tile.gameObject.GetComponent<SpriteRenderer>();
@@ -171,6 +173,11 @@ public class UnitControl: MonoBehaviour
                     tileRenderer.material.SetColor("_Color", Color.red);
                     tile.isChosen = true;
                 }
+            }
+            else
+            {
+                tileRenderer.material.SetColor("_Color", Color.blue);
+                tile.isChosen = true;
             }
         }
     }
