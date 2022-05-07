@@ -116,6 +116,7 @@ MonoBehaviour:
   damage: 3
   defence: 1
   teamSide: 1
+  currentStance: 0
 --- !u!114 &7671353750499134832
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,6 +16,12 @@ public enum Stance
     Raging
 }
 
+public enum MotionType
+{
+    StraightType,
+    RadiusType
+}
+
 public class UnitInfo : MonoBehaviour
 {
     public int health;
@@ -25,6 +31,12 @@ public class UnitInfo : MonoBehaviour
     public int defence;
     public Team teamSide;
     public Stance currentStance;
+    public MotionType motionType;
+
+    void Start()
+    {
+        motionType = MotionType.RadiusType;
+    }
 
     public bool IsEnemy(UnitInfo otherUnit)
     {
@@ -37,6 +49,11 @@ public class UnitInfo : MonoBehaviour
             return;
         currentStance = newStance;
     }    
+
+    public void ChangeMotionType(MotionType typeIn)
+    {
+        motionType = typeIn;
+    }
 
     public void SufferDamage(int damageValue)
     {

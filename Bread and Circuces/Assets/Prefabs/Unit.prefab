@@ -128,3 +128,4 @@ MonoBehaviour:
   damage: 3
   defence: 1
   teamSide: 0
+  currentStance: 0
