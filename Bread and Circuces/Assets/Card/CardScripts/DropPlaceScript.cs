@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+public enum FieldType
+{
+    SELF_HAND,
+    ENEMY_FIELD
+}
 public class DropPlaceScript : MonoBehaviour, IDropHandler
 {
+    public FieldType Type;
     public void OnDrop(PointerEventData eventData)
     {
-        CardMovementScript card = eventData.pointerDrag.GetComponent<CardMovementScript>();
+        CardController card = eventData.pointerDrag.GetComponent<CardController>();
 
-        if (card && card.GameManager.IsPlayerTurn && card.GameManager.PlayerMana >= card.GetComponent<CardInfoScript>().SelfCard.Manacost &&
-            !card.GetComponent<CardInfoScript>().SelfCard.IsPlaced)
+        if (card && GameManagerScript.Instance.IsPlayerTurn && GameManagerScript.Instance.CurrentGame.Player.Mana >= card.Card.Manacost &&
+            !card.Card.IsPlaced)
         {
-            card.GameManager.PlayerHandCards.Remove(card.GetComponent<CardInfoScript>());
-            card.GameManager.PlayerFieldCards.Add(card.GetComponent<CardInfoScript>());
-            card.DefaultParent = transform;
+            if (!card.Card.IsSpell)
+                card.Movement.DefaultParent = transform;
 
-            card.GetComponent<CardInfoScript>().SelfCard.IsPlaced = true;
-            card.GameManager.ReduceMana(true, card.GetComponent<CardInfoScript>().SelfCard.Manacost);
-            card.GameManager.CheckCardsForAvaliability(); 
+            card.OnCast();
         }
     }
 }
