@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 66230}
   - component: {fileID: 66229}
+  - component: {fileID: 66231}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -157,6 +158,8 @@ MonoBehaviour:
   enemyUnit: {fileID: 47700082100138163, guid: 864841b6d777962449a025cf0cb10154, type: 3}
   gridSizeX: 10
   gridSizeY: 10
+  currTeam: 0
+  activeUnit: {fileID: 0}
 --- !u!4 &66230
 Transform:
   m_ObjectHideFlags: 0
@@ -171,6 +174,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &66231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ca6b32eabe4d454d80d0a9c71f88606, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hexesInFringes: []
 --- !u!1 &52091755
 GameObject:
   m_ObjectHideFlags: 0

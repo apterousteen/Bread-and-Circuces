@@ -6,12 +6,15 @@ using TMPro;
 
 public class Game
 {
-    public List<Card> EnemyDeck, PlayerDeck;
+    public List<Card> EnemyDeck, PlayerDeck, EnemyDiscard, PlayerDiscard;
+    //самих операций с дискардом в итоге не добавил, т.к. у нас в тестовом билде вроде нет удалени€ активных карт
 
     public Game()
     {
         EnemyDeck = GiveDeckCard();
         PlayerDeck = GiveDeckCard();
+        EnemyDiscard = new List<Card>();
+        PlayerDiscard = new List<Card>();
     }
 
     List<Card> GiveDeckCard()
@@ -35,6 +38,7 @@ public class GameManagerScript : MonoBehaviour
     public Button EndTurnBtn;
 
     public int PlayerMana = 4, EnemyMana = 4;
+    public int StartHandSize = 6;
     public TextMeshProUGUI PlayerManaTxt, EnemyManaTxt;
 
     public List<CardController> PlayerHandCards = new List<CardController>(),
@@ -70,9 +74,8 @@ public class GameManagerScript : MonoBehaviour
     void GiveHandCards(List<Card> deck, Transform hand) //‘ункци€ выдачи стартовых карт в руку
     {
         int i = 0;
-        while (i++ < 6)
+        while (i++ < StartHandSize)
             GiveCardToHand(deck, hand);
-
     }
 
     void GiveCardToHand(List<Card> deck, Transform hand)
@@ -95,6 +98,9 @@ public class GameManagerScript : MonoBehaviour
         if (cardC.IsPlayerCard)
             PlayerHandCards.Add(cardC);
     }
+
+    // к комменту ниже - выдача одновременно и так правильно, т.к. по задумке мана и руки у игроков обновл€ютс€ одновременно,
+    // а передача хода между игроками происходит дл€ поочерЄдной активации юнитов на поле, вместо классического "сходи всеми в течение хода"
 
     IEnumerator TurnFunc() // Ќјƒќ —ƒ≈Ћј“№ ¬џƒј„”  ј∆ƒќћ” »√–ќ ” ќ“ƒ≈Ћ№Ќќ (сейчас обоим одновременно)
     {
@@ -140,11 +146,18 @@ public class GameManagerScript : MonoBehaviour
         StartCoroutine(TurnFunc());
     }
 
+    void DrawFullHand(List<Card> deck, Transform hand) // вместо добора одной карты на начало хода добираетс€ полна€ рука из 6 карт
+    {
+        int i = PlayerHandCards.Count;
+        while (i++ < StartHandSize)
+            GiveCardToHand(deck, hand);
+    }
+
     void GiveNewCards()
     {
         GiveCardToHand(CurrentGame.EnemyDeck, EnemyHand);
-        GiveCardToHand(CurrentGame.PlayerDeck, PlayerHand);
-
+        //GiveCardToHand(CurrentGame.PlayerDeck, PlayerHand);
+        DrawFullHand(CurrentGame.PlayerDeck, PlayerHand);
     }
 
     public void CardFight(CardController attacker, CardController defender)

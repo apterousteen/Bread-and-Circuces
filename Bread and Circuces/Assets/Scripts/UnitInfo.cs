@@ -8,6 +8,14 @@ public enum Team
     Enemy
 }
 
+public enum Stance
+{
+    Defensive,
+    Advance,
+    Attacking,
+    Raging
+}
+
 public class UnitInfo : MonoBehaviour
 {
     public int health;
@@ -16,11 +24,19 @@ public class UnitInfo : MonoBehaviour
     public int damage;
     public int defence;
     public Team teamSide;
+    public Stance currentStance;
 
     public bool IsEnemy(UnitInfo otherUnit)
     {
         return this.teamSide != otherUnit.teamSide;
     }
+
+    public void ChangeStance(Stance newStance)
+    {
+        if (currentStance == Stance.Raging && newStance == Stance.Attacking)
+            return;
+        currentStance = newStance;
+    }    
 
     public void SufferDamage(int damageValue)
     {
@@ -42,6 +58,6 @@ public class UnitInfo : MonoBehaviour
 
     public void displayInfo()
     {
-        Debug.Log(teamSide + health);
+        Debug.Log(teamSide.ToString() + " " + health);
     }
 }

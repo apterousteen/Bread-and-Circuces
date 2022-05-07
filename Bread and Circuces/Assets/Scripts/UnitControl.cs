@@ -10,10 +10,12 @@ public class UnitControl: MonoBehaviour
     private Camera mainCamera;
     private UnitInfo info;
     private Board board;
+    private DistanceFinder distanceFinder;
 
     void Start()
     {
         board = FindObjectOfType<Board>();
+        distanceFinder = FindObjectOfType<DistanceFinder>();
         info = gameObject.GetComponent<UnitInfo>();
         mainCamera = Camera.allCameras[0];
         activated = false;
@@ -34,7 +36,7 @@ public class UnitControl: MonoBehaviour
 
     void DispathInput()
     {
-        if(Input.GetMouseButtonDown(1))
+        if(Input.GetMouseButtonDown(0))
         {
             var raycastPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(raycastPosition, Vector2.zero);
@@ -47,7 +49,7 @@ public class UnitControl: MonoBehaviour
                     if (hit.collider.tag == "Hex")
                     {
                         var hittedTile = hit.collider.gameObject.GetComponent<HexTile>();
-                        if (hittedTile.isChosen && board.GetCurrTeam() == info.teamSide)
+                        if (hittedTile.isChosen)
                         {
                             if (!hittedTile.isOccupied)
                                 HandleMovement(hittedTile);
@@ -57,8 +59,6 @@ public class UnitControl: MonoBehaviour
                         }
                     }
                 }
-                else if (hit.collider.gameObject == this.gameObject)
-                    ActivateFigure();
             }
         }
     }
@@ -99,7 +99,7 @@ public class UnitControl: MonoBehaviour
 
     void ActivateFigure()
     {
-        if(board.ActiveUnitExist())
+        if(board.ActiveUnitExist() || board.currTeam != info.teamSide)
             return;
         activated = true;
         var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -122,7 +122,7 @@ public class UnitControl: MonoBehaviour
 
     void ShowMovementArea(int distance, Color hexColor)
     {
-        var tiles = board.GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
+        var tiles = distanceFinder.FindPaths(transform.parent.GetComponent<HexTile>(), distance);
         foreach (var tile in tiles)
         {
             var tileRenderer = tile.gameObject.GetComponent<SpriteRenderer>();
@@ -133,7 +133,7 @@ public class UnitControl: MonoBehaviour
 
     void ShowAttackArea(int distance, Color hexColor)
     {
-        var tiles = board.GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
+        var tiles = distanceFinder.GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
         foreach (var tile in tiles)
         {
             var tileRenderer = tile.gameObject.GetComponent<SpriteRenderer>();
@@ -150,7 +150,7 @@ public class UnitControl: MonoBehaviour
 
     void HideArea(int distance)
     {
-        var tiles = board.GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
+        var tiles = distanceFinder.GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
 
         foreach (var tile in tiles)
         {
