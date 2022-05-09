@@ -6,22 +6,41 @@ using TMPro;
 
 public class Game
 {
-    public List<Card> EnemyDeck, PlayerDeck, EnemyDiscard, PlayerDiscard;
-    //самих операций с дискардом в итоге не добавил, т.к. у нас в тестовом билде вроде нет удалени€ активных карт
+    //может перенести колоду и стопку сброса пр€мо в класс игрока(мб и руки)?
+    //так в некоторых методах достаточно будет передавать только игрока, а не отдельно его колоду, руку и пр
+    //а может вообще перенести в него некоторые методы?(добор и пр)
+    public Player Player, Enemy;
+
+    public List<Card> EnemyDeck, PlayerDeck, EnemyDiscardPile, PlayerDiscardPile;
 
     public Game()
     {
         EnemyDeck = GiveDeckCard();
         PlayerDeck = GiveDeckCard();
-        EnemyDiscard = new List<Card>();
-        PlayerDiscard = new List<Card>();
+        EnemyDiscardPile = new List<Card>();
+        PlayerDiscardPile = new List<Card>();
+
+        Player = new Player();
+        Enemy = new Player();
     }
 
+
+    //почему на итерации дважды добавл€ютс€ карты, при этом одни фильтруютс€, а другие нет? последн€€ строка не лишн€€?
     List<Card> GiveDeckCard()
     {
         List<Card> list = new List<Card>();
+
         for (int i = 0; i < 10; i++)
-            list.Add(CardManager.AllCards[Random.Range(0, CardManager.AllCards.Count)]);
+        {
+            var card = CardManager.AllCards[Random.Range(0, CardManager.AllCards.Count)];
+
+            if (card.IsSpell)
+                list.Add(((SpellCard)card).GetCopy());
+            else
+                list.Add(card.GetCopy());
+
+            list.Add(CardManager.AllCards[Random.Range(0, CardManager.AllCards.Count)].GetCopy());
+        }
         return list;
     }
 }
@@ -32,17 +51,16 @@ public class GameManagerScript : MonoBehaviour
 
     public Game CurrentGame;
     public Transform EnemyHand, PlayerHand;
-    public GameObject CardPref;
-    int Turn, TurnTime = 30;
-    public TextMeshProUGUI TurnTimeTxt;
-    public Button EndTurnBtn;
 
-    public int PlayerMana = 4, EnemyMana = 4;
-    public int StartHandSize = 6;
-    public TextMeshProUGUI PlayerManaTxt, EnemyManaTxt;
+    public GameObject CardPref;
+
+    int Turn, TurnTime = 30;
+
+    int StartHandSize = 6;
 
     public List<CardController> PlayerHandCards = new List<CardController>(),
-                                PlayerFieldCards = new List<CardController>();
+                                PlayerFieldCards = new List<CardController>(),
+                                EnemyFieldCards = new List<CardController>();
 
     public bool IsPlayerTurn
     {
@@ -58,7 +76,12 @@ public class GameManagerScript : MonoBehaviour
             Instance = this;
     }
 
-    private void Start()
+    void Start()
+    {
+        StartGame();
+    }
+
+    void StartGame()
     {
         Turn = 0;
         CurrentGame = new Game();
@@ -66,7 +89,7 @@ public class GameManagerScript : MonoBehaviour
         GiveHandCards(CurrentGame.EnemyDeck, EnemyHand);
         GiveHandCards(CurrentGame.PlayerDeck, PlayerHand);
 
-        ShowMana();
+        UiController.Instance.StartGame();
 
         StartCoroutine(TurnFunc());
     }
@@ -82,10 +105,30 @@ public class GameManagerScript : MonoBehaviour
     {
         if (deck.Count == 0)
             return;
+            //ReshufflDiscardPile(deck) - нужно эффективнее передавать дискард, без удал€ющихс€ карт он сейчас бесполезен и вызовет ошибку
 
         CreateCardPref(deck[0], hand);
 
         deck.RemoveAt(0);
+    }
+
+    void ReshuffleDiscardPile(List<Card> deck)
+    {
+        var discard = new List<Card>();
+        if (deck == CurrentGame.PlayerDeck)
+            discard = CurrentGame.PlayerDiscardPile;
+        else discard = CurrentGame.EnemyDiscardPile;  //перенос сброса и колоды в класс игрока тут бы очень помог
+        deck.AddRange(discard);
+        discard.Clear();
+        int n = deck.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = Random.Range(0, n + 1);
+            var value = deck[k];
+            deck[k] = deck[n];
+            deck[n] = value;
+        }
     }
 
     void CreateCardPref(Card card, Transform hand)
@@ -99,13 +142,13 @@ public class GameManagerScript : MonoBehaviour
             PlayerHandCards.Add(cardC);
     }
 
-    // к комменту ниже - выдача одновременно и так правильно, т.к. по задумке мана и руки у игроков обновл€ютс€ одновременно,
-    // а передача хода между игроками происходит дл€ поочерЄдной активации юнитов на поле, вместо классического "сходи всеми в течение хода"
+    // к комменту ниже - выдача одновременно и так правильно, т.к. по задумке мана и руки у игроков обновл§ютс§ одновременно,
+    // а передача хода между игроками происходит дл§ поочер™дной активации юнитов на поле, вместо классического "сходи всеми в течение хода"
 
     IEnumerator TurnFunc() // Ќјƒќ —ƒ≈Ћј“№ ¬џƒј„”  ј∆ƒќћ” »√–ќ ” ќ“ƒ≈Ћ№Ќќ (сейчас обоим одновременно)
     {
         TurnTime = 30;
-        TurnTimeTxt.text = TurnTime.ToString();
+        UiController.Instance.UpdateTurnTime(TurnTime);
 
         CheckCardsForManaAvaliability();
 
@@ -113,7 +156,7 @@ public class GameManagerScript : MonoBehaviour
         {
             while (TurnTime-- > 0)
             {
-                TurnTimeTxt.text = TurnTime.ToString();
+                UiController.Instance.UpdateTurnTime(TurnTime);
                 yield return new WaitForSeconds(1);
             }
         }
@@ -121,7 +164,7 @@ public class GameManagerScript : MonoBehaviour
         {
             while (TurnTime-- > 27)
             {
-                TurnTimeTxt.text = TurnTime.ToString();
+                UiController.Instance.UpdateTurnTime(TurnTime);
                 yield return new WaitForSeconds(1);
             }
         }
@@ -133,20 +176,25 @@ public class GameManagerScript : MonoBehaviour
         StopAllCoroutines();
         Turn++;
 
-        EndTurnBtn.interactable = IsPlayerTurn;
+        UiController.Instance.DisableTurnBtn();
 
         if (IsPlayerTurn)
         {
             GiveNewCards();
+            CurrentGame.Player.RestoreRoundMana();
 
-            PlayerMana = EnemyMana = 4;
-            ShowMana();
+            UiController.Instance.UpdateMana();
+        }
+
+        else
+        {
+            CurrentGame.Enemy.RestoreRoundMana();
         }
 
         StartCoroutine(TurnFunc());
     }
 
-    void DrawFullHand(List<Card> deck, Transform hand) // вместо добора одной карты на начало хода добираетс€ полна€ рука из 6 карт
+    void DrawFullHand(List<Card> deck, Transform hand) // вместо добора одной карты на начало хода добираетс§ полна§ рука из 6 карт
     {
         int i = PlayerHandCards.Count;
         while (i++ < StartHandSize)
@@ -156,7 +204,6 @@ public class GameManagerScript : MonoBehaviour
     void GiveNewCards()
     {
         GiveCardToHand(CurrentGame.EnemyDeck, EnemyHand);
-        //GiveCardToHand(CurrentGame.PlayerDeck, PlayerHand);
         DrawFullHand(CurrentGame.PlayerDeck, PlayerHand);
     }
 
@@ -173,25 +220,52 @@ public class GameManagerScript : MonoBehaviour
         defender.CheckForAlive();
     }
 
-    void ShowMana()
-    {
-        PlayerManaTxt.text = PlayerMana.ToString();
-        EnemyManaTxt.text = EnemyMana.ToString();
-    }
 
     public void ReduceMana(bool playerMana, int manacost)
     {
         if (playerMana)
-            PlayerMana = Mathf.Clamp(PlayerMana - manacost, 0, int.MaxValue);
+            CurrentGame.Player.Mana -= manacost;
         else
-            EnemyMana = Mathf.Clamp(EnemyMana - manacost, 0, int.MaxValue);
+            CurrentGame.Enemy.Mana -= manacost;
 
-        ShowMana();
+        UiController.Instance.UpdateMana();
     }
 
     public void CheckCardsForManaAvaliability()
     {
         foreach (var card in PlayerHandCards)
-            card.Info.HiglightManaAvaliability(PlayerMana);
+            card.Info.HiglightManaAvaliability(CurrentGame.Player.Mana);
+    }
+
+    public void HighlightTargets(CardController attacker, bool highlight)
+    {
+        List<CardController> targets = new List<CardController>();
+
+        if (attacker.Card.IsSpell)
+        {
+            var spellCard = (SpellCard)attacker.Card;
+
+            if (spellCard.SpellTarget == SpellCard.TargetType.NO_TARGET)
+                targets = new List<CardController>();
+            else if (spellCard.SpellTarget == SpellCard.TargetType.ALLY_CARD_TARGET)
+                targets = PlayerFieldCards;
+            else
+                targets = EnemyFieldCards;
+        }
+        else
+        {
+            if (EnemyFieldCards.Exists(x => x.Card.IsProvocation))
+                targets = EnemyFieldCards.FindAll(x => x.Card.IsProvocation);
+            else
+            {
+                targets = EnemyFieldCards;
+            }
+        }
+
+        foreach (var card in targets)
+        {
+            if (attacker.Card.IsSpell)
+                card.Info.HighlightAsSpellTarget(highlight);
+        }
     }
 }

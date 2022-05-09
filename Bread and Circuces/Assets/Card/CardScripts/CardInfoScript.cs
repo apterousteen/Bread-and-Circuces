@@ -12,10 +12,16 @@ public class CardInfoScript : MonoBehaviour
     public TextMeshProUGUI Name, Attack, Defense, Manacost;
 
     public void ShowCardInfo()
-    { 
+    {
         Logo.sprite = CC.Card.Logo;
         Logo.preserveAspect = true;
         Name.text = CC.Card.Name;
+
+        if (CC.Card.IsSpell)
+        {
+            Attack.gameObject.SetActive(false);
+            Defense.gameObject.SetActive(false);
+        }
 
         RefreshData();
     }
@@ -31,5 +37,12 @@ public class CardInfoScript : MonoBehaviour
     {
         GetComponent<CanvasGroup>().alpha = currentMana >= CC.Card.Manacost ? 1 : .5f;
 
+    }
+
+    public void HighlightAsSpellTarget(bool higlight)
+    {
+        GetComponent<Image>().color = higlight ?
+                                      Color.red :
+                                      Color.green;
     }
 }

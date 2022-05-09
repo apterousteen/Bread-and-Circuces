@@ -11,7 +11,7 @@ public class UnitControl: MonoBehaviour
     private UnitInfo info;
     private Board board;
     private DistanceFinder distanceFinder;
-    private ButtonsContainer buttonsContainer;
+    public ButtonsContainer buttonsContainer;
 
     void Start()
     {
@@ -72,6 +72,13 @@ public class UnitControl: MonoBehaviour
             return;
 
         int action = buttonsContainer.GetAction();
+
+        if(action == 3)
+        {
+            DeactivateFigure();
+            board.SwitchPlayerTurn();
+        }
+
         if(action == 1)
             ShowMovementArea(info.moveDistance);
         
@@ -80,11 +87,6 @@ public class UnitControl: MonoBehaviour
 
         else if(action == 2)
             ShowAttackArea(info.attackReachDistance);
-
-        else if(action == 3){
-            DeactivateFigure();
-            board.SwitchPlayerTurn();
-        }
     }
 
     void HandleMovement(HexTile hittedTile)
@@ -177,7 +179,6 @@ public class UnitControl: MonoBehaviour
             else
             {
                 tileRenderer.material.SetColor("_Color", Color.blue);
-                tile.isChosen = true;
             }
         }
     }

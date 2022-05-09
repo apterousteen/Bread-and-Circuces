@@ -28,17 +28,12 @@ public class ButtonsContainer : MonoBehaviour
             return 2;
         }
 
-        if(!moveButton.State && !attackButton.State)
+        if (endTurnButton.State)
         {
-            return -1;
-        }
-
-        if(endTurnButton.State)
-        {  
             return 3;
         }
 
-        return 4;
+        return -1;
     }
 
     public void ActivateUnitButtons()
