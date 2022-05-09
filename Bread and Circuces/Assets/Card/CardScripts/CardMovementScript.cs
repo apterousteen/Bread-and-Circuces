@@ -10,6 +10,7 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
     Camera MainCamera;
     Vector3 offset;
     public Transform DefaultParent;
+    public bool IsDraggable;
 
     void Awake()
     {
@@ -19,8 +20,19 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
     {
         offset = transform.position - MainCamera.WorldToScreenPoint(eventData.position); // ’ранит в себе значение отступа центра карты от места карты по которой нажали(без этого карта будет дергатьс€ )
         DefaultParent = transform.parent;
+
         transform.SetParent(DefaultParent.parent);
+
+        IsDraggable = GameManagerScript.Instance.IsPlayerTurn &&
+            (DefaultParent.GetComponent<DropPlaceScript>().Type == FieldType.SELF_HAND &&
+            GameManagerScript.Instance.CurrentGame.Player.Mana >= CC.Card.Manacost);
         GetComponent<CanvasGroup>().blocksRaycasts = false;
+
+        if (!IsDraggable)
+            return;
+
+        if (CC.Card.IsSpell)
+            GameManagerScript.Instance.HighlightTargets(CC, true);
     }
 
     public void OnDrag(PointerEventData eventData) //Ѕудет работать все врем€ пока мы ƒ¬»√ј≈ћ карту

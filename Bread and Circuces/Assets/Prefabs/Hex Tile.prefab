@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 8434420184629490153}
   - component: {fileID: 1994962313761857192}
   - component: {fileID: 658218816319666354}
-  m_Layer: 0
+  - component: {fileID: 1521057680265254201}
+  m_Layer: 6
   m_Name: Hex Tile
-  m_TagString: Untagged
+  m_TagString: Hex
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,4 +96,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2afdece2d9fe62419828c728aede2b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 1
+  gridX: 0
+  gridY: 0
+  isOccupied: 0
+  isChosen: 0
+--- !u!58 &1521057680265254201
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922432242218120001}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.43
