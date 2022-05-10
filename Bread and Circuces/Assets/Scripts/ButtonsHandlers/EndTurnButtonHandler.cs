@@ -14,5 +14,11 @@ public class EndTurnButtonHandler : ButtonHandler
 	public new void HandleClick()
     {
         State = !State;
+        print("pressed");
+    }
+
+    public new void resetButton()
+    {
+        State = false;
     }
 }
