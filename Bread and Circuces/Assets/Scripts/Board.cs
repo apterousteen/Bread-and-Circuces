@@ -75,6 +75,7 @@ public class Board : MonoBehaviour
 
     public void SwitchPlayerTurn()
     {
+        print("switch turn");
         if(currTeam == Team.Player)
             currTeam = Team.Enemy;
         else if(currTeam == Team.Enemy)

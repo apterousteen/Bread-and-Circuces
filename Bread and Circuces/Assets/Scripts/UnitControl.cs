@@ -26,8 +26,8 @@ public class UnitControl: MonoBehaviour
 
     void Update()
     {
-        DispathInput();
-        DispathAction();
+        DispatchInput();
+        DispatchAction();
     }
 
     void OnMouseDown()
@@ -38,7 +38,7 @@ public class UnitControl: MonoBehaviour
             DeactivateFigure();
     }
 
-    void DispathInput()
+    void DispatchInput()
     {
         if(Input.GetMouseButtonDown(0))
         {
@@ -66,7 +66,7 @@ public class UnitControl: MonoBehaviour
         }
     }
 
-    void DispathAction()
+    void DispatchAction()
     {
         if(!activated)
             return;

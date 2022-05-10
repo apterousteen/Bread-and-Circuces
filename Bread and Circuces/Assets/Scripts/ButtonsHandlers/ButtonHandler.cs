@@ -9,8 +9,6 @@ public class ButtonHandler : MonoBehaviour
     public bool ActivationState = false;
     public GameObject Button;
 
-    public List<ButtonHandler> allButtons;
-
     void Start()
     {
         ActivateDeactivateButton(ActivationState);
@@ -19,7 +17,6 @@ public class ButtonHandler : MonoBehaviour
     public void ActivateDeactivateButton(bool activationStateIn)
     {
         ActivationState = activationStateIn;
-
         Button.SetActive(ActivationState);
     }
 

@@ -39,14 +39,13 @@ public class ButtonsContainer : MonoBehaviour
     public void ActivateUnitButtons()
     {
         moveButton.ActivateDeactivateButton(true);
-        endTurnButton.ActivateDeactivateButton(true);
         attackButton.ActivateDeactivateButton(true);
     }
     
     public void DeactivateUnitButtons()
     {
         moveButton.resetButton();
-        endTurnButton.resetButton();
         attackButton.resetButton();
+        endTurnButton.resetButton();
     }
 }
