@@ -102,7 +102,8 @@ public class SpellCard : Card
         ARMOR,
         BUFF_CARD_DAMAGE,
         DEBUFF_CARD_DAMAGE,
-        DRAW_CART
+        DRAW_CART,
+        CANCEL
     }
 
     public enum TargetType
@@ -114,12 +115,31 @@ public class SpellCard : Card
         ALLY_CARD_TARGET
     }
 
+    public enum CardDrow
+    {
+        No,
+        Yes
+    }
+
+    public enum Movement
+    {
+        No,
+        Yes
+    }
+
+    public enum ResetCard
+    {
+        No,
+        Yes
+    }
+
     public SpellType Spell;
     public TargetType SpellTarget;
     public int SpellValue;
 
     public SpellCard(string name, string logoPath, int manacost, SpellType spellType = 0,
-                     int spellValue = 0, TargetType targetType = 0) : base(name, logoPath, 0, 0, manacost)
+                     int spellValue = 0, TargetType targetType = 0, CardDrow cardDrow = 0,
+                     Movement movement = 0, ResetCard resetCard = 0) : base(name, logoPath, 0, 0, manacost)
     {
         IsSpell = true;
 
@@ -152,49 +172,78 @@ public class ManagerCard : MonoBehaviour
 {
     public void Awake()
     {
-        /*
-        CardManager.AllCards.Add(new Card("CardOne", "Sprites/LogoCards/CardOne", 1, 1, 2));
-        CardManager.AllCards.Add(new Card("CardTwo", "Sprites/LogoCards/CardTwo", 2, 2, 2));
-        CardManager.AllCards.Add(new Card("CardThree", "Sprites/LogoCards/CardThree", 3, 3, 2));
-        CardManager.AllCards.Add(new Card("CardFour", "Sprites/LogoCards/CardFour", 4, 4, 2));
-        CardManager.AllCards.Add(new Card("CardFive", "Sprites/LogoCards/CardFive", 5, 5, 2));
-        CardManager.AllCards.Add(new Card("CardSix", "Sprites/LogoCards/CardSix", 6, 6, 2));
-        CardManager.AllCards.Add(new Card("CardSeven", "Sprites/LogoCards/CardSeven", 7, 7, 2));
-        CardManager.AllCards.Add(new Card("CardEight", "Sprites/LogoCards/CardEight", 8, 8, 2));
-        */
+        //"Ретиарий"
+        CardManager.AllCards.Add(new SpellCard("Бросок сети", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.CANCEL, 0, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.No, SpellCard.ResetCard.No));// Работа со способностью
+        CardManager.AllCards.Add(new SpellCard("Уворот", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 3, SpellCard.TargetType.SELF, SpellCard.CardDrow.No, SpellCard.Movement.Yes, SpellCard.ResetCard.No));
+        CardManager.AllCards.Add(new SpellCard("Уворот", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 3, SpellCard.TargetType.SELF, SpellCard.CardDrow.No, SpellCard.Movement.Yes, SpellCard.ResetCard.No));
+        CardManager.AllCards.Add(new SpellCard("Парирование", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DRAW_CART, 3, SpellCard.TargetType.SELF, SpellCard.CardDrow.Yes, SpellCard.Movement.No, SpellCard.ResetCard.No));
+        CardManager.AllCards.Add(new SpellCard("Парирование", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DRAW_CART, 3, SpellCard.TargetType.SELF, SpellCard.CardDrow.Yes, SpellCard.Movement.No, SpellCard.ResetCard.No));
+        CardManager.AllCards.Add(new SpellCard("Тычок с отступлением", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 2, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.Yes, SpellCard.ResetCard.No));
+        CardManager.AllCards.Add(new SpellCard("Тычок с отступлением", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 2, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.Yes, SpellCard.ResetCard.No));
+        CardManager.AllCards.Add(new SpellCard("Пробитие трезубцем", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 5, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.Yes, SpellCard.ResetCard.No));
+        CardManager.AllCards.Add(new SpellCard("Протыкание ноги", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 4, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.No, SpellCard.ResetCard.Yes));
+        CardManager.AllCards.Add(new SpellCard("Протыкание ноги", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 4, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.No, SpellCard.ResetCard.Yes));
+        CardManager.AllCards.Add(new SpellCard("Осторожный удар", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 3, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.Yes, SpellCard.Movement.No, SpellCard.ResetCard.No));//Корректировка способностей
+        CardManager.AllCards.Add(new SpellCard("Осторожный удар", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 3, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.Yes, SpellCard.Movement.No, SpellCard.ResetCard.No));//Корректировка способностей
+        CardManager.AllCards.Add(new SpellCard("Выпад вперед", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 2, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.Yes, SpellCard.Movement.Yes, SpellCard.ResetCard.No));//Нужно добавить передвижение
+        CardManager.AllCards.Add(new SpellCard("Выпад вперед", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 2, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.Yes, SpellCard.Movement.Yes, SpellCard.ResetCard.No));//Нужно добавить передвижение
+        CardManager.AllCards.Add(new SpellCard("Выпад вперед", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 2, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.Yes, SpellCard.Movement.Yes, SpellCard.ResetCard.No));//Нужно добавить передвижение
+        CardManager.AllCards.Add(new SpellCard("Шаг назад", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 1, SpellCard.TargetType.SELF, SpellCard.CardDrow.Yes, SpellCard.Movement.Yes, SpellCard.ResetCard.No));//Работа со способностью
+        CardManager.AllCards.Add(new SpellCard("Шаг назад", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 1, SpellCard.TargetType.SELF, SpellCard.CardDrow.Yes, SpellCard.Movement.Yes, SpellCard.ResetCard.No));//Работа со способностью
 
-        //Универсальные карты
+        //"Скиссор"
 
+        CardManager.AllCards.Add(new SpellCard("Take it", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 1, SpellCard.TargetType.SELF, SpellCard.CardDrow.No, SpellCard.Movement.Yes, SpellCard.ResetCard.No));//Нужно добавить передвижение
+        CardManager.AllCards.Add(new SpellCard("Take it", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 1, SpellCard.TargetType.SELF, SpellCard.CardDrow.No, SpellCard.Movement.Yes, SpellCard.ResetCard.No));//Нужно добавить передвижение
+        CardManager.AllCards.Add(new SpellCard("Яростный рывок", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 4, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.Yes, SpellCard.ResetCard.No));//Работа со способностью
+        CardManager.AllCards.Add(new SpellCard("Яростный рывок", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 4, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.Yes, SpellCard.ResetCard.No));//Работа со способностью
+        CardManager.AllCards.Add(new SpellCard("Открывающий удар", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 2, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.Yes, SpellCard.Movement.No, SpellCard.ResetCard.Yes));//Работа со способностью
+        CardManager.AllCards.Add(new SpellCard("Открывающий удар", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 2, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.Yes, SpellCard.Movement.No, SpellCard.ResetCard.Yes));//Работа со способностью
+        CardManager.AllCards.Add(new SpellCard("Rip and tear", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 3, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.No, SpellCard.ResetCard.Yes));//Работа со способностью
+        CardManager.AllCards.Add(new SpellCard("Яростная серия", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 2, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.No, SpellCard.ResetCard.No));//Работа со способностью
+        CardManager.AllCards.Add(new SpellCard("Зацепить оружие", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DRAW_CART, 2, SpellCard.TargetType.SELF, SpellCard.CardDrow.No, SpellCard.Movement.No, SpellCard.ResetCard.Yes));// + механика
+        CardManager.AllCards.Add(new SpellCard("Зацепить оружие", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DRAW_CART, 2, SpellCard.TargetType.SELF, SpellCard.CardDrow.No, SpellCard.Movement.No, SpellCard.ResetCard.Yes));// + механика
+        CardManager.AllCards.Add(new SpellCard("Разрезающий удар", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 2, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.Yes, SpellCard.Movement.No, SpellCard.ResetCard.No));
+        CardManager.AllCards.Add(new SpellCard("Разрезающий удар", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 2, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.Yes, SpellCard.Movement.No, SpellCard.ResetCard.No));
+        CardManager.AllCards.Add(new SpellCard("Удар клинком", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 2, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.No, SpellCard.ResetCard.No));
+        CardManager.AllCards.Add(new SpellCard("Удар клинком", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 2, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.No, SpellCard.ResetCard.No));
+        CardManager.AllCards.Add(new SpellCard("Удар клинком", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 2, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.No, SpellCard.ResetCard.No));
 
-        //Универсальные в сете "Ретиарий"
+        //"Мурмиллон"
 
-        CardManager.AllCards.Add(new SpellCard("Парирование", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DRAW_CART, 2, SpellCard.TargetType.NO_TARGET));
-        CardManager.AllCards.Add(new SpellCard("Тычок с отступлением", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.AOE_DAMAGE, 2, SpellCard.TargetType.ENEMY_CARD_TARGET));
-        CardManager.AllCards.Add(new SpellCard("Осторожный удар", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.AOE_DAMAGE, 2, SpellCard.TargetType.ENEMY_CARD_TARGET));//Нужно добавить добор
-        CardManager.AllCards.Add(new SpellCard("Выпад вперед", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.AOE_DAMAGE, 2, SpellCard.TargetType.ENEMY_CARD_TARGET));//Нужно добавить передвижение
-        CardManager.AllCards.Add(new SpellCard("Шаг назад", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 2, SpellCard.TargetType.SELF));//Нужно добавить передвижение
-
-        //Универсальные в сете "Скиссор"
-
-        CardManager.AllCards.Add(new SpellCard("Take it", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 2, SpellCard.TargetType.SELF));//Нужно добавить передвижение
-        CardManager.AllCards.Add(new SpellCard("Открывающий удар", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.AOE_DAMAGE, 2, SpellCard.TargetType.ENEMY_CARD_TARGET));//Работа со сбросом
-        CardManager.AllCards.Add(new SpellCard("Удар клинком", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.AOE_DAMAGE, 2, SpellCard.TargetType.ENEMY_CARD_TARGET));
-
-        //Универсальные в сете "Мурмиллон"
-
-        CardManager.AllCards.Add(new SpellCard("Блок", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 2, SpellCard.TargetType.SELF));//Работа с типами карт
-        CardManager.AllCards.Add(new SpellCard("Заверщающий рубец", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.AOE_DAMAGE, 2, SpellCard.TargetType.ENEMY_CARD_TARGET));//Работа со способностью карты
-        CardManager.AllCards.Add(new SpellCard("Удар клинком", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.AOE_DAMAGE, 2, SpellCard.TargetType.ENEMY_CARD_TARGET));
-        CardManager.AllCards.Add(new SpellCard("Прикрыться", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 2, SpellCard.TargetType.SELF));// Работа с добором + способностью карты
-        CardManager.AllCards.Add(new SpellCard("Внезапный удар", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.AOE_DAMAGE, 2, SpellCard.TargetType.ENEMY_CARD_TARGET));// Работа с добором
+        CardManager.AllCards.Add(new SpellCard("Оглушение щитом", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DRAW_CART, 2, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.No, SpellCard.ResetCard.Yes));//+механика
+        CardManager.AllCards.Add(new SpellCard("Оглушение щитом", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DRAW_CART, 2, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.No, SpellCard.ResetCard.Yes));//+механика
+        CardManager.AllCards.Add(new SpellCard("Башенная оборона", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 5, SpellCard.TargetType.SELF, SpellCard.CardDrow.No, SpellCard.Movement.No, SpellCard.ResetCard.No));
+        CardManager.AllCards.Add(new SpellCard("Блок", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 2, SpellCard.TargetType.SELF, SpellCard.CardDrow.No, SpellCard.Movement.No, SpellCard.ResetCard.No));//Работа с типами карт
+        CardManager.AllCards.Add(new SpellCard("Блок", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 2, SpellCard.TargetType.SELF, SpellCard.CardDrow.No, SpellCard.Movement.No, SpellCard.ResetCard.No));//Работа с типами карт
+        CardManager.AllCards.Add(new SpellCard("Блок", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 2, SpellCard.TargetType.SELF, SpellCard.CardDrow.No, SpellCard.Movement.No, SpellCard.ResetCard.No));//Работа с типами карт
+        CardManager.AllCards.Add(new SpellCard("Заверщающий рубец", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 1, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.No, SpellCard.ResetCard.No));//Работа со способностью карты
+        CardManager.AllCards.Add(new SpellCard("Заверщающий рубец", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 1, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.No, SpellCard.ResetCard.No));//Работа со способностью карты
+        CardManager.AllCards.Add(new SpellCard("Удар клинком", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 3, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.No, SpellCard.ResetCard.No));
+        CardManager.AllCards.Add(new SpellCard("Удар клинком", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 3, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.No, SpellCard.ResetCard.No));
+        CardManager.AllCards.Add(new SpellCard("Прикрыться", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 1, SpellCard.TargetType.SELF, SpellCard.CardDrow.Yes, SpellCard.Movement.No, SpellCard.ResetCard.No));// Работа со способностью карты
+        CardManager.AllCards.Add(new SpellCard("Прикрыться", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 1, SpellCard.TargetType.SELF, SpellCard.CardDrow.Yes, SpellCard.Movement.No, SpellCard.ResetCard.No));// Работа со способностью карты
+        CardManager.AllCards.Add(new SpellCard("Внезапный удар", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 3, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.Yes, SpellCard.Movement.No, SpellCard.ResetCard.No));
+        CardManager.AllCards.Add(new SpellCard("Внезапный удар", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 3, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.Yes, SpellCard.Movement.No, SpellCard.ResetCard.No));
 
         //Универсальные в сете "Гопломах"
 
-        CardManager.AllCards.Add(new SpellCard("Парирование", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DRAW_CART, 2, SpellCard.TargetType.NO_TARGET));
-        CardManager.AllCards.Add(new SpellCard("Блок", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 2, SpellCard.TargetType.SELF));//Работа с типами карт
-        CardManager.AllCards.Add(new SpellCard("Выпад вперед", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.AOE_DAMAGE, 2, SpellCard.TargetType.ENEMY_CARD_TARGET));//Нужно добавить передвижение
-        CardManager.AllCards.Add(new SpellCard("Прикрыться", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 2, SpellCard.TargetType.SELF));// Работа с добором + способностью карты
-        CardManager.AllCards.Add(new SpellCard("Тычок с отступлением", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.AOE_DAMAGE, 2, SpellCard.TargetType.ENEMY_CARD_TARGET));
-        CardManager.AllCards.Add(new SpellCard("Осторожный удар", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.AOE_DAMAGE, 2, SpellCard.TargetType.ENEMY_CARD_TARGET));//Нужно добавить добор
+        CardManager.AllCards.Add(new SpellCard("Парирование", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 3, SpellCard.TargetType.SELF, SpellCard.CardDrow.Yes, SpellCard.Movement.No, SpellCard.ResetCard.No));
+        CardManager.AllCards.Add(new SpellCard("Парирование", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 3, SpellCard.TargetType.SELF, SpellCard.CardDrow.Yes, SpellCard.Movement.No, SpellCard.ResetCard.No));
+        CardManager.AllCards.Add(new SpellCard("Блок", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 2, SpellCard.TargetType.SELF, SpellCard.CardDrow.No, SpellCard.Movement.No, SpellCard.ResetCard.No));//Работа с типами карт
+        CardManager.AllCards.Add(new SpellCard("Блок", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 2, SpellCard.TargetType.SELF, SpellCard.CardDrow.No, SpellCard.Movement.No, SpellCard.ResetCard.No));//Работа с типами карт
+        CardManager.AllCards.Add(new SpellCard("Укол из-за щита", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 3, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.Yes, SpellCard.Movement.No, SpellCard.ResetCard.No));
+        CardManager.AllCards.Add(new SpellCard("Укол из-за щита", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 3, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.Yes, SpellCard.Movement.No, SpellCard.ResetCard.No));
+        CardManager.AllCards.Add(new SpellCard("Выпад вперед", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 2, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.Yes, SpellCard.ResetCard.No));
+        CardManager.AllCards.Add(new SpellCard("Выпад вперед", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 2, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.Yes, SpellCard.ResetCard.No));
+        CardManager.AllCards.Add(new SpellCard("Выпад вперед", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 2, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.Yes, SpellCard.ResetCard.No));
+        CardManager.AllCards.Add(new SpellCard("Прикрыться", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 1, SpellCard.TargetType.SELF, SpellCard.CardDrow.Yes, SpellCard.Movement.No, SpellCard.ResetCard.No));// Работа со способностью карты
+        CardManager.AllCards.Add(new SpellCard("Прикрыться", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.ARMOR, 1, SpellCard.TargetType.SELF, SpellCard.CardDrow.Yes, SpellCard.Movement.No, SpellCard.ResetCard.No));// Работа со способностью карты
+        CardManager.AllCards.Add(new SpellCard("Тычок с отступлением", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 2, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.Yes, SpellCard.ResetCard.No));// Работа с передвижением
+        CardManager.AllCards.Add(new SpellCard("Тычок с отступлением", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 2, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.Yes, SpellCard.ResetCard.No));// Работа с передвижением
+        CardManager.AllCards.Add(new SpellCard("Осторожный удар", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 3, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.Yes, SpellCard.Movement.No, SpellCard.ResetCard.No));//Работа со способностью карты
+        CardManager.AllCards.Add(new SpellCard("Осторожный удар", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 3, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.Yes, SpellCard.Movement.No, SpellCard.ResetCard.No));//Работа со способностью карты
+        CardManager.AllCards.Add(new SpellCard("Преследование", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 4, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.Yes, SpellCard.ResetCard.No));//передвижение
+        CardManager.AllCards.Add(new SpellCard("Преследование", "Sprites/LogoCards/CHto-to", 1, SpellCard.SpellType.DAMAGE_TARGET, 4, SpellCard.TargetType.ENEMY_CARD_TARGET, SpellCard.CardDrow.No, SpellCard.Movement.Yes, SpellCard.ResetCard.No));//передвижение
     }
 }
