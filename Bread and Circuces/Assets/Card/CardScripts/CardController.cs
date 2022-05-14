@@ -116,10 +116,6 @@ public class CardController : MonoBehaviour
 
             case SpellCard.SpellType.ARMOR:
                 break;
-
-            case SpellCard.SpellType.DRAW_CART:
-                break;
-
         }
 
         if (target != null)
