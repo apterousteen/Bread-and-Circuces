@@ -104,7 +104,8 @@ public class UnitControl: MonoBehaviour
             DeactivateFigure();
         }
     }
-
+    
+    //Нужно чтобы входящая переменная была интом, я буду передевать числовое значение на сколько ячеек он может передвинуть от начальной точки
     void MoveFigureOnObject(HexTile targetHex)
     {
         posX = targetHex.transform.position.x;

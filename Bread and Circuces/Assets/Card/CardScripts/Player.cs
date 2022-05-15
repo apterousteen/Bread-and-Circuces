@@ -17,11 +17,6 @@ public class Player
         Mana = Manapool = 4;
     }
 
-    /*public void IncreaseManapool()
-    {
-        
-    }*/
-
     public void GetDamage(int damage)
     {
 

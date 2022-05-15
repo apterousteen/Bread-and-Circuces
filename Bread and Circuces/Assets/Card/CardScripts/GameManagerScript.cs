@@ -203,19 +203,6 @@ public class GameManagerScript : MonoBehaviour
         DrawFullHand(CurrentGame.PlayerDeck, PlayerHand);
     }
 
-    public void CardFight(CardController attacker, CardController defender)
-    {
-        defender.Card.GetDamage(attacker.Card.Attack);
-        attacker.OnDamageDeal();
-        defender.OnTakeDamage(attacker);
-
-        attacker.Card.GetDamage(defender.Card.Attack);
-        attacker.OnTakeDamage();
-
-        attacker.CheckForAlive();
-        defender.CheckForAlive();
-    }
-
 
     public void ReduceMana(bool playerMana, int manacost)
     {
@@ -233,7 +220,7 @@ public class GameManagerScript : MonoBehaviour
             card.Info.HiglightManaAvaliability(CurrentGame.Player.Mana);
     }
 
-    public void HighlightTargets(CardController attacker, bool highlight)
+    /*public void HighlightTargets(CardController attacker, bool highlight)
     {
         List<CardController> targets = new List<CardController>();
 
@@ -263,5 +250,5 @@ public class GameManagerScript : MonoBehaviour
             if (attacker.Card.IsSpell)
                 card.Info.HighlightAsSpellTarget(highlight);
         }
-    }
+    }*/
 }

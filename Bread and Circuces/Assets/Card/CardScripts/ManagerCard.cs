@@ -3,24 +3,10 @@ using UnityEngine;
 
 public class Card
 {
-    public enum AbilityType
-    {
-        NO_ABILITY,
-        INSTANT_ACTIVE,
-        DOUBLE_ATTACK,
-        SHIELD,
-        PROVOCATION,
-        REGENERATION_EACH_TURN,
-        COUNTER_ATTACK
-
-    }
-
     public string Name;
     public Sprite Logo;
     public int Attack, Defense, Manacost;
     public bool IsPlaced;
-
-    public List<AbilityType> Abilities;
 
     public bool IsSpell;
 
@@ -31,24 +17,10 @@ public class Card
             return Defense > 0;
         }
     }
-    public bool HasAbility
-    {
-        get
-        {
-            return Abilities.Count > 0;
-        }
-    }
-    public bool IsProvocation
-    {
-        get
-        {
-            return Abilities.Exists(x => x == AbilityType.PROVOCATION);
-        }
-    }
 
     public int TimesDealedDamage;
 
-    public Card(string name, string logoName, int attack, int defense, int manacost, AbilityType abilityType = 0)
+    public Card(string name, string logoName, int attack, int defense, int manacost)
     {
         Name = name;
         Logo = Resources.Load<Sprite>(logoName);
@@ -56,11 +28,6 @@ public class Card
         Defense = defense;
         Manacost = manacost;
         IsPlaced = false;
-
-        Abilities = new List<AbilityType>();
-
-        if (abilityType != 0)
-            Abilities.Add(abilityType);
 
         TimesDealedDamage = 0;
     }
@@ -74,14 +41,7 @@ public class Card
         Manacost = card.Manacost;
         IsPlaced = false;
 
-        Abilities = new List<AbilityType>(card.Abilities);
-
         TimesDealedDamage = 0;
-    }
-
-    public void GetDamage(int dmg)
-    {
-        Defense -= dmg;
     }
 
     public Card GetCopy()

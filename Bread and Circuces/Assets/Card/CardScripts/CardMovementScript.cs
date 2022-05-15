@@ -30,9 +30,6 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
 
         if (!IsDraggable)
             return;
-
-        if (CC.Card.IsSpell)
-            GameManagerScript.Instance.HighlightTargets(CC, true);
     }
 
     public void OnDrag(PointerEventData eventData) //Ѕудет работать все врем€ пока мы ƒ¬»√ј≈ћ карту
