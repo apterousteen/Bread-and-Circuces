@@ -62,7 +62,7 @@ public class UnitInfo : MonoBehaviour
         CheckForAlive();
     }
 
-    private void CheckForAlive()
+    public void CheckForAlive()
     {
         if (health <= 0)
             Die();

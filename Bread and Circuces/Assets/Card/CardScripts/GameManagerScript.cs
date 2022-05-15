@@ -24,8 +24,6 @@ public class Game
         Enemy = new Player();
     }
 
-
-    //почему на итерации дважды добавл€ютс€ карты, при этом одни фильтруютс€, а другие нет? последн€€ строка не лишн€€?
     List<Card> GiveDeckCard()
     {
         List<Card> list = new List<Card>();
@@ -38,8 +36,6 @@ public class Game
                 list.Add(((SpellCard)card).GetCopy());
             else
                 list.Add(card.GetCopy());
-
-            list.Add(CardManager.AllCards[Random.Range(0, CardManager.AllCards.Count)].GetCopy());
         }
         return list;
     }
@@ -105,7 +101,7 @@ public class GameManagerScript : MonoBehaviour
     {
         if (deck.Count == 0)
             return;
-            //ReshufflDiscardPile(deck) - нужно эффективнее передавать дискард, без удал€ющихс€ карт он сейчас бесполезен и вызовет ошибку
+        //ReshufflDiscardPile(deck) - нужно эффективнее передавать дискард, без удал€ющихс€ карт он сейчас бесполезен и вызовет ошибку
 
         CreateCardPref(deck[0], hand);
 
@@ -245,9 +241,9 @@ public class GameManagerScript : MonoBehaviour
         {
             var spellCard = (SpellCard)attacker.Card;
 
-            if (spellCard.SpellTarget == SpellCard.TargetType.NO_TARGET)
+            if (spellCard.SpellTarget == SpellCard.TargetType.NoTarget)
                 targets = new List<CardController>();
-            else if (spellCard.SpellTarget == SpellCard.TargetType.ALLY_CARD_TARGET)
+            else if (spellCard.SpellTarget == SpellCard.TargetType.Ally)
                 targets = PlayerFieldCards;
             else
                 targets = EnemyFieldCards;

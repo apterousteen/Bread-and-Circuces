@@ -117,7 +117,7 @@ public class UnitControl: MonoBehaviour
         transform.position = new Vector3(posX, posY, transform.position.z);
     }
 
-    void MakeAtack(UnitInfo enemyUnit)
+    public void MakeAtack(UnitInfo enemyUnit)
     {
         var damageDealt = info.damage - enemyUnit.defence;
         enemyUnit.SufferDamage(damageDealt);

@@ -11,6 +11,8 @@ public class CardController : MonoBehaviour
     public CardInfoScript Info;
     public CardMovementScript Movement;
     public CardAbility Ability;
+    public UnitInfo Unit;
+    public UnitControl UnitControl;
 
     GameManagerScript gameManager;
     public void Init(Card card, bool isPlayerCard)
@@ -27,7 +29,7 @@ public class CardController : MonoBehaviour
 
     public void OnCast()
     {
-        if (Card.IsSpell && ((SpellCard)Card).SpellTarget != SpellCard.TargetType.NO_TARGET)
+        if (Card.IsSpell && ((SpellCard)Card).SpellTarget != SpellCard.TargetType.NoTarget)
             return;
 
         if (IsPlayerCard)
@@ -72,49 +74,35 @@ public class CardController : MonoBehaviour
     {
         var spellCard = (SpellCard)Card;
 
-        switch (spellCard.Spell)
+        switch (spellCard.FirstCardEff)
         {
-            case SpellCard.SpellType.AOE_HEAL: //AOE AOE_HEAL ALLY
-
-                var allyCards = IsPlayerCard ?
-                                gameManager.PlayerFieldCards :
-                                gameManager.EnemyFieldCards;
-                foreach (var card in allyCards)
-                {
-                    card.Card.Defense += spellCard.SpellValue;
-                    card.Info.RefreshData();
-                }
-
+            case SpellCard.FirstCardEffect.Defense:
+                Unit.defence += spellCard.SpellValue;
                 break;
 
-            case SpellCard.SpellType.AOE_DAMAGE:
-
-                var enemyCards = IsPlayerCard ?
-                                 new List<CardController>(gameManager.EnemyFieldCards) :
-                                 new List<CardController>(gameManager.PlayerFieldCards);
-
-                foreach (var card in enemyCards)
-                    GiveDamageTo(card, spellCard.SpellValue);
-
+            case SpellCard.FirstCardEffect.Damage:
+                //UnitControl.MakeAtack(spellCard.SpellValue);
                 break;
 
-            case SpellCard.SpellType.HEAL_ALLY_CARD:
-                target.Card.Defense += spellCard.SpellValue;
+            case SpellCard.FirstCardEffect.Survived:
+                Unit.CheckForAlive();
+                break;
+        }
+        switch (spellCard.SecondCardEff)
+        {
+            case SpellCard.SecondCardEffect.Type:
                 break;
 
-            case SpellCard.SpellType.DAMAGE_TARGET:
-                GiveDamageTo(target, spellCard.SpellValue);
+            case SpellCard.SecondCardEffect.CardDrow:
                 break;
 
-            case SpellCard.SpellType.BUFF_CARD_DAMAGE:
-                target.Card.Attack += spellCard.SpellValue;
+            case SpellCard.SecondCardEffect.Movement:
                 break;
 
-            case SpellCard.SpellType.DEBUFF_CARD_DAMAGE:
-                target.Card.Attack = Mathf.Clamp(target.Card.Attack - spellCard.SpellValue, 0, int.MaxValue);
+            case SpellCard.SecondCardEffect.ResetCard:
                 break;
 
-            case SpellCard.SpellType.ARMOR:
+            case SpellCard.SecondCardEffect.ManaAdd:
                 break;
         }
 
