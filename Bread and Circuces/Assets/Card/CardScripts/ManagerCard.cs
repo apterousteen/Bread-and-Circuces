@@ -138,6 +138,7 @@ public class SpellCard : Card
 
     public FirstCardEffect FirstCardEff;
     public SecondCardEffect SecondCardEff;
+    public Stance StanceType;
     public TargetType SpellTarget;
     public int SpellValue;
     public int SecondSpellValue;
@@ -150,6 +151,8 @@ public class SpellCard : Card
 
         FirstCardEff = firstCardEffect;
         SecondCardEff = secondCardEffect;
+        StanceType = stance;
+
         SpellTarget = targetType;
         SpellValue = spellValue;
         SecondSpellValue = secondSpellValue;
@@ -161,6 +164,8 @@ public class SpellCard : Card
 
         FirstCardEff = card.FirstCardEff;
         SecondCardEff = card.SecondCardEff;
+        StanceType= card.StanceType;
+
         SpellTarget = card.SpellTarget;
         SpellValue = card.SpellValue;
         SecondSpellValue = card.SecondSpellValue;

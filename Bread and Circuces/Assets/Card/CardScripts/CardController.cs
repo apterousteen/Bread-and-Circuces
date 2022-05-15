@@ -105,7 +105,57 @@ public class CardController : MonoBehaviour
             case SpellCard.SecondCardEffect.ManaAdd:
                 break;
         }
-
+        switch (spellCard.StanceType)
+        {
+            case SpellCard.Stance.Defensive_Defensive:
+                Unit.ChangeStance(Stance.Defensive);
+                break;
+            case SpellCard.Stance.Defensive_Advance:
+                Unit.ChangeStance(Stance.Advance);
+                break;
+            case SpellCard.Stance.Defensive_Attacking:
+                Unit.ChangeStance(Stance.Attacking);
+                break;
+            case SpellCard.Stance.Defensive_Raging:
+                Unit.ChangeStance(Stance.Raging);
+                break;
+            case SpellCard.Stance.Advance_Defensive:
+                Unit.ChangeStance(Stance.Defensive);
+                break;
+            case SpellCard.Stance.Advance_Advance:
+                Unit.ChangeStance(Stance.Advance);
+                break;
+            case SpellCard.Stance.Advance_Attacking:
+                Unit.ChangeStance(Stance.Attacking);
+                break;
+            case SpellCard.Stance.Advance_Raging:
+                Unit.ChangeStance(Stance.Raging);
+                break;
+            case SpellCard.Stance.Attacking_Defensive:
+                Unit.ChangeStance(Stance.Defensive);
+                break;
+            case SpellCard.Stance.Attacking_Advance:
+                Unit.ChangeStance(Stance.Advance);
+                break;
+            case SpellCard.Stance.Attacking_Attacking:
+                Unit.ChangeStance(Stance.Attacking);
+                break;
+            case SpellCard.Stance.Attacking_Raging:
+                Unit.ChangeStance(Stance.Raging);
+                break;
+            case SpellCard.Stance.Raging_Defensive:
+                Unit.ChangeStance(Stance.Defensive);
+                break;
+            case SpellCard.Stance.Raging_Advance:
+                Unit.ChangeStance(Stance.Advance);
+                break;
+            case SpellCard.Stance.Raging_Attacking:
+                Unit.ChangeStance(Stance.Attacking);
+                break;
+            case SpellCard.Stance.Raging_Raging:
+                Unit.ChangeStance(Stance.Raging);
+                break;
+        }
         if (target != null)
         {
             target.Ability.OnCast();
