@@ -22,7 +22,7 @@ public enum MotionType
     RadiusType
 }
 
-public class UnitInfo : MonoBehaviour
+public abstract class UnitInfo : MonoBehaviour
 {
     public int health;
     public int moveDistance;
@@ -32,10 +32,19 @@ public class UnitInfo : MonoBehaviour
     public Team teamSide;
     public Stance currentStance;
     public MotionType motionType;
+    public bool withShield;
+    public List<Card> UnitDeck;
 
-    void Start()
+    private int baseDamage;
+    private int baseDefence;
+
+    protected virtual void Start()
     {
         motionType = MotionType.RadiusType;
+        currentStance = Stance.Advance;
+        baseDamage = damage;
+        baseDefence = defence;
+        UnitDeck = new List<Card>();
     }
 
     public bool IsEnemy(UnitInfo otherUnit)
@@ -43,10 +52,8 @@ public class UnitInfo : MonoBehaviour
         return this.teamSide != otherUnit.teamSide;
     }
 
-    public void ChangeStance(Stance newStance)
+    public virtual void ChangeStance(Stance newStance)
     {
-        if (currentStance == Stance.Raging && newStance == Stance.Attacking)
-            return;
         currentStance = newStance;
     }    
 
@@ -62,7 +69,7 @@ public class UnitInfo : MonoBehaviour
         CheckForAlive();
     }
 
-    private void CheckForAlive()
+    public void CheckForAlive()
     {
         if (health <= 0)
             Die();
@@ -76,5 +83,21 @@ public class UnitInfo : MonoBehaviour
     public void displayInfo()
     {
         Debug.Log(teamSide.ToString() + " " + health);
+    }
+
+    public abstract void OnAttackStart(UnitInfo target);
+
+    public virtual void OnAttackEnd(UnitInfo target)
+    {
+        damage = baseDamage;
+    }
+
+    public abstract void OnMove();
+
+    public abstract void OnDefenceStart();
+
+    public virtual void OnDefenceEnd()
+    {
+        defence = baseDefence;
     }
 }

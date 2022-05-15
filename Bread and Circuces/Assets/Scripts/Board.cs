@@ -16,10 +16,6 @@ public class Board : MonoBehaviour
     private float dx = 0.86f;
     private float dy = 0.74f;
 
-    public Team currTeam = Team.Player;
-
-    public GameObject activeUnit = null;
-
     public HexTile[][] board;
 
     void Start()
@@ -61,43 +57,5 @@ public class Board : MonoBehaviour
         var startPos = board[(int)coordinates.x][(int)coordinates.y];
         var newUnit = Instantiate(unit, startPos.transform.position, gridObject.transform.rotation);
         newUnit.transform.parent = startPos.gameObject.transform;
-    }
-
-    public Team GetCurrTeam()
-    {
-        return currTeam;
-    }
-
-    public void SetCurrTeam(Team team)
-    {
-        currTeam = team;
-    }
-
-    public void SwitchPlayerTurn()
-    {
-        if(currTeam == Team.Player)
-            currTeam = Team.Enemy;
-        else if(currTeam == Team.Enemy)
-            currTeam = Team.Player;
-    }
-
-    public bool ActiveUnitExist()
-    {
-        return activeUnit != null;
-    }
-
-    public void ClearActiveUnit()
-    {
-        activeUnit = null;
-    }
-
-    public void SetActiveUnit(GameObject unit)
-    {
-        activeUnit = unit;
-    }
-
-    public GameObject GetActiveUnit()
-    {
-        return activeUnit;
     }
 }

@@ -11,6 +11,8 @@ public class CardController : MonoBehaviour
     public CardInfoScript Info;
     public CardMovementScript Movement;
     public CardAbility Ability;
+    public UnitInfo Unit;
+    public UnitControl UnitControl;
 
     GameManagerScript gameManager;
     public void Init(Card card, bool isPlayerCard)
@@ -27,7 +29,7 @@ public class CardController : MonoBehaviour
 
     public void OnCast()
     {
-        if (Card.IsSpell && ((SpellCard)Card).SpellTarget != SpellCard.TargetType.NO_TARGET)
+        if (Card.IsSpell && ((SpellCard)Card).SpellTarget != SpellCard.TargetType.NoTarget)
             return;
 
         if (IsPlayerCard)
@@ -72,54 +74,89 @@ public class CardController : MonoBehaviour
     {
         var spellCard = (SpellCard)Card;
 
-        switch (spellCard.Spell)
+        switch (spellCard.FirstCardEff)
         {
-            case SpellCard.SpellType.AOE_HEAL: //AOE AOE_HEAL ALLY
-
-                var allyCards = IsPlayerCard ?
-                                gameManager.PlayerFieldCards :
-                                gameManager.EnemyFieldCards;
-                foreach (var card in allyCards)
-                {
-                    card.Card.Defense += spellCard.SpellValue;
-                    card.Info.RefreshData();
-                }
-
+            case SpellCard.FirstCardEffect.Defense:
+                Unit.defence += spellCard.SpellValue;
                 break;
 
-            case SpellCard.SpellType.AOE_DAMAGE:
-
-                var enemyCards = IsPlayerCard ?
-                                 new List<CardController>(gameManager.EnemyFieldCards) :
-                                 new List<CardController>(gameManager.PlayerFieldCards);
-
-                foreach (var card in enemyCards)
-                    GiveDamageTo(card, spellCard.SpellValue);
-
+            case SpellCard.FirstCardEffect.Damage:
+                UnitControl.TriggerAttack(spellCard.SpellValue);
                 break;
 
-            case SpellCard.SpellType.HEAL_ALLY_CARD:
-                target.Card.Defense += spellCard.SpellValue;
+            case SpellCard.FirstCardEffect.Survived:
+                Unit.CheckForAlive();
+                break;
+        }
+        switch (spellCard.SecondCardEff)
+        {
+            case SpellCard.SecondCardEffect.Type:
                 break;
 
-            case SpellCard.SpellType.DAMAGE_TARGET:
-                GiveDamageTo(target, spellCard.SpellValue);
+            case SpellCard.SecondCardEffect.CardDrow:
                 break;
 
-            case SpellCard.SpellType.BUFF_CARD_DAMAGE:
-                target.Card.Attack += spellCard.SpellValue;
+            case SpellCard.SecondCardEffect.Movement:
+                UnitControl.TriggerMove(spellCard.SpellValue);
                 break;
 
-            case SpellCard.SpellType.DEBUFF_CARD_DAMAGE:
-                target.Card.Attack = Mathf.Clamp(target.Card.Attack - spellCard.SpellValue, 0, int.MaxValue);
+            case SpellCard.SecondCardEffect.ResetCard:
                 break;
 
-            case SpellCard.SpellType.ARMOR:
+            case SpellCard.SecondCardEffect.ManaAdd:
                 break;
+        }
 
-            case SpellCard.SpellType.DRAW_CART:
+        switch (spellCard.StanceType)
+        {
+            case SpellCard.Stance.Defensive_Defensive:
+                Unit.ChangeStance(Stance.Defensive);
                 break;
-
+            case SpellCard.Stance.Defensive_Advance:
+                Unit.ChangeStance(Stance.Advance);
+                break;
+            case SpellCard.Stance.Defensive_Attacking:
+                Unit.ChangeStance(Stance.Attacking);
+                break;
+            case SpellCard.Stance.Defensive_Raging:
+                Unit.ChangeStance(Stance.Raging);
+                break;
+            case SpellCard.Stance.Advance_Defensive:
+                Unit.ChangeStance(Stance.Defensive);
+                break;
+            case SpellCard.Stance.Advance_Advance:
+                Unit.ChangeStance(Stance.Advance);
+                break;
+            case SpellCard.Stance.Advance_Attacking:
+                Unit.ChangeStance(Stance.Attacking);
+                break;
+            case SpellCard.Stance.Advance_Raging:
+                Unit.ChangeStance(Stance.Raging);
+                break;
+            case SpellCard.Stance.Attacking_Defensive:
+                Unit.ChangeStance(Stance.Defensive);
+                break;
+            case SpellCard.Stance.Attacking_Advance:
+                Unit.ChangeStance(Stance.Advance);
+                break;
+            case SpellCard.Stance.Attacking_Attacking:
+                Unit.ChangeStance(Stance.Attacking);
+                break;
+            case SpellCard.Stance.Attacking_Raging:
+                Unit.ChangeStance(Stance.Raging);
+                break;
+            case SpellCard.Stance.Raging_Defensive:
+                Unit.ChangeStance(Stance.Defensive);
+                break;
+            case SpellCard.Stance.Raging_Advance:
+                Unit.ChangeStance(Stance.Advance);
+                break;
+            case SpellCard.Stance.Raging_Attacking:
+                Unit.ChangeStance(Stance.Attacking);
+                break;
+            case SpellCard.Stance.Raging_Raging:
+                Unit.ChangeStance(Stance.Raging);
+                break;
         }
 
         if (target != null)
@@ -152,7 +189,7 @@ public class CardController : MonoBehaviour
 
         RemoveCardFromList(gameManager.PlayerFieldCards);
         RemoveCardFromList(gameManager.PlayerHandCards);
-        gameManager.CurrentGame.PlayerDiscardPile.Add(this.Card);
+        gameManager.CurrentGame.Player.DiscardPile.Add(this.Card);
 
         Destroy(gameObject);
     }

@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 47700082100138174}
   - component: {fileID: 47700082100138173}
   - component: {fileID: 4205143345167767067}
-  - component: {fileID: 5349889018097230875}
   - component: {fileID: 7671353750499134832}
+  - component: {fileID: 4251922869650058062}
   m_Layer: 7
   m_Name: EnemyUnit
   m_TagString: Unit
@@ -98,25 +98,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5349889018097230875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 47700082100138163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c4afe4ed350c2f4d89d727c25128d1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 15
-  moveDistance: 3
-  attackReachDistance: 1
-  damage: 3
-  defence: 1
-  teamSide: 1
-  currentStance: 0
 --- !u!114 &7671353750499134832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,3 +110,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 035daae0db9c7514682cd0d7bdddf239, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonsContainer: {fileID: 0}
+--- !u!114 &4251922869650058062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47700082100138163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65ae48bb9abc29c43a0dc1b91d5d7af2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  moveDistance: 0
+  attackReachDistance: 0
+  damage: 0
+  defence: 0
+  teamSide: 1
+  currentStance: 0
+  motionType: 0
+  withShield: 0

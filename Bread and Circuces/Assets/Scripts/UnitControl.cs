@@ -10,12 +10,14 @@ public class UnitControl: MonoBehaviour
     private Camera mainCamera;
     private UnitInfo info;
     private Board board;
+    private TurnManager turnManager;
     private DistanceFinder distanceFinder;
     public ButtonsContainer buttonsContainer;
 
     void Start()
     {
         board = FindObjectOfType<Board>();
+        turnManager = FindObjectOfType<TurnManager>();
         distanceFinder = FindObjectOfType<DistanceFinder>();
         buttonsContainer = FindObjectOfType<ButtonsContainer>();     
 
@@ -58,7 +60,6 @@ public class UnitControl: MonoBehaviour
                                 HandleMovement(hittedTile);
                             else 
                                 HandleAttack(hittedTile);
-                            board.SwitchPlayerTurn();
                         }
                     }
                 }
@@ -73,12 +74,6 @@ public class UnitControl: MonoBehaviour
 
         int action = buttonsContainer.GetAction();
 
-        if(action == 3)
-        {
-            DeactivateFigure();
-            board.SwitchPlayerTurn();
-        }
-
         if(action == 1)
             ShowMovementArea(info.moveDistance);
         
@@ -91,8 +86,9 @@ public class UnitControl: MonoBehaviour
 
     void HandleMovement(HexTile hittedTile)
     {
-        DeactivateFigure();
+        HideArea(info.moveDistance);
         MoveFigureOnObject(hittedTile);
+        buttonsContainer.EndAction();
     }
 
     void HandleAttack(HexTile hittedTile)
@@ -101,7 +97,8 @@ public class UnitControl: MonoBehaviour
         if (targetUnit.IsEnemy(info))
         {
             MakeAtack(targetUnit);
-            DeactivateFigure();
+            HideArea(info.attackReachDistance);
+            buttonsContainer.EndAction();
         }
     }
 
@@ -115,30 +112,47 @@ public class UnitControl: MonoBehaviour
 
     void MoveObject(){
         transform.position = new Vector3(posX, posY, transform.position.z);
+        info.ChangeMotionType(MotionType.RadiusType);
     }
 
-    void MakeAtack(UnitInfo enemyUnit)
+    private void MakeAtack(UnitInfo enemyUnit)
     {
+        info.OnAttackStart(enemyUnit);
+        enemyUnit.OnDefenceStart();
         var damageDealt = info.damage - enemyUnit.defence;
         enemyUnit.SufferDamage(damageDealt);
+        info.OnAttackEnd(enemyUnit);
+        enemyUnit.OnDefenceEnd();
+    }
+
+    public void TriggerAttack(int damage)
+    {
+        ShowAttackArea(info.attackReachDistance);
+        info.damage += damage;
+    }
+
+    public void TriggerMove(int distance)
+    {
+        info.ChangeMotionType(MotionType.StraightType);
+        ShowMovementArea(distance);
     }
 
     void ActivateFigure()
     {
-        if(board.ActiveUnitExist() || board.currTeam != info.teamSide)
+        if(turnManager.ActiveUnitExist() || turnManager.currTeam != info.teamSide)
             return;
 
         buttonsContainer.ActivateUnitButtons();
         activated = true;
         var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
-        board.SetActiveUnit(this.gameObject);
+        turnManager.SetActiveUnit(this.gameObject);
         figureRenderer.material.SetColor("_Color", Color.yellow);
     }
 
-    void DeactivateFigure()
+    public void DeactivateFigure()
     {
         buttonsContainer.DeactivateUnitButtons();
-        board.ClearActiveUnit();
+        turnManager.ClearActiveUnit();
         activated = false;
         var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
         figureRenderer.material.SetColor("_Color", Color.white);

@@ -20,8 +20,8 @@ public class SpellTarget : MonoBehaviour, IDropHandler
         {
             var spellCard = (SpellCard)spell.Card;
 
-            if ((spellCard.SpellTarget == SpellCard.TargetType.ALLY_CARD_TARGET && target.IsPlayerCard) ||
-                (spellCard.SpellTarget == SpellCard.TargetType.ENEMY_CARD_TARGET && !target.IsPlayerCard))
+            if ((spellCard.SpellTarget == SpellCard.TargetType.Ally && target.IsPlayerCard) ||
+                (spellCard.SpellTarget == SpellCard.TargetType.Enemy && !target.IsPlayerCard))
             {
                 GameManagerScript.Instance.ReduceMana(true, spell.Card.Manacost);
                 spell.UseSpell(target);

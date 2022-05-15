@@ -81,6 +81,13 @@ public class DistanceFinder : MonoBehaviour
         return (int)(yDistance + Mathf.Max(0, (xDistance - yDistance) / 2));
     }
 
+    public int GetDistanceBetweenHexes(HexTile tileA, HexTile tileB)
+    {
+        var vectorA = new Vector2(tileA.gridX, tileA.gridY);
+        var vectorB = new Vector2(tileB.gridX, tileB.gridY);
+        return ComputeDistanceHexGrid(vectorA, vectorB);
+    }
+
     public List<HexTile> GetTilesInRadius(HexTile tile, int distance)
     {
         var result = new List<HexTile>();

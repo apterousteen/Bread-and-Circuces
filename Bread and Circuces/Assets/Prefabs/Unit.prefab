@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4677609092252160460}
   - component: {fileID: 4677609092252160461}
   - component: {fileID: -425333150406363286}
-  - component: {fileID: -8467367766285564566}
+  - component: {fileID: -3667218127707438040}
   m_Layer: 7
   m_Name: Unit
   m_TagString: Unit
@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 035daae0db9c7514682cd0d7bdddf239, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonsContainer: {fileID: 0}
 --- !u!65 &-425333150406363286
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -110,7 +111,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-8467367766285564566
+--- !u!114 &-3667218127707438040
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,13 +120,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4677609092252160450}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c4afe4ed350c2f4d89d727c25128d1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 73f1653edfc9c7d4f87f08bec3c33ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 15
-  moveDistance: 3
-  attackReachDistance: 1
-  damage: 3
-  defence: 1
+  health: 0
+  moveDistance: 0
+  attackReachDistance: 0
+  damage: 0
+  defence: 0
   teamSide: 0
   currentStance: 0
+  motionType: 0
+  withShield: 0
