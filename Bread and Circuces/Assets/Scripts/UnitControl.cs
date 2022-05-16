@@ -77,16 +77,16 @@ public class UnitControl: MonoBehaviour
         if(action == 1)
             ShowMovementArea(info.moveDistance);
         
-        if(action == -1)
-            HideArea(info.moveDistance);
+        //if(action == -1)
+        //    HideArea(info.moveDistance);
 
-        else if(action == 2)
-            ShowAttackArea(info.attackReachDistance);
+        //else if(action == 2)
+        //    ShowAttackArea(info.attackReachDistance);
     }
 
     void HandleMovement(HexTile hittedTile)
     {
-        HideArea(info.moveDistance);
+        HideArea();
         MoveFigureOnObject(hittedTile);
         buttonsContainer.EndAction();
     }
@@ -97,7 +97,7 @@ public class UnitControl: MonoBehaviour
         if (targetUnit.IsEnemy(info))
         {
             turnManager.StartReactionWindow(targetUnit.gameObject);
-            HideArea(info.attackReachDistance);
+            HideArea();
             buttonsContainer.EndAction();
         }
     }
@@ -113,6 +113,7 @@ public class UnitControl: MonoBehaviour
     void MoveObject(){
         transform.position = new Vector3(posX, posY, transform.position.z);
         info.ChangeMotionType(MotionType.RadiusType);
+        turnManager.inAction = false;
     }
 
     public void MakeAtack(UnitInfo enemyUnit)
@@ -123,6 +124,7 @@ public class UnitControl: MonoBehaviour
         enemyUnit.SufferDamage(damageDealt);
         info.OnAttackEnd(enemyUnit);
         enemyUnit.OnDefenceEnd();
+        turnManager.inAction = false;
     }
 
     public void TriggerAttack(int damage)
@@ -157,7 +159,7 @@ public class UnitControl: MonoBehaviour
         var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
         figureRenderer.material.SetColor("_Color", Color.white);
 
-        HideArea(info.moveDistance);
+        HideArea();
     }
 
     void ShowMovementArea(int distance)
@@ -197,9 +199,9 @@ public class UnitControl: MonoBehaviour
         }
     }
 
-    void HideArea(int distance)
+    void HideArea()
     {
-        var tiles = distanceFinder.GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
+        var tiles = distanceFinder.GetTilesInRadius(transform.parent.GetComponent<HexTile>(), 9);
 
         foreach (var tile in tiles)
         {

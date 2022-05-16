@@ -10,6 +10,7 @@ public class CardController : MonoBehaviour
     public UnitInfo Unit;
     public UnitControl UnitControl;
     public GameManagerScript Game;
+    private TurnManager turnManager;
 
     public bool IsPlayerCard;
 
@@ -18,19 +19,15 @@ public class CardController : MonoBehaviour
     {
         Card = card;
         gameManager = GameManagerScript.Instance;
+        turnManager = FindObjectOfType<TurnManager>();
         IsPlayerCard = isPlayerCard;
 
         if (isPlayerCard)
-        {
             Info.ShowCardInfo();
-        }
     }
 
     public void OnCast()
     {
-        if (Card.IsSpell && ((SpellCard)Card).SpellTarget != SpellCard.TargetType.NoTarget)
-            return;
-
         if (IsPlayerCard)
         {
             gameManager.PlayerHandCards.Remove(this);
@@ -45,99 +42,71 @@ public class CardController : MonoBehaviour
         }
 
         Card.IsPlaced = true;
+        Unit = turnManager.activeUnit.GetComponent<UnitInfo>();
+        UnitControl = turnManager.activeUnit.GetComponent<UnitControl>();
 
-        if (Card.IsSpell)
-            UseSpell(null);
-
+        UseSpell(null);
         UiController.Instance.UpdateMana();
     }
 
     public void UseSpell(CardController target)
     {
-        var spellCard = (SpellCard)Card;
+        var spellCard = Card;
 
-        switch (spellCard.StanceType)
+        switch (spellCard.EndStance)
         {
-            case SpellCard.Stance.Defensive_Defensive:
+            case Card.Stance.Defensive:
                 Unit.ChangeStance(Stance.Defensive);
                 break;
-            case SpellCard.Stance.Defensive_Advance:
+            case Card.Stance.Advance:
                 Unit.ChangeStance(Stance.Advance);
                 break;
-            case SpellCard.Stance.Defensive_Attacking:
+            case Card.Stance.Attacking:
                 Unit.ChangeStance(Stance.Attacking);
                 break;
-            case SpellCard.Stance.Defensive_Raging:
-                Unit.ChangeStance(Stance.Raging);
-                break;
-            case SpellCard.Stance.Advance_Defensive:
-                Unit.ChangeStance(Stance.Defensive);
-                break;
-            case SpellCard.Stance.Advance_Advance:
-                Unit.ChangeStance(Stance.Advance);
-                break;
-            case SpellCard.Stance.Advance_Attacking:
-                Unit.ChangeStance(Stance.Attacking);
-                break;
-            case SpellCard.Stance.Advance_Raging:
-                Unit.ChangeStance(Stance.Raging);
-                break;
-            case SpellCard.Stance.Attacking_Defensive:
-                Unit.ChangeStance(Stance.Defensive);
-                break;
-            case SpellCard.Stance.Attacking_Advance:
-                Unit.ChangeStance(Stance.Advance);
-                break;
-            case SpellCard.Stance.Attacking_Attacking:
-                Unit.ChangeStance(Stance.Attacking);
-                break;
-            case SpellCard.Stance.Attacking_Raging:
-                Unit.ChangeStance(Stance.Raging);
-                break;
-            case SpellCard.Stance.Raging_Defensive:
-                Unit.ChangeStance(Stance.Defensive);
-                break;
-            case SpellCard.Stance.Raging_Advance:
-                Unit.ChangeStance(Stance.Advance);
-                break;
-            case SpellCard.Stance.Raging_Attacking:
-                Unit.ChangeStance(Stance.Attacking);
-                break;
-            case SpellCard.Stance.Raging_Raging:
+            case Card.Stance.Raging:
                 Unit.ChangeStance(Stance.Raging);
                 break;
         }
         switch (spellCard.FirstCardEff)
         {
-            case SpellCard.FirstCardEffect.Defense:
+            case Card.CardEffect.Defense:
                 Unit.defence += spellCard.SpellValue;
                 break;
 
-            case SpellCard.FirstCardEffect.Damage:
-                UnitControl.TriggerAttack(spellCard.SpellValue);
+            case Card.CardEffect.Damage:
+                turnManager.AddAction(new Action(ActionType.Attack, spellCard.SpellValue));
                 break;
 
-            case SpellCard.FirstCardEffect.Survived:
+            case Card.CardEffect.Survived:
                 Unit.CheckForAlive();
                 break;
+
+            case Card.CardEffect.Movement:
+                turnManager.AddAction(new Action(ActionType.Move, spellCard.SpellValue));
+                break;
         }
-        switch (spellCard.SecondCardEff)
+        switch (spellCard.FirstCardEffTwo)
         {
-            case SpellCard.SecondCardEffect.Type:
+            case Card.CardEffect.Type:
                 break;
 
-            case SpellCard.SecondCardEffect.CardDrow:
-
+            case Card.CardEffect.CardDrow:
+                turnManager.AddAction(new Action(ActionType.Draw, spellCard.SecondSpellValue));
                 break;
 
-            case SpellCard.SecondCardEffect.Movement:
-                UnitControl.TriggerMove(spellCard.SpellValue);
+            case Card.CardEffect.Movement:
+                turnManager.AddAction(new Action(ActionType.Move, spellCard.SecondSpellValue));
                 break;
 
-            case SpellCard.SecondCardEffect.ResetCard:
+            case Card.CardEffect.Damage:
+                turnManager.AddAction(new Action(ActionType.Attack, spellCard.SecondSpellValue));
                 break;
 
-            case SpellCard.SecondCardEffect.ManaAdd:
+            case Card.CardEffect.ResetCard:
+                break;
+
+            case Card.CardEffect.ManaAdd:
                 {
                     Game.CurrentGame.Player.SpellManapool();
                     UiController.Instance.UpdateMana();
@@ -148,7 +117,7 @@ public class CardController : MonoBehaviour
         DiscardCard();
     }
 
-    public void DiscardCard() // ”ничтожаем карты или героев мб пригодитьс€ 
+    public void DiscardCard() // ƒестрой карты работает криво
     {
         Movement.OnEndDrag(null);
 

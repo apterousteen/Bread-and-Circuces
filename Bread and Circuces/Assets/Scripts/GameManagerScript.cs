@@ -33,10 +33,8 @@ public class Game
         {
             var card = CardManager.AllCards[Random.Range(0, CardManager.AllCards.Count)];
 
-            if (card.IsSpell)
-                list.Add(((SpellCard)card).GetCopy());
-            else
-                list.Add(card.GetCopy());
+             list.Add(card.GetCopy());
+
         }
         return list;
     }
@@ -162,6 +160,15 @@ public class GameManagerScript : MonoBehaviour
         Debug.Log("Players hand: " + i);
         while (i++ < StartHandSize)
             GiveCardToHand(deck, hand);
+    }
+
+    public void DrawCards(Team team, int num)
+    {
+        for (int i = 0; i < num; i++)
+            if (team == Team.Player)
+                GiveCardToHand(CurrentGame.Player.Deck, PlayerHand);
+            else GiveCardToHand(CurrentGame.Enemy.Deck, EnemyHand);
+        turnManager.inAction = false;
     }
 
     public void GiveNewCards()
