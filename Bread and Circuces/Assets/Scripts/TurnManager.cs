@@ -7,17 +7,20 @@ public class TurnManager : MonoBehaviour
     public Team currTeam;
     private Team teamWithInitiative;
     private GameManagerScript gameManager;
+    public bool isReactionTime;
 
     public GameObject activeUnit = null;
+    public GameObject targetUnit = null;
 
     public int Turn = 0, activationNum = 0;
-    int TurnTime = 60;
+    int TurnTime = 60, stoppedTurnTime = 0;
 
     void Start()
     {
         gameManager = FindObjectOfType<GameManagerScript>();
         teamWithInitiative = (Team)Random.Range(0, 1);
         currTeam = teamWithInitiative;
+        isReactionTime = false;
 
         StartCoroutine(TurnFunc());
     }
@@ -34,7 +37,11 @@ public class TurnManager : MonoBehaviour
 
     public IEnumerator TurnFunc()
     {
-        TurnTime = 60;
+        if (stoppedTurnTime != 0)
+            TurnTime = System.Math.Min(60, stoppedTurnTime + 10);
+        else TurnTime = 60;
+        stoppedTurnTime = 0;
+
         UiController.Instance.UpdateTurnTime(TurnTime);
 
         gameManager.CheckCardsForManaAvaliability();
@@ -73,12 +80,10 @@ public class TurnManager : MonoBehaviour
         if (currTeam == Team.Player)
         {
             gameManager.CurrentGame.Player.activatedUnits++;
-            Debug.Log("Player units activated:" + gameManager.CurrentGame.Player.activatedUnits);
         }
         else if (currTeam == Team.Enemy)
         {
             gameManager.CurrentGame.Enemy.activatedUnits++;
-            Debug.Log("Enemy units activated:" + gameManager.CurrentGame.Enemy.activatedUnits);
         }
 
         var playerCanActivate = CheckIfPlayerCanActivate(gameManager.CurrentGame.Player);
@@ -120,6 +125,61 @@ public class TurnManager : MonoBehaviour
         UiController.Instance.UpdateMana();
 
         StartCoroutine(TurnFunc());
+    }
+
+    public void StartReactionWindow(GameObject target)
+    {
+        StopAllCoroutines();
+        var activeUnitInfo = activeUnit.GetComponent<UnitInfo>();
+        var targetInfo = target.GetComponent<UnitInfo>();
+        isReactionTime = true;
+        targetUnit = target;
+        UiController.Instance.ChangeEndButtonText();
+        if (activeUnitInfo.teamSide == Team.Player)
+        {
+            targetInfo.defence += Random.Range(0, 3);
+            Debug.Log("Target's defence: " + targetInfo.defence);
+            EndReactionWindow();
+        }
+        else
+        {
+            stoppedTurnTime = TurnTime;
+            StartCoroutine(ReactionFunc());
+        }
+    }
+
+    public void EndReactionWindow()
+    {
+        StopAllCoroutines();
+        activeUnit.GetComponent<UnitControl>().MakeAtack(targetUnit.GetComponent<UnitInfo>());
+        isReactionTime = false;
+        targetUnit = null;
+        UiController.Instance.ChangeEndButtonText();
+        StartCoroutine(TurnFunc());
+    }
+
+    public IEnumerator ReactionFunc()
+    {
+        TurnTime = 30;
+
+        UiController.Instance.UpdateTurnTime(TurnTime);
+
+        gameManager.CheckCardsForManaAvaliability(); //ƒолжна быть проверка только на защитные карты
+
+        while (TurnTime-- > 0)
+        {
+            UiController.Instance.UpdateTurnTime(TurnTime);
+            yield return new WaitForSeconds(1);
+        }
+
+        EndReactionWindow();
+    }
+
+    public void HandleEndTurnButton()
+    {
+        if (isReactionTime)
+            EndReactionWindow();
+        else EndPlayerActivation();
     }
 
     public bool ActiveUnitExist()

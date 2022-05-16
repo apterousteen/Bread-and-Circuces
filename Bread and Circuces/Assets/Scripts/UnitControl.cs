@@ -96,7 +96,7 @@ public class UnitControl: MonoBehaviour
         var targetUnit = hittedTile.gameObject.GetComponentInChildren<UnitInfo>();
         if (targetUnit.IsEnemy(info))
         {
-            MakeAtack(targetUnit);
+            turnManager.StartReactionWindow(targetUnit.gameObject);
             HideArea(info.attackReachDistance);
             buttonsContainer.EndAction();
         }
@@ -115,7 +115,7 @@ public class UnitControl: MonoBehaviour
         info.ChangeMotionType(MotionType.RadiusType);
     }
 
-    private void MakeAtack(UnitInfo enemyUnit)
+    public void MakeAtack(UnitInfo enemyUnit)
     {
         info.OnAttackStart(enemyUnit);
         enemyUnit.OnDefenceStart();

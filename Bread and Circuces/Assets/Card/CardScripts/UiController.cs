@@ -12,6 +12,7 @@ public class UiController : MonoBehaviour
 
     public TextMeshProUGUI TurnTime;
     public Button EndTurnBtn;
+    private bool isTurnEndButton;
 
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class UiController : MonoBehaviour
     public void StartGame()
     {
         EndTurnBtn.interactable = true;
+        isTurnEndButton = true;
         UpdateMana();
     }
 
@@ -46,5 +48,15 @@ public class UiController : MonoBehaviour
     public void DisableTurnBtn()
     {
         EndTurnBtn.interactable = GameManagerScript.Instance.IsPlayerTurn;
+    }
+
+    public void ChangeEndButtonText()
+    {
+        isTurnEndButton = !isTurnEndButton;
+        var buttonText = EndTurnBtn.gameObject.GetComponentInChildren<TextMeshProUGUI>().text;
+        Debug.Log("Text Changed");
+        if (isTurnEndButton)
+            buttonText = "END TURN";
+        else buttonText = "PASS";
     }
 }
