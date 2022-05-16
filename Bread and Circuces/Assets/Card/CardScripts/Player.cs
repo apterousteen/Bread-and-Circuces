@@ -22,10 +22,13 @@ public class Player
         Mana = Manapool = 4;
     }
 
-    /*public void IncreaseManapool()
+    public void SpellManapool()
     {
-        
-    }*/
+        if (Mana == MAX_MANAPOOL)
+            return;
+        else
+            Mana += 1;
+    }
 
     public void GetDamage(int damage)
     {

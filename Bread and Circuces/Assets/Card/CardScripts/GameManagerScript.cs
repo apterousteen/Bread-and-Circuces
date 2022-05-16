@@ -126,7 +126,7 @@ public class GameManagerScript : MonoBehaviour
     {
         if (deck.Count == 0)
             return;
-        //ReshufflDiscardPile(deck) - нужно эффективнее передавать дискард, без удал€ющихс€ карт он сейчас бесполезен и вызовет ошибку
+        //ReshufflDiscardPile(deck); //- нужно эффективнее передавать дискард, без удал€ющихс€ карт он сейчас бесполезен и вызовет ошибку
 
         CreateCardPref(deck[0], hand);
 
@@ -180,32 +180,5 @@ public class GameManagerScript : MonoBehaviour
     {
         foreach (var card in PlayerHandCards)
             card.Info.HiglightManaAvaliability(CurrentGame.Player.Mana);
-    }
-
-    public void HighlightTargets(CardController attacker, bool highlight)
-    {
-        List<CardController> targets = new List<CardController>();
-
-        if (attacker.Card.IsSpell)
-        {
-            var spellCard = (SpellCard)attacker.Card;
-
-            if (spellCard.SpellTarget == SpellCard.TargetType.NoTarget)
-                targets = new List<CardController>();
-            else if (spellCard.SpellTarget == SpellCard.TargetType.Ally)
-                targets = PlayerFieldCards;
-            else
-                targets = EnemyFieldCards;
-        }
-        else
-        {
-            targets = EnemyFieldCards;
-        }
-
-        foreach (var card in targets)
-        {
-            if (attacker.Card.IsSpell)
-                card.Info.HighlightAsSpellTarget(highlight);
-        }
     }
 }

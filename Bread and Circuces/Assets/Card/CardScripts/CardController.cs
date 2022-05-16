@@ -5,13 +5,13 @@ using UnityEngine;
 public class CardController : MonoBehaviour
 {
     public Card Card;
-
-    public bool IsPlayerCard;
-
     public CardInfoScript Info;
     public CardMovementScript Movement;
     public UnitInfo Unit;
     public UnitControl UnitControl;
+    public GameManagerScript Game;
+
+    public bool IsPlayerCard;
 
     GameManagerScript gameManager;
     public void Init(Card card, bool isPlayerCard)
@@ -52,48 +52,11 @@ public class CardController : MonoBehaviour
         UiController.Instance.UpdateMana();
     }
 
-    public void OnDamageDeal()
-    {
-        Card.TimesDealedDamage++;
-
-    }
-
     public void UseSpell(CardController target)
     {
+        gameManager.ReduceMana(true, Card.Manacost);
+
         var spellCard = (SpellCard)Card;
-
-        switch (spellCard.FirstCardEff)
-        {
-            case SpellCard.FirstCardEffect.Defense:
-                Unit.defence += spellCard.SpellValue;
-                break;
-
-            case SpellCard.FirstCardEffect.Damage:
-                UnitControl.TriggerAttack(spellCard.SpellValue);
-                break;
-
-            case SpellCard.FirstCardEffect.Survived:
-                Unit.CheckForAlive();
-                break;
-        }
-        switch (spellCard.SecondCardEff)
-        {
-            case SpellCard.SecondCardEffect.Type:
-                break;
-
-            case SpellCard.SecondCardEffect.CardDrow:
-                break;
-
-            case SpellCard.SecondCardEffect.Movement:
-                UnitControl.TriggerMove(spellCard.SpellValue);
-                break;
-
-            case SpellCard.SecondCardEffect.ResetCard:
-                break;
-
-            case SpellCard.SecondCardEffect.ManaAdd:
-                break;
-        }
 
         switch (spellCard.StanceType)
         {
@@ -146,6 +109,42 @@ public class CardController : MonoBehaviour
                 Unit.ChangeStance(Stance.Raging);
                 break;
         }
+        switch (spellCard.FirstCardEff)
+        {
+            case SpellCard.FirstCardEffect.Defense:
+                Unit.defence += spellCard.SpellValue;
+                break;
+
+            case SpellCard.FirstCardEffect.Damage:
+                UnitControl.TriggerAttack(spellCard.SpellValue);
+                break;
+
+            case SpellCard.FirstCardEffect.Survived:
+                Unit.CheckForAlive();
+                break;
+        }
+        switch (spellCard.SecondCardEff)
+        {
+            case SpellCard.SecondCardEffect.Type:
+                break;
+
+            case SpellCard.SecondCardEffect.CardDrow:
+
+                break;
+
+            case SpellCard.SecondCardEffect.Movement:
+                UnitControl.TriggerMove(spellCard.SpellValue);
+                break;
+
+            case SpellCard.SecondCardEffect.ResetCard:
+                break;
+
+            case SpellCard.SecondCardEffect.ManaAdd:
+                Game.CurrentGame.Player.SpellManapool();
+                break;
+        }
+
+        
 
         if (target != null)
         {
@@ -153,6 +152,7 @@ public class CardController : MonoBehaviour
         }
 
         DiscardCard();
+        UiController.Instance.UpdateMana();
     }
 
     public void CheckForAlive()
