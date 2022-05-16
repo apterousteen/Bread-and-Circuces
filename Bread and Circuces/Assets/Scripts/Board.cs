@@ -4,11 +4,22 @@ using UnityEngine;
 using System;
 using System.Linq;
 
+class SpawnPoint
+{
+    public Vector2 point;
+    public bool occupied;
+
+    public SpawnPoint(int x, int y)
+    {
+        point = new Vector2(x, y);
+        occupied = false;
+    }
+}
+
 public class Board : MonoBehaviour
 {
     public GameObject gridObject;
-    public GameObject Unit;
-    public GameObject enemyUnit;
+    public List<GameObject> Units;
 
     public int gridSizeX = 10;
     public int gridSizeY = 10;
@@ -17,6 +28,8 @@ public class Board : MonoBehaviour
     private float dy = 0.74f;
 
     public HexTile[][] board;
+
+    private List<SpawnPoint> spawnPoints;
 
     void Start()
     {
@@ -46,16 +59,30 @@ public class Board : MonoBehaviour
                 board[i] = tempArr;
             }
         }
-        SpawnUnit(Unit, new Vector2(3, 5));
-        SpawnUnit(enemyUnit, new Vector2(3, 6));
-        SpawnUnit(Unit, new Vector2(1, 5));
-        SpawnUnit(enemyUnit, new Vector2(1, 6));
+
+        spawnPoints = new List<SpawnPoint>();
+        spawnPoints.Add(new SpawnPoint(4, 4));
+        spawnPoints.Add(new SpawnPoint(4, 6));
+        spawnPoints.Add(new SpawnPoint(6, 4));
+        spawnPoints.Add(new SpawnPoint(6, 6));
     }
 
-    void SpawnUnit(GameObject unit, Vector2 coordinates)
+    public void SpawnUnits(Player player)
+    {
+        foreach(var unitTag in player.units.units)
+        {
+            var unit = Units.Where(x => x.tag == unitTag).First();
+            var spawnPoint = spawnPoints.Where(x => !x.occupied).First();
+            spawnPoint.occupied = true;
+            SpawnUnit(unit, spawnPoint.point, player.team);
+        }
+    }
+
+    void SpawnUnit(GameObject unit, Vector2 coordinates, Team team)
     {
         var startPos = board[(int)coordinates.x][(int)coordinates.y];
         var newUnit = Instantiate(unit, startPos.transform.position, gridObject.transform.rotation);
+        newUnit.GetComponent<UnitInfo>().teamSide = team;
         newUnit.transform.parent = startPos.gameObject.transform;
     }
 }

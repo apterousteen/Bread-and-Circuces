@@ -7,6 +7,7 @@ public class Player
     public int Mana, Manapool, activatedUnits;
     public List<Card> Deck, DiscardPile;
     public Team team;
+    public UnitBand units;
     const int MAX_MANAPOOL = 4;
 
     public Player()
@@ -15,6 +16,7 @@ public class Player
         activatedUnits = 0;
         Deck = new List<Card>();
         DiscardPile = new List<Card>();
+        units = new UnitBand();
     }
 
     public void RestoreRoundMana()

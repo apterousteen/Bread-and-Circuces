@@ -6,17 +6,17 @@ using TMPro;
 
 public class Game
 {
-    //может перенести колоду и стопку сброса прямо в класс игрока(мб и руки)?
-    //так в некоторых методах достаточно будет передавать только игрока, а не отдельно его колоду, руку и пр
-    //а может вообще перенести в него некоторые методы?(добор и пр)
     public Player Player, Enemy;
 
     public Game()
     {
         Player = new Player();
         Player.team = Team.Player;
+        Player.units.SelectUnits("Hoplomachus", "Murmillo");
+
         Enemy = new Player();
         Enemy.team = Team.Enemy;
+        Enemy.units.SelectUnits("Retiarius", "Murmillo");
 
         Enemy.Deck = GiveDeckCard();
         Player.Deck = GiveDeckCard();
@@ -83,6 +83,7 @@ public class GameManagerScript : MonoBehaviour
                                 PlayerFieldCards = new List<CardController>(),
                                 EnemyFieldCards = new List<CardController>();
     private TurnManager turnManager;
+    private Board board;
 
     public bool IsPlayerTurn
     {
@@ -101,6 +102,7 @@ public class GameManagerScript : MonoBehaviour
     void Start()
     {
         turnManager = FindObjectOfType<TurnManager>();
+        board = FindObjectOfType<Board>();
         StartGame();
     }
 
@@ -108,6 +110,8 @@ public class GameManagerScript : MonoBehaviour
     {
         Turn = 0;
         CurrentGame = new Game();
+        board.SpawnUnits(CurrentGame.Player);
+        board.SpawnUnits(CurrentGame.Enemy);
 
         GiveHandCards(CurrentGame.Enemy.Deck, EnemyHand);
         GiveHandCards(CurrentGame.Player.Deck, PlayerHand);
