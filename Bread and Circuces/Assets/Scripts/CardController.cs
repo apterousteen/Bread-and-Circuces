@@ -57,92 +57,60 @@ public class CardController : MonoBehaviour
     {
         var spellCard = (SpellCard)Card;
 
-        switch (spellCard.StanceType)
+        switch (spellCard.EndStance)
         {
-            case SpellCard.Stance.Defensive_Defensive:
+            case SpellCard.Stance.Defensive:
                 Unit.ChangeStance(Stance.Defensive);
                 break;
-            case SpellCard.Stance.Defensive_Advance:
+            case SpellCard.Stance.Advance:
                 Unit.ChangeStance(Stance.Advance);
                 break;
-            case SpellCard.Stance.Defensive_Attacking:
+            case SpellCard.Stance.Attacking:
                 Unit.ChangeStance(Stance.Attacking);
                 break;
-            case SpellCard.Stance.Defensive_Raging:
-                Unit.ChangeStance(Stance.Raging);
-                break;
-            case SpellCard.Stance.Advance_Defensive:
-                Unit.ChangeStance(Stance.Defensive);
-                break;
-            case SpellCard.Stance.Advance_Advance:
-                Unit.ChangeStance(Stance.Advance);
-                break;
-            case SpellCard.Stance.Advance_Attacking:
-                Unit.ChangeStance(Stance.Attacking);
-                break;
-            case SpellCard.Stance.Advance_Raging:
-                Unit.ChangeStance(Stance.Raging);
-                break;
-            case SpellCard.Stance.Attacking_Defensive:
-                Unit.ChangeStance(Stance.Defensive);
-                break;
-            case SpellCard.Stance.Attacking_Advance:
-                Unit.ChangeStance(Stance.Advance);
-                break;
-            case SpellCard.Stance.Attacking_Attacking:
-                Unit.ChangeStance(Stance.Attacking);
-                break;
-            case SpellCard.Stance.Attacking_Raging:
-                Unit.ChangeStance(Stance.Raging);
-                break;
-            case SpellCard.Stance.Raging_Defensive:
-                Unit.ChangeStance(Stance.Defensive);
-                break;
-            case SpellCard.Stance.Raging_Advance:
-                Unit.ChangeStance(Stance.Advance);
-                break;
-            case SpellCard.Stance.Raging_Attacking:
-                Unit.ChangeStance(Stance.Attacking);
-                break;
-            case SpellCard.Stance.Raging_Raging:
+            case SpellCard.Stance.Raging:
                 Unit.ChangeStance(Stance.Raging);
                 break;
         }
         switch (spellCard.FirstCardEff)
         {
-            case SpellCard.FirstCardEffect.Defense:
+            case SpellCard.CardEffect.Defense:
                 Unit.defence += spellCard.SpellValue;
                 break;
 
-            case SpellCard.FirstCardEffect.Damage:
+            case SpellCard.CardEffect.Damage:
                 turnManager.AddAction(new Action(ActionType.Attack, spellCard.SpellValue));
                 break;
 
-            case SpellCard.FirstCardEffect.Survived:
+            case SpellCard.CardEffect.Survived:
                 Unit.CheckForAlive();
                 break;
 
-            case SpellCard.FirstCardEffect.Movement:
+            case SpellCard.CardEffect.Movement:
                 turnManager.AddAction(new Action(ActionType.Move, spellCard.SpellValue));
                 break;
         }
-        switch (spellCard.SecondCardEff)
+        switch (spellCard.FirstCardEffTwo)
         {
-            case SpellCard.SecondCardEffect.Type:
+            case SpellCard.CardEffect.Type:
                 break;
 
-            case SpellCard.SecondCardEffect.CardDrow:
+            case SpellCard.CardEffect.CardDrow:
                 turnManager.AddAction(new Action(ActionType.Draw, spellCard.SecondSpellValue));
                 break;
 
-            case SpellCard.SecondCardEffect.Movement:
+            case SpellCard.CardEffect.Movement:
                 turnManager.AddAction(new Action(ActionType.Move, spellCard.SecondSpellValue));
                 break;
 
-            case SpellCard.SecondCardEffect.ResetCard:
+            case SpellCard.CardEffect.Damage:
+                turnManager.AddAction(new Action(ActionType.Attack, spellCard.SecondSpellValue));
                 break;
 
-            case SpellCard.SecondCardEffect.ManaAdd:
+            case SpellCard.CardEffect.ResetCard:
+                break;
+
+            case SpellCard.CardEffect.ManaAdd:
                 {
                     Game.CurrentGame.Player.SpellManapool();
                     UiController.Instance.UpdateMana();
