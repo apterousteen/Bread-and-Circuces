@@ -10,6 +10,7 @@ public class CardController : MonoBehaviour
     public UnitInfo Unit;
     public UnitControl UnitControl;
     public GameManagerScript Game;
+    private TurnManager turnManager;
 
     public bool IsPlayerCard;
 
@@ -18,6 +19,7 @@ public class CardController : MonoBehaviour
     {
         Card = card;
         gameManager = GameManagerScript.Instance;
+        turnManager = FindObjectOfType<TurnManager>();
         IsPlayerCard = isPlayerCard;
 
         if (isPlayerCard)
@@ -28,9 +30,6 @@ public class CardController : MonoBehaviour
 
     public void OnCast()
     {
-        if (Card.IsSpell && ((SpellCard)Card).SpellTarget != SpellCard.TargetType.NoTarget)
-            return;
-
         if (IsPlayerCard)
         {
             gameManager.PlayerHandCards.Remove(this);
@@ -45,6 +44,7 @@ public class CardController : MonoBehaviour
         }
 
         Card.IsPlaced = true;
+        Unit = turnManager.activeUnit.GetComponent<UnitInfo>();
 
         if (Card.IsSpell)
             UseSpell(null);

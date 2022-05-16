@@ -36,6 +36,7 @@ public class UiController : MonoBehaviour
 
     public void UpdateMana()
     {
+        Debug.Log(GameManagerScript.Instance.CurrentGame.Player.Mana.ToString());
         PlayerMana.text = GameManagerScript.Instance.CurrentGame.Player.Mana.ToString();
         EnemyMana.text = GameManagerScript.Instance.CurrentGame.Enemy.Mana.ToString();
     }
