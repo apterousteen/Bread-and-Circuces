@@ -55,62 +55,62 @@ public class CardController : MonoBehaviour
 
     public void UseSpell(CardController target)
     {
-        var spellCard = (SpellCard)Card;
+        var spellCard = Card;
 
         switch (spellCard.EndStance)
         {
-            case SpellCard.Stance.Defensive:
+            case Card.Stance.Defensive:
                 Unit.ChangeStance(Stance.Defensive);
                 break;
-            case SpellCard.Stance.Advance:
+            case Card.Stance.Advance:
                 Unit.ChangeStance(Stance.Advance);
                 break;
-            case SpellCard.Stance.Attacking:
+            case Card.Stance.Attacking:
                 Unit.ChangeStance(Stance.Attacking);
                 break;
-            case SpellCard.Stance.Raging:
+            case Card.Stance.Raging:
                 Unit.ChangeStance(Stance.Raging);
                 break;
         }
         switch (spellCard.FirstCardEff)
         {
-            case SpellCard.CardEffect.Defense:
+            case Card.CardEffect.Defense:
                 Unit.defence += spellCard.SpellValue;
                 break;
 
-            case SpellCard.CardEffect.Damage:
+            case Card.CardEffect.Damage:
                 turnManager.AddAction(new Action(ActionType.Attack, spellCard.SpellValue));
                 break;
 
-            case SpellCard.CardEffect.Survived:
+            case Card.CardEffect.Survived:
                 Unit.CheckForAlive();
                 break;
 
-            case SpellCard.CardEffect.Movement:
+            case Card.CardEffect.Movement:
                 turnManager.AddAction(new Action(ActionType.Move, spellCard.SpellValue));
                 break;
         }
         switch (spellCard.FirstCardEffTwo)
         {
-            case SpellCard.CardEffect.Type:
+            case Card.CardEffect.Type:
                 break;
 
-            case SpellCard.CardEffect.CardDrow:
+            case Card.CardEffect.CardDrow:
                 turnManager.AddAction(new Action(ActionType.Draw, spellCard.SecondSpellValue));
                 break;
 
-            case SpellCard.CardEffect.Movement:
+            case Card.CardEffect.Movement:
                 turnManager.AddAction(new Action(ActionType.Move, spellCard.SecondSpellValue));
                 break;
 
-            case SpellCard.CardEffect.Damage:
+            case Card.CardEffect.Damage:
                 turnManager.AddAction(new Action(ActionType.Attack, spellCard.SecondSpellValue));
                 break;
 
-            case SpellCard.CardEffect.ResetCard:
+            case Card.CardEffect.ResetCard:
                 break;
 
-            case SpellCard.CardEffect.ManaAdd:
+            case Card.CardEffect.ManaAdd:
                 {
                     Game.CurrentGame.Player.SpellManapool();
                     UiController.Instance.UpdateMana();

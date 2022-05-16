@@ -34,7 +34,7 @@ public class Game
             var card = CardManager.AllCards[Random.Range(0, CardManager.AllCards.Count)];
 
             if (card.IsSpell)
-                list.Add(((SpellCard)card).GetCopy());
+                list.Add(card.GetCopy());
             else
                 list.Add(card.GetCopy());
         }

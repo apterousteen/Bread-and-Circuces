@@ -16,21 +16,21 @@ public class Scissor : UnitInfo
 
         base.Start();
 
-        UnitDeck.Add(new SpellCard("Яростный рывок", "Sprites/LogoCards/CHto-to", 1, SpellCard.Stance.Advance, SpellCard.Stance.Raging, SpellCard.CardEffect.Damage, 4, SpellCard.CardEffect.Movement, 0, SpellCard.TargetType.Enemy));//Работа со способностью
-        UnitDeck.Add(new SpellCard("Яростный рывок", "Sprites/LogoCards/CHto-to", 1, SpellCard.Stance.Advance, SpellCard.Stance.Raging, SpellCard.CardEffect.Damage, 4, SpellCard.CardEffect.Movement, 0, SpellCard.TargetType.Enemy));//Работа со способностью
-        UnitDeck.Add(new SpellCard("Яростный рывок", "Sprites/LogoCards/CHto-to", 1, SpellCard.Stance.Advance, SpellCard.Stance.Raging, SpellCard.CardEffect.Damage, 4, SpellCard.CardEffect.Movement, 0, SpellCard.TargetType.Enemy));//Работа со способностью
-        UnitDeck.Add(new SpellCard("Внезапный удар", "Sprites/LogoCards/CHto-to", 1, SpellCard.Stance.Advance, SpellCard.Stance.Attacking, SpellCard.CardEffect.Damage, 3, SpellCard.CardEffect.CardDrow, 1, SpellCard.TargetType.Enemy));
-        UnitDeck.Add(new SpellCard("Внезапный удар", "Sprites/LogoCards/CHto-to", 1, SpellCard.Stance.Advance, SpellCard.Stance.Attacking, SpellCard.CardEffect.Damage, 3, SpellCard.CardEffect.CardDrow, 1, SpellCard.TargetType.Enemy));
-        UnitDeck.Add(new SpellCard("Внезапный удар", "Sprites/LogoCards/CHto-to", 1, SpellCard.Stance.Advance, SpellCard.Stance.Attacking, SpellCard.CardEffect.Damage, 3, SpellCard.CardEffect.CardDrow, 1, SpellCard.TargetType.Enemy));
-        UnitDeck.Add(new SpellCard("Rip and tear", "Sprites/LogoCards/CHto-to", 1, SpellCard.Stance.Raging, SpellCard.Stance.Attacking, SpellCard.CardEffect.Damage, 3, SpellCard.CardEffect.ResetCard, 2, SpellCard.TargetType.Enemy));//Работа со способностью
-        UnitDeck.Add(new SpellCard("Яростная серия", "Sprites/LogoCards/CHto-to", 1, SpellCard.Stance.Raging, SpellCard.Stance.Raging, SpellCard.CardEffect.Damage, 2, SpellCard.CardEffect.ManaAdd, 1, SpellCard.TargetType.Enemy));
-        UnitDeck.Add(new SpellCard("Зацепить оружие", "Sprites/LogoCards/CHto-to", 1, SpellCard.Stance.Attacking, SpellCard.Stance.Raging, SpellCard.CardEffect.Defense, 0, SpellCard.CardEffect.CardDrow, 2, SpellCard.TargetType.This));// + механика
-        UnitDeck.Add(new SpellCard("Зацепить оружие", "Sprites/LogoCards/CHto-to", 1, SpellCard.Stance.Attacking, SpellCard.Stance.Raging, SpellCard.CardEffect.Defense, 0, SpellCard.CardEffect.CardDrow, 2, SpellCard.TargetType.This));// + механика
-        UnitDeck.Add(new SpellCard("Разрезающий удар", "Sprites/LogoCards/CHto-to", 1, SpellCard.Stance.Attacking, SpellCard.Stance.Advance, SpellCard.CardEffect.Damage, 4, SpellCard.CardEffect.CardDrow, 1, SpellCard.TargetType.Enemy));
-        UnitDeck.Add(new SpellCard("Разрезающий удар", "Sprites/LogoCards/CHto-to", 1, SpellCard.Stance.Attacking, SpellCard.Stance.Advance, SpellCard.CardEffect.Damage, 4, SpellCard.CardEffect.CardDrow, 1, SpellCard.TargetType.Enemy));
-        UnitDeck.Add(new SpellCard("Удар клинком", "Sprites/LogoCards/CHto-to", 1, SpellCard.Stance.Attacking, SpellCard.Stance.Attacking, SpellCard.CardEffect.Damage, 3, SpellCard.CardEffect.No, 0, SpellCard.TargetType.Enemy));
-        UnitDeck.Add(new SpellCard("Удар клинком", "Sprites/LogoCards/CHto-to", 1, SpellCard.Stance.Attacking, SpellCard.Stance.Attacking, SpellCard.CardEffect.Damage, 3, SpellCard.CardEffect.No, 0, SpellCard.TargetType.Enemy));
-        UnitDeck.Add(new SpellCard("Удар клинком", "Sprites/LogoCards/CHto-to", 1, SpellCard.Stance.Attacking, SpellCard.Stance.Attacking, SpellCard.CardEffect.Damage, 3, SpellCard.CardEffect.No, 0, SpellCard.TargetType.Enemy));
+        UnitDeck.Add(new Card("Яростный рывок", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Raging, Card.CardEffect.Damage, 4, Card.CardEffect.Movement, 0, Card.TargetType.Enemy));//Работа со способностью
+        UnitDeck.Add(new Card("Яростный рывок", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Raging, Card.CardEffect.Damage, 4, Card.CardEffect.Movement, 0, Card.TargetType.Enemy));//Работа со способностью
+        UnitDeck.Add(new Card("Яростный рывок", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Raging, Card.CardEffect.Damage, 4, Card.CardEffect.Movement, 0, Card.TargetType.Enemy));//Работа со способностью
+        UnitDeck.Add(new Card("Внезапный удар", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Attacking, Card.CardEffect.Damage, 3, Card.CardEffect.CardDrow, 1, Card.TargetType.Enemy));
+        UnitDeck.Add(new Card("Внезапный удар", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Attacking, Card.CardEffect.Damage, 3, Card.CardEffect.CardDrow, 1, Card.TargetType.Enemy));
+        UnitDeck.Add(new Card("Внезапный удар", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Attacking, Card.CardEffect.Damage, 3, Card.CardEffect.CardDrow, 1, Card.TargetType.Enemy));
+        UnitDeck.Add(new Card("Rip and tear", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Raging, Card.Stance.Attacking, Card.CardEffect.Damage, 3, Card.CardEffect.ResetCard, 2, Card.TargetType.Enemy));//Работа со способностью
+        UnitDeck.Add(new Card("Яростная серия", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Raging, Card.Stance.Raging, Card.CardEffect.Damage, 2, Card.CardEffect.ManaAdd, 1, Card.TargetType.Enemy));
+        UnitDeck.Add(new Card("Зацепить оружие", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Raging, Card.CardEffect.Defense, 0, Card.CardEffect.CardDrow, 2, Card.TargetType.This));// + механика
+        UnitDeck.Add(new Card("Зацепить оружие", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Raging, Card.CardEffect.Defense, 0, Card.CardEffect.CardDrow, 2, Card.TargetType.This));// + механика
+        UnitDeck.Add(new Card("Разрезающий удар", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Advance, Card.CardEffect.Damage, 4, Card.CardEffect.CardDrow, 1, Card.TargetType.Enemy));
+        UnitDeck.Add(new Card("Разрезающий удар", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Advance, Card.CardEffect.Damage, 4, Card.CardEffect.CardDrow, 1, Card.TargetType.Enemy));
+        UnitDeck.Add(new Card("Удар клинком", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Attacking, Card.CardEffect.Damage, 3, Card.CardEffect.No, 0, Card.TargetType.Enemy));
+        UnitDeck.Add(new Card("Удар клинком", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Attacking, Card.CardEffect.Damage, 3, Card.CardEffect.No, 0, Card.TargetType.Enemy));
+        UnitDeck.Add(new Card("Удар клинком", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Attacking, Card.CardEffect.Damage, 3, Card.CardEffect.No, 0, Card.TargetType.Enemy));
     }
 
     public override void ChangeStance(Stance newStance)
