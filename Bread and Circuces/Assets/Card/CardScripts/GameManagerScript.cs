@@ -21,7 +21,7 @@ public class Game
         Enemy.Deck = GiveDeckCard();
         Player.Deck = GiveDeckCard();
         Enemy.DiscardPile = new List<Card>();
-        Player.DiscardPile = new List<Card>();        
+        Player.DiscardPile = new List<Card>();
     }
 
 
@@ -126,7 +126,7 @@ public class GameManagerScript : MonoBehaviour
     {
         if (deck.Count == 0)
             return;
-            //ReshufflDiscardPile(deck) - нужно эффективнее передавать дискард, без удал€ющихс€ карт он сейчас бесполезен и вызовет ошибку
+        //ReshufflDiscardPile(deck) - нужно эффективнее передавать дискард, без удал€ющихс€ карт он сейчас бесполезен и вызовет ошибку
 
         CreateCardPref(deck[0], hand);
 
@@ -166,20 +166,6 @@ public class GameManagerScript : MonoBehaviour
         DrawFullHand(CurrentGame.Player.Deck, PlayerHand);
     }
 
-    public void CardFight(CardController attacker, CardController defender)
-    {
-        defender.Card.GetDamage(attacker.Card.Attack);
-        attacker.OnDamageDeal();
-        defender.OnTakeDamage(attacker);
-
-        attacker.Card.GetDamage(defender.Card.Attack);
-        attacker.OnTakeDamage();
-
-        attacker.CheckForAlive();
-        defender.CheckForAlive();
-    }
-
-
     public void ReduceMana(bool playerMana, int manacost)
     {
         if (playerMana)
@@ -213,12 +199,7 @@ public class GameManagerScript : MonoBehaviour
         }
         else
         {
-            if (EnemyFieldCards.Exists(x => x.Card.IsProvocation))
-                targets = EnemyFieldCards.FindAll(x => x.Card.IsProvocation);
-            else
-            {
-                targets = EnemyFieldCards;
-            }
+            targets = EnemyFieldCards;
         }
 
         foreach (var card in targets)

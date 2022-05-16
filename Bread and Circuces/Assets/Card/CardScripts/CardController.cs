@@ -10,7 +10,6 @@ public class CardController : MonoBehaviour
 
     public CardInfoScript Info;
     public CardMovementScript Movement;
-    public CardAbility Ability;
     public UnitInfo Unit;
     public UnitControl UnitControl;
 
@@ -47,27 +46,16 @@ public class CardController : MonoBehaviour
 
         Card.IsPlaced = true;
 
-        if (Card.HasAbility)
-            Ability.OnCast();
-
         if (Card.IsSpell)
             UseSpell(null);
 
         UiController.Instance.UpdateMana();
     }
 
-    public void OnTakeDamage(CardController attacker = null)
-    {
-        CheckForAlive();
-        Ability.OnDamageTake(attacker);
-    }
-
     public void OnDamageDeal()
     {
         Card.TimesDealedDamage++;
 
-        if (Card.HasAbility)
-            Ability.OnDamadeDeal();
     }
 
     public void UseSpell(CardController target)
@@ -161,18 +149,10 @@ public class CardController : MonoBehaviour
 
         if (target != null)
         {
-            target.Ability.OnCast();
             target.CheckForAlive();
         }
 
         DiscardCard();
-    }
-
-    void GiveDamageTo(CardController card, int damage)
-    {
-        card.Card.GetDamage(damage);
-        card.CheckForAlive();
-        card.OnTakeDamage();
     }
 
     public void CheckForAlive()
