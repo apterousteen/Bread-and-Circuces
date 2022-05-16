@@ -41,11 +41,20 @@ public class Card
         Attack,
         Defense
     }
+    public enum CharacterRestriction
+    {
+        Universal,
+        Retiarius,
+        Murmillo,
+        Hoplomachus,
+        Scissor
+    }
 
     public CardEffect FirstCardEff, FirstCardEffTwo;
     public Stance StartStance, EndStance;
     public TargetType SpellTarget;
     public CardType Type;
+    public CharacterRestriction Restriction;
 
     public string Name;
     public Sprite Logo;
@@ -54,7 +63,7 @@ public class Card
 
     public Card(string name, string logoPath, int manacost, Stance startStance = 0, Stance endStance = 0, CardType type = 0,
         CardEffect firstCardEffect = 0, int spellValue = 0, CardEffect firstCardEffectTwo = 0, int secondSpellValue = 0,
-        TargetType targetType = 0)
+        TargetType targetType = 0, CharacterRestriction restriction = CharacterRestriction.Universal)
     {
         Name = name;
         Logo = Resources.Load<Sprite>(logoPath);
@@ -66,6 +75,7 @@ public class Card
         StartStance = startStance;
         EndStance = endStance;
         Type = type;
+        Restriction = restriction;
 
         SpellTarget = targetType;
         SpellValue = spellValue;
@@ -110,15 +120,15 @@ public class ManagerCard : MonoBehaviour
     {
         //"Ретиарий"
 
-        CardManager.AllCards.Add(new Card("Бросок сети", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Defensive, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Damage, 0, Card.CardEffect.Status, 0, Card.TargetType.Enemy));// Работа со способностью
+        CardManager.AllCards.Add(new Card("Бросок сети", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Defensive, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Damage, 0, Card.CardEffect.Status, 0, Card.TargetType.Enemy, Card.CharacterRestriction.Retiarius));// Работа со способностью
         CardManager.AllCards.Add(new Card("Уворот", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Defensive, Card.Stance.Advance, Card.CardType.Defense, Card.CardEffect.Defense, 3, Card.CardEffect.Movement, 1, Card.TargetType.This));
         CardManager.AllCards.Add(new Card("Уворот", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Defensive, Card.Stance.Advance, Card.CardType.Defense, Card.CardEffect.Defense, 3, Card.CardEffect.Movement, 1, Card.TargetType.This));
         CardManager.AllCards.Add(new Card("Уворот", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Defensive, Card.Stance.Advance, Card.CardType.Defense, Card.CardEffect.Defense, 3, Card.CardEffect.Movement, 1, Card.TargetType.This));
         CardManager.AllCards.Add(new Card("Уворот", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Defensive, Card.Stance.Advance, Card.CardType.Defense, Card.CardEffect.Defense, 3, Card.CardEffect.Movement, 1, Card.TargetType.This));
         CardManager.AllCards.Add(new Card("Тычок с отступлением", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Defensive, Card.CardType.Attack, Card.CardEffect.Damage, 2, Card.CardEffect.Movement, 1, Card.TargetType.Enemy));
         CardManager.AllCards.Add(new Card("Тычок с отступлением", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Defensive, Card.CardType.Attack, Card.CardEffect.Damage, 2, Card.CardEffect.Movement, 1, Card.TargetType.Enemy));
-        CardManager.AllCards.Add(new Card("Протыкание ноги", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Damage, 4, Card.CardEffect.ResetCard, 1, Card.TargetType.Enemy));
-        CardManager.AllCards.Add(new Card("Протыкание ноги", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Damage, 4, Card.CardEffect.ResetCard, 1, Card.TargetType.Enemy));
+        CardManager.AllCards.Add(new Card("Протыкание ноги", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Damage, 4, Card.CardEffect.ResetCard, 1, Card.TargetType.Enemy, Card.CharacterRestriction.Retiarius));
+        CardManager.AllCards.Add(new Card("Протыкание ноги", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Damage, 4, Card.CardEffect.ResetCard, 1, Card.TargetType.Enemy, Card.CharacterRestriction.Retiarius));
         CardManager.AllCards.Add(new Card("Осторожный удар", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Defensive, Card.CardType.Attack, Card.CardEffect.Damage, 3, Card.CardEffect.IfCardDrow, 1, Card.TargetType.Enemy));//нужен метод добора(пока нет)
         CardManager.AllCards.Add(new Card("Осторожный удар", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Defensive, Card.CardType.Attack, Card.CardEffect.Damage, 3, Card.CardEffect.IfCardDrow, 1, Card.TargetType.Enemy));//нужен метод добора(пока нет)
         CardManager.AllCards.Add(new Card("Выпад вперед", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Movement, 1, Card.CardEffect.Damage, 2, Card.TargetType.Enemy));
@@ -129,18 +139,18 @@ public class ManagerCard : MonoBehaviour
 
         //Универсальные в сете "Скиссор"
 
-        CardManager.AllCards.Add(new Card("Яростный рывок", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Raging, Card.CardType.Attack, Card.CardEffect.Movement, 0, Card.CardEffect.IfDamage, 4, Card.TargetType.Enemy));//нужен метод
-        CardManager.AllCards.Add(new Card("Яростный рывок", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Raging, Card.CardType.Attack, Card.CardEffect.Movement, 0, Card.CardEffect.IfDamage, 4, Card.TargetType.Enemy));//нужен метод
-        CardManager.AllCards.Add(new Card("Яростный рывок", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Raging, Card.CardType.Attack, Card.CardEffect.Movement, 0 ,Card.CardEffect.IfDamage, 4, Card.TargetType.Enemy));//нужен метод
+        CardManager.AllCards.Add(new Card("Яростный рывок", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Raging, Card.CardType.Attack, Card.CardEffect.Movement, 0, Card.CardEffect.IfDamage, 4, Card.TargetType.Enemy, Card.CharacterRestriction.Scissor));//нужен метод
+        CardManager.AllCards.Add(new Card("Яростный рывок", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Raging, Card.CardType.Attack, Card.CardEffect.Movement, 0, Card.CardEffect.IfDamage, 4, Card.TargetType.Enemy, Card.CharacterRestriction.Scissor));//нужен метод
+        CardManager.AllCards.Add(new Card("Яростный рывок", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Raging, Card.CardType.Attack, Card.CardEffect.Movement, 0 ,Card.CardEffect.IfDamage, 4, Card.TargetType.Enemy, Card.CharacterRestriction.Scissor));//нужен метод
+        CardManager.AllCards.Add(new Card("Внезапный удар", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Damage, 3, Card.CardEffect.CardDrow, 1, Card.TargetType.Enemy, Card.CharacterRestriction.Scissor));
         CardManager.AllCards.Add(new Card("Внезапный удар", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Damage, 3, Card.CardEffect.CardDrow, 1, Card.TargetType.Enemy));
         CardManager.AllCards.Add(new Card("Внезапный удар", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Damage, 3, Card.CardEffect.CardDrow, 1, Card.TargetType.Enemy));
-        CardManager.AllCards.Add(new Card("Внезапный удар", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Damage, 3, Card.CardEffect.CardDrow, 1, Card.TargetType.Enemy));
-        CardManager.AllCards.Add(new Card("Rip and tear", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Raging, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.IfResetCard, 2, Card.CardEffect.Damage, 3, Card.TargetType.Enemy));//нужен метод   
-        CardManager.AllCards.Add(new Card("Яростная серия", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Raging, Card.Stance.Raging, Card.CardType.Attack, Card.CardEffect.Damage, 2, Card.CardEffect.ManaAdd, 1, Card.TargetType.Enemy));
-        CardManager.AllCards.Add(new Card("Зацепить оружие", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Raging, Card.CardType.Defense, Card.CardEffect.Defense, 0, Card.CardEffect.CardDrow, 2, Card.TargetType.This));//нужен метод
-        CardManager.AllCards.Add(new Card("Зацепить оружие", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Raging, Card.CardType.Defense, Card.CardEffect.Defense, 0, Card.CardEffect.CardDrow, 2, Card.TargetType.This));//нужен метод
-        CardManager.AllCards.Add(new Card("Разрезающий удар", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Advance, Card.CardType.Attack, Card.CardEffect.Damage, 4, Card.CardEffect.CardDrow, 1, Card.TargetType.Enemy));
-        CardManager.AllCards.Add(new Card("Разрезающий удар", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Advance, Card.CardType.Attack, Card.CardEffect.Damage, 4, Card.CardEffect.CardDrow, 1, Card.TargetType.Enemy));
+        CardManager.AllCards.Add(new Card("Rip and tear", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Raging, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.IfResetCard, 2, Card.CardEffect.Damage, 3, Card.TargetType.Enemy, Card.CharacterRestriction.Scissor));//нужен метод   
+        CardManager.AllCards.Add(new Card("Яростная серия", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Raging, Card.Stance.Raging, Card.CardType.Attack, Card.CardEffect.Damage, 2, Card.CardEffect.ManaAdd, 1, Card.TargetType.Enemy, Card.CharacterRestriction.Scissor));
+        CardManager.AllCards.Add(new Card("Зацепить оружие", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Raging, Card.CardType.Defense, Card.CardEffect.Defense, 0, Card.CardEffect.CardDrow, 2, Card.TargetType.This, Card.CharacterRestriction.Scissor));//нужен метод
+        CardManager.AllCards.Add(new Card("Зацепить оружие", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Raging, Card.CardType.Defense, Card.CardEffect.Defense, 0, Card.CardEffect.CardDrow, 2, Card.TargetType.This, Card.CharacterRestriction.Scissor));//нужен метод
+        CardManager.AllCards.Add(new Card("Разрезающий удар", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Advance, Card.CardType.Attack, Card.CardEffect.Damage, 4, Card.CardEffect.CardDrow, 1, Card.TargetType.Enemy, Card.CharacterRestriction.Scissor));
+        CardManager.AllCards.Add(new Card("Разрезающий удар", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Advance, Card.CardType.Attack, Card.CardEffect.Damage, 4, Card.CardEffect.CardDrow, 1, Card.TargetType.Enemy, Card.CharacterRestriction.Scissor));
         CardManager.AllCards.Add(new Card("Удар клинком", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Damage, 3, Card.CardEffect.No, 0, Card.TargetType.Enemy));
         CardManager.AllCards.Add(new Card("Удар клинком", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Damage, 3, Card.CardEffect.No, 0, Card.TargetType.Enemy));
         CardManager.AllCards.Add(new Card("Удар клинком", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Damage, 3, Card.CardEffect.No, 0, Card.TargetType.Enemy));
@@ -148,16 +158,16 @@ public class ManagerCard : MonoBehaviour
 
         //Универсальные в сете "Мурмиллон"
 
-        CardManager.AllCards.Add(new Card("Оглушение щитом", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Defensive, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.CheckDefenseStance, 0, Card.CardEffect.ResetCard, 2, Card.TargetType.Enemy));
-        CardManager.AllCards.Add(new Card("Оглушение щитом", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Defensive, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.CheckDefenseStance, 0, Card.CardEffect.ResetCard, 2, Card.TargetType.Enemy));
+        CardManager.AllCards.Add(new Card("Оглушение щитом", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Defensive, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.CheckDefenseStance, 0, Card.CardEffect.ResetCard, 2, Card.TargetType.Enemy, Card.CharacterRestriction.Murmillo));
+        CardManager.AllCards.Add(new Card("Оглушение щитом", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Defensive, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.CheckDefenseStance, 0, Card.CardEffect.ResetCard, 2, Card.TargetType.Enemy, Card.CharacterRestriction.Murmillo));
         CardManager.AllCards.Add(new Card("Блок", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Defensive, Card.Stance.Defensive, Card.CardType.Defense, Card.CardEffect.Defense, 2, Card.CardEffect.Type, 1, Card.TargetType.This));//Тип карты
         CardManager.AllCards.Add(new Card("Блок", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Defensive, Card.Stance.Defensive, Card.CardType.Defense, Card.CardEffect.Defense, 2, Card.CardEffect.Type, 1, Card.TargetType.This));//Тип карты
         CardManager.AllCards.Add(new Card("Блок", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Defensive, Card.Stance.Defensive, Card.CardType.Defense, Card.CardEffect.Defense, 2, Card.CardEffect.Type, 1, Card.TargetType.This));//Тип карты
         CardManager.AllCards.Add(new Card("Уворот", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Defensive, Card.Stance.Advance, Card.CardType.Defense, Card.CardEffect.Defense, 3, Card.CardEffect.Movement, 1, Card.TargetType.This));
         CardManager.AllCards.Add(new Card("Заверщающий рубец", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Advance, Card.CardType.Attack, Card.CardEffect.Damage, 2, Card.CardEffect.Mechanics, 1, Card.TargetType.Enemy));//нужен метод
         CardManager.AllCards.Add(new Card("Заверщающий рубец", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Advance, Card.CardType.Attack, Card.CardEffect.Damage, 2, Card.CardEffect.Mechanics, 1, Card.TargetType.Enemy));//нужен метод
-        CardManager.AllCards.Add(new Card("Отталкивание", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Defensive, Card.CardType.Attack, Card.CardEffect.Damage, 2, Card.CardEffect.Mechanics, 1, Card.TargetType.Enemy));//нужен метод
-        CardManager.AllCards.Add(new Card("Отталкивание", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Defensive, Card.CardType.Attack, Card.CardEffect.Damage, 2, Card.CardEffect.Mechanics, 1, Card.TargetType.Enemy));//нужен метод
+        CardManager.AllCards.Add(new Card("Отталкивание", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Defensive, Card.CardType.Attack, Card.CardEffect.Damage, 2, Card.CardEffect.Mechanics, 1, Card.TargetType.Enemy, Card.CharacterRestriction.Murmillo));//нужен метод
+        CardManager.AllCards.Add(new Card("Отталкивание", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Defensive, Card.CardType.Attack, Card.CardEffect.Damage, 2, Card.CardEffect.Mechanics, 1, Card.TargetType.Enemy, Card.CharacterRestriction.Murmillo));//нужен метод
         CardManager.AllCards.Add(new Card("Удар клинком", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Damage, 3, Card.CardEffect.No, 0, Card.TargetType.Enemy));
         CardManager.AllCards.Add(new Card("Удар клинком", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Damage, 3, Card.CardEffect.No, 0, Card.TargetType.Enemy));
         CardManager.AllCards.Add(new Card("Прикрыться", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Defensive, Card.CardType.Defense, Card.CardEffect.DefenseType, 1, Card.CardEffect.CardDrow, 1, Card.TargetType.This));// Добавить case
@@ -172,19 +182,19 @@ public class ManagerCard : MonoBehaviour
         CardManager.AllCards.Add(new Card("Уворот", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Defensive, Card.Stance.Advance, Card.CardType.Defense, Card.CardEffect.Defense, 3, Card.CardEffect.Movement, 1, Card.TargetType.This));
         CardManager.AllCards.Add(new Card("Блок", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Defensive, Card.Stance.Defensive, Card.CardType.Defense, Card.CardEffect.DefenseType, 2, Card.CardEffect.No, 1, Card.TargetType.This));// Добавить case
         CardManager.AllCards.Add(new Card("Блок", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Defensive, Card.Stance.Defensive, Card.CardType.Defense, Card.CardEffect.DefenseType, 2, Card.CardEffect.No, 1, Card.TargetType.This));// Добавить case
-        CardManager.AllCards.Add(new Card("Укол из-за щита", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Defensive, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Damage, 3, Card.CardEffect.CardDrow, 1, Card.TargetType.Enemy));
-        CardManager.AllCards.Add(new Card("Укол из-за щита", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Defensive, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Damage, 3, Card.CardEffect.CardDrow, 1, Card.TargetType.Enemy));
+        CardManager.AllCards.Add(new Card("Укол из-за щита", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Defensive, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Damage, 3, Card.CardEffect.CardDrow, 1, Card.TargetType.Enemy, Card.CharacterRestriction.Hoplomachus));
+        CardManager.AllCards.Add(new Card("Укол из-за щита", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Defensive, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Damage, 3, Card.CardEffect.CardDrow, 1, Card.TargetType.Enemy, Card.CharacterRestriction.Hoplomachus));
+        CardManager.AllCards.Add(new Card("Выпад вперед", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Movement, 1, Card.CardEffect.Damage, 2, Card.TargetType.Enemy));
         CardManager.AllCards.Add(new Card("Выпад вперед", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Movement, 1, Card.CardEffect.Damage, 2, Card.TargetType.Enemy));
         CardManager.AllCards.Add(new Card("Выпад вперед", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Movement, 2, Card.CardEffect.Damage, 2, Card.TargetType.Enemy));
-        CardManager.AllCards.Add(new Card("Выпад вперед", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Movement, 2, Card.CardEffect.Damage, 2, Card.TargetType.Enemy));
         CardManager.AllCards.Add(new Card("Прикрыться", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Defensive, Card.CardType.Defense, Card.CardEffect.DefenseType, 1, Card.CardEffect.CardDrow, 1, Card.TargetType.This));// Добавить case
         CardManager.AllCards.Add(new Card("Прикрыться", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Advance, Card.Stance.Defensive, Card.CardType.Defense, Card.CardEffect.DefenseType, 1, Card.CardEffect.CardDrow, 1, Card.TargetType.This));// Добавить case
         CardManager.AllCards.Add(new Card("Тычок с отступлением", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Defensive, Card.CardType.Attack, Card.CardEffect.Damage, 2, Card.CardEffect.Movement, 1, Card.TargetType.Enemy));
         CardManager.AllCards.Add(new Card("Тычок с отступлением", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Defensive, Card.CardType.Attack, Card.CardEffect.Damage, 2, Card.CardEffect.Movement, 1, Card.TargetType.Enemy));
         CardManager.AllCards.Add(new Card("Осторожный удар", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Advance, Card.CardType.Attack, Card.CardEffect.Damage, 3, Card.CardEffect.IfCardDrow, 1, Card.TargetType.Enemy));//нужен метод
         CardManager.AllCards.Add(new Card("Осторожный удар", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Advance, Card.CardType.Attack, Card.CardEffect.Damage, 3, Card.CardEffect.IfCardDrow, 1, Card.TargetType.Enemy));//нужен метод
-        CardManager.AllCards.Add(new Card("Преследование", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Movement, 1, Card.CardEffect.Damage, 4, Card.TargetType.Enemy));
-        CardManager.AllCards.Add(new Card("Преследование", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Movement, 1, Card.CardEffect.Damage, 4, Card.TargetType.Enemy));
+        CardManager.AllCards.Add(new Card("Преследование", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Movement, 1, Card.CardEffect.Damage, 4, Card.TargetType.Enemy, Card.CharacterRestriction.Hoplomachus));
+        CardManager.AllCards.Add(new Card("Преследование", "Sprites/LogoCards/CHto-to", 1, Card.Stance.Attacking, Card.Stance.Attacking, Card.CardType.Attack, Card.CardEffect.Movement, 1, Card.CardEffect.Damage, 4, Card.TargetType.Enemy, Card.CharacterRestriction.Hoplomachus));
 
     }
 }

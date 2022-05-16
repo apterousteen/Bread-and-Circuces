@@ -33,7 +33,7 @@ public class CardController : MonoBehaviour
             gameManager.PlayerHandCards.Remove(this);
             gameManager.PlayerFieldCards.Add(this);
             gameManager.ReduceMana(true, Card.Manacost);
-            gameManager.CheckCardsForManaAvaliability();
+            //gameManager.ShowAvailableAttackCards();
         }
         else
         {

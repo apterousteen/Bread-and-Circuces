@@ -30,6 +30,11 @@ public class CardInfoScript : MonoBehaviour
         GetComponent<CanvasGroup>().alpha = currentMana >= CC.Card.Manacost ? 1 : .5f;
     }
 
+    public void HiglightCardAvaliability(bool canBePlayed)
+    {
+        GetComponent<CanvasGroup>().alpha = canBePlayed ? 1 : .5f;
+    }
+
     /* подсвет карты(пока не нужно)
     public void HighlightAsSpellTarget(bool higlight)
     {
