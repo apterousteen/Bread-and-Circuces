@@ -41,7 +41,8 @@ public class SpellCard : Card
     {
         Damage,
         Defense,
-        Survived
+        Survived,
+        Movement
     }
     public enum SecondCardEffect
     {

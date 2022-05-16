@@ -45,6 +45,7 @@ public class CardController : MonoBehaviour
 
         Card.IsPlaced = true;
         Unit = turnManager.activeUnit.GetComponent<UnitInfo>();
+        UnitControl = turnManager.activeUnit.GetComponent<UnitControl>();
 
         if (Card.IsSpell)
             UseSpell(null);
@@ -114,11 +115,15 @@ public class CardController : MonoBehaviour
                 break;
 
             case SpellCard.FirstCardEffect.Damage:
-                UnitControl.TriggerAttack(spellCard.SpellValue);
+                turnManager.AddAction(new Action(ActionType.Attack, spellCard.SpellValue));
                 break;
 
             case SpellCard.FirstCardEffect.Survived:
                 Unit.CheckForAlive();
+                break;
+
+            case SpellCard.FirstCardEffect.Movement:
+                turnManager.AddAction(new Action(ActionType.Move, spellCard.SpellValue));
                 break;
         }
         switch (spellCard.SecondCardEff)
@@ -127,11 +132,11 @@ public class CardController : MonoBehaviour
                 break;
 
             case SpellCard.SecondCardEffect.CardDrow:
-
+                turnManager.AddAction(new Action(ActionType.Draw, spellCard.SecondSpellValue));
                 break;
 
             case SpellCard.SecondCardEffect.Movement:
-                UnitControl.TriggerMove(spellCard.SpellValue);
+                turnManager.AddAction(new Action(ActionType.Move, spellCard.SecondSpellValue));
                 break;
 
             case SpellCard.SecondCardEffect.ResetCard:

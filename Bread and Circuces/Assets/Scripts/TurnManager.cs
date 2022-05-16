@@ -1,6 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+
+public enum ActionType
+{
+    Attack,
+    Move,
+    Draw,
+    DiscardActivePlayer,
+    DiscardOpponent
+}
+
+public class Action
+{
+    public ActionType type;
+    public int value;
+
+    public Action(ActionType type, int value)
+    {
+        this.type = type;
+        this.value = value;
+    }
+}
 
 public class TurnManager : MonoBehaviour
 {
@@ -15,14 +37,53 @@ public class TurnManager : MonoBehaviour
     public int Turn = 0, activationNum = 0;
     int TurnTime = 60, stoppedTurnTime = 0;
 
+    public Queue<Action> actionQueue;
+    public bool inAction;
+
     void Start()
     {
         gameManager = FindObjectOfType<GameManagerScript>();
         teamWithInitiative = (Team)Random.Range(0, 1);
         currTeam = teamWithInitiative;
         isReactionTime = false;
-
+        inAction = false;
+        actionQueue = new Queue<Action>();
         StartCoroutine(TurnFunc());
+    }
+
+    void Update()
+    {
+        if (actionQueue.Count != 0 && !inAction)
+            ResolveAction();
+    }
+
+    public void AddAction(Action action)
+    {
+        actionQueue.Enqueue(action);
+    }
+
+    public void ResolveAction()
+    {
+        inAction = true;
+        var action = actionQueue.Dequeue();
+        switch(action.type)
+        {
+            case ActionType.Attack:
+                activeUnit.GetComponent<UnitControl>().TriggerAttack(action.value);
+                break;
+            case ActionType.Move:
+                activeUnit.GetComponent<UnitControl>().TriggerMove(action.value);
+                break;
+            case ActionType.Draw:
+                if (currTeam == Team.Player)
+                    gameManager.DrawCards(currTeam, action.value);
+                break;
+            case ActionType.DiscardOpponent:
+                break;
+            case ActionType.DiscardActivePlayer:
+                break;
+        }
+
     }
 
     public Team GetCurrTeam()

@@ -164,6 +164,15 @@ public class GameManagerScript : MonoBehaviour
             GiveCardToHand(deck, hand);
     }
 
+    public void DrawCards(Team team, int num)
+    {
+        for (int i = 0; i < num; i++)
+            if (team == Team.Player)
+                GiveCardToHand(CurrentGame.Player.Deck, PlayerHand);
+            else GiveCardToHand(CurrentGame.Enemy.Deck, EnemyHand);
+        turnManager.inAction = false;
+    }
+
     public void GiveNewCards()
     {
         GiveCardToHand(CurrentGame.Enemy.Deck, EnemyHand);

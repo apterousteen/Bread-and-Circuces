@@ -10,7 +10,7 @@ public class ButtonsContainer : MonoBehaviour
     void Start()
     { 
         moveButton = FindObjectOfType<MoveButtonHandler>();
-        attackButton = FindObjectOfType<AttackButtonHandler>();
+        //attackButton = FindObjectOfType<AttackButtonHandler>();
         DeactivateUnitButtons();
     }
 
@@ -21,10 +21,10 @@ public class ButtonsContainer : MonoBehaviour
             return 1;
         }
 
-        if(attackButton.State)
-        {
-            return 2;
-        }
+        //if(attackButton.State)
+        //{
+        //    return 2;
+        //}
 
         return -1;
     }
@@ -36,21 +36,21 @@ public class ButtonsContainer : MonoBehaviour
             moveButton.State = !moveButton.State;
         }
         
-        if(attackButton.State)
-        {
-            attackButton.State = !attackButton.State;
-        }
+        //if(attackButton.State)
+        //{
+        //    attackButton.State = !attackButton.State;
+        //}
     }    
 
     public void ActivateUnitButtons()
     {
         moveButton.ActivateDeactivateButton(true);
-        attackButton.ActivateDeactivateButton(true);
+        //attackButton.ActivateDeactivateButton(true);
     }
     
     public void DeactivateUnitButtons()
     {
         moveButton.resetButton();
-        attackButton.resetButton();
+        //attackButton.resetButton();
     }
 }

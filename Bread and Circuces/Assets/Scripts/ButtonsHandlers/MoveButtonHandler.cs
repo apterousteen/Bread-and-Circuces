@@ -14,7 +14,7 @@ public class MoveButtonHandler : ButtonHandler
 
 	public new void HandleClick()
     {
-    	if(!buttonsContainer.attackButton.State)
+    	//if(!buttonsContainer.attackButton.State)
         	State = !State;
     }
 }
