@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 
 public enum FieldType
 {
-    SELF_HAND,
-    ENEMY_FIELD
+    SelfHand,
+    Field
 }
 public class DropPlaceScript : MonoBehaviour, IDropHandler
 {

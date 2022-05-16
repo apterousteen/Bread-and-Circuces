@@ -24,8 +24,8 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
         transform.SetParent(DefaultParent.parent);
 
         IsDraggable = GameManagerScript.Instance.IsPlayerTurn &&
-            (DefaultParent.GetComponent<DropPlaceScript>().Type == FieldType.SELF_HAND &&
-            GameManagerScript.Instance.CurrentGame.Player.Mana >= CC.Card.Manacost);
+                     DefaultParent.GetComponent<DropPlaceScript>().Type == FieldType.SelfHand &&
+                     GameManagerScript.Instance.CurrentGame.Player.Mana >= CC.Card.Manacost;
         GetComponent<CanvasGroup>().blocksRaycasts = false;
 
         if (!IsDraggable)
@@ -34,6 +34,9 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
 
     public void OnDrag(PointerEventData eventData) //Будет работать все время пока мы ДВИГАЕМ карту
     {
+        if (!IsDraggable)
+            return;
+
         Vector3 newPos = MainCamera.ScreenToWorldPoint(eventData.position);
         newPos.z = 0;
         transform.position = newPos; //Присваиваем текущую позицию карту
@@ -41,6 +44,9 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
 
     public void OnEndDrag(PointerEventData eventData) //Как только ОТПУСТИМ объект-сработает все что внутри метода(по сути будет работать за один кадр)
     {
+        if(!IsDraggable)
+            return;
+
         transform.SetParent(DefaultParent);
         GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
