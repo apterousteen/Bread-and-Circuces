@@ -144,24 +144,18 @@ public class CardController : MonoBehaviour
                 break;
         }
 
-        
-
-        if (target != null)
-        {
-            target.CheckForAlive();
-        }
-
         DiscardCard();
         UiController.Instance.UpdateMana();
     }
 
-    public void CheckForAlive()
+    // переделать
+    /*public void CheckForAlive()
     {
         if (Card.IsAlive)
-            Info.RefreshData();
+            Info.ManacostRefresh();
         else
             DiscardCard();
-    }
+    }*/
 
     public void DiscardCard() // ”ничтожаем карты или героев мб пригодитьс€ 
     {

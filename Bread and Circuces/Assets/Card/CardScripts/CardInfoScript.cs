@@ -9,7 +9,7 @@ public class CardInfoScript : MonoBehaviour
     public CardController CC;
 
     public Image Logo;
-    public TextMeshProUGUI Name, Attack, Defense, Manacost;
+    public TextMeshProUGUI Name, Manacost;
 
     public void ShowCardInfo()
     {
@@ -17,32 +17,25 @@ public class CardInfoScript : MonoBehaviour
         Logo.preserveAspect = true;
         Name.text = CC.Card.Name;
 
-        if (CC.Card.IsSpell)
-        {
-            Attack.gameObject.SetActive(false);
-            Defense.gameObject.SetActive(false);
-        }
-
-        RefreshData();
+        ManacostRefresh();
     }
 
-    public void RefreshData()
+    public void ManacostRefresh()
     {
-        Attack.text = CC.Card.Attack.ToString();
-        Defense.text = CC.Card.Defense.ToString();
         Manacost.text = CC.Card.Manacost.ToString();
     }
 
     public void HiglightManaAvaliability(int currentMana)
     {
         GetComponent<CanvasGroup>().alpha = currentMana >= CC.Card.Manacost ? 1 : .5f;
-
     }
 
+    /* подсвет карты(пока не нужно)
     public void HighlightAsSpellTarget(bool higlight)
     {
         GetComponent<Image>().color = higlight ?
                                       Color.red :
                                       Color.green;
     }
+    */
 }

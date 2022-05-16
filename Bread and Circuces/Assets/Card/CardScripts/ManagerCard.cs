@@ -6,27 +6,17 @@ public class Card
 
     public string Name;
     public Sprite Logo;
-    public int Attack, Defense, Manacost;
+    public int Manacost;
     public bool IsPlaced;
 
     public bool IsSpell;
 
-    public bool IsAlive
-    {
-        get
-        {
-            return Defense > 0;
-        }
-    }
-
     public int TimesDealedDamage;
 
-    public Card(string name, string logoName, int attack, int defense, int manacost)
+    public Card(string name, string logoName, int manacost)
     {
         Name = name;
         Logo = Resources.Load<Sprite>(logoName);
-        Attack = attack;
-        Defense = defense;
         Manacost = manacost;
         IsPlaced = false;
 
@@ -37,17 +27,10 @@ public class Card
     {
         Name = card.Name;
         Logo = card.Logo;
-        Attack = card.Attack;
-        Defense = card.Defense;
         Manacost = card.Manacost;
         IsPlaced = false;
 
         TimesDealedDamage = 0;
-    }
-
-    public void GetDamage(int dmg)
-    {
-        Defense -= dmg;
     }
 
     public Card GetCopy()
@@ -111,7 +94,7 @@ public class SpellCard : Card
 
     public SpellCard(string name, string logoPath, int manacost, Stance stance = 0,
         FirstCardEffect firstCardEffect = 0, int spellValue = 0, SecondCardEffect secondCardEffect = 0, int secondSpellValue = 0,
-        TargetType targetType = 0) : base(name, logoPath, 0, 0, manacost)
+        TargetType targetType = 0) : base(name, logoPath, manacost)
     {
         IsSpell = true;
 
@@ -130,7 +113,7 @@ public class SpellCard : Card
 
         FirstCardEff = card.FirstCardEff;
         SecondCardEff = card.SecondCardEff;
-        StanceType= card.StanceType;
+        StanceType = card.StanceType;
 
         SpellTarget = card.SpellTarget;
         SpellValue = card.SpellValue;
