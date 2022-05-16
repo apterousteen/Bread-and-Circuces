@@ -88,6 +88,9 @@ public class CardController : MonoBehaviour
         }
         switch (spellCard.FirstCardEffTwo)
         {
+            case Card.CardEffect.No:
+                break;
+
             case Card.CardEffect.Type:
                 break;
 
