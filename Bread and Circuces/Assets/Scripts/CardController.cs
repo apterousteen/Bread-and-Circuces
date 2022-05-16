@@ -23,9 +23,7 @@ public class CardController : MonoBehaviour
         IsPlayerCard = isPlayerCard;
 
         if (isPlayerCard)
-        {
             Info.ShowCardInfo();
-        }
     }
 
     public void OnCast()
@@ -47,9 +45,7 @@ public class CardController : MonoBehaviour
         Unit = turnManager.activeUnit.GetComponent<UnitInfo>();
         UnitControl = turnManager.activeUnit.GetComponent<UnitControl>();
 
-        if (Card.IsSpell)
-            UseSpell(null);
-
+        UseSpell(null);
         UiController.Instance.UpdateMana();
     }
 
@@ -121,7 +117,7 @@ public class CardController : MonoBehaviour
         DiscardCard();
     }
 
-    public void DiscardCard() // ”ничтожаем карты или героев мб пригодитьс€ 
+    public void DiscardCard() // ƒестрой карты работает криво
     {
         Movement.OnEndDrag(null);
 

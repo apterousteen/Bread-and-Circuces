@@ -35,15 +35,11 @@ public class Card
     public CardEffect FirstCardEff, FirstCardEffTwo;
     public Stance StartStance, EndStance;
     public TargetType SpellTarget;
-    public int SpellValue;
-    public int SecondSpellValue;
 
     public string Name;
     public Sprite Logo;
-    public int Manacost;
+    public int Manacost, SpellValue, SecondSpellValue;
     public bool IsPlaced;
-
-    public bool IsSpell;
 
     public Card(string name, string logoPath, int manacost, Stance startStance = 0, Stance endStance = 0,
         CardEffect firstCardEffect = 0, int spellValue = 0, CardEffect firstCardEffectTwo = 0, int secondSpellValue = 0,
@@ -53,7 +49,6 @@ public class Card
         Logo = Resources.Load<Sprite>(logoPath);
         Manacost = manacost;
         IsPlaced = false;
-        IsSpell = true;
 
         FirstCardEff = firstCardEffect;
         FirstCardEffTwo = firstCardEffectTwo;
@@ -72,7 +67,6 @@ public class Card
         Logo = card.Logo;
         Manacost = card.Manacost;
         IsPlaced = false;
-        IsSpell = true;
 
         FirstCardEff = card.FirstCardEff;
         FirstCardEffTwo = card.FirstCardEffTwo;
@@ -84,7 +78,7 @@ public class Card
         SecondSpellValue = card.SecondSpellValue;
 
     }
-
+    
     public Card GetCopy()
     {
         return new Card(this);
