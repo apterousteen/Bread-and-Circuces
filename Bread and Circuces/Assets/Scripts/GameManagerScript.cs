@@ -33,7 +33,7 @@ public class Game
         {
             var card = CardManager.AllCards[Random.Range(0, CardManager.AllCards.Count)];
 
-             list.Add(card.GetCopy());
+            list.Add(card.GetCopy());
 
         }
         return list;
@@ -70,7 +70,8 @@ public class GameManagerScript : MonoBehaviour
 
     public Game CurrentGame;
     public Transform EnemyHand, PlayerHand;
-
+    public CardInfoScript CardInfo;
+    public Card card;
     public GameObject CardPref;
 
     int Turn, TurnTime = 30;

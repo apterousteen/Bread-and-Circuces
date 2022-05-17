@@ -10,6 +10,7 @@ public class CardInfoScript : MonoBehaviour
 
     public Image Logo;
     public TextMeshProUGUI Name, Manacost;
+    public GameObject AttackCard, DefenseCard;
 
     public void ShowCardInfo()
     {
@@ -29,6 +30,22 @@ public class CardInfoScript : MonoBehaviour
     {
         GetComponent<CanvasGroup>().alpha = currentMana >= CC.Card.Manacost ? 1 : .5f;
     }
+
+
+    public void HiglightTypeCard(bool typeCard_Attack )
+    {
+        if(typeCard_Attack)
+            AttackCard.SetActive(true);
+        else
+            DefenseCard.SetActive(false);
+        /*
+        if (card.Type == Card.CardType.Attack)
+            CardInfo.HiglightTypeCard(true);
+        else
+            CardInfo.HiglightTypeCard(false);
+        */
+    }
+
 
     /* подсвет карты(пока не нужно)
     public void HighlightAsSpellTarget(bool higlight)
