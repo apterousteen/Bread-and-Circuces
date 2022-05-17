@@ -10,6 +10,9 @@ public class MenuManager : MonoBehaviour
 
     public CharInfoPanel CIP;
 
+    public GameObject Popup;
+    public GameObject CharPanel;
+
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
@@ -18,40 +21,41 @@ public class MenuManager : MonoBehaviour
     {
         Debug.Log(this.gameObject.tag + " Was Clicked");
 
-        if (this.gameObject.tag == "Retiarius")
+        var heroes = new List<CharInfo>
         {
-            CIP.charName.text = CIP.charInfoRet.charName;
-            CIP.health.text = CIP.charInfoRet.health.ToString();
-            CIP.moveDistance.text = CIP.charInfoRet.moveDistance.ToString();
-            CIP.attackReachDistance.text = CIP.charInfoRet.attackReachDistance.ToString();
-            CIP.info.text = CIP.charInfoRet.info;
-        }
+            CIP.charInfoRet,
+            CIP.charInfoMurm,
+            CIP.charInfoSkis,
+            CIP.charInfoHoplo
+        }; 
 
-        if (this.gameObject.tag == "Murmillo")
+        foreach (var charInfo in heroes)
         {
-            CIP.charName.text = CIP.charInfoMurm.charName;
-            CIP.health.text = CIP.charInfoMurm.health.ToString();
-            CIP.moveDistance.text = CIP.charInfoMurm.moveDistance.ToString();
-            CIP.attackReachDistance.text = CIP.charInfoMurm.attackReachDistance.ToString();
-            CIP.info.text = CIP.charInfoMurm.info;
+            if (gameObject.tag != charInfo.charTag)
+            {
+                charInfo.cards.SetActive(false);
+                continue;
+            }
+            
+            CIP.charName.text = charInfo.charName;
+            CIP.health.text = charInfo.health.ToString();
+            CIP.moveDistance.text = charInfo.moveDistance.ToString();
+            CIP.attackReachDistance.text = charInfo.attackReachDistance.ToString();
+            CIP.info.text = charInfo.info;
+            charInfo.cards.SetActive(true);
+            CIP.cardPanel = charInfo.cards;
         }
+    }
 
-        if (this.gameObject.tag == "Scissor")
-        {
-            CIP.charName.text = CIP.charInfoSkis.charName;
-            CIP.health.text = CIP.charInfoSkis.health.ToString();
-            CIP.moveDistance.text = CIP.charInfoSkis.moveDistance.ToString();
-            CIP.attackReachDistance.text = CIP.charInfoSkis.attackReachDistance.ToString();
-            CIP.info.text = CIP.charInfoSkis.info;
-        }
+    public void OpenPopup()
+    {
+        Popup.SetActive(true);
+        CharPanel.SetActive(false);
+    }
 
-        if (this.gameObject.tag == "Hoplomachus")
-        {
-            CIP.charName.text = CIP.charInfoHoplo.charName;
-            CIP.health.text = CIP.charInfoHoplo.health.ToString();
-            CIP.moveDistance.text = CIP.charInfoHoplo.moveDistance.ToString();
-            CIP.attackReachDistance.text = CIP.charInfoHoplo.attackReachDistance.ToString();
-            CIP.info.text = CIP.charInfoHoplo.info;
-        }
+    public void ClosePopup()
+    {
+        CharPanel.SetActive(true);
+        Popup.SetActive(false);
     }
 }
