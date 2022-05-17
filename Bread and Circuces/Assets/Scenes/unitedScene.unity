@@ -535,7 +535,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &414700046
 Transform:
   m_ObjectHideFlags: 0
@@ -834,7 +834,6 @@ MonoBehaviour:
   targetUnit: {fileID: 0}
   Turn: 0
   activationNum: 0
-  inAction: 0
 --- !u!1 &535970045
 GameObject:
   m_ObjectHideFlags: 0
@@ -1839,7 +1838,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1488479717
 RectTransform:
   m_ObjectHideFlags: 0

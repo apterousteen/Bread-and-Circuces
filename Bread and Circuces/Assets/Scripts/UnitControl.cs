@@ -106,9 +106,7 @@ public class UnitControl: MonoBehaviour
     {
         posX = targetHex.transform.position.x;
         posY = targetHex.transform.position.y;
-        var previoisHex = transform.parent.gameObject.GetComponent<HexTile>();
         transform.parent = targetHex.transform;
-        previoisHex.isOccupied = false;
         MoveObject();
     }
 
