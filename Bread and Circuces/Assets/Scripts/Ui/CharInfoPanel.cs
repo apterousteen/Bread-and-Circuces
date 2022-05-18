@@ -6,7 +6,7 @@ using TMPro;
 public class CharInfoPanel : MonoBehaviour
 {
     public static CharInfoPanel instance;
-
+ 
     public CharInfo charInfoRet;
     public CharInfo charInfoMurm;
     public CharInfo charInfoSkis;
@@ -17,4 +17,6 @@ public class CharInfoPanel : MonoBehaviour
     public TextMeshProUGUI moveDistance;
     public TextMeshProUGUI attackReachDistance;
     public TextMeshProUGUI info;
+
+    public GameObject cardPanel;
 }
