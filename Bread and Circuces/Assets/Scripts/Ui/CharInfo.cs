@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class CharInfo : MonoBehaviour
 {
+    public GameObject charObj;
     public string charName;
     public int health;
     public int moveDistance;

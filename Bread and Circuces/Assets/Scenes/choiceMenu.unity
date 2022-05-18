@@ -333,6 +333,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1200553375}
+  - {fileID: 226880304}
   m_Father: {fileID: 366245624}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -354,7 +355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.7176471, g: 0.7176471, b: 0.7176471, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -432,6 +433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215dfac98760afa49a921d62f166f4ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterObj: {fileID: 58823805}
   charName: "\u0413\u043E\u043F\u043B\u043E\u043C\u0430\u0445"
   health: 15
   moveDistance: 3
@@ -644,7 +646,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -722,6 +724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215dfac98760afa49a921d62f166f4ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterObj: {fileID: 101087531}
   charName: "\u0420\u0435\u0442\u0438\u0430\u0440\u0438\u0439"
   health: 15
   moveDistance: 3
@@ -862,7 +865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.7176471, g: 0.7176471, b: 0.7176471, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -940,6 +943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215dfac98760afa49a921d62f166f4ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterObj: {fileID: 151422954}
   charName: "\u041C\u0443\u0440\u043C\u0438\u043B\u043B\u0438\u043E\u043D"
   health: 15
   moveDistance: 3
@@ -1207,12 +1211,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9998099, y: 0.9998099, z: 0.9998099}
   m_Children: []
-  m_Father: {fileID: 366245624}
-  m_RootOrder: 4
+  m_Father: {fileID: 58823806}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -12, y: 16}
+  m_AnchoredPosition: {x: -11.995014, y: 16}
   m_SizeDelta: {x: 24, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &226880305
@@ -1511,7 +1515,6 @@ RectTransform:
   - {fileID: 151422955}
   - {fileID: 1743371706}
   - {fileID: 58823806}
-  - {fileID: 226880304}
   m_Father: {fileID: 1704736697}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5294,7 +5297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.7176471, g: 0.7176471, b: 0.7176471, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5372,6 +5375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215dfac98760afa49a921d62f166f4ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterObj: {fileID: 1743371705}
   charName: "\u0421\u043A\u0438\u0441\u0441\u043E\u0440"
   health: 14
   moveDistance: 2
