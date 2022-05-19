@@ -79,8 +79,23 @@ public class TurnManager : MonoBehaviour
                     gameManager.DrawCards(currTeam, action.value);
                 break;
             case ActionType.DiscardOpponent:
+                if(currTeam == Team.Enemy)
+                {
+                    Debug.Log("Start discard");
+                    UiController.Instance.MakeDiscardWindowActive(true);
+                    var discardWindow = FindObjectOfType<DiscardWindow>();
+                    discardWindow.SetNum(action.value);
+                    discardWindow.SetCards();
+                }
                 break;
             case ActionType.DiscardActivePlayer:
+                if (currTeam == Team.Enemy)
+                {
+                    UiController.Instance.MakeDiscardWindowActive(true);
+                    var discardWindow = FindObjectOfType<DiscardWindow>();
+                    discardWindow.SetCards();
+                    discardWindow.SetNum(action.value);
+                }
                 break;
         }
 
@@ -105,7 +120,7 @@ public class TurnManager : MonoBehaviour
 
         UiController.Instance.UpdateTurnTime(TurnTime);
 
-        ShowAvailableAttackCards();
+        gameManager.CheckCardsForManaAvaliability();
 
         if (gameManager.IsPlayerTurn)
         {
@@ -225,7 +240,7 @@ public class TurnManager : MonoBehaviour
 
         UiController.Instance.UpdateTurnTime(TurnTime);
 
-        ShowAvailableDefenceCards();
+        gameManager.CheckCardsForManaAvaliability();
 
         while (TurnTime-- > 0)
         {
@@ -261,28 +276,5 @@ public class TurnManager : MonoBehaviour
     public GameObject GetActiveUnit()
     {
         return activeUnit;
-    }
-
-    public void ShowAvailableAttackCards()
-    {
-        foreach (var card in gameManager.PlayerHandCards)
-        {
-            bool canBePlayed = false;
-            if (card.Card.Type == Card.CardType.Attack/* && card.Card.Restriction.ToString() == activeUnit.tag*/)
-                canBePlayed = true;
-            card.Info.HiglightCardAvaliability(canBePlayed);
-        }
-    }
-
-    public void ShowAvailableDefenceCards()
-    {
-        foreach (var card in gameManager.PlayerHandCards)
-        {
-            bool canBePlayed = false;
-            if (card.Card.Type == Card.CardType.Defense && card.Card.Restriction.ToString() == targetUnit.tag
-                && card.Card.Restriction == Card.CharacterRestriction.Universal)
-                canBePlayed = true;
-            card.Info.HiglightCardAvaliability(canBePlayed);
-        }
     }
 }

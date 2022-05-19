@@ -36,7 +36,7 @@ public class CardController : MonoBehaviour
             gameManager.PlayerHandCards.Remove(this);
             gameManager.PlayerFieldCards.Add(this);
             gameManager.ReduceMana(true, Card.Manacost);
-            //gameManager.ShowAvailableAttackCards();
+            gameManager.CheckCardsForManaAvaliability();
         }
         else
         {
@@ -138,6 +138,7 @@ public class CardController : MonoBehaviour
                 break;
 
             case Card.CardEffect.ResetCard:
+                turnManager.AddAction(new Action(ActionType.DiscardOpponent, spellCard.SecondSpellValue));
                 break;
 
             case Card.CardEffect.ManaAdd:

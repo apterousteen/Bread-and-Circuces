@@ -187,4 +187,10 @@ public class GameManagerScript : MonoBehaviour
 
         UiController.Instance.UpdateMana();
     }
+
+    public void CheckCardsForManaAvaliability()
+    {
+        foreach (var card in PlayerHandCards)
+            card.Info.HiglightManaAvaliability(CurrentGame.Player.Mana);
+    }
 }
