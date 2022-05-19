@@ -34,6 +34,8 @@ public class TurnManager : MonoBehaviour
     public GameObject activeUnit = null;
     public GameObject targetUnit = null;
 
+    public List<UnitInfo> activatedUnits;
+
     public int Turn = 0, activationNum = 0;
     int TurnTime = 60, stoppedTurnTime = 0;
 
@@ -48,6 +50,8 @@ public class TurnManager : MonoBehaviour
         isReactionTime = false;
         inAction = false;
         actionQueue = new Queue<Action>();
+        activatedUnits = new List<UnitInfo>();
+        gameManager.MakeAllCardsUnplayable();
         StartCoroutine(TurnFunc());
     }
 
@@ -156,6 +160,7 @@ public class TurnManager : MonoBehaviour
         if (currTeam == Team.Player)
         {
             gameManager.CurrentGame.Player.activatedUnits++;
+            gameManager.MakeAllCardsUnplayable();
         }
         else if (currTeam == Team.Enemy)
         {
@@ -165,6 +170,7 @@ public class TurnManager : MonoBehaviour
         var playerCanActivate = CheckIfPlayerCanActivate(gameManager.CurrentGame.Player);
         var enemyCanActivate = CheckIfPlayerCanActivate(gameManager.CurrentGame.Enemy);
 
+        activatedUnits.Add(activeUnit.GetComponent<UnitInfo>());
         activeUnit.GetComponent<UnitControl>().DeactivateFigure();
 
         if (enemyCanActivate && (currTeam == Team.Player || !playerCanActivate))
@@ -192,6 +198,7 @@ public class TurnManager : MonoBehaviour
 
         UiController.Instance.DisableTurnBtn();
 
+        activatedUnits.Clear();
         gameManager.GiveNewCards();
         gameManager.CurrentGame.Player.RestoreRoundMana();
         gameManager.CurrentGame.Player.activatedUnits = 0;
@@ -230,6 +237,8 @@ public class TurnManager : MonoBehaviour
         activeUnit.GetComponent<UnitControl>().MakeAtack(targetUnit.GetComponent<UnitInfo>());
         isReactionTime = false;
         targetUnit = null;
+        if (currTeam == Team.Enemy)
+            gameManager.MakeAllCardsUnplayable();
         UiController.Instance.ChangeEndButtonText();
         StartCoroutine(TurnFunc());
     }
@@ -240,7 +249,7 @@ public class TurnManager : MonoBehaviour
 
         UiController.Instance.UpdateTurnTime(TurnTime);
 
-        gameManager.CheckCardsForManaAvaliability();
+        gameManager.ShowPlayableCards(Card.CardType.Defense, targetUnit.GetComponent<UnitInfo>());
 
         while (TurnTime-- > 0)
         {
@@ -249,6 +258,17 @@ public class TurnManager : MonoBehaviour
         }
 
         EndReactionWindow();
+    }
+
+    public void StopTurnCoroutines()
+    {
+        stoppedTurnTime = TurnTime;
+        StopAllCoroutines();
+    }
+
+    public void ContinueTurnCoroutine()
+    {
+        StartCoroutine(TurnFunc());
     }
 
     public void HandleEndTurnButton()

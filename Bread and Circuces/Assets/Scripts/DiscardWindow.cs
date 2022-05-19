@@ -41,7 +41,9 @@ public class DiscardWindow : MonoBehaviour
             card.GetComponent<CardController>().DiscardCard();
         }
         ResetCards();
-        FindObjectOfType<TurnManager>().inAction = false;
+        var turnManager =  FindObjectOfType<TurnManager>();
+        turnManager.inAction = false;
+        turnManager.ContinueTurnCoroutine();
         UiController.Instance.MakeDiscardWindowActive(false);
     }
 
@@ -62,6 +64,7 @@ public class DiscardWindow : MonoBehaviour
             cardScript.IsDraggable = false;
             card.GetComponent<CardInfoScript>().HiglightCard(false);
         }
+        FindObjectOfType<TurnManager>().StopAllCoroutines();
         UiController.Instance.UpdateDiscardButton();
     }
 

@@ -56,21 +56,7 @@ public class CardController : MonoBehaviour
     {
         var spellCard = Card;
 
-        switch (spellCard.EndStance)
-        {
-            case Card.Stance.Defensive:
-                Unit.ChangeStance(Stance.Defensive);
-                break;
-            case Card.Stance.Advance:
-                Unit.ChangeStance(Stance.Advance);
-                break;
-            case Card.Stance.Attacking:
-                Unit.ChangeStance(Stance.Attacking);
-                break;
-            case Card.Stance.Raging:
-                Unit.ChangeStance(Stance.Raging);
-                break;
-        }
+        Unit.ChangeStance(spellCard.EndStance);
         switch (spellCard.FirstCardEff)
         {
             case Card.CardEffect.Damage://confirmed

@@ -12,6 +12,7 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
     public Transform DefaultParent;
     public bool IsDraggable;
     public bool IsClickable;
+    public bool CanBePlayed;
     private bool selected;
 
     void Awake()
@@ -19,6 +20,7 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
         MainCamera = Camera.allCameras[0];
         IsClickable = false;
         selected = false;
+        CanBePlayed = false;
     }
 
     public void OnBeginDrag(PointerEventData eventData) //Как только НАЧНЕМ двигать объект-сработает все что внутри метода(по сути будет работать за один кадр)
@@ -32,7 +34,7 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
 
         IsDraggable = GameManagerScript.Instance.IsPlayerTurn &&
                      DefaultParent.GetComponent<DropPlaceScript>().Type == FieldType.SelfHand &&
-                     GameManagerScript.Instance.CurrentGame.Player.Mana >= CC.Card.Manacost;
+                     CanBePlayed;
         GetComponent<CanvasGroup>().blocksRaycasts = false;
 
         if (!IsDraggable)
