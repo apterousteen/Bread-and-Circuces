@@ -10,12 +10,13 @@ public class MenuManager : MonoBehaviour
 {
     public static MenuManager instance;
 
-    public CharInfoPanel CIP;
-
     public GameObject Popup;
     public GameObject CharPanel;
     public TextMeshProUGUI InTeam;
     public Button ChooseButton;
+
+    [Header("checkbox")]
+    [SerializeField] private Sprite checkbox_ch = null;
 
     public void LoadScene(string sceneName)
     {
@@ -23,58 +24,21 @@ public class MenuManager : MonoBehaviour
     }
 
     public List<string> team = new List<string>(); 
-    public string chosen; 
+    public static GameObject chosen; 
 
     public void AddToTeam()
     {
-        if (team.Count == 1)
+        if (team.Count < 2)
         {
-            ChooseButton.interactable = false;
-        }
-
-        if (!team.Contains(chosen))
-        {
-            team.Add(chosen);
-            InTeam.text = team.Count.ToString();
-        }
-    }
-
-    public void OnMouseDown()
-    {
-        Debug.Log(this.gameObject.tag + " Was Clicked");
-
-        var heroes = new List<CharInfo>
-        {
-            CIP.charInfoRet,
-            CIP.charInfoMurm,
-            CIP.charInfoSkis,
-            CIP.charInfoHoplo
-        }; 
-
-        foreach (var charInfo in heroes)
-        {
-            if (gameObject.tag != charInfo.charTag)
+            if (!team.Contains(chosen.tag))
             {
-                charInfo.cards.SetActive(false);
-                charInfo.charObj.GetComponent<Image>().color = new Color(1, 1, 1, 1);
-                charInfo.charObj.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
-                continue;
-            }
-
-            chosen = charInfo.charTag;
-            Debug.Log(chosen + " is chosen");
-
-            charInfo.charObj.GetComponent<Image>().color = new Color(0, 1, 1, 1);
-            charInfo.charObj.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-
-            CIP.charName.text = charInfo.charName;
-            CIP.health.text = charInfo.health.ToString();
-            CIP.moveDistance.text = charInfo.moveDistance.ToString();
-            CIP.attackReachDistance.text = charInfo.attackReachDistance.ToString();
-            CIP.info.text = charInfo.info;
-            charInfo.cards.SetActive(true);
-            CIP.cardPanel = charInfo.cards;
+                team.Add(chosen.tag);
+                chosen.transform.GetChild(1).GetComponent<Image>().sprite = checkbox_ch;
+                InTeam.text = team.Count.ToString();
+            } 
         }
+        else 
+            ChooseButton.interactable = false;
     }
 
     public void OpenPopup()

@@ -10,8 +10,6 @@ TagManager:
   - Hoplomachus
   - Scissor
   - Unit
-  - CharPanel
-  - InfoPanel
   layers:
   - Default
   - TransparentFX
