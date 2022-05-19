@@ -105,7 +105,7 @@ public class TurnManager : MonoBehaviour
 
         UiController.Instance.UpdateTurnTime(TurnTime);
 
-        gameManager.CheckCardsForManaAvaliability();
+        ShowAvailableAttackCards();
 
         if (gameManager.IsPlayerTurn)
         {
@@ -225,7 +225,7 @@ public class TurnManager : MonoBehaviour
 
         UiController.Instance.UpdateTurnTime(TurnTime);
 
-        gameManager.CheckCardsForManaAvaliability();
+        ShowAvailableDefenceCards();
 
         while (TurnTime-- > 0)
         {
@@ -261,5 +261,28 @@ public class TurnManager : MonoBehaviour
     public GameObject GetActiveUnit()
     {
         return activeUnit;
+    }
+
+    public void ShowAvailableAttackCards()
+    {
+        foreach (var card in gameManager.PlayerHandCards)
+        {
+            bool canBePlayed = false;
+            if (card.Card.Type == Card.CardType.Attack/* && card.Card.Restriction.ToString() == activeUnit.tag*/)
+                canBePlayed = true;
+            card.Info.HiglightCardAvaliability(canBePlayed);
+        }
+    }
+
+    public void ShowAvailableDefenceCards()
+    {
+        foreach (var card in gameManager.PlayerHandCards)
+        {
+            bool canBePlayed = false;
+            if (card.Card.Type == Card.CardType.Defense && card.Card.Restriction.ToString() == targetUnit.tag
+                && card.Card.Restriction == Card.CharacterRestriction.Universal)
+                canBePlayed = true;
+            card.Info.HiglightCardAvaliability(canBePlayed);
+        }
     }
 }
