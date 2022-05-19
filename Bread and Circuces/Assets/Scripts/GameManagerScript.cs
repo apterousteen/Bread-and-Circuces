@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using UnityEngine.UI;
 using TMPro;
 
@@ -18,39 +19,39 @@ public class Game
         Enemy.team = Team.Enemy;
         Enemy.units.SelectUnits("Retiarius", "Murmillo");
 
-        Enemy.Deck = GiveDeckCard();
-        Player.Deck = GiveDeckCard();
+        Enemy.Deck = GiveDeckCard(Enemy);
+        Player.Deck = GiveDeckCard(Player);
         Enemy.DiscardPile = new List<Card>();
         Player.DiscardPile = new List<Card>();
     }
 
 
-    List<Card> GiveDeckCard()
-    {
-        List<Card> list = new List<Card>();
-
-        for (int i = 0; i < 10; i++)
-        {
-            var card = CardManager.AllCards[Random.Range(0, CardManager.AllCards.Count)];
-
-            if (card.IsSpell)
-                list.Add(card.GetCopy());
-            else
-                list.Add(card.GetCopy());
-        }
-        return list;
-    }
-
-    //List<Card> GiveDeckCard(Player player)
+    //List<Card> GiveDeckCard()
     //{
     //    List<Card> list = new List<Card>();
-    //    foreach(var unit in player.band)
+
+    //    for (int i = 0; i < 10; i++)
     //    {
-    //        list.AddRange(unit.UnitDeck);
+    //        var card = CardManager.AllCards[Random.Range(0, CardManager.AllCards.Count)];
+
+    //        list.Add(card.GetCopy());
+
     //    }
-    //    ShuffleDeck(list);
     //    return list;
     //}
+
+    List<Card> GiveDeckCard(Player player)
+    {
+        List<Card> list = new List<Card>();
+        foreach (var unit in player.units.units)
+        {
+            var unitDeck = CardManager.AllCards.Where(x => x.Set.ToString() == unit);
+            foreach (var card in unitDeck)
+                list.Add(card.GetCopy());
+        }
+        ShuffleDeck(list);
+        return list;
+    }
 
     public void ShuffleDeck(List<Card> deck)
     {
@@ -72,7 +73,8 @@ public class GameManagerScript : MonoBehaviour
 
     public Game CurrentGame;
     public Transform EnemyHand, PlayerHand;
-
+    public CardInfoScript CardInfo;
+    public Card card;
     public GameObject CardPref;
 
     int Turn, TurnTime = 30;
@@ -193,5 +195,35 @@ public class GameManagerScript : MonoBehaviour
     {
         foreach (var card in PlayerHandCards)
             card.Info.HiglightManaAvaliability(CurrentGame.Player.Mana);
+    }
+
+    public void ShowPlayableCards(Card.CardType type, UnitInfo unit)
+    {
+        foreach (var card in PlayerHandCards)
+        {
+            var cardInfo = card.Card;
+            if(cardInfo.Type == type && cardInfo.StartStance == unit.currentStance && (cardInfo.Restriction == CardRestriction.Universal 
+                || cardInfo.Restriction.ToString() == unit.gameObject.tag.ToString()))
+            {
+                card.Info.HiglightCard(true);
+                card.Movement.CanBePlayed = true;
+            }
+            else
+            {
+                card.Info.HiglightCard(false);
+                card.Movement.CanBePlayed = false;
+            }
+            
+        }
+        
+    }
+
+    public void MakeAllCardsUnplayable()
+    {
+        foreach (var card in PlayerHandCards)
+        {
+            card.Info.HiglightCard(false);
+            card.Movement.CanBePlayed = false;
+        }
     }
 }

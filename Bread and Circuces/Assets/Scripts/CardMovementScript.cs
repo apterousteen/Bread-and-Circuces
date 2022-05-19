@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerClickHandler
 {
     public CardController CC;
 
@@ -11,13 +11,22 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
     Vector3 offset;
     public Transform DefaultParent;
     public bool IsDraggable;
+    public bool IsClickable;
+    public bool CanBePlayed;
+    private bool selected;
 
     void Awake()
     {
         MainCamera = Camera.allCameras[0];
+        IsClickable = false;
+        selected = false;
+        CanBePlayed = false;
     }
+
     public void OnBeginDrag(PointerEventData eventData) //Как только НАЧНЕМ двигать объект-сработает все что внутри метода(по сути будет работать за один кадр)
     {
+        if (IsClickable)
+            return;
         offset = transform.position - MainCamera.WorldToScreenPoint(eventData.position); // Хранит в себе значение отступа центра карты от места карты по которой нажали(без этого карта будет дергаться )
         DefaultParent = transform.parent;
 
@@ -25,7 +34,7 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
 
         IsDraggable = GameManagerScript.Instance.IsPlayerTurn &&
                      DefaultParent.GetComponent<DropPlaceScript>().Type == FieldType.SelfHand &&
-                     GameManagerScript.Instance.CurrentGame.Player.Mana >= CC.Card.Manacost;
+                     CanBePlayed;
         GetComponent<CanvasGroup>().blocksRaycasts = false;
 
         if (!IsDraggable)
@@ -49,5 +58,16 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
 
         transform.SetParent(DefaultParent);
         GetComponent<CanvasGroup>().blocksRaycasts = true;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (!IsClickable)
+            return;
+        var discardWindow = FindObjectOfType<DiscardWindow>();
+        Debug.Log("Card clicked");
+        if (selected)
+            discardWindow.DeselectCard(gameObject);
+        else discardWindow.SelectCard(gameObject);
     }
 }

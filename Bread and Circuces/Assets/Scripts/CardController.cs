@@ -12,6 +12,7 @@ public class CardController : MonoBehaviour
     public GameManagerScript Game;
     private TurnManager turnManager;
 
+    public int numberCard = 0;
     public bool IsPlayerCard;
 
     GameManagerScript gameManager;
@@ -23,13 +24,13 @@ public class CardController : MonoBehaviour
         IsPlayerCard = isPlayerCard;
 
         if (isPlayerCard)
-        {
             Info.ShowCardInfo();
-        }
     }
 
     public void OnCast()
     {
+        numberCard += 1;
+
         if (IsPlayerCard)
         {
             gameManager.PlayerHandCards.Remove(this);
@@ -47,9 +48,7 @@ public class CardController : MonoBehaviour
         Unit = turnManager.activeUnit.GetComponent<UnitInfo>();
         UnitControl = turnManager.activeUnit.GetComponent<UnitControl>();
 
-        if (Card.IsSpell)
-            UseSpell(null);
-
+        UseSpell(null);
         UiController.Instance.UpdateMana();
     }
 
@@ -57,57 +56,75 @@ public class CardController : MonoBehaviour
     {
         var spellCard = Card;
 
-        switch (spellCard.EndStance)
-        {
-            case Card.Stance.Defensive:
-                Unit.ChangeStance(Stance.Defensive);
-                break;
-            case Card.Stance.Advance:
-                Unit.ChangeStance(Stance.Advance);
-                break;
-            case Card.Stance.Attacking:
-                Unit.ChangeStance(Stance.Attacking);
-                break;
-            case Card.Stance.Raging:
-                Unit.ChangeStance(Stance.Raging);
-                break;
-        }
+        Unit.ChangeStance(spellCard.EndStance);
         switch (spellCard.FirstCardEff)
         {
-            case Card.CardEffect.Defense:
+            case Card.CardEffect.Damage://confirmed
+                turnManager.AddAction(new Action(ActionType.Attack, spellCard.SpellValue));
+                break;
+
+            case Card.CardEffect.DamagePlusMovement:// скорее всего будут вместе срабатывать, нужно добавить бул перемнную в метод атаки
+                {
+                    turnManager.AddAction(new Action(ActionType.Attack, spellCard.SpellValue));
+
+                    turnManager.AddAction(new Action(ActionType.Move, spellCard.SpellValue));
+                }
+                break;
+
+            case Card.CardEffect.PlusDamageCard: // нужно добавить обнуление numberCard в методе смены хода(он пока у нас не робит)
+                turnManager.AddAction(new Action(ActionType.Attack, spellCard.SpellValue + numberCard));
+                break;
+
+            case Card.CardEffect.Defense:// confirmed
                 Unit.defence += spellCard.SpellValue;
                 break;
 
-            case Card.CardEffect.Damage:
-                turnManager.AddAction(new Action(ActionType.Attack, spellCard.SpellValue));
+            case Card.CardEffect.CheckDefenseStance: // нужно допилить
+                break;
+
+            case Card.CardEffect.DefensePlusType:
+                {
+                    Unit.defence += spellCard.SpellValue;
+                    if (Unit.withShield)
+                        Unit.defence += 1;
+                }
                 break;
 
             case Card.CardEffect.Survived:
                 Unit.CheckForAlive();
                 break;
 
-            case Card.CardEffect.Movement:
+            case Card.CardEffect.Movement:// confirmed
                 turnManager.AddAction(new Action(ActionType.Move, spellCard.SpellValue));
                 break;
         }
         switch (spellCard.FirstCardEffTwo)
         {
-            case Card.CardEffect.Type:
-                break;
-
-            case Card.CardEffect.CardDrow:
-                turnManager.AddAction(new Action(ActionType.Draw, spellCard.SecondSpellValue));
-                break;
-
-            case Card.CardEffect.Movement:
-                turnManager.AddAction(new Action(ActionType.Move, spellCard.SecondSpellValue));
-                break;
-
-            case Card.CardEffect.Damage:
+            case Card.CardEffect.Damage:// confirmed
                 turnManager.AddAction(new Action(ActionType.Attack, spellCard.SecondSpellValue));
                 break;
 
+            case Card.CardEffect.IfDamage:
+                break;
+
+            case Card.CardEffect.Movement:// confirmed
+                turnManager.AddAction(new Action(ActionType.Move, spellCard.SecondSpellValue));
+                break;
+
+            case Card.CardEffect.CardDrow:// confirmed
+                turnManager.AddAction(new Action(ActionType.Draw, spellCard.SecondSpellValue));
+                break;
+
+            case Card.CardEffect.AliveCardDrow:
+                if(Unit.CheckForAlive())
+                    turnManager.AddAction(new Action(ActionType.Draw, spellCard.SecondSpellValue));
+                break;
+
+            case Card.CardEffect.IfCardDrow:
+                break;
+
             case Card.CardEffect.ResetCard:
+                turnManager.AddAction(new Action(ActionType.DiscardOpponent, spellCard.SecondSpellValue));
                 break;
 
             case Card.CardEffect.ManaAdd:
@@ -116,12 +133,23 @@ public class CardController : MonoBehaviour
                     UiController.Instance.UpdateMana();
                 }
                 break;
+
+            case Card.CardEffect.Type:
+                if (Unit.withShield)
+                    Unit.defence += spellCard.SecondSpellValue;
+                break;
+
+            case Card.CardEffect.Mechanics:
+                break;
+
+            case Card.CardEffect.No:
+                break;
         }
 
         DiscardCard();
     }
 
-    public void DiscardCard() // Уничтожаем карты или героев мб пригодиться 
+    public void DiscardCard() // Дестрой карты работает криво
     {
         Movement.OnEndDrag(null);
 

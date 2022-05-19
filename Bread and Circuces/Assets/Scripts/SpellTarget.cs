@@ -13,9 +13,7 @@ public class SpellTarget : MonoBehaviour, IDropHandler
         CardController spell = eventData.pointerDrag.GetComponent<CardController>(),
                        target = GetComponent<CardController>();
 
-        if (spell &&
-            spell.IsPlayerCard &&
-            spell.Card.IsPlaced &&
+        if (spell && spell.IsPlayerCard && spell.Card.IsPlaced &&
             GameManagerScript.Instance.CurrentGame.Player.Mana >= spell.Card.Manacost)
         {
             var spellCard = spell.Card;

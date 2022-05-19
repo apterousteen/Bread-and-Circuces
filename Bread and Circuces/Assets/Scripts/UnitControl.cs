@@ -7,6 +7,7 @@ public class UnitControl: MonoBehaviour
     private float posX;
     private float posY;
     private bool activated;
+    public bool wasActivated;
     private Camera mainCamera;
     private UnitInfo info;
     private Board board;
@@ -24,6 +25,7 @@ public class UnitControl: MonoBehaviour
         info = gameObject.GetComponent<UnitInfo>();
         mainCamera = Camera.allCameras[0];
         activated = false;
+        wasActivated = false;
     }
 
     void Update()
@@ -34,10 +36,8 @@ public class UnitControl: MonoBehaviour
 
     void OnMouseDown()
     {
-        if (!activated)
+        if (!activated && !turnManager.activatedUnits.Contains(info))
             ActivateFigure();
-        else
-            DeactivateFigure();
     }
 
     void DispathInput()
@@ -106,7 +106,9 @@ public class UnitControl: MonoBehaviour
     {
         posX = targetHex.transform.position.x;
         posY = targetHex.transform.position.y;
+        var previoisHex = transform.parent.gameObject.GetComponent<HexTile>();
         transform.parent = targetHex.transform;
+        previoisHex.isOccupied = false;
         MoveObject();
     }
 
@@ -144,6 +146,7 @@ public class UnitControl: MonoBehaviour
         if(turnManager.ActiveUnitExist() || turnManager.currTeam != info.teamSide)
             return;
 
+        FindObjectOfType<GameManagerScript>().ShowPlayableCards(Card.CardType.Attack, info);
         buttonsContainer.ActivateUnitButtons();
         activated = true;
         var figureRenderer = gameObject.GetComponent<SpriteRenderer>();

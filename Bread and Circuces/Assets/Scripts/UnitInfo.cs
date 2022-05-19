@@ -55,7 +55,7 @@ public abstract class UnitInfo : MonoBehaviour
     public virtual void ChangeStance(Stance newStance)
     {
         currentStance = newStance;
-    }    
+    }
 
     public void ChangeMotionType(MotionType typeIn)
     {
@@ -69,10 +69,15 @@ public abstract class UnitInfo : MonoBehaviour
         CheckForAlive();
     }
 
-    public void CheckForAlive()
+    public bool CheckForAlive()
     {
         if (health <= 0)
+        {
             Die();
+            return false;
+        }
+        else
+            return true;
     }
 
     private void Die()
