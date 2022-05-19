@@ -19,50 +19,59 @@ public class UiController : MonoBehaviour
 
     /// from determined
     [Header("Popups")]
-    [SerializeField] private GameObject winPopup = null;
-    [SerializeField] private GameObject failPopup = null;
-    [SerializeField] private GameObject pausePopup = null;
+    public GameObject winPopup;
+    public GameObject failPopup;
+    public GameObject pausePopup;
 
     private void Awake()
     {
+        
         if (!Instance)
+        {
             Instance = this;
+        }
         else
         {
             Destroy(gameObject);
             return;
         }
-
+ 
         DontDestroyOnLoad(this);
+        
+    }
+
+    public void HandleUI()
+    {
+        //PlayerMana = FindObjectsOfType<TextMeshProUGUI>().Where(x => x.gameObject.CompareTag("PlayerMana")).First();
+        //EnemyMana = FindObjectsOfType<TextMeshProUGUI>().Where(x => x.gameObject.CompareTag("EnemyMana")).First();
+        //TurnTime = FindObjectsOfType<TextMeshProUGUI>().Where(x => x.gameObject.CompareTag("TurnTimeTXT")).First();
+        //EndTurnBtn = FindObjectsOfType<Button>().Where(x => x.gameObject.CompareTag("EndTurnBtn")).First();
+        //discardWindow = GameObject.FindGameObjectWithTag("DiscardPanel");
+        //discardWindow.SetActive(false);
+        //winPopup = GameObject.FindGameObjectWithTag("WinPanel");
+        //winPopup.SetActive(false);
+        //failPopup = GameObject.FindGameObjectWithTag("FailPanel");
+        //failPopup.SetActive(false);
+        //pausePopup = GameObject.FindGameObjectWithTag("PausePanel");
+        //pausePopup.SetActive(false);
+
+        PlayerMana = GameObject.Find("PlayerMana").GetComponent<TextMeshProUGUI>();
+        EnemyMana = GameObject.Find("EnemyMana").GetComponent<TextMeshProUGUI>();
+        TurnTime = GameObject.Find("TurnTimeTXT").GetComponent<TextMeshProUGUI>(); 
+        EndTurnBtn = GameObject.Find("EndTurnBtn").GetComponent<Button>(); 
+        discardWindow = GameObject.Find("Discard Panel");
+        discardWindow.SetActive(false);
+        winPopup = GameObject.Find("WinPanel");
+        winPopup.SetActive(false);
+        failPopup = GameObject.Find("FailPanel");
+        failPopup.SetActive(false);
+        pausePopup = GameObject.Find("PausePanel");
+        pausePopup.SetActive(false);
     }
 
     /// from determined
-    public static bool GameIsPaused = false;
-    public void Pause()
-    {
-        pausePopup.SetActive(true);
-        Time.timeScale = 0f;
-        GameIsPaused = true;
-    }
+    public bool GameIsPaused = false;
 
-    public void Resume()
-    {
-        pausePopup.SetActive(false);
-        Time.timeScale = 1f;
-        GameIsPaused = false;
-    }
-
-    public void GoToMenu()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("mainMenu");
-    }
-
-    public void Restart()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("choiceMenu");
-    }
     /*
     public void OpenWinPopup()
     {
@@ -100,6 +109,7 @@ public class UiController : MonoBehaviour
 
     public void StartGame()
     {
+        HandleUI();
         EndTurnBtn.interactable = true;
         isTurnEndButton = true;
         UpdateMana();
@@ -125,11 +135,11 @@ public class UiController : MonoBehaviour
     public void ChangeEndButtonText()
     {
         isTurnEndButton = !isTurnEndButton;
-        var buttonText = EndTurnBtn.gameObject.GetComponentInChildren<TextMeshProUGUI>().text;
+        var buttonText = EndTurnBtn.GetComponentInChildren<TextMeshProUGUI>();
         Debug.Log("Text Changed");
         if (isTurnEndButton)
-            buttonText = "END TURN";
-        else buttonText = "PASS";
+            buttonText.text = "END TURN";
+        else buttonText.text = "PASS";
     }
 
     public void MakeDiscardWindowActive(bool active)
