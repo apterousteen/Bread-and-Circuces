@@ -79,8 +79,23 @@ public class TurnManager : MonoBehaviour
                     gameManager.DrawCards(currTeam, action.value);
                 break;
             case ActionType.DiscardOpponent:
+                if(currTeam == Team.Enemy)
+                {
+                    Debug.Log("Start discard");
+                    UiController.Instance.MakeDiscardWindowActive(true);
+                    var discardWindow = FindObjectOfType<DiscardWindow>();
+                    discardWindow.SetNum(action.value);
+                    discardWindow.SetCards();
+                }
                 break;
             case ActionType.DiscardActivePlayer:
+                if (currTeam == Team.Enemy)
+                {
+                    UiController.Instance.MakeDiscardWindowActive(true);
+                    var discardWindow = FindObjectOfType<DiscardWindow>();
+                    discardWindow.SetCards();
+                    discardWindow.SetNum(action.value);
+                }
                 break;
         }
 

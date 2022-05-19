@@ -46,6 +46,11 @@ public class CardInfoScript : MonoBehaviour
         */
     }
 
+    public void HiglightCard(bool highlight)
+    {
+        GetComponent<CanvasGroup>().alpha = highlight ? 1 : .5f;
+    }
+
 
     /* подсвет карты(пока не нужно)
     public void HighlightAsSpellTarget(bool higlight)

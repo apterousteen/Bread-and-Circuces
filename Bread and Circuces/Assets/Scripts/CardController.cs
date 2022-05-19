@@ -138,6 +138,7 @@ public class CardController : MonoBehaviour
                 break;
 
             case Card.CardEffect.ResetCard:
+                turnManager.AddAction(new Action(ActionType.DiscardOpponent, spellCard.SecondSpellValue));
                 break;
 
             case Card.CardEffect.ManaAdd:

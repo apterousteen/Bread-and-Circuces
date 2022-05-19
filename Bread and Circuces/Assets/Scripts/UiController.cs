@@ -12,6 +12,7 @@ public class UiController : MonoBehaviour
 
     public TextMeshProUGUI TurnTime;
     public Button EndTurnBtn;
+    public GameObject discardWindow;
     private bool isTurnEndButton;
 
     private void Awake()
@@ -59,5 +60,15 @@ public class UiController : MonoBehaviour
         if (isTurnEndButton)
             buttonText = "END TURN";
         else buttonText = "PASS";
+    }
+
+    public void MakeDiscardWindowActive(bool active)
+    {
+        discardWindow.SetActive(active);
+    }
+
+    public void UpdateDiscardButton()
+    {
+        discardWindow.GetComponentInChildren<Button>().interactable = FindObjectOfType<DiscardWindow>().IsButtonActive();
     }
 }
