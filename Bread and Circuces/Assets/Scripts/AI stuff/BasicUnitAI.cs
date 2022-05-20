@@ -4,7 +4,7 @@ using System.Linq;
 using System;
 using UnityEngine;
 
-public class BasicUnitUI : MonoBehaviour
+public class BasicUnitAI : MonoBehaviour
 {
     private GameManagerScript gameManager;
     private TurnManager turnManager;
