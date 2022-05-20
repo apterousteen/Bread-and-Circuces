@@ -52,4 +52,32 @@ public class MenuManager : MonoBehaviour
         CharPanel.SetActive(true);
         Popup.SetActive(false);
     }
+
+    /// game screen
+    public void Pause()
+    {
+        UiController.Instance.pausePopup.SetActive(true);
+        Time.timeScale = 0f;
+        UiController.Instance.GameIsPaused = true;
+    }
+
+    public void Resume()
+    {
+        UiController.Instance.pausePopup.SetActive(false);
+        Time.timeScale = 1f;
+        UiController.Instance.GameIsPaused = false;
+    }
+
+    public void GoToMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("mainMenu");
+    }
+
+    public void Restart()
+    {
+        Time.timeScale = 1f;
+        //SceneManager.LoadScene("choiceMenu");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }

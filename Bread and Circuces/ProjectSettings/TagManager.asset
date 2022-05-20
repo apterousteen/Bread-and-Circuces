@@ -10,6 +10,15 @@ TagManager:
   - Hoplomachus
   - Scissor
   - Unit
+  - PlayerMana
+  - TurnTimeTXT
+  - EnemyMana
+  - EndTurnBtn
+  - PausePanel
+  - WinPanel
+  - FailPanel
+  - InfoPanel
+  - DiscardPanel
   layers:
   - Default
   - TransparentFX

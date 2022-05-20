@@ -20,7 +20,7 @@ public class ButtonHandler : MonoBehaviour
     {
         ActivationState = activationStateIn;
 
-        Button.SetActive(ActivationState);
+        //Button.SetActive(ActivationState);
     }
 
     public void resetButton()
