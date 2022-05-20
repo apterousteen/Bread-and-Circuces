@@ -80,6 +80,8 @@ public class GameManagerScript : MonoBehaviour
     int Turn, TurnTime = 30;
 
     int StartHandSize = 6;
+    public int playerDeckSize;
+    public int enemyHandSize = 6;
 
     public List<CardController> PlayerHandCards = new List<CardController>(),
                                 PlayerFieldCards = new List<CardController>(),
@@ -108,35 +110,42 @@ public class GameManagerScript : MonoBehaviour
         StartGame();
     }
 
+    private void Update()
+    {
+        playerDeckSize = CurrentGame.Player.Deck.Count;
+    }
+
     void StartGame()
     {
         Turn = 0;
         CurrentGame = new Game();
         board.SpawnUnits(CurrentGame.Player);
         board.SpawnUnits(CurrentGame.Enemy);
+        var enemyUnits = FindObjectsOfType<UnitInfo>().Where(x => x.teamSide == Team.Enemy).ToList();
+        //foreach (var unit in enemyUnits)
+        //    unit.gameObject.AddComponent<BasicUnitUI>();
 
-        GiveHandCards(CurrentGame.Enemy.Deck, EnemyHand);
-        GiveHandCards(CurrentGame.Player.Deck, PlayerHand);
-
+        //GiveHandCards(CurrentGame.Enemy, EnemyHand);
+        GiveHandCards(CurrentGame.Player, PlayerHand);
         UiController.Instance.StartGame();
+        MakeAllCardsUnplayable();
     }
 
-    void GiveHandCards(List<Card> deck, Transform hand) //‘ункци€ выдачи стартовых карт в руку
+    void GiveHandCards(Player player, Transform hand) //‘ункци€ выдачи стартовых карт в руку
     {
         int i = 0;
         while (i++ < StartHandSize)
-            GiveCardToHand(deck, hand);
+            GiveCardToHand(player, hand);
     }
 
-    void GiveCardToHand(List<Card> deck, Transform hand)
+    void GiveCardToHand(Player player, Transform hand)
     {
-        if (deck.Count == 0)
-            return;
-        //ReshufflDiscardPile(deck); //- нужно эффективнее передавать дискард, без удал€ющихс€ карт он сейчас бесполезен и вызовет ошибку
+        if (player.Deck.Count == 0)
+            ReshuffleDiscardPile(player); //- нужно эффективнее передавать дискард, без удал€ющихс€ карт он сейчас бесполезен и вызовет ошибку
 
-        CreateCardPref(deck[0], hand);
+        CreateCardPref(player.Deck[0], hand);
 
-        deck.RemoveAt(0);
+        player.Deck.RemoveAt(0);
     }
 
 
@@ -158,27 +167,27 @@ public class GameManagerScript : MonoBehaviour
             PlayerHandCards.Add(cardC);
     }
 
-    void DrawFullHand(List<Card> deck, Transform hand) // вместо добора одной карты на начало хода добираетс§ полна§ рука из 6 карт
+    void DrawFullHand(Player player, Transform hand) // вместо добора одной карты на начало хода добираетс§ полна§ рука из 6 карт
     {
         int i = PlayerHandCards.Count;
         Debug.Log("Players hand: " + i);
         while (i++ < StartHandSize)
-            GiveCardToHand(deck, hand);
+            GiveCardToHand(player, hand);
     }
 
     public void DrawCards(Team team, int num)
     {
         for (int i = 0; i < num; i++)
             if (team == Team.Player)
-                GiveCardToHand(CurrentGame.Player.Deck, PlayerHand);
-            else GiveCardToHand(CurrentGame.Enemy.Deck, EnemyHand);
-        turnManager.inAction = false;
+                GiveCardToHand(CurrentGame.Player, PlayerHand);
+            else enemyHandSize++;
+        turnManager.EndAction();
     }
 
     public void GiveNewCards()
     {
-        GiveCardToHand(CurrentGame.Enemy.Deck, EnemyHand);
-        DrawFullHand(CurrentGame.Player.Deck, PlayerHand);
+        enemyHandSize = 6;
+        DrawFullHand(CurrentGame.Player, PlayerHand);
     }
 
     public void ReduceMana(bool playerMana, int manacost)
@@ -222,7 +231,7 @@ public class GameManagerScript : MonoBehaviour
     {
         foreach (var card in PlayerHandCards)
         {
-            card.Info.HiglightCard(true);
+            card.Info.HiglightCard(false);
             card.Movement.CanBePlayed = false;
         }
     }

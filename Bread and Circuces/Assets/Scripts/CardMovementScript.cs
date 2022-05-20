@@ -25,7 +25,7 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
 
     public void OnBeginDrag(PointerEventData eventData) //Как только НАЧНЕМ двигать объект-сработает все что внутри метода(по сути будет работать за один кадр)
     {
-        if (!CanBePlayed)
+        if (!CanBePlayed || IsClickable)
             return;
         offset = transform.position - MainCamera.WorldToScreenPoint(eventData.position); // Хранит в себе значение отступа центра карты от места карты по которой нажали(без этого карта будет дергаться )
         DefaultParent = transform.parent;
@@ -65,7 +65,14 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
         var discardWindow = FindObjectOfType<DiscardWindow>();
         Debug.Log("Card clicked");
         if (selected)
+        {
+            selected = false;
             discardWindow.DeselectCard(gameObject);
-        else discardWindow.SelectCard(gameObject);
+        }
+        else
+        {
+            selected = true;
+            discardWindow.SelectCard(gameObject);
+        }
     }
 }

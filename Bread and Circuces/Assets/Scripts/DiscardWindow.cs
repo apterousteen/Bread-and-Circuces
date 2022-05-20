@@ -42,7 +42,7 @@ public class DiscardWindow : MonoBehaviour
         }
         ResetCards();
         var turnManager =  FindObjectOfType<TurnManager>();
-        turnManager.inAction = false;
+        turnManager.EndAction();
         turnManager.ContinueTurnCoroutine();
         UiController.Instance.MakeDiscardWindowActive(false);
     }
@@ -51,6 +51,7 @@ public class DiscardWindow : MonoBehaviour
     {
         cardsToDiscard = new List<GameObject>();
         var hand = FindObjectOfType<GameManagerScript>().PlayerHand;
+        FindObjectOfType<GameManagerScript>().MakeAllCardsUnplayable();
         var cards = new List<Transform>();
         for(int i = 0; i < hand.childCount; i ++)
         {

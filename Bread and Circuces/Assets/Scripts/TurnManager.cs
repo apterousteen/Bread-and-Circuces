@@ -7,6 +7,7 @@ public enum ActionType
 {
     Attack,
     Move,
+    Push,
     Draw,
     DiscardActivePlayer,
     DiscardOpponent
@@ -68,6 +69,8 @@ public class TurnManager : MonoBehaviour
 
     public void ResolveAction()
     {
+        if(!activatedUnits.Contains(activeUnit.GetComponent<UnitInfo>()))
+            activatedUnits.Add(activeUnit.GetComponent<UnitInfo>());
         inAction = true;
         var action = actionQueue.Dequeue();
         switch(action.type)
@@ -76,14 +79,18 @@ public class TurnManager : MonoBehaviour
                 activeUnit.GetComponent<UnitControl>().TriggerAttack(action.value);
                 break;
             case ActionType.Move:
+                activeUnit.GetComponent<UnitInfo>().ChangeMotionType(MotionType.RadiusType);
+                activeUnit.GetComponent<UnitControl>().TriggerMove(action.value);
+                break;
+            case ActionType.Push:
+                activeUnit.GetComponent<UnitInfo>().ChangeMotionType(MotionType.StraightType);
                 activeUnit.GetComponent<UnitControl>().TriggerMove(action.value);
                 break;
             case ActionType.Draw:
-                if (currTeam == Team.Player)
-                    gameManager.DrawCards(currTeam, action.value);
+                gameManager.DrawCards(currTeam, action.value);
                 break;
             case ActionType.DiscardOpponent:
-                if(currTeam == Team.Enemy)
+                if (currTeam == Team.Enemy)
                 {
                     Debug.Log("Start discard");
                     UiController.Instance.MakeDiscardWindowActive(true);
@@ -91,17 +98,24 @@ public class TurnManager : MonoBehaviour
                     discardWindow.SetNum(action.value);
                     discardWindow.SetCards();
                 }
+                else gameManager.enemyHandSize -= action.value;
                 break;
             case ActionType.DiscardActivePlayer:
-                if (currTeam == Team.Enemy)
+                if (currTeam == Team.Player)
                 {
                     UiController.Instance.MakeDiscardWindowActive(true);
                     var discardWindow = FindObjectOfType<DiscardWindow>();
                     discardWindow.SetCards();
                     discardWindow.SetNum(action.value);
                 }
+                else gameManager.enemyHandSize -= action.value;
                 break;
         }
+    }
+
+    public void EndAction()
+    {
+        inAction = false;
         if (activeUnit != null && currTeam == Team.Player)
             gameManager.ShowPlayableCards(Card.CardType.Attack, activeUnit.GetComponent<UnitInfo>());
     }
@@ -171,7 +185,7 @@ public class TurnManager : MonoBehaviour
         var playerCanActivate = CheckIfPlayerCanActivate(gameManager.CurrentGame.Player);
         var enemyCanActivate = CheckIfPlayerCanActivate(gameManager.CurrentGame.Enemy);
 
-        activatedUnits.Add(activeUnit.GetComponent<UnitInfo>());
+        //activatedUnits.Add(activeUnit.GetComponent<UnitInfo>());
         activeUnit.GetComponent<UnitControl>().DeactivateFigure();
 
         if (enemyCanActivate && (currTeam == Team.Player || !playerCanActivate))
@@ -221,7 +235,8 @@ public class TurnManager : MonoBehaviour
         UiController.Instance.ChangeEndButtonText();
         if (activeUnitInfo.teamSide == Team.Player)
         {
-            targetInfo.defence += Random.Range(0, 3);
+            targetInfo.defence += Random.Range(0, 4);
+            //targetInfo.gameObject.GetComponent<BasicUnitUI>().GenerateDefence();
             Debug.Log("Target's defence: " + targetInfo.defence);
             EndReactionWindow();
         }

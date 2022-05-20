@@ -36,7 +36,6 @@ public class CardController : MonoBehaviour
             gameManager.PlayerHandCards.Remove(this);
             gameManager.PlayerFieldCards.Add(this);
             gameManager.ReduceMana(true, Card.Manacost);
-            gameManager.CheckCardsForManaAvaliability();
         }
         else
         {
@@ -48,15 +47,15 @@ public class CardController : MonoBehaviour
         Unit = turnManager.activeUnit.GetComponent<UnitInfo>();
         UnitControl = turnManager.activeUnit.GetComponent<UnitControl>();
 
-        UseSpell(null);
+        UseSpell(Card, Unit);
         UiController.Instance.UpdateMana();
     }
 
-    public void UseSpell(CardController target)
+    public void UseSpell(Card card, UnitInfo unit)
     {
-        var spellCard = Card;
+        var spellCard = card;
 
-        Unit.ChangeStance(spellCard.EndStance);
+        unit.ChangeStance(spellCard.EndStance);
         switch (spellCard.FirstCardEff)
         {
             case Card.CardEffect.Damage://confirmed
@@ -67,7 +66,7 @@ public class CardController : MonoBehaviour
                 {
                     turnManager.AddAction(new Action(ActionType.Attack, spellCard.SpellValue));
 
-                    turnManager.AddAction(new Action(ActionType.Move, spellCard.SpellValue));
+                    turnManager.AddAction(new Action(ActionType.Push, spellCard.SpellValue));
                 }
                 break;
 
@@ -76,7 +75,7 @@ public class CardController : MonoBehaviour
                 break;
 
             case Card.CardEffect.Defense:// confirmed
-                Unit.defence += spellCard.SpellValue;
+                unit.defence += spellCard.SpellValue;
                 break;
 
             case Card.CardEffect.CheckDefenseStance: // нужно допилить
@@ -84,18 +83,18 @@ public class CardController : MonoBehaviour
 
             case Card.CardEffect.DefensePlusType:
                 {
-                    Unit.defence += spellCard.SpellValue;
-                    if (Unit.withShield)
-                        Unit.defence += 1;
+                    unit.defence += spellCard.SpellValue;
+                    if (unit.withShield)
+                        unit.defence += 1;
                 }
                 break;
 
             case Card.CardEffect.Survived:
-                Unit.CheckForAlive();
+                unit.CheckForAlive();
                 break;
 
             case Card.CardEffect.Movement:// confirmed
-                turnManager.AddAction(new Action(ActionType.Move, spellCard.SpellValue));
+                turnManager.AddAction(new Action(ActionType.Push, spellCard.SpellValue));
                 break;
         }
         switch (spellCard.FirstCardEffTwo)
@@ -108,7 +107,7 @@ public class CardController : MonoBehaviour
                 break;
 
             case Card.CardEffect.Movement:// confirmed
-                turnManager.AddAction(new Action(ActionType.Move, spellCard.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.Push, spellCard.SecondSpellValue));
                 break;
 
             case Card.CardEffect.CardDrow:// confirmed
@@ -116,7 +115,7 @@ public class CardController : MonoBehaviour
                 break;
 
             case Card.CardEffect.AliveCardDrow:
-                if(Unit.CheckForAlive())
+                if(unit.CheckForAlive())
                     turnManager.AddAction(new Action(ActionType.Draw, spellCard.SecondSpellValue));
                 break;
 
@@ -135,8 +134,8 @@ public class CardController : MonoBehaviour
                 break;
 
             case Card.CardEffect.Type:
-                if (Unit.withShield)
-                    Unit.defence += spellCard.SecondSpellValue;
+                if (unit.withShield)
+                    unit.defence += spellCard.SecondSpellValue;
                 break;
 
             case Card.CardEffect.Mechanics:
@@ -149,7 +148,7 @@ public class CardController : MonoBehaviour
         DiscardCard();
     }
 
-    public void DiscardCard() // Дестрой карты работает криво
+    public void DiscardCard() 
     {
         Movement.OnEndDrag(null);
 
