@@ -222,7 +222,7 @@ public class GameManagerScript : MonoBehaviour
     {
         foreach (var card in PlayerHandCards)
         {
-            card.Info.HiglightCard(false);
+            card.Info.HiglightCard(true);
             card.Movement.CanBePlayed = false;
         }
     }

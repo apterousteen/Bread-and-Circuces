@@ -15,8 +15,7 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
     {
         CardController card = eventData.pointerDrag.GetComponent<CardController>();
 
-        if (card && GameManagerScript.Instance.IsPlayerTurn &&
-            GameManagerScript.Instance.CurrentGame.Player.Mana >= card.Card.Manacost && !card.Card.IsPlaced)
+        if (card && card.gameObject.GetComponent<CardMovementScript>().CanBePlayed && !card.Card.IsPlaced)
             card.OnCast();
     }
 }

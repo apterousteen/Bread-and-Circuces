@@ -102,7 +102,8 @@ public class TurnManager : MonoBehaviour
                 }
                 break;
         }
-
+        if (activeUnit != null && currTeam == Team.Player)
+            gameManager.ShowPlayableCards(Card.CardType.Attack, activeUnit.GetComponent<UnitInfo>());
     }
 
     public Team GetCurrTeam()
