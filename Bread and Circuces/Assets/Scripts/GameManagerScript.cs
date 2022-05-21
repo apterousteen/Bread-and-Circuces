@@ -84,6 +84,7 @@ public class GameManagerScript : MonoBehaviour
     public int enemyHandSize = 6;
 
     public List<CardController> PlayerHandCards = new List<CardController>(),
+                                EnemyHandCards = new List<CardController>(),
                                 PlayerFieldCards = new List<CardController>(),
                                 EnemyFieldCards = new List<CardController>();
     private TurnManager turnManager;
@@ -165,6 +166,8 @@ public class GameManagerScript : MonoBehaviour
 
         if (cardC.IsPlayerCard)
             PlayerHandCards.Add(cardC);
+        else
+            EnemyHandCards.Add(cardC);
     }
 
     void DrawFullHand(Player player, Transform hand) // вместо добора одной карты на начало хода добираетс¤ полна¤ рука из 6 карт

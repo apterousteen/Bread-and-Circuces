@@ -39,6 +39,7 @@ public class CardController : MonoBehaviour
         }
         else
         {
+            gameManager.EnemyHandCards.Remove(this);
             gameManager.ReduceMana(false, Card.Manacost);
             Info.ShowCardInfo();
         }
