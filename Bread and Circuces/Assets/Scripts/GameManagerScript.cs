@@ -84,9 +84,8 @@ public class GameManagerScript : MonoBehaviour
     public int enemyHandSize = 6;
 
     public List<CardController> PlayerHandCards = new List<CardController>(),
-                                EnemyHandCards = new List<CardController>(),
-                                PlayerFieldCards = new List<CardController>(),
-                                EnemyFieldCards = new List<CardController>();
+                                EnemyHandCards = new List<CardController>();
+                                
     private TurnManager turnManager;
     private Board board;
 

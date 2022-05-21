@@ -34,7 +34,6 @@ public class CardController : MonoBehaviour
         if (IsPlayerCard)
         {
             gameManager.PlayerHandCards.Remove(this);
-            gameManager.PlayerFieldCards.Add(this);
             gameManager.ReduceMana(true, Card.Manacost);
         }
         else
@@ -151,7 +150,6 @@ public class CardController : MonoBehaviour
     {
         Movement.OnEndDrag(null);
 
-        RemoveCardFromList(gameManager.PlayerFieldCards);
         RemoveCardFromList(gameManager.PlayerHandCards);
         gameManager.CurrentGame.Player.DiscardPile.Add(this.Card);
 
