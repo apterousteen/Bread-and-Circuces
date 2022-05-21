@@ -12,7 +12,7 @@ public class CardController : MonoBehaviour
     public GameManagerScript Game;
     private TurnManager turnManager;
 
-    public int numberCard = 0;
+    public int numberCard = 0; // for spell
     public bool IsPlayerCard;
 
     GameManagerScript gameManager;
@@ -53,29 +53,27 @@ public class CardController : MonoBehaviour
 
     public void UseSpell(Card card, UnitInfo unit)
     {
-        var spellCard = card;
-
-        unit.ChangeStance(spellCard.EndStance);
-        switch (spellCard.FirstCardEff)
+        unit.ChangeStance(card.EndStance);
+        switch (card.FirstCardEff)
         {
             case Card.CardEffect.Damage://confirmed
-                turnManager.AddAction(new Action(ActionType.Attack, spellCard.SpellValue));
+                turnManager.AddAction(new Action(ActionType.Attack, card.SpellValue));
                 break;
 
             case Card.CardEffect.DamagePlusMovement:// скорее всего будут вместе срабатывать, нужно добавить бул перемнную в метод атаки
                 {
-                    turnManager.AddAction(new Action(ActionType.Attack, spellCard.SpellValue));
+                    turnManager.AddAction(new Action(ActionType.Attack, card.SpellValue));
 
-                    turnManager.AddAction(new Action(ActionType.Push, spellCard.SpellValue));
+                    turnManager.AddAction(new Action(ActionType.Push, card.SpellValue));
                 }
                 break;
 
             case Card.CardEffect.PlusDamageCard: // нужно добавить обнуление numberCard в методе смены хода(он пока у нас не робит)
-                turnManager.AddAction(new Action(ActionType.Attack, spellCard.SpellValue + numberCard));
+                turnManager.AddAction(new Action(ActionType.Attack, card.SpellValue + numberCard));
                 break;
 
             case Card.CardEffect.Defense:// confirmed
-                unit.defence += spellCard.SpellValue;
+                unit.defence += card.SpellValue;
                 break;
 
             case Card.CardEffect.CheckDefenseStance: // нужно допилить
@@ -83,7 +81,7 @@ public class CardController : MonoBehaviour
 
             case Card.CardEffect.DefensePlusType:
                 {
-                    unit.defence += spellCard.SpellValue;
+                    unit.defence += card.SpellValue;
                     if (unit.withShield)
                         unit.defence += 1;
                 }
@@ -94,36 +92,36 @@ public class CardController : MonoBehaviour
                 break;
 
             case Card.CardEffect.Movement:// confirmed
-                turnManager.AddAction(new Action(ActionType.Push, spellCard.SpellValue));
+                turnManager.AddAction(new Action(ActionType.Push, card.SpellValue));
                 break;
         }
-        switch (spellCard.FirstCardEffTwo)
+        switch (card.FirstCardEffTwo)
         {
             case Card.CardEffect.Damage:// confirmed
-                turnManager.AddAction(new Action(ActionType.Attack, spellCard.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.Attack, card.SecondSpellValue));
                 break;
 
             case Card.CardEffect.IfDamage:
                 break;
 
             case Card.CardEffect.Movement:// confirmed
-                turnManager.AddAction(new Action(ActionType.Push, spellCard.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.Push, card.SecondSpellValue));
                 break;
 
             case Card.CardEffect.CardDrow:// confirmed
-                turnManager.AddAction(new Action(ActionType.Draw, spellCard.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.Draw, card.SecondSpellValue));
                 break;
 
             case Card.CardEffect.AliveCardDrow:
                 if(unit.CheckForAlive())
-                    turnManager.AddAction(new Action(ActionType.Draw, spellCard.SecondSpellValue));
+                    turnManager.AddAction(new Action(ActionType.Draw, card.SecondSpellValue));
                 break;
 
             case Card.CardEffect.IfCardDrow:
                 break;
 
             case Card.CardEffect.ResetCard:
-                turnManager.AddAction(new Action(ActionType.DiscardOpponent, spellCard.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.DiscardOpponent, card.SecondSpellValue));
                 break;
 
             case Card.CardEffect.ManaAdd:
@@ -135,7 +133,7 @@ public class CardController : MonoBehaviour
 
             case Card.CardEffect.Type:
                 if (unit.withShield)
-                    unit.defence += spellCard.SecondSpellValue;
+                    unit.defence += card.SecondSpellValue;
                 break;
 
             case Card.CardEffect.Mechanics:
