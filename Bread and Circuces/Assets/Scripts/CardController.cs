@@ -154,7 +154,7 @@ public class CardController : MonoBehaviour
         RemoveCardFromList(gameManager.PlayerHandCards);
 
         Destroy(gameObject);
-        LastCardCast(this.Card, Game.PlayerCardPanel);
+       // LastCardCast(this.Card, Game.PlayerCardPanel);
     }
     void LastCardCast(Card card, Transform leftPanel)
     {
