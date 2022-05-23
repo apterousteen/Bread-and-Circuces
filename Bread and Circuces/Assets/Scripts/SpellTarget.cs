@@ -22,7 +22,7 @@ public class SpellTarget : MonoBehaviour, IDropHandler
                 (spellCard.SpellTarget == Card.TargetType.Enemy && !target.IsPlayerCard))
             {
                 GameManagerScript.Instance.ReduceMana(true, spell.Card.Manacost);
-                spell.UseSpell(target);
+                //spell.UseSpell(target);
                 GameManagerScript.Instance.CheckCardsForManaAvaliability();
             }
         }

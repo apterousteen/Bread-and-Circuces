@@ -2365,6 +2365,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyHand: {fileID: 0}
   PlayerHand: {fileID: 1233117803}
+  CardInfo: {fileID: 0}
   CardPref: {fileID: 4310692873211168539, guid: 14e398207625fd04fa5dff6041e03a84, type: 3}
   PlayerHandCards: []
   PlayerFieldCards: []
@@ -2385,6 +2386,7 @@ MonoBehaviour:
   isReactionTime: 0
   activeUnit: {fileID: 0}
   targetUnit: {fileID: 0}
+  activatedUnits: []
   Turn: 0
   activationNum: 0
   inAction: 0
@@ -2995,6 +2997,7 @@ MonoBehaviour:
   EnemyMana: {fileID: 381687845}
   TurnTime: {fileID: 494121460}
   EndTurnBtn: {fileID: 1027432661}
+  discardWindow: {fileID: 0}
   winPopup: {fileID: 395501548}
   failPopup: {fileID: 120175041}
   pausePopup: {fileID: 696098135}

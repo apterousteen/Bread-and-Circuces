@@ -13,14 +13,14 @@ public class UnitControl: MonoBehaviour
     private Board board;
     private TurnManager turnManager;
     private DistanceFinder distanceFinder;
-    public ButtonsContainer buttonsContainer;
+    //public ButtonsContainer buttonsContainer;
 
     void Start()
     {
         board = FindObjectOfType<Board>();
         turnManager = FindObjectOfType<TurnManager>();
         distanceFinder = FindObjectOfType<DistanceFinder>();
-        buttonsContainer = FindObjectOfType<ButtonsContainer>();     
+        //buttonsContainer = FindObjectOfType<ButtonsContainer>();     
 
         info = gameObject.GetComponent<UnitInfo>();
         mainCamera = Camera.allCameras[0];
@@ -38,6 +38,7 @@ public class UnitControl: MonoBehaviour
     {
         if (!activated && !turnManager.activatedUnits.Contains(info))
             ActivateFigure();
+        else DeactivateFigure();
     }
 
     void DispathInput()
@@ -72,10 +73,10 @@ public class UnitControl: MonoBehaviour
         if(!activated)
             return;
 
-        int action = buttonsContainer.GetAction();
+        //int action = buttonsContainer.GetAction();
 
-        if(action == 1)
-            ShowMovementArea(info.moveDistance);
+        //if(action == 1)
+        //    ShowMovementArea(info.moveDistance);
         
         //if(action == -1)
         //    HideArea(info.moveDistance);
@@ -88,7 +89,7 @@ public class UnitControl: MonoBehaviour
     {
         HideArea();
         MoveFigureOnObject(hittedTile);
-        buttonsContainer.EndAction();
+        //buttonsContainer.EndAction();
     }
 
     void HandleAttack(HexTile hittedTile)
@@ -98,11 +99,11 @@ public class UnitControl: MonoBehaviour
         {
             turnManager.StartReactionWindow(targetUnit.gameObject);
             HideArea();
-            buttonsContainer.EndAction();
+            //buttonsContainer.EndAction();
         }
     }
 
-    void MoveFigureOnObject(HexTile targetHex)
+    public void MoveFigureOnObject(HexTile targetHex)
     {
         posX = targetHex.transform.position.x;
         posY = targetHex.transform.position.y;
@@ -115,7 +116,7 @@ public class UnitControl: MonoBehaviour
     void MoveObject(){
         transform.position = new Vector3(posX, posY, transform.position.z);
         info.ChangeMotionType(MotionType.RadiusType);
-        turnManager.inAction = false;
+        turnManager.EndAction();
     }
 
     public void MakeAtack(UnitInfo enemyUnit)
@@ -126,7 +127,7 @@ public class UnitControl: MonoBehaviour
         enemyUnit.SufferDamage(damageDealt);
         info.OnAttackEnd(enemyUnit);
         enemyUnit.OnDefenceEnd();
-        turnManager.inAction = false;
+        turnManager.EndAction();
     }
 
     public void TriggerAttack(int damage)
@@ -137,7 +138,6 @@ public class UnitControl: MonoBehaviour
 
     public void TriggerMove(int distance)
     {
-        info.ChangeMotionType(MotionType.StraightType);
         ShowMovementArea(distance);
     }
 
@@ -147,7 +147,7 @@ public class UnitControl: MonoBehaviour
             return;
 
         FindObjectOfType<GameManagerScript>().ShowPlayableCards(Card.CardType.Attack, info);
-        buttonsContainer.ActivateUnitButtons();
+        //buttonsContainer.ActivateUnitButtons();
         activated = true;
         var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
         turnManager.SetActiveUnit(this.gameObject);
@@ -156,7 +156,7 @@ public class UnitControl: MonoBehaviour
 
     public void DeactivateFigure()
     {
-        buttonsContainer.DeactivateUnitButtons();
+        //buttonsContainer.DeactivateUnitButtons();
         turnManager.ClearActiveUnit();
         activated = false;
         var figureRenderer = gameObject.GetComponent<SpriteRenderer>();

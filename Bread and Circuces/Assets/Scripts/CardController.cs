@@ -12,7 +12,7 @@ public class CardController : MonoBehaviour
     public GameManagerScript Game;
     private TurnManager turnManager;
 
-    public int numberCard = 0;
+    public int numberCard = 0; // for spell
     public bool IsPlayerCard;
 
     GameManagerScript gameManager;
@@ -34,12 +34,11 @@ public class CardController : MonoBehaviour
         if (IsPlayerCard)
         {
             gameManager.PlayerHandCards.Remove(this);
-            gameManager.PlayerFieldCards.Add(this);
             gameManager.ReduceMana(true, Card.Manacost);
-            gameManager.CheckCardsForManaAvaliability();
         }
         else
         {
+            gameManager.EnemyHandCards.Remove(this);
             gameManager.ReduceMana(false, Card.Manacost);
             Info.ShowCardInfo();
         }
@@ -48,35 +47,33 @@ public class CardController : MonoBehaviour
         Unit = turnManager.activeUnit.GetComponent<UnitInfo>();
         UnitControl = turnManager.activeUnit.GetComponent<UnitControl>();
 
-        UseSpell(null);
+        UseSpell(Card, Unit);
         UiController.Instance.UpdateMana();
     }
 
-    public void UseSpell(CardController target)
+    public void UseSpell(Card card, UnitInfo unit)
     {
-        var spellCard = Card;
-
-        Unit.ChangeStance(spellCard.EndStance);
-        switch (spellCard.FirstCardEff)
+        unit.ChangeStance(card.EndStance);
+        switch (card.FirstCardEff)
         {
             case Card.CardEffect.Damage://confirmed
-                turnManager.AddAction(new Action(ActionType.Attack, spellCard.SpellValue));
+                turnManager.AddAction(new Action(ActionType.Attack, card.SpellValue));
                 break;
 
             case Card.CardEffect.DamagePlusMovement:// скорее всего будут вместе срабатывать, нужно добавить бул перемнную в метод атаки
                 {
-                    turnManager.AddAction(new Action(ActionType.Attack, spellCard.SpellValue));
+                    turnManager.AddAction(new Action(ActionType.Attack, card.SpellValue));
 
-                    turnManager.AddAction(new Action(ActionType.Move, spellCard.SpellValue));
+                    turnManager.AddAction(new Action(ActionType.Push, card.SpellValue));
                 }
                 break;
 
             case Card.CardEffect.PlusDamageCard: // нужно добавить обнуление numberCard в методе смены хода(он пока у нас не робит)
-                turnManager.AddAction(new Action(ActionType.Attack, spellCard.SpellValue + numberCard));
+                turnManager.AddAction(new Action(ActionType.Attack, card.SpellValue + numberCard));
                 break;
 
             case Card.CardEffect.Defense:// confirmed
-                Unit.defence += spellCard.SpellValue;
+                unit.defence += card.SpellValue;
                 break;
 
             case Card.CardEffect.CheckDefenseStance: // нужно допилить
@@ -84,47 +81,47 @@ public class CardController : MonoBehaviour
 
             case Card.CardEffect.DefensePlusType:
                 {
-                    Unit.defence += spellCard.SpellValue;
-                    if (Unit.withShield)
-                        Unit.defence += 1;
+                    unit.defence += card.SpellValue;
+                    if (unit.withShield)
+                        unit.defence += 1;
                 }
                 break;
 
             case Card.CardEffect.Survived:
-                Unit.CheckForAlive();
+                unit.CheckForAlive();
                 break;
 
             case Card.CardEffect.Movement:// confirmed
-                turnManager.AddAction(new Action(ActionType.Move, spellCard.SpellValue));
+                turnManager.AddAction(new Action(ActionType.Push, card.SpellValue));
                 break;
         }
-        switch (spellCard.FirstCardEffTwo)
+        switch (card.FirstCardEffTwo)
         {
             case Card.CardEffect.Damage:// confirmed
-                turnManager.AddAction(new Action(ActionType.Attack, spellCard.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.Attack, card.SecondSpellValue));
                 break;
 
             case Card.CardEffect.IfDamage:
                 break;
 
             case Card.CardEffect.Movement:// confirmed
-                turnManager.AddAction(new Action(ActionType.Move, spellCard.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.Push, card.SecondSpellValue));
                 break;
 
             case Card.CardEffect.CardDrow:// confirmed
-                turnManager.AddAction(new Action(ActionType.Draw, spellCard.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.Draw, card.SecondSpellValue));
                 break;
 
             case Card.CardEffect.AliveCardDrow:
-                if(Unit.CheckForAlive())
-                    turnManager.AddAction(new Action(ActionType.Draw, spellCard.SecondSpellValue));
+                if(unit.CheckForAlive())
+                    turnManager.AddAction(new Action(ActionType.Draw, card.SecondSpellValue));
                 break;
 
             case Card.CardEffect.IfCardDrow:
                 break;
 
             case Card.CardEffect.ResetCard:
-                turnManager.AddAction(new Action(ActionType.DiscardOpponent, spellCard.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.DiscardOpponent, card.SecondSpellValue));
                 break;
 
             case Card.CardEffect.ManaAdd:
@@ -135,8 +132,8 @@ public class CardController : MonoBehaviour
                 break;
 
             case Card.CardEffect.Type:
-                if (Unit.withShield)
-                    Unit.defence += spellCard.SecondSpellValue;
+                if (unit.withShield)
+                    unit.defence += card.SecondSpellValue;
                 break;
 
             case Card.CardEffect.Mechanics:
@@ -149,11 +146,10 @@ public class CardController : MonoBehaviour
         DiscardCard();
     }
 
-    public void DiscardCard() // Дестрой карты работает криво
+    public void DiscardCard() 
     {
         Movement.OnEndDrag(null);
 
-        RemoveCardFromList(gameManager.PlayerFieldCards);
         RemoveCardFromList(gameManager.PlayerHandCards);
         gameManager.CurrentGame.Player.DiscardPile.Add(this.Card);
 
