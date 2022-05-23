@@ -77,14 +77,11 @@ public class GameManagerScript : MonoBehaviour
     public Card card;
     public GameObject CardPref;
 
-    int Turn, TurnTime = 30;
+    int Turn;
 
     int StartHandSize = 6;
     public int playerDeckSize;
     public int enemyHandSize = 6;
-
-    public List<CardController> PlayerHandCards = new List<CardController>(),
-                                EnemyHandCards = new List<CardController>();
 
     private TurnManager turnManager;
     private Board board;
@@ -164,15 +161,15 @@ public class GameManagerScript : MonoBehaviour
         cardC.Init(card, hand == PlayerHand);
 
         if (cardC.IsPlayerCard)
-            PlayerHandCards.Add(cardC);
+            CurrentGame.Player.HandCards.Add(cardC);
         else
-            EnemyHandCards.Add(cardC);
+            CurrentGame.Enemy.HandCards.Add(cardC);
         
     }
 
     void DrawFullHand(Player player, Transform hand) // вместо добора одной карты на начало хода добираетс¤ полна¤ рука из 6 карт
     {
-        int i = PlayerHandCards.Count;
+        int i = CurrentGame.Player.HandCards.Count;
         Debug.Log("Players hand: " + i);
         while (i++ < StartHandSize)
             GiveCardToHand(player, hand);
@@ -205,13 +202,13 @@ public class GameManagerScript : MonoBehaviour
 
     public void CheckCardsForManaAvaliability()
     {
-        foreach (var card in PlayerHandCards)
+        foreach (var card in CurrentGame.Player.HandCards)
             card.Info.HiglightManaAvaliability(CurrentGame.Player.Mana);
     }
 
     public void ShowPlayableCards(Card.CardType type, UnitInfo unit)
     {
-        foreach (var card in PlayerHandCards)
+        foreach (var card in CurrentGame.Player.HandCards)
         {
             var cardInfo = card.Card;
             if (cardInfo.Type == type && cardInfo.StartStance == unit.currentStance && (cardInfo.Restriction == CardRestriction.Universal
@@ -232,7 +229,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void MakeAllCardsUnplayable()
     {
-        foreach (var card in PlayerHandCards)
+        foreach (var card in CurrentGame.Player.HandCards)
         {
             card.Info.HiglightCard(false);
             card.Movement.CanBePlayed = false;

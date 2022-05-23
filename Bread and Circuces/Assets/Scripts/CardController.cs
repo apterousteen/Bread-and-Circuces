@@ -33,12 +33,12 @@ public class CardController : MonoBehaviour
 
         if (IsPlayerCard)
         {
-            gameManager.PlayerHandCards.Remove(this);
+            gameManager.CurrentGame.Player.HandCards.Remove(this);
             gameManager.ReduceMana(true, Card.Manacost);
         }
         else
         {
-            gameManager.EnemyHandCards.Remove(this);
+            gameManager.CurrentGame.Enemy.HandCards.Remove(this);
             gameManager.ReduceMana(false, Card.Manacost);
             Info.ShowCardInfo();
         }
@@ -151,7 +151,7 @@ public class CardController : MonoBehaviour
         gameManager.CurrentGame.Player.DiscardPile.Add(this.Card);
         Movement.OnEndDrag(null);
 
-        RemoveCardFromList(gameManager.PlayerHandCards);
+        RemoveCardFromList(gameManager.CurrentGame.Player.HandCards);
 
         Destroy(gameObject);
        // LastCardCast(this.Card, Game.PlayerCardPanel);
