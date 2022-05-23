@@ -31,9 +31,4 @@ public class Player
         else
             Mana += 1;
     }
-
-    public void GetDamage(int damage)
-    {
-
-    }
 }

@@ -72,7 +72,7 @@ public class GameManagerScript : MonoBehaviour
     public static GameManagerScript Instance;
 
     public Game CurrentGame;
-    public Transform EnemyHand, PlayerHand;
+    public Transform EnemyHand, PlayerHand, PlayerCardPanel, PlayerInfoPanel, EnemyCardPanel, EnemyInfoPanel;
     public CardInfoScript CardInfo;
     public Card card;
     public GameObject CardPref;
@@ -85,7 +85,7 @@ public class GameManagerScript : MonoBehaviour
 
     public List<CardController> PlayerHandCards = new List<CardController>(),
                                 EnemyHandCards = new List<CardController>();
-                                
+
     private TurnManager turnManager;
     private Board board;
 
@@ -167,6 +167,7 @@ public class GameManagerScript : MonoBehaviour
             PlayerHandCards.Add(cardC);
         else
             EnemyHandCards.Add(cardC);
+        
     }
 
     void DrawFullHand(Player player, Transform hand) // вместо добора одной карты на начало хода добираетс¤ полна¤ рука из 6 карт
@@ -213,7 +214,7 @@ public class GameManagerScript : MonoBehaviour
         foreach (var card in PlayerHandCards)
         {
             var cardInfo = card.Card;
-            if(cardInfo.Type == type && cardInfo.StartStance == unit.currentStance && (cardInfo.Restriction == CardRestriction.Universal 
+            if (cardInfo.Type == type && cardInfo.StartStance == unit.currentStance && (cardInfo.Restriction == CardRestriction.Universal
                 || cardInfo.Restriction.ToString() == unit.gameObject.tag.ToString()))
             {
                 card.Info.HiglightCard(true);
@@ -224,9 +225,9 @@ public class GameManagerScript : MonoBehaviour
                 card.Info.HiglightCard(false);
                 card.Movement.CanBePlayed = false;
             }
-            
+
         }
-        
+
     }
 
     public void MakeAllCardsUnplayable()

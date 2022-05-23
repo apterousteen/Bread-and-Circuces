@@ -6,7 +6,13 @@ using UnityEngine.EventSystems;
 public enum FieldType
 {
     SelfHand,
-    Field
+    Field,
+    DiscardingPlayerCards,
+    DiscardingEnemyCards,
+    PlayerLastCardCast,
+    PlayerLastCardInfo,
+    EnemyLastCardCast,
+    EnemyLastCardInfo
 }
 public class DropPlaceScript : MonoBehaviour, IDropHandler
 {

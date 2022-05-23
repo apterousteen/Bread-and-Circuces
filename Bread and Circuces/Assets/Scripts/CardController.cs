@@ -113,7 +113,7 @@ public class CardController : MonoBehaviour
                 break;
 
             case Card.CardEffect.AliveCardDrow:
-                if(unit.CheckForAlive())
+                if (unit.CheckForAlive())
                     turnManager.AddAction(new Action(ActionType.Draw, card.SecondSpellValue));
                 break;
 
@@ -146,14 +146,22 @@ public class CardController : MonoBehaviour
         DiscardCard();
     }
 
-    public void DiscardCard() 
+    public void DiscardCard()
     {
+        gameManager.CurrentGame.Player.DiscardPile.Add(this.Card);
         Movement.OnEndDrag(null);
 
         RemoveCardFromList(gameManager.PlayerHandCards);
-        gameManager.CurrentGame.Player.DiscardPile.Add(this.Card);
 
         Destroy(gameObject);
+        LastCardCast(this.Card, Game.PlayerCardPanel);
+    }
+    void LastCardCast(Card card, Transform leftPanel)
+    {
+        GameObject cardLast = Instantiate(Game.CardPref, leftPanel, false);
+        CardController cardLast1 = cardLast.GetComponent<CardController>();
+
+        cardLast1.Init(card, leftPanel);
     }
 
     void RemoveCardFromList(List<CardController> list)

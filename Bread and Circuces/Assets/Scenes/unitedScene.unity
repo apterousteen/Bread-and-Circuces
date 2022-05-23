@@ -1188,13 +1188,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyHand: {fileID: 0}
   PlayerHand: {fileID: 1233117803}
+  PlayerCardPanel: {fileID: 844066009}
+  PlayerInfoPanel: {fileID: 1328742542}
+  EnemyCardPanel: {fileID: 1931516742}
+  EnemyInfoPanel: {fileID: 1181889742}
   CardInfo: {fileID: 0}
   CardPref: {fileID: 4310692873211168539, guid: 14e398207625fd04fa5dff6041e03a84, type: 3}
   playerDeckSize: 0
   enemyHandSize: 6
   PlayerHandCards: []
-  PlayerFieldCards: []
-  EnemyFieldCards: []
+  EnemyHandCards: []
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1843,6 +1846,8 @@ GameObject:
   - component: {fileID: 844066009}
   - component: {fileID: 844066011}
   - component: {fileID: 844066010}
+  - component: {fileID: 844066012}
+  - component: {fileID: 844066013}
   m_Layer: 5
   m_Name: PlayerCardPanel
   m_TagString: Untagged
@@ -1907,6 +1912,45 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 844066008}
   m_CullTransparentMesh: 1
+--- !u!114 &844066012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844066008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7a9170a2eb5eca49b8d802a46368c5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 4
+--- !u!114 &844066013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844066008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 5
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &922293305
 GameObject:
   m_ObjectHideFlags: 0
@@ -2461,6 +2505,7 @@ GameObject:
   - component: {fileID: 1181889742}
   - component: {fileID: 1181889744}
   - component: {fileID: 1181889743}
+  - component: {fileID: 1181889745}
   m_Layer: 5
   m_Name: EnemyInfoPanel
   m_TagString: Untagged
@@ -2525,6 +2570,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1181889741}
   m_CullTransparentMesh: 1
+--- !u!114 &1181889745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181889741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7a9170a2eb5eca49b8d802a46368c5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 7
 --- !u!1 &1233117802
 GameObject:
   m_ObjectHideFlags: 0
@@ -2691,7 +2749,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.28100002}
   m_AnchorMax: {x: 0.563, y: 1}
-  m_AnchoredPosition: {x: 505.46997, y: -151.74005}
+  m_AnchoredPosition: {x: 505.46997, y: -151.74004}
   m_SizeDelta: {x: 1010.9, y: 303.48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1252418974
@@ -2871,6 +2929,7 @@ GameObject:
   - component: {fileID: 1328742542}
   - component: {fileID: 1328742544}
   - component: {fileID: 1328742543}
+  - component: {fileID: 1328742545}
   m_Layer: 5
   m_Name: PlayerInfoPanel
   m_TagString: Untagged
@@ -2935,6 +2994,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328742541}
   m_CullTransparentMesh: 1
+--- !u!114 &1328742545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328742541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7a9170a2eb5eca49b8d802a46368c5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 5
 --- !u!1 &1468122524
 GameObject:
   m_ObjectHideFlags: 0
@@ -3509,6 +3581,7 @@ GameObject:
   - component: {fileID: 1931516742}
   - component: {fileID: 1931516744}
   - component: {fileID: 1931516743}
+  - component: {fileID: 1931516745}
   m_Layer: 5
   m_Name: EnemyCardPanel
   m_TagString: Untagged
@@ -3573,6 +3646,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1931516741}
   m_CullTransparentMesh: 1
+--- !u!114 &1931516745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931516741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7a9170a2eb5eca49b8d802a46368c5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 5
 --- !u!1 &1981674610
 GameObject:
   m_ObjectHideFlags: 0
