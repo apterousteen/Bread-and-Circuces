@@ -122,8 +122,8 @@ public class GameManagerScript : MonoBehaviour
         board.SpawnUnits(CurrentGame.Player);
         board.SpawnUnits(CurrentGame.Enemy);
         var enemyUnits = FindObjectsOfType<UnitInfo>().Where(x => x.teamSide == Team.Enemy).ToList();
-        //foreach (var unit in enemyUnits)
-        //    unit.gameObject.AddComponent<BasicUnitUI>();
+        foreach (var unit in enemyUnits)
+            unit.gameObject.AddComponent<BasicUnitAI>();
 
         //GiveHandCards(CurrentGame.Enemy, EnemyHand);
         GiveHandCards(CurrentGame.Player, PlayerHand);
@@ -224,7 +224,7 @@ public class GameManagerScript : MonoBehaviour
             }
             
         }
-        
+        Debug.Log("Show cards");
     }
 
     public void MakeAllCardsUnplayable()

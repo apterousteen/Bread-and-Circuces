@@ -29,6 +29,7 @@ public class BasicUnitAI : MonoBehaviour
         var actionsLeft = gameManager.CurrentGame.Enemy.Mana;
         if (actionsLeft == 0 || (unitsAlive == 2 && turnManager.activatedUnits.Count < 3 && actionsLeft < 3))
         {
+            Debug.Log("Returned");
             turnManager.EndPlayerActivation();
             return;
         }
@@ -88,14 +89,17 @@ public class BasicUnitAI : MonoBehaviour
         var parentHex = transform.parent.GetComponent<HexTile>();
         var targetHex = target.transform.parent.GetComponent<HexTile>();
         if (distanceFinder.GetDistanceBetweenHexes(targetHex, parentHex) == 1)
+        {
+            turnManager.EndAction();
             return;
+        }
         var tilesToMove = new List<HexTile>();
         tilesToMove = distanceFinder.FindPaths(parentHex, distance);
         var tilesWithDistances = tilesToMove.
             Select(x => Tuple.Create(x, distanceFinder.GetDistanceBetweenHexes(targetHex,
-            x.transform.parent.GetComponent<HexTile>()),
+            x),
             distanceFinder.GetDistanceBetweenHexes(parentHex,
-            x.transform.parent.GetComponent<HexTile>())))
+            x)))
             .Where(x => x.Item2 > 0);
         var minimalDistanceToTarget = tilesWithDistances.Select(x => x.Item2).Min();
         tilesWithDistances = tilesWithDistances.Where(x => x.Item2 == minimalDistanceToTarget);
@@ -103,6 +107,36 @@ public class BasicUnitAI : MonoBehaviour
         var hexToMove = tilesWithDistances.Where(x => x.Item3 == minDistanceToWalk)
             .Select(x => x.Item1).FirstOrDefault();
         unitControl.MoveFigureOnObject(hexToMove);
+        Debug.Log("Moved");
+        turnManager.EndAction();
+    }
+
+    public void MoveAwayFromClosestPlayerUnit(int distance)
+    {
+        var target = GetClosestPlayerUnit();
+        var parentHex = transform.parent.GetComponent<HexTile>();
+        var targetHex = target.transform.parent.GetComponent<HexTile>();
+        if (distanceFinder.GetDistanceBetweenHexes(targetHex, parentHex) == 1)
+        {
+            turnManager.EndAction();
+            return;
+        }
+        var tilesToMove = new List<HexTile>();
+        tilesToMove = distanceFinder.FindPaths(parentHex, distance);
+        var tilesWithDistances = tilesToMove.
+            Select(x => Tuple.Create(x, distanceFinder.GetDistanceBetweenHexes(targetHex,
+            x),
+            distanceFinder.GetDistanceBetweenHexes(parentHex,
+            x)))
+            .Where(x => x.Item2 > 0);
+        var maximumDistanceToTarget = tilesWithDistances.Select(x => x.Item2).Max();
+        tilesWithDistances = tilesWithDistances.Where(x => x.Item2 == maximumDistanceToTarget);
+        var maxDistanceToWalk = tilesWithDistances.Select(x => x.Item3).Max();
+        var hexToMove = tilesWithDistances.Where(x => x.Item3 == maxDistanceToWalk)
+            .Select(x => x.Item1).FirstOrDefault();
+        unitControl.MoveFigureOnObject(hexToMove);
+        Debug.Log("Moved");
+        turnManager.EndAction();
     }
 
     public void GenerateAttack()
@@ -135,22 +169,23 @@ public class BasicUnitAI : MonoBehaviour
         var spellCard = card;
 
         unit.ChangeStance(spellCard.EndStance);
+
         switch (spellCard.FirstCardEff)
         {
             case Card.CardEffect.Damage://confirmed
-                turnManager.AddAction(new Action(ActionType.Attack, spellCard.SpellValue));
+                turnManager.AddAction(new Action(ActionType.Attack, Team.Enemy, spellCard.SpellValue));
                 break;
 
             case Card.CardEffect.DamagePlusMovement:// скорее всего будут вместе срабатывать, нужно добавить бул перемнную в метод атаки
                 {
-                    turnManager.AddAction(new Action(ActionType.Attack, spellCard.SpellValue));
+                    turnManager.AddAction(new Action(ActionType.Attack, Team.Enemy, spellCard.SpellValue));
 
-                    turnManager.AddAction(new Action(ActionType.Push, spellCard.SpellValue));
+                    turnManager.AddAction(new Action(ActionType.Push, Team.Enemy, spellCard.SpellValue));
                 }
                 break;
 
             case Card.CardEffect.PlusDamageCard: // нужно добавить обнуление numberCard в методе смены хода(он пока у нас не робит)
-                turnManager.AddAction(new Action(ActionType.Attack, spellCard.SpellValue));
+                turnManager.AddAction(new Action(ActionType.Attack, Team.Enemy, spellCard.SpellValue));
                 break;
 
             case Card.CardEffect.Defense:// confirmed
@@ -173,36 +208,36 @@ public class BasicUnitAI : MonoBehaviour
                 break;
 
             case Card.CardEffect.Movement:// confirmed
-                turnManager.AddAction(new Action(ActionType.Push, spellCard.SpellValue));
+                turnManager.AddAction(new Action(ActionType.Push, Team.Enemy, spellCard.SpellValue));
                 break;
         }
         switch (spellCard.FirstCardEffTwo)
         {
             case Card.CardEffect.Damage:// confirmed
-                turnManager.AddAction(new Action(ActionType.Attack, spellCard.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.Attack, Team.Enemy, spellCard.SecondSpellValue));
                 break;
 
             case Card.CardEffect.IfDamage:
                 break;
 
             case Card.CardEffect.Movement:// confirmed
-                turnManager.AddAction(new Action(ActionType.Push, spellCard.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.Push, Team.Enemy, spellCard.SecondSpellValue));
                 break;
 
             case Card.CardEffect.CardDrow:// confirmed
-                turnManager.AddAction(new Action(ActionType.Draw, spellCard.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.Draw, Team.Enemy, spellCard.SecondSpellValue));
                 break;
 
             case Card.CardEffect.AliveCardDrow:
                 if (unit.CheckForAlive())
-                    turnManager.AddAction(new Action(ActionType.Draw, spellCard.SecondSpellValue));
+                    turnManager.AddAction(new Action(ActionType.Draw, Team.Enemy, spellCard.SecondSpellValue));
                 break;
 
             case Card.CardEffect.IfCardDrow:
                 break;
 
             case Card.CardEffect.ResetCard:
-                turnManager.AddAction(new Action(ActionType.DiscardOpponent, spellCard.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.DiscardOpponent, Team.Enemy, spellCard.SecondSpellValue));
                 break;
 
             case Card.CardEffect.ManaAdd:

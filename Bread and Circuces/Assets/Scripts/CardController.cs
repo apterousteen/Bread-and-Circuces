@@ -59,19 +59,19 @@ public class CardController : MonoBehaviour
         switch (spellCard.FirstCardEff)
         {
             case Card.CardEffect.Damage://confirmed
-                turnManager.AddAction(new Action(ActionType.Attack, spellCard.SpellValue));
+                turnManager.AddAction(new Action(ActionType.Attack, Team.Player, spellCard.SpellValue));
                 break;
 
             case Card.CardEffect.DamagePlusMovement:// скорее всего будут вместе срабатывать, нужно добавить бул перемнную в метод атаки
                 {
-                    turnManager.AddAction(new Action(ActionType.Attack, spellCard.SpellValue));
+                    turnManager.AddAction(new Action(ActionType.Attack, Team.Player, spellCard.SpellValue));
 
-                    turnManager.AddAction(new Action(ActionType.Push, spellCard.SpellValue));
+                    turnManager.AddAction(new Action(ActionType.Push, Team.Player, spellCard.SpellValue));
                 }
                 break;
 
             case Card.CardEffect.PlusDamageCard: // нужно добавить обнуление numberCard в методе смены хода(он пока у нас не робит)
-                turnManager.AddAction(new Action(ActionType.Attack, spellCard.SpellValue + numberCard));
+                turnManager.AddAction(new Action(ActionType.Attack, Team.Player, spellCard.SpellValue + numberCard));
                 break;
 
             case Card.CardEffect.Defense:// confirmed
@@ -94,36 +94,36 @@ public class CardController : MonoBehaviour
                 break;
 
             case Card.CardEffect.Movement:// confirmed
-                turnManager.AddAction(new Action(ActionType.Push, spellCard.SpellValue));
+                turnManager.AddAction(new Action(ActionType.Push, Team.Player, spellCard.SpellValue));
                 break;
         }
         switch (spellCard.FirstCardEffTwo)
         {
             case Card.CardEffect.Damage:// confirmed
-                turnManager.AddAction(new Action(ActionType.Attack, spellCard.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.Attack, Team.Player, spellCard.SecondSpellValue));
                 break;
 
             case Card.CardEffect.IfDamage:
                 break;
 
             case Card.CardEffect.Movement:// confirmed
-                turnManager.AddAction(new Action(ActionType.Push, spellCard.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.Push, Team.Player, spellCard.SecondSpellValue));
                 break;
 
             case Card.CardEffect.CardDrow:// confirmed
-                turnManager.AddAction(new Action(ActionType.Draw, spellCard.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.Draw, Team.Player, spellCard.SecondSpellValue));
                 break;
 
             case Card.CardEffect.AliveCardDrow:
                 if(unit.CheckForAlive())
-                    turnManager.AddAction(new Action(ActionType.Draw, spellCard.SecondSpellValue));
+                    turnManager.AddAction(new Action(ActionType.Draw, Team.Player, spellCard.SecondSpellValue));
                 break;
 
             case Card.CardEffect.IfCardDrow:
                 break;
 
             case Card.CardEffect.ResetCard:
-                turnManager.AddAction(new Action(ActionType.DiscardOpponent, spellCard.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.DiscardOpponent, Team.Player, spellCard.SecondSpellValue));
                 break;
 
             case Card.CardEffect.ManaAdd:
