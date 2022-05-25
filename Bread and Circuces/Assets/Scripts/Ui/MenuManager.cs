@@ -23,7 +23,7 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    public List<string> team = new List<string>(); 
+    public static List<string> team = new List<string>(); 
     public static GameObject chosen; 
 
     public void AddToTeam()
@@ -33,7 +33,7 @@ public class MenuManager : MonoBehaviour
             if (!team.Contains(chosen.tag))
             {
                 team.Add(chosen.tag);
-                chosen.transform.GetChild(1).GetComponent<Image>().sprite = checkbox_ch;
+                chosen.transform.GetChild(3).GetComponent<Image>().sprite = checkbox_ch;
                 InTeam.text = team.Count.ToString();
             } 
         }
