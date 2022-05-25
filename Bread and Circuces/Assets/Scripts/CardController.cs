@@ -9,10 +9,10 @@ public class CardController : MonoBehaviour
     public CardMovementScript Movement;
     public UnitInfo Unit;
     public UnitControl UnitControl;
-    public GameManagerScript Game;
     private TurnManager turnManager;
+    private GameObject[] instanciatedObjects;
 
-    public int numberCard = 0; // for spell
+    public int numberCard = 0, oldList = 0; // for spell
     public bool IsPlayerCard;
 
     GameManagerScript gameManager;
@@ -126,7 +126,7 @@ public class CardController : MonoBehaviour
 
             case Card.CardEffect.ManaAdd:
                 {
-                    Game.CurrentGame.Player.SpellManapool();
+                    gameManager.CurrentGame.Player.SpellManapool();
                     UiController.Instance.UpdateMana();
                 }
                 break;
@@ -149,19 +149,37 @@ public class CardController : MonoBehaviour
     public void DiscardCard()
     {
         gameManager.CurrentGame.Player.DiscardPile.Add(this.Card);
+        GiveCardToDiscardPile(this.Card, gameManager.CurrentGame.Player, gameManager.PlayerDiscardPanel);
         Movement.OnEndDrag(null);
 
         RemoveCardFromList(gameManager.CurrentGame.Player.HandCards);
 
         Destroy(gameObject);
-       // LastCardCast(this.Card, Game.PlayerCardPanel);
     }
-    void LastCardCast(Card card, Transform leftPanel)
-    {
-        GameObject cardLast = Instantiate(Game.CardPref, leftPanel, false);
-        CardController cardLast1 = cardLast.GetComponent<CardController>();
 
-        cardLast1.Init(card, leftPanel);
+    void GiveCardToDiscardPile(Card card, Player player, Transform discardPilePanel)
+    {
+        GameObject cardGG = Instantiate(gameManager.CardPref, discardPilePanel);
+        CardController cardCard = cardGG.GetComponent<CardController>();
+        cardCard.Init(card, true);
+        LastCard(card, player, gameManager.PlayerCardPanel);
+        /*
+        GameObject cardGG = Instantiate(gameManager.CardPref, DiscardPilePanel);
+        CardController cardCard = cardGG.GetComponent<CardController>();
+        cardCard.Init(card, true);
+        if (gameManager.CurrentGame.Player.DiscardPile.Count > oldList)
+        {
+            oldList = gameManager.CurrentGame.Player.DiscardPile.Count;
+            GiveCardToDiscardPile(card, player, gameManager.PlayerCardPanel);
+        }
+        */
+    }
+    void LastCard(Card card, Player player, Transform playerCardPanle)
+    {
+        Destroy(gameObject);
+        GameObject cardGG = Instantiate(gameManager.CardPref, playerCardPanle);
+        CardController cardCard = cardGG.GetComponent<CardController>();
+        cardCard.Init(card, true);
     }
 
     void RemoveCardFromList(List<CardController> list)

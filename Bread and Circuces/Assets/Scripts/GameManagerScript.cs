@@ -72,7 +72,7 @@ public class GameManagerScript : MonoBehaviour
     public static GameManagerScript Instance;
 
     public Game CurrentGame;
-    public Transform EnemyHand, PlayerHand, PlayerCardPanel, PlayerInfoPanel, EnemyCardPanel, EnemyInfoPanel;
+    public Transform EnemyHand, PlayerHand, PlayerCardPanel, PlayerInfoPanel, EnemyCardPanel, EnemyInfoPanel, PlayerDiscardPanel;
     public CardInfoScript CardInfo;
     public Card card;
     public GameObject CardPref;
@@ -153,7 +153,7 @@ public class GameManagerScript : MonoBehaviour
         CurrentGame.ShuffleDeck(player.Deck);
     }
 
-    void CreateCardPref(Card card, Transform hand)
+     void CreateCardPref(Card card, Transform hand)
     {
         GameObject cardFF = Instantiate(CardPref, hand, false);
         CardController cardC = cardFF.GetComponent<CardController>();
