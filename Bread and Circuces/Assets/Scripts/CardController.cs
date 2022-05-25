@@ -177,6 +177,8 @@ public class CardController : MonoBehaviour
     void LastCard(Card card, Player player, Transform playerCardPanle)
     {
         Destroy(gameObject);
+        if(playerCardPanle.childCount != 0)
+            Destroy(playerCardPanle.GetChild(0).gameObject);
         GameObject cardGG = Instantiate(gameManager.CardPref, playerCardPanle);
         CardController cardCard = cardGG.GetComponent<CardController>();
         cardCard.Init(card, true);
