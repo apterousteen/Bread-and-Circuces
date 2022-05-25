@@ -18,9 +18,9 @@ public class MoveButtonHandler : ButtonHandler
         //State = !State;
         var turnManager = FindObjectOfType<TurnManager>();
         FindObjectOfType<GameManagerScript>().ReduceMana(true, 1);
-        turnManager.AddAction(new Action(ActionType.DiscardActivePlayer, 1));
-        turnManager.AddAction(new Action(ActionType.Move, turnManager.activeUnit.GetComponent<UnitInfo>().moveDistance));
-        turnManager.AddAction(new Action(ActionType.Draw, 1));
+        turnManager.AddAction(new Action(ActionType.DiscardActivePlayer, Team.Player, 1));
+        turnManager.AddAction(new Action(ActionType.Move, Team.Player, turnManager.activeUnit.GetComponent<UnitInfo>().moveDistance));
+        turnManager.AddAction(new Action(ActionType.Draw, Team.Player, 1));
         turnManager.EndAction();
     }
 }

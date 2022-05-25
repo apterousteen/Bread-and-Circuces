@@ -141,12 +141,13 @@ public class UnitControl: MonoBehaviour
         ShowMovementArea(distance);
     }
 
-    void ActivateFigure()
+    public void ActivateFigure()
     {
         if(turnManager.ActiveUnitExist() || turnManager.currTeam != info.teamSide)
             return;
 
-        FindObjectOfType<GameManagerScript>().ShowPlayableCards(Card.CardType.Attack, info);
+        if(info.teamSide == Team.Player)
+            FindObjectOfType<GameManagerScript>().ShowPlayableCards(Card.CardType.Attack, info);
         //buttonsContainer.ActivateUnitButtons();
         activated = true;
         var figureRenderer = gameObject.GetComponent<SpriteRenderer>();

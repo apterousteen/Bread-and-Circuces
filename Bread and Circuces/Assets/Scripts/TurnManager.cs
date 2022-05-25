@@ -16,12 +16,14 @@ public enum ActionType
 public class Action
 {
     public ActionType type;
+    public Team team;
     public int value;
 
-    public Action(ActionType type, int value)
+    public Action(ActionType type, Team team, int value)
     {
         this.type = type;
         this.value = value;
+        this.team = team;
     }
 }
 
@@ -42,6 +44,9 @@ public class TurnManager : MonoBehaviour
 
     public Queue<Action> actionQueue;
     public bool inAction;
+    private bool defCardPlayed;
+
+    public int actionsLeft;
 
     void Start()
     {
@@ -50,6 +55,7 @@ public class TurnManager : MonoBehaviour
         currTeam = teamWithInitiative;
         isReactionTime = false;
         inAction = false;
+        defCardPlayed = false;
         actionQueue = new Queue<Action>();
         activatedUnits = new List<UnitInfo>();
         gameManager.MakeAllCardsUnplayable();
@@ -58,13 +64,25 @@ public class TurnManager : MonoBehaviour
 
     void Update()
     {
-        if (actionQueue.Count != 0 && !inAction)
+        actionsLeft = actionQueue.Count;
+        if (actionQueue.Count != 0 && (!inAction || isReactionTime))
             ResolveAction();
     }
 
     public void AddAction(Action action)
     {
-        actionQueue.Enqueue(action);
+        Debug.Log("Added " + action.type.ToString() + " action for " + action.team.ToString());
+        if(isReactionTime)
+        {
+            defCardPlayed = true;
+            var temp = new Queue<Action>();
+            for (int i = 0; i < actionQueue.Count; i++)
+                temp.Enqueue(actionQueue.Dequeue());
+            actionQueue.Enqueue(action);
+            for (int i = 0; i < temp.Count; i++)
+                actionQueue.Enqueue(temp.Dequeue());
+        }
+        else actionQueue.Enqueue(action);
     }
 
     public void ResolveAction()
@@ -73,24 +91,34 @@ public class TurnManager : MonoBehaviour
             activatedUnits.Add(activeUnit.GetComponent<UnitInfo>());
         inAction = true;
         var action = actionQueue.Dequeue();
+        Debug.Log("Resolving " + action.type.ToString() + " action for " + action.team.ToString());
         switch(action.type)
         {
             case ActionType.Attack:
-                activeUnit.GetComponent<UnitControl>().TriggerAttack(action.value);
+                if (action.team == Team.Player)
+                    activeUnit.GetComponent<UnitControl>().TriggerAttack(action.value);
+                else StartReactionWindow(targetUnit);
                 break;
             case ActionType.Move:
                 activeUnit.GetComponent<UnitInfo>().ChangeMotionType(MotionType.RadiusType);
                 activeUnit.GetComponent<UnitControl>().TriggerMove(action.value);
                 break;
             case ActionType.Push:
-                activeUnit.GetComponent<UnitInfo>().ChangeMotionType(MotionType.StraightType);
-                activeUnit.GetComponent<UnitControl>().TriggerMove(action.value);
+                var unitToMove = activeUnit;
+                if (isReactionTime)
+                    unitToMove = targetUnit;
+                unitToMove.GetComponent<UnitInfo>().ChangeMotionType(MotionType.StraightType);
+                if (action.team == Team.Player)
+                    unitToMove.GetComponent<UnitControl>().TriggerMove(action.value);
+                else if (isReactionTime)
+                    unitToMove.GetComponent<BasicUnitAI>().MoveAwayFromClosestPlayerUnit(action.value);
+                else unitToMove.GetComponent<BasicUnitAI>().MoveToClosestPlayerUnit(action.value);
                 break;
             case ActionType.Draw:
-                gameManager.DrawCards(currTeam, action.value);
+                gameManager.DrawCards(action.team, action.value);
                 break;
             case ActionType.DiscardOpponent:
-                if (currTeam == Team.Enemy)
+                if (action.team == Team.Enemy)
                 {
                     Debug.Log("Start discard");
                     UiController.Instance.MakeDiscardWindowActive(true);
@@ -101,7 +129,7 @@ public class TurnManager : MonoBehaviour
                 else gameManager.enemyHandSize -= action.value;
                 break;
             case ActionType.DiscardActivePlayer:
-                if (currTeam == Team.Player)
+                if (action.team == Team.Player)
                 {
                     UiController.Instance.MakeDiscardWindowActive(true);
                     var discardWindow = FindObjectOfType<DiscardWindow>();
@@ -111,12 +139,18 @@ public class TurnManager : MonoBehaviour
                 else gameManager.enemyHandSize -= action.value;
                 break;
         }
+        if (isReactionTime && currTeam == Team.Player && actionQueue.Where(x => x.team == Team.Enemy).Count() == 0)
+            EndReactionWindow();
+        
     }
 
     public void EndAction()
     {
+        Debug.Log(currTeam.ToString() + " ended action");
         inAction = false;
-        if (activeUnit != null && currTeam == Team.Player)
+        //if (isReactionTime && currTeam == Team.Enemy && actionQueue.Where(x => x.team == Team.Player).Count() == 0)
+        //    EndReactionWindow();
+        if (actionQueue.Count == 0 && activeUnit != null && currTeam == Team.Player)
             gameManager.ShowPlayableCards(Card.CardType.Attack, activeUnit.GetComponent<UnitInfo>());
     }
 
@@ -141,7 +175,7 @@ public class TurnManager : MonoBehaviour
 
         gameManager.CheckCardsForManaAvaliability();
 
-        if (gameManager.IsPlayerTurn)
+        if (currTeam == Team.Player)
         {
             while (TurnTime-- > 0)
             {
@@ -151,8 +185,20 @@ public class TurnManager : MonoBehaviour
         }
         else
         {
+            if(activeUnit == null)
+            {
+                var unit = FindObjectsOfType<UnitInfo>()
+                    .Where(x => x.teamSide == Team.Enemy && !activatedUnits.Contains(x))
+                    .FirstOrDefault().gameObject;
+                unit.GetComponent<UnitControl>().ActivateFigure();
+            }
             while (TurnTime-- > 0)
             {
+                if (actionQueue.Count == 0)
+                {
+                    Debug.Log("Trigger action");
+                    activeUnit.GetComponent<BasicUnitAI>().GenerateAction();
+                }
                 UiController.Instance.UpdateTurnTime(TurnTime);
                 yield return new WaitForSeconds(1);
             }
@@ -235,10 +281,9 @@ public class TurnManager : MonoBehaviour
         UiController.Instance.ChangeEndButtonText();
         if (activeUnitInfo.teamSide == Team.Player)
         {
-            targetInfo.defence += Random.Range(0, 4);
-            //targetInfo.gameObject.GetComponent<BasicUnitUI>().GenerateDefence();
-            Debug.Log("Target's defence: " + targetInfo.defence);
-            EndReactionWindow();
+            //targetInfo.defence += Random.Range(0, 4);
+            targetInfo.gameObject.GetComponent<BasicUnitAI>().GenerateDefence();
+            //EndReactionWindow();
         }
         else
         {
@@ -250,11 +295,14 @@ public class TurnManager : MonoBehaviour
     public void EndReactionWindow()
     {
         StopAllCoroutines();
+        defCardPlayed = false;
+        Debug.Log("Reaction window ended");
         activeUnit.GetComponent<UnitControl>().MakeAtack(targetUnit.GetComponent<UnitInfo>());
         isReactionTime = false;
         targetUnit = null;
         if (currTeam == Team.Enemy)
             gameManager.MakeAllCardsUnplayable();
+        else gameManager.ShowPlayableCards(Card.CardType.Attack, activeUnit.GetComponent<UnitInfo>());
         UiController.Instance.ChangeEndButtonText();
         StartCoroutine(TurnFunc());
     }
@@ -269,6 +317,8 @@ public class TurnManager : MonoBehaviour
 
         while (TurnTime-- > 0)
         {
+            if (defCardPlayed && actionQueue.Count == 0)
+                break;
             UiController.Instance.UpdateTurnTime(TurnTime);
             yield return new WaitForSeconds(1);
         }
@@ -291,7 +341,12 @@ public class TurnManager : MonoBehaviour
     {
         if (isReactionTime)
             EndReactionWindow();
-        else EndPlayerActivation();
+        else
+        {
+            if (!activatedUnits.Contains(activeUnit.GetComponent<UnitInfo>()))
+                activatedUnits.Add(activeUnit.GetComponent<UnitInfo>());
+            EndPlayerActivation();
+        }
     }
 
     public bool ActiveUnitExist()
