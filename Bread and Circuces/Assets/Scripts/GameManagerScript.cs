@@ -72,20 +72,17 @@ public class GameManagerScript : MonoBehaviour
     public static GameManagerScript Instance;
 
     public Game CurrentGame;
-    public Transform EnemyHand, PlayerHand;
+    public Transform EnemyHand, PlayerHand, PlayerCardPanel, PlayerInfoPanel, EnemyCardPanel, EnemyInfoPanel, PlayerDiscardPanel;
     public CardInfoScript CardInfo;
     public Card card;
     public GameObject CardPref;
 
-    int Turn, TurnTime = 30;
+    int Turn;
 
     int StartHandSize = 6;
     public int playerDeckSize;
     public int enemyHandSize = 6;
 
-    public List<CardController> PlayerHandCards = new List<CardController>(),
-                                EnemyHandCards = new List<CardController>();
-                                
     private TurnManager turnManager;
     private Board board;
 
@@ -122,8 +119,8 @@ public class GameManagerScript : MonoBehaviour
         board.SpawnUnits(CurrentGame.Player);
         board.SpawnUnits(CurrentGame.Enemy);
         var enemyUnits = FindObjectsOfType<UnitInfo>().Where(x => x.teamSide == Team.Enemy).ToList();
-        //foreach (var unit in enemyUnits)
-        //    unit.gameObject.AddComponent<BasicUnitUI>();
+        foreach (var unit in enemyUnits)
+            unit.gameObject.AddComponent<BasicUnitAI>();
 
         //GiveHandCards(CurrentGame.Enemy, EnemyHand);
         GiveHandCards(CurrentGame.Player, PlayerHand);
@@ -156,7 +153,7 @@ public class GameManagerScript : MonoBehaviour
         CurrentGame.ShuffleDeck(player.Deck);
     }
 
-    void CreateCardPref(Card card, Transform hand)
+     void CreateCardPref(Card card, Transform hand)
     {
         GameObject cardFF = Instantiate(CardPref, hand, false);
         CardController cardC = cardFF.GetComponent<CardController>();
@@ -164,14 +161,15 @@ public class GameManagerScript : MonoBehaviour
         cardC.Init(card, hand == PlayerHand);
 
         if (cardC.IsPlayerCard)
-            PlayerHandCards.Add(cardC);
+            CurrentGame.Player.HandCards.Add(cardC);
         else
-            EnemyHandCards.Add(cardC);
+            CurrentGame.Enemy.HandCards.Add(cardC);
+        
     }
 
     void DrawFullHand(Player player, Transform hand) // вместо добора одной карты на начало хода добираетс¤ полна¤ рука из 6 карт
     {
-        int i = PlayerHandCards.Count;
+        int i = CurrentGame.Player.HandCards.Count;
         Debug.Log("Players hand: " + i);
         while (i++ < StartHandSize)
             GiveCardToHand(player, hand);
@@ -204,16 +202,16 @@ public class GameManagerScript : MonoBehaviour
 
     public void CheckCardsForManaAvaliability()
     {
-        foreach (var card in PlayerHandCards)
+        foreach (var card in CurrentGame.Player.HandCards)
             card.Info.HiglightManaAvaliability(CurrentGame.Player.Mana);
     }
 
     public void ShowPlayableCards(Card.CardType type, UnitInfo unit)
     {
-        foreach (var card in PlayerHandCards)
+        foreach (var card in CurrentGame.Player.HandCards)
         {
             var cardInfo = card.Card;
-            if(cardInfo.Type == type && cardInfo.StartStance == unit.currentStance && (cardInfo.Restriction == CardRestriction.Universal 
+            if (cardInfo.Type == type && cardInfo.StartStance == unit.currentStance && (cardInfo.Restriction == CardRestriction.Universal
                 || cardInfo.Restriction.ToString() == unit.gameObject.tag.ToString()))
             {
                 card.Info.HiglightCard(true);
@@ -224,14 +222,14 @@ public class GameManagerScript : MonoBehaviour
                 card.Info.HiglightCard(false);
                 card.Movement.CanBePlayed = false;
             }
-            
+
         }
-        
+
     }
 
     public void MakeAllCardsUnplayable()
     {
-        foreach (var card in PlayerHandCards)
+        foreach (var card in CurrentGame.Player.HandCards)
         {
             card.Info.HiglightCard(false);
             card.Movement.CanBePlayed = false;

@@ -117,7 +117,7 @@ public class UiController : MonoBehaviour
 
     public void UpdateMana()
     {
-        Debug.Log(GameManagerScript.Instance.CurrentGame.Player.Mana.ToString());
+        //Debug.Log(GameManagerScript.Instance.CurrentGame.Player.Mana.ToString());
         PlayerMana.text = GameManagerScript.Instance.CurrentGame.Player.Mana.ToString();
         EnemyMana.text = GameManagerScript.Instance.CurrentGame.Enemy.Mana.ToString();
     }
@@ -136,7 +136,6 @@ public class UiController : MonoBehaviour
     {
         isTurnEndButton = !isTurnEndButton;
         var buttonText = EndTurnBtn.GetComponentInChildren<TextMeshProUGUI>();
-        Debug.Log("Text Changed");
         if (isTurnEndButton)
             buttonText.text = "END TURN";
         else buttonText.text = "PASS";
