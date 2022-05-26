@@ -519,6 +519,7 @@ MonoBehaviour:
   DefaultParent: {fileID: 0}
   IsDraggable: 0
   IsClickable: 0
+  CanBePlayed: 0
 --- !u!225 &4310692873211168548
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -565,8 +566,8 @@ MonoBehaviour:
   Movement: {fileID: 4310692873211168549}
   Unit: {fileID: 0}
   UnitControl: {fileID: 0}
-  Game: {fileID: 0}
   numberCard: 0
+  oldList: 0
   IsPlayerCard: 0
 --- !u!114 &4241339129204602519
 MonoBehaviour:
