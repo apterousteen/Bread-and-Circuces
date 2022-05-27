@@ -946,9 +946,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1346217269}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
+      - m_Target: {fileID: 729242345}
+        m_TargetAssemblyTypeName: UiController, Assembly-CSharp
+        m_MethodName: GiveCardToDiscardPileOneByOne
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1873,6 +1873,7 @@ MonoBehaviour:
   TurnTime: {fileID: 494121460}
   EndTurnBtn: {fileID: 1027432661}
   discardWindow: {fileID: 746542378}
+  discardPilePanel: {fileID: 1346217269}
   winPopup: {fileID: 5796988136213073229}
   failPopup: {fileID: 7022545018934802703}
   pausePopup: {fileID: 8031404906995848072}

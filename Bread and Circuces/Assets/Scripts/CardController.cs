@@ -10,7 +10,6 @@ public class CardController : MonoBehaviour
     public UnitInfo Unit;
     public UnitControl UnitControl;
     private TurnManager turnManager;
-    private GameObject[] instanciatedObjects;
 
     public int numberCard = 0, oldList = 0; // for spell
     public bool IsPlayerCard;
@@ -149,7 +148,8 @@ public class CardController : MonoBehaviour
     public void DiscardCard()
     {
         gameManager.CurrentGame.Player.DiscardPile.Add(this.Card);
-        GiveCardToDiscardPile(this.Card, gameManager.CurrentGame.Player, gameManager.PlayerDiscardPanel);
+        LastCard(this.Card, gameManager.CurrentGame.Player, gameManager.PlayerCardPanel);
+        //GiveCardToDiscardPile(this.Card, gameManager.CurrentGame.Player, gameManager.PlayerDiscardPanel);
         Movement.OnEndDrag(null);
 
         RemoveCardFromList(gameManager.CurrentGame.Player.HandCards);
@@ -174,12 +174,13 @@ public class CardController : MonoBehaviour
         }
         */
     }
-    void LastCard(Card card, Player player, Transform playerCardPanle)
+
+    void LastCard(Card card, Player player, Transform playerCardPanel)
     {
         Destroy(gameObject);
-        if(playerCardPanle.childCount != 0)
-            Destroy(playerCardPanle.GetChild(0).gameObject);
-        GameObject cardGG = Instantiate(gameManager.CardPref, playerCardPanle);
+        if (playerCardPanel.childCount != 0)
+            Destroy(playerCardPanel.GetChild(0).gameObject);
+        GameObject cardGG = Instantiate(gameManager.CardPref, playerCardPanel);
         CardController cardCard = cardGG.GetComponent<CardController>();
         cardCard.Init(card, true);
     }
