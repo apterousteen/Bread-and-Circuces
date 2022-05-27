@@ -6,11 +6,20 @@ using System.Linq;
 public enum ActionType
 {
     Attack,
+    FinisherAttack,
+    AttackWithDiscardBuff,
     Move,
     Push,
     Draw,
+    DrawDiscardedCards,
     DiscardActivePlayer,
-    DiscardOpponent
+    DiscardOpponent,
+    NearDraw,
+    CancelCard,
+    ChargeStart,
+    ChargeEnd,
+    ChangeEnemyStance,
+    DrawIfAlive
 }
 
 public class Action
@@ -32,6 +41,7 @@ public class TurnManager : MonoBehaviour
     public Team currTeam;
     private Team teamWithInitiative;
     private GameManagerScript gameManager;
+    private DistanceFinder distanceFinder;
     public bool isReactionTime;
 
     public GameObject activeUnit = null;
@@ -45,12 +55,15 @@ public class TurnManager : MonoBehaviour
     public Queue<Action> actionQueue;
     public bool inAction;
     private bool defCardPlayed;
+    public int playedCards = 0;
+    private HexTile startHex;
 
     public int actionsLeft;
 
-    void Start()
+    public void StartActivity()
     {
         gameManager = FindObjectOfType<GameManagerScript>();
+        distanceFinder = FindObjectOfType<DistanceFinder>();
         teamWithInitiative = (Team)Random.Range(0, 1);
         currTeam = teamWithInitiative;
         isReactionTime = false;
@@ -60,6 +73,7 @@ public class TurnManager : MonoBehaviour
         activatedUnits = new List<UnitInfo>();
         gameManager.MakeAllCardsUnplayable();
         StartCoroutine(TurnFunc());
+        StartMulligan();
     }
 
     void Update()
@@ -69,10 +83,16 @@ public class TurnManager : MonoBehaviour
             ResolveAction();
     }
 
+    public void StartMulligan()
+    {
+        AddAction(new Action(ActionType.DiscardActivePlayer, Team.Player, gameManager.StartHandSize));
+        AddAction(new Action(ActionType.DrawDiscardedCards, Team.Player, 0));
+    }    
+
     public void AddAction(Action action)
     {
         Debug.Log("Added " + action.type.ToString() + " action for " + action.team.ToString());
-        if(isReactionTime)
+        if (isReactionTime && action.type != ActionType.DrawIfAlive)
         {
             defCardPlayed = true;
             var temp = new Queue<Action>();
@@ -87,7 +107,7 @@ public class TurnManager : MonoBehaviour
 
     public void ResolveAction()
     {
-        if(!activatedUnits.Contains(activeUnit.GetComponent<UnitInfo>()))
+        if(activeUnit != null && !activatedUnits.Contains(activeUnit.GetComponent<UnitInfo>()))
             activatedUnits.Add(activeUnit.GetComponent<UnitInfo>());
         inAction = true;
         var action = actionQueue.Dequeue();
@@ -97,7 +117,11 @@ public class TurnManager : MonoBehaviour
             case ActionType.Attack:
                 if (action.team == Team.Player)
                     activeUnit.GetComponent<UnitControl>().TriggerAttack(action.value);
-                else StartReactionWindow(targetUnit);
+                else
+                {
+                    activeUnit.GetComponent<UnitInfo>().damage += action.value;
+                    StartReactionWindow(targetUnit);
+                }
                 break;
             case ActionType.Move:
                 activeUnit.GetComponent<UnitInfo>().ChangeMotionType(MotionType.RadiusType);
@@ -123,7 +147,7 @@ public class TurnManager : MonoBehaviour
                     Debug.Log("Start discard");
                     UiController.Instance.MakeDiscardWindowActive(true);
                     var discardWindow = FindObjectOfType<DiscardWindow>();
-                    discardWindow.SetNum(action.value);
+                    discardWindow.SetParams(action.value);
                     discardWindow.SetCards();
                 }
                 else gameManager.enemyHandSize -= action.value;
@@ -134,9 +158,73 @@ public class TurnManager : MonoBehaviour
                     UiController.Instance.MakeDiscardWindowActive(true);
                     var discardWindow = FindObjectOfType<DiscardWindow>();
                     discardWindow.SetCards();
-                    discardWindow.SetNum(action.value);
+                    discardWindow.SetParams(action.value, true);
                 }
-                else gameManager.enemyHandSize -= action.value;
+                else gameManager.enemyHandSize -= 1;
+                break;
+
+            case ActionType.DrawDiscardedCards:
+                gameManager.DrawCards(action.team, gameManager.discardedCards);
+                break;
+
+            case ActionType.DrawIfAlive:
+                if (targetUnit != null)
+                    gameManager.DrawCards(action.team, action.value);
+                break;
+
+            case ActionType.AttackWithDiscardBuff:
+                if (action.team == Team.Player)
+                    activeUnit.GetComponent<UnitControl>().TriggerAttack(action.value + gameManager.discardedCards * 2);
+                else
+                {
+                    activeUnit.GetComponent<UnitInfo>().damage += action.value + 2;
+                    StartReactionWindow(targetUnit);
+                }
+                break;
+
+            case ActionType.FinisherAttack:
+                if (action.team == Team.Player)
+                    activeUnit.GetComponent<UnitControl>().TriggerAttack(action.value + playedCards);
+                else
+                {
+                    activeUnit.GetComponent<UnitInfo>().damage += action.value + playedCards;
+                    StartReactionWindow(targetUnit);
+                }
+                break;
+
+            case ActionType.CancelCard:
+                actionQueue.Clear();
+                break;
+
+            case ActionType.ChangeEnemyStance:
+                targetUnit.GetComponent<UnitInfo>().ChangeStance(Stance.Advance);
+                break;
+
+            case ActionType.ChargeStart:
+                startHex = activeUnit.transform.parent.gameObject.GetComponent<HexTile>();
+                activeUnit.GetComponent<UnitInfo>().ChangeMotionType(MotionType.StraightType);
+                if (action.team == Team.Player)
+                    activeUnit.GetComponent<UnitControl>().TriggerMove(action.value);
+                else activeUnit.GetComponent<BasicUnitAI>().MoveToClosestPlayerUnit(action.value);
+                break;
+
+            case ActionType.ChargeEnd:
+                var endHex = activeUnit.transform.parent.gameObject.GetComponent<HexTile>();
+                var dmg = 4 - distanceFinder.GetDistanceBetweenHexes(startHex, endHex);
+                Debug.Log("DMG = " + dmg);
+                if (action.team == Team.Player)
+                    activeUnit.GetComponent<UnitControl>().TriggerAttack(dmg);
+                else
+                {
+                    activeUnit.GetComponent<UnitInfo>().damage += dmg;
+                    StartReactionWindow(targetUnit);
+                }
+                break;
+
+            case ActionType.NearDraw:
+                var enemyIsNear = activeUnit.GetComponent<UnitControl>().CheckForEnemiesInBTB();
+                if (!enemyIsNear)
+                    gameManager.DrawCards(action.team, action.value);
                 break;
         }
         if (isReactionTime && currTeam == Team.Player && actionQueue.Where(x => x.team == Team.Enemy).Count() == 0)
@@ -150,6 +238,13 @@ public class TurnManager : MonoBehaviour
         inAction = false;
         //if (isReactionTime && currTeam == Team.Enemy && actionQueue.Where(x => x.team == Team.Player).Count() == 0)
         //    EndReactionWindow();
+        if(actionQueue.Count == 0)
+        {
+            if (activeUnit != null)
+                activeUnit.GetComponent<UnitInfo>().UpdateStance();
+            if (targetUnit != null)
+                targetUnit.GetComponent<UnitInfo>().UpdateStance();
+        }
         if (actionQueue.Count == 0 && activeUnit != null && currTeam == Team.Player)
             gameManager.ShowPlayableCards(Card.CardType.Attack, activeUnit.GetComponent<UnitInfo>());
     }
@@ -228,6 +323,7 @@ public class TurnManager : MonoBehaviour
             gameManager.CurrentGame.Enemy.activatedUnits++;
         }
 
+        playedCards = 0;
         var playerCanActivate = CheckIfPlayerCanActivate(gameManager.CurrentGame.Player);
         var enemyCanActivate = CheckIfPlayerCanActivate(gameManager.CurrentGame.Enemy);
 

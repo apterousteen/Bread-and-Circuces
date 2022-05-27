@@ -6,7 +6,7 @@ public class Murmillo : UnitInfo
 {
     protected override void Start()
     {
-        damage = 3;
+        damage = 0;
 
         health = 15;
         defence = 0;
@@ -37,7 +37,7 @@ public class Murmillo : UnitInfo
         base.OnDefenceEnd();
     }
 
-    public override void OnMove()
+    public override void OnMoveEnd()
     {
 
     }

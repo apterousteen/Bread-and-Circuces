@@ -6,7 +6,7 @@ public class Scissor : UnitInfo
 {
     protected override void Start()
     {
-        damage = 3;
+        damage = 0;
 
         health = 14;
         defence = 1;
@@ -49,7 +49,7 @@ public class Scissor : UnitInfo
         base.OnDefenceEnd();
     }
 
-    public override void OnMove()
+    public override void OnMoveEnd()
     {
 
     }

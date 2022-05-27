@@ -28,17 +28,17 @@ public class MenuManager : MonoBehaviour
 
     public void AddToTeam()
     {
-        if (team.Count < 2)
+        if (!team.Contains(chosen.tag))
         {
-            if (!team.Contains(chosen.tag))
-            {
-                team.Add(chosen.tag);
-                chosen.transform.GetChild(3).GetComponent<Image>().sprite = checkbox_ch;
-                InTeam.text = team.Count.ToString();
-            } 
+            team.Add(chosen.tag);
+            chosen.transform.GetChild(3).GetComponent<Image>().sprite = checkbox_ch;
+            InTeam.text = team.Count.ToString();
         }
-        else 
+        if (team.Count == 2)
+        {
             ChooseButton.interactable = false;
+            RunInfo.Instance.Player.units.SelectUnits(team[0], team[1]);
+        }
     }
 
     public void OpenPopup()

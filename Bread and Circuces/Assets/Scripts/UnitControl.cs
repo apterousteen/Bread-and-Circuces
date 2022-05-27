@@ -115,6 +115,7 @@ public class UnitControl: MonoBehaviour
 
     void MoveObject(){
         transform.position = new Vector3(posX, posY, transform.position.z);
+        info.OnMoveEnd();
         info.ChangeMotionType(MotionType.RadiusType);
         turnManager.EndAction();
     }
@@ -123,6 +124,8 @@ public class UnitControl: MonoBehaviour
     {
         info.OnAttackStart(enemyUnit);
         enemyUnit.OnDefenceStart();
+        Debug.Log("DMG = " + info.damage);
+        Debug.Log("DEF = " + enemyUnit.defence);
         var damageDealt = info.damage - enemyUnit.defence;
         enemyUnit.SufferDamage(damageDealt);
         info.OnAttackEnd(enemyUnit);
@@ -169,7 +172,9 @@ public class UnitControl: MonoBehaviour
     void ShowMovementArea(int distance)
     {
         List<HexTile> tiles = new List<HexTile>();
-        if(info.motionType == MotionType.RadiusType)
+        if (info.OnMoveStart())
+            distance++;
+        if (info.motionType == MotionType.RadiusType)
             tiles = distanceFinder.FindPaths(transform.parent.GetComponent<HexTile>(), distance);
         else if(info.motionType == MotionType.StraightType)
             tiles = distanceFinder.FindStraightPaths(transform.parent.GetComponent<HexTile>(), distance);
@@ -201,6 +206,22 @@ public class UnitControl: MonoBehaviour
                 tileRenderer.material.SetColor("_Color", Color.blue);
             }
         }
+    }
+
+    public bool CheckForEnemiesInBTB()
+    {
+        var tiles = distanceFinder.GetTilesInRadius(transform.parent.GetComponent<HexTile>(), 1);
+        foreach (var tile in tiles)
+        {
+            if (tile.isOccupied)
+            {
+                if (tile.transform.GetChild(0).GetComponent<UnitInfo>().IsEnemy(info))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     void HideArea()

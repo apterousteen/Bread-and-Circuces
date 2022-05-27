@@ -11,9 +11,14 @@ public class Game
 
     public Game()
     {
-        Player = new Player();
-        Player.team = Team.Player;
-        Player.units.SelectUnits("Hoplomachus", "Murmillo");
+        if(RunInfo.Instance != null)
+            Player = RunInfo.Instance.Player;
+        else
+        {
+            Player = new Player();
+            Player.team = Team.Player;
+            Player.units.SelectUnits("Hoplomachus", "Murmillo");
+        }
 
         Enemy = new Player();
         Enemy.team = Team.Enemy;
@@ -79,9 +84,10 @@ public class GameManagerScript : MonoBehaviour
 
     int Turn;
 
-    int StartHandSize = 6;
+    public int StartHandSize = 6;
     public int playerDeckSize;
     public int enemyHandSize = 6;
+    public int discardedCards;
 
     private TurnManager turnManager;
     private Board board;
@@ -125,7 +131,7 @@ public class GameManagerScript : MonoBehaviour
         //GiveHandCards(CurrentGame.Enemy, EnemyHand);
         GiveHandCards(CurrentGame.Player, PlayerHand);
         UiController.Instance.StartGame();
-        MakeAllCardsUnplayable();
+        turnManager.StartActivity();
     }
 
     void GiveHandCards(Player player, Transform hand) //Функция выдачи стартовых карт в руку

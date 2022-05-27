@@ -144,6 +144,8 @@ public class BasicUnitAI : MonoBehaviour
         var availableCards = gameManager.CurrentGame.Enemy.Deck
             .Where(x => x.Restriction == CardRestriction.Universal && x.Type == Card.CardType.Attack
             && x.StartStance == info.currentStance).ToList();
+        Debug.Log("All cards = " + gameManager.CurrentGame.Enemy.Deck.Count);
+        Debug.Log("Available cards = " + availableCards.Count);
         if (availableCards.Count == 0)
             return;
         var card = availableCards[UnityEngine.Random.Range(0, availableCards.Count)];
@@ -170,74 +172,77 @@ public class BasicUnitAI : MonoBehaviour
 
         unit.ChangeStance(spellCard.EndStance);
 
-        switch (spellCard.FirstCardEff)
+        switch (card.FirstCardEff)
         {
             case Card.CardEffect.Damage://confirmed
-                turnManager.AddAction(new Action(ActionType.Attack, Team.Enemy, spellCard.SpellValue));
+                turnManager.AddAction(new Action(ActionType.Attack, Team.Enemy, card.SpellValue));
                 break;
 
-            case Card.CardEffect.DamagePlusMovement:// скорее всего будут вместе срабатывать, нужно добавить бул перемнную в метод атаки
+            case Card.CardEffect.PushBackEnemy:
                 {
-                    turnManager.AddAction(new Action(ActionType.Attack, Team.Enemy, spellCard.SpellValue));
+                    turnManager.AddAction(new Action(ActionType.Attack, Team.Enemy, card.SpellValue));
 
-                    turnManager.AddAction(new Action(ActionType.Push, Team.Enemy, spellCard.SpellValue));
+                    turnManager.AddAction(new Action(ActionType.Push, Team.Enemy, card.SpellValue));
                 }
                 break;
 
-            case Card.CardEffect.PlusDamageCard: // нужно добавить обнуление numberCard в методе смены хода(он пока у нас не робит)
-                turnManager.AddAction(new Action(ActionType.Attack, Team.Enemy, spellCard.SpellValue));
+            case Card.CardEffect.DamageFinisher: // нужно добавить обнуление numberCard в методе смены хода(он пока у нас не робит)
+                turnManager.AddAction(new Action(ActionType.FinisherAttack, Team.Enemy, card.SpellValue));
                 break;
 
             case Card.CardEffect.Defense:// confirmed
-                unit.defence += spellCard.SpellValue;
+                unit.defence += card.SpellValue;
                 break;
 
-            case Card.CardEffect.CheckDefenseStance: // нужно допилить
-                break;
-
-            case Card.CardEffect.DefensePlusType:
+            case Card.CardEffect.ShieldedDefense:
                 {
-                    unit.defence += spellCard.SpellValue;
+                    unit.defence += card.SpellValue;
                     if (unit.withShield)
                         unit.defence += 1;
                 }
                 break;
 
-            case Card.CardEffect.Survived:
-                unit.CheckForAlive();
+            case Card.CardEffect.Movement:// confirmed
+                turnManager.AddAction(new Action(ActionType.Push, Team.Enemy, card.SpellValue));
                 break;
 
-            case Card.CardEffect.Movement:// confirmed
-                turnManager.AddAction(new Action(ActionType.Push, Team.Enemy, spellCard.SpellValue));
+            case Card.CardEffect.ChargeStart:
+                turnManager.AddAction(new Action(ActionType.ChargeStart, Team.Enemy, card.SecondSpellValue));
                 break;
         }
-        switch (spellCard.FirstCardEffTwo)
+        switch (card.FirstCardEffTwo)
         {
             case Card.CardEffect.Damage:// confirmed
-                turnManager.AddAction(new Action(ActionType.Attack, Team.Enemy, spellCard.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.Attack, Team.Enemy, card.SecondSpellValue));
                 break;
 
-            case Card.CardEffect.IfDamage:
+            case Card.CardEffect.DamageAfterDiscard:
+                turnManager.AddAction(new Action(ActionType.AttackWithDiscardBuff, Team.Enemy, card.SecondSpellValue));
                 break;
 
             case Card.CardEffect.Movement:// confirmed
-                turnManager.AddAction(new Action(ActionType.Push, Team.Enemy, spellCard.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.Push, Team.Enemy, card.SecondSpellValue));
                 break;
 
             case Card.CardEffect.CardDrow:// confirmed
-                turnManager.AddAction(new Action(ActionType.Draw, Team.Enemy, spellCard.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.Draw, Team.Enemy, card.SecondSpellValue));
                 break;
 
             case Card.CardEffect.AliveCardDrow:
-                if (unit.CheckForAlive())
-                    turnManager.AddAction(new Action(ActionType.Draw, Team.Enemy, spellCard.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.DrawIfAlive, Team.Enemy, card.SecondSpellValue));
                 break;
 
-            case Card.CardEffect.IfCardDrow:
+            case Card.CardEffect.Stun:
+                turnManager.AddAction(new Action(ActionType.ChangeEnemyStance, Team.Enemy, card.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.DiscardOpponent, Team.Enemy, card.SecondSpellValue));
                 break;
 
-            case Card.CardEffect.ResetCard:
-                turnManager.AddAction(new Action(ActionType.DiscardOpponent, Team.Enemy, spellCard.SecondSpellValue));
+            case Card.CardEffect.NearCardDrow:
+                turnManager.AddAction(new Action(ActionType.NearDraw, Team.Enemy, card.SecondSpellValue));
+                break;
+
+            case Card.CardEffect.DiscardEnemy:
+                turnManager.AddAction(new Action(ActionType.DiscardOpponent, Team.Enemy, card.SecondSpellValue));
                 break;
 
             case Card.CardEffect.ManaAdd:
@@ -247,12 +252,12 @@ public class BasicUnitAI : MonoBehaviour
                 }
                 break;
 
-            case Card.CardEffect.Type:
-                if (unit.withShield)
-                    unit.defence += spellCard.SecondSpellValue;
+            case Card.CardEffect.ChargeEnd:
+                turnManager.AddAction(new Action(ActionType.ChargeEnd, Team.Enemy, card.SecondSpellValue));
                 break;
 
-            case Card.CardEffect.Mechanics:
+            case Card.CardEffect.CancelCard:
+                turnManager.AddAction(new Action(ActionType.CancelCard, Team.Enemy, card.SecondSpellValue));
                 break;
 
             case Card.CardEffect.No:

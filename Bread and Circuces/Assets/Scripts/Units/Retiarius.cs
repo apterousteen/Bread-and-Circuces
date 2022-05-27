@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Retiarius : UnitInfo
 {
+    private GameManagerScript gameManager;
+
     protected override void Start()
     {
-        damage = 3;
+        damage = 0;
 
         health = 15;
         defence = 0;
@@ -16,6 +18,7 @@ public class Retiarius : UnitInfo
 
         base.Start();
 
+        gameManager = FindObjectOfType<GameManagerScript>();
     }
 
     public override void OnAttackEnd(UnitInfo target)
@@ -38,9 +41,9 @@ public class Retiarius : UnitInfo
         base.OnDefenceEnd();
     }
 
-    public override void OnMove()
+    public override void OnMoveEnd()
     {
         if (motionType == MotionType.StraightType)
-            ; // Draw Card
+            gameManager.DrawCards(teamSide, 1); // Draw Card
     }
 }
