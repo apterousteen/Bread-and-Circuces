@@ -29,6 +29,7 @@ public class Action
 
 public class TurnManager : MonoBehaviour
 {
+
     public Team currTeam;
     private Team teamWithInitiative;
     private GameManagerScript gameManager;

@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using System;
 
 public class UiController : MonoBehaviour
 {
@@ -16,6 +17,20 @@ public class UiController : MonoBehaviour
     public Button EndTurnBtn;
     public GameObject discardWindow;
     private bool isTurnEndButton;
+
+    private TurnManager turnManager;
+    public TextMeshProUGUI playerName, playerHealth, playerAttac, playerMove;
+    public TextMeshProUGUI enemyName, enemyHealth, enemyAttac, enemyMove;
+    public GameObject playerStance;
+    public GameObject enemyStance;
+
+    [Serializable]
+    public struct stanceSprites
+    {
+        public string name;
+        public Sprite image;
+    }
+    public stanceSprites[] stances;
 
     /// from determined
     [Header("Popups")]
@@ -42,18 +57,6 @@ public class UiController : MonoBehaviour
 
     public void HandleUI()
     {
-        //PlayerMana = FindObjectsOfType<TextMeshProUGUI>().Where(x => x.gameObject.CompareTag("PlayerMana")).First();
-        //EnemyMana = FindObjectsOfType<TextMeshProUGUI>().Where(x => x.gameObject.CompareTag("EnemyMana")).First();
-        //TurnTime = FindObjectsOfType<TextMeshProUGUI>().Where(x => x.gameObject.CompareTag("TurnTimeTXT")).First();
-        //EndTurnBtn = FindObjectsOfType<Button>().Where(x => x.gameObject.CompareTag("EndTurnBtn")).First();
-        //discardWindow = GameObject.FindGameObjectWithTag("DiscardPanel");
-        //discardWindow.SetActive(false);
-        //winPopup = GameObject.FindGameObjectWithTag("WinPanel");
-        //winPopup.SetActive(false);
-        //failPopup = GameObject.FindGameObjectWithTag("FailPanel");
-        //failPopup.SetActive(false);
-        //pausePopup = GameObject.FindGameObjectWithTag("PausePanel");
-        //pausePopup.SetActive(false);
 
         PlayerMana = GameObject.Find("PlayerMana").GetComponent<TextMeshProUGUI>();
         EnemyMana = GameObject.Find("EnemyMana").GetComponent<TextMeshProUGUI>();
@@ -149,5 +152,37 @@ public class UiController : MonoBehaviour
     public void UpdateDiscardButton()
     {
         discardWindow.GetComponentInChildren<Button>().interactable = FindObjectOfType<DiscardWindow>().IsButtonActive();
+    }
+
+    public void UpdateSidePanel(GameObject unit)
+    {
+        if (unit.GetComponent<UnitInfo>().teamSide.ToString() == "Player")
+        {
+            playerName.text = unit.GetComponent<UnitInfo>().unitName;
+            playerHealth.text = unit.GetComponent<UnitInfo>().health.ToString();
+
+            foreach (var stance in stances)
+            {
+                if (stance.name == unit.GetComponent<UnitInfo>().currentStance.ToString())
+                    playerStance.GetComponent<Image>().sprite = stance.image;
+            }
+
+            playerAttac.text = unit.GetComponent<UnitInfo>().attackReachDistance.ToString();
+            playerMove.text = unit.GetComponent<UnitInfo>().moveDistance.ToString();
+        }
+        else if (unit.GetComponent<UnitInfo>().teamSide.ToString() == "Enemy")
+        {
+            enemyName.text = unit.GetComponent<UnitInfo>().unitName;
+            enemyHealth.text = unit.GetComponent<UnitInfo>().health.ToString();
+
+            foreach (var stance in stances)
+            {
+                if (stance.name == unit.GetComponent<UnitInfo>().currentStance.ToString())
+                    enemyStance.GetComponent<Image>().sprite = stance.image;
+            }
+
+            enemyAttac.text = unit.GetComponent<UnitInfo>().attackReachDistance.ToString();
+            enemyMove.text = unit.GetComponent<UnitInfo>().moveDistance.ToString();
+        }
     }
 }

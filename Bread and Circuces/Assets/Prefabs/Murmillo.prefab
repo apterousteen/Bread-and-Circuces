@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 035daae0db9c7514682cd0d7bdddf239, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonsContainer: {fileID: 0}
+  wasActivated: 0
 --- !u!65 &617598865249110880
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9483914b7356b37469a831074a380de3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitName: "\u041C\u0443\u0440\u043C\u0438\u043B\u043B\u043E\u043D"
   health: 0
   moveDistance: 0
   attackReachDistance: 0

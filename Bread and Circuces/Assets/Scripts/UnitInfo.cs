@@ -24,6 +24,7 @@ public enum MotionType
 
 public abstract class UnitInfo : MonoBehaviour
 {
+    public string unitName;
     public int health;
     public int moveDistance;
     public int attackReachDistance;

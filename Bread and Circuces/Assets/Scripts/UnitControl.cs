@@ -37,8 +37,12 @@ public class UnitControl: MonoBehaviour
     void OnMouseDown()
     {
         if (!activated && !turnManager.activatedUnits.Contains(info))
+        {
             ActivateFigure();
+        }      
         else DeactivateFigure();
+
+        UiController.Instance.UpdateSidePanel(gameObject);
     }
 
     void DispathInput()
