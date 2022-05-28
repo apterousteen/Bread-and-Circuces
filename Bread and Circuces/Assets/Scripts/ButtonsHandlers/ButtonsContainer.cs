@@ -5,12 +5,12 @@ using UnityEngine;
 public class ButtonsContainer : MonoBehaviour
 {
     public MoveButtonHandler moveButton;
-    public AttackButtonHandler attackButton;
+    private TurnManager turnManager;
 
     void Start()
     { 
         moveButton = FindObjectOfType<MoveButtonHandler>();
-        //attackButton = FindObjectOfType<AttackButtonHandler>();
+        turnManager = FindObjectOfType<TurnManager>();
         DeactivateUnitButtons();
     }
 
@@ -21,11 +21,6 @@ public class ButtonsContainer : MonoBehaviour
             return 1;
         }
 
-        //if(attackButton.State)
-        //{
-        //    return 2;
-        //}
-
         return -1;
     }
 
@@ -35,22 +30,17 @@ public class ButtonsContainer : MonoBehaviour
         {
             moveButton.State = !moveButton.State;
         }
-        
-        //if(attackButton.State)
-        //{
-        //    attackButton.State = !attackButton.State;
-        //}
     }    
 
     public void ActivateUnitButtons()
     {
+        if (turnManager.currTeam == Team.Enemy)
+            return;
         moveButton.ActivateDeactivateButton(true);
-        //attackButton.ActivateDeactivateButton(true);
     }
     
     public void DeactivateUnitButtons()
     {
         moveButton.resetButton();
-        //attackButton.resetButton();
     }
 }

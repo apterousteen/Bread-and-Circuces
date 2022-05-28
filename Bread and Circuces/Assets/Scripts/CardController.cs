@@ -66,7 +66,7 @@ public class CardController : MonoBehaviour
                 {
                     turnManager.AddAction(new Action(ActionType.Attack, Team.Player, card.SpellValue));
 
-                    turnManager.AddAction(new Action(ActionType.Push, Team.Player, card.SpellValue));
+                    turnManager.AddAction(new Action(ActionType.PushEnemy, Team.Player, card.SpellValue));
                 }
                 break;
 
@@ -91,7 +91,11 @@ public class CardController : MonoBehaviour
                 break;
 
             case Card.CardEffect.ChargeStart:
-                turnManager.AddAction(new Action(ActionType.ChargeStart, Team.Player, card.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.ChargeStart, Team.Player, card.SpellValue));
+                break;
+
+            case Card.CardEffect.DiscardSelf:
+                turnManager.AddAction(new Action(ActionType.DiscardActivePlayer, Team.Player, card.SpellValue));
                 break;
         }
         switch (card.FirstCardEffTwo)
@@ -145,6 +149,7 @@ public class CardController : MonoBehaviour
                 break;
 
             case Card.CardEffect.No:
+                turnManager.AddAction(new Action(ActionType.Skip, Team.Player, card.SecondSpellValue));
                 break;
         }
 

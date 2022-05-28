@@ -182,7 +182,7 @@ public class BasicUnitAI : MonoBehaviour
                 {
                     turnManager.AddAction(new Action(ActionType.Attack, Team.Enemy, card.SpellValue));
 
-                    turnManager.AddAction(new Action(ActionType.Push, Team.Enemy, card.SpellValue));
+                    turnManager.AddAction(new Action(ActionType.PushEnemy, Team.Enemy, card.SpellValue));
                 }
                 break;
 
@@ -207,7 +207,11 @@ public class BasicUnitAI : MonoBehaviour
                 break;
 
             case Card.CardEffect.ChargeStart:
-                turnManager.AddAction(new Action(ActionType.ChargeStart, Team.Enemy, card.SecondSpellValue));
+                turnManager.AddAction(new Action(ActionType.ChargeStart, Team.Enemy, card.SpellValue));
+                break;
+
+            case Card.CardEffect.DiscardSelf:
+                turnManager.AddAction(new Action(ActionType.DiscardActivePlayer, Team.Enemy, card.SpellValue));
                 break;
         }
         switch (card.FirstCardEffTwo)
@@ -261,6 +265,7 @@ public class BasicUnitAI : MonoBehaviour
                 break;
 
             case Card.CardEffect.No:
+                turnManager.AddAction(new Action(ActionType.Skip, Team.Enemy, card.SecondSpellValue));
                 break;
         }
 

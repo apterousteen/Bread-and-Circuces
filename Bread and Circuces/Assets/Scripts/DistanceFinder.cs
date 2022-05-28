@@ -56,6 +56,7 @@ public class DistanceFinder : MonoBehaviour
     public List<HexTile> FindStraightPaths(HexTile start, int distance)
     {
         var result = new List<HexTile>();
+        result.Add(start);
         for(int i = 0; i < 6; i++)
         {
             var hex = start;
@@ -91,7 +92,7 @@ public class DistanceFinder : MonoBehaviour
     public List<HexTile> GetTilesInRadius(HexTile tile, int distance)
     {
         var result = new List<HexTile>();
-
+        result.Add(tile);
         var selectionCenter = new Vector2(tile.gridX, tile.gridY);
         var pointOnBoard = new Vector2(tile.gridX / 2, tile.gridY);
 

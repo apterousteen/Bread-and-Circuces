@@ -25,15 +25,15 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
 
     public void OnBeginDrag(PointerEventData eventData) //Как только НАЧНЕМ двигать объект-сработает все что внутри метода(по сути будет работать за один кадр)
     {
-        if (!CanBePlayed || IsClickable)
-            return;
+        //if (!CanBePlayed || IsClickable)
+        //    return;
         offset = transform.position - MainCamera.WorldToScreenPoint(eventData.position); // Хранит в себе значение отступа центра карты от места карты по которой нажали(без этого карта будет дергаться )
         DefaultParent = transform.parent;
 
-        IsDraggable = GameManagerScript.Instance.IsPlayerTurn &&
+        IsDraggable = /*GameManagerScript.Instance.IsPlayerTurn &&*/
                      DefaultParent.GetComponent<DropPlaceScript>().Type == FieldType.SelfHand &&
                      CanBePlayed;
-        transform.SetParent(DefaultParent.parent);
+        transform.SetParent(DefaultParent);
 
         
         GetComponent<CanvasGroup>().blocksRaycasts = false;

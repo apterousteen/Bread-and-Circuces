@@ -26,6 +26,9 @@ public class Game
 
         Enemy.Deck = GiveDeckCard(Enemy);
         Player.Deck = GiveDeckCard(Player);
+        var allPlayerCards = Player.Deck.Count;
+        var notUniversalCards = Player.Deck.Where(x => x.Restriction == CardRestriction.Scissor).Count();
+        Debug.Log("Всего карт " + allPlayerCards + ". Универсальных карт " + notUniversalCards);
         Enemy.DiscardPile = new List<Card>();
         Player.DiscardPile = new List<Card>();
     }
@@ -48,6 +51,7 @@ public class Game
     List<Card> GiveDeckCard(Player player)
     {
         List<Card> list = new List<Card>();
+        Debug.Log(CardManager.AllCards.Where(x => x.Restriction != CardRestriction.Universal).Count());
         foreach (var unit in player.units.units)
         {
             var unitDeck = CardManager.AllCards.Where(x => x.Set.ToString() == unit);
@@ -187,6 +191,7 @@ public class GameManagerScript : MonoBehaviour
             if (team == Team.Player)
                 GiveCardToHand(CurrentGame.Player, PlayerHand);
             else enemyHandSize++;
+        MakeAllCardsUnplayable();
         turnManager.EndAction();
     }
 
@@ -206,14 +211,16 @@ public class GameManagerScript : MonoBehaviour
         UiController.Instance.UpdateMana();
     }
 
-    public void CheckCardsForManaAvaliability()
-    {
-        foreach (var card in CurrentGame.Player.HandCards)
-            card.Info.HiglightManaAvaliability(CurrentGame.Player.Mana);
-    }
+    //public void CheckCardsForManaAvaliability()
+    //{
+    //    foreach (var card in CurrentGame.Player.HandCards)
+    //        card.Info.HiglightManaAvaliability(CurrentGame.Player.Mana);
+    //}
 
     public void ShowPlayableCards(Card.CardType type, UnitInfo unit)
     {
+        if (type == Card.CardType.Attack && CurrentGame.Player.Mana == 0)
+            MakeAllCardsUnplayable();
         foreach (var card in CurrentGame.Player.HandCards)
         {
             var cardInfo = card.Card;

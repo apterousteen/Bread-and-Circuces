@@ -288,7 +288,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveButton: {fileID: 0}
-  attackButton: {fileID: 0}
 --- !u!114 &69904266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,8 +379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   State: 0
   ActivationState: 0
-  Button: {fileID: 535970045}
-  allButtons: []
+  Button: {fileID: 535970047}
 --- !u!1 &244762436
 GameObject:
   m_ObjectHideFlags: 0
@@ -1195,8 +1193,10 @@ MonoBehaviour:
   PlayerDiscardPanel: {fileID: 893702052}
   CardInfo: {fileID: 0}
   CardPref: {fileID: 4310692873211168539, guid: 14e398207625fd04fa5dff6041e03a84, type: 3}
+  StartHandSize: 6
   playerDeckSize: 0
   enemyHandSize: 6
+  discardedCards: 0
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1217,6 +1217,9 @@ MonoBehaviour:
   Turn: 0
   activationNum: 0
   inAction: 0
+  movingEnemy: 0
+  playedCards: 0
+  actionsLeft: 0
 --- !u!1 &535970045
 GameObject:
   m_ObjectHideFlags: 0
@@ -1988,7 +1991,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 584.65, y: 931.46}
+  m_AnchoredPosition: {x: 584.65, y: 931.4601}
   m_SizeDelta: {x: 1156.7, y: 297.07}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &893702053
@@ -2878,7 +2881,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.28100002}
   m_AnchorMax: {x: 0.563, y: 1}
-  m_AnchoredPosition: {x: 505.46997, y: -151.74004}
+  m_AnchoredPosition: {x: 505.46997, y: -151.74002}
   m_SizeDelta: {x: 1010.9, y: 303.48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1252418974
@@ -5114,7 +5117,6 @@ MonoBehaviour:
   InTeam: {fileID: 0}
   ChooseButton: {fileID: 0}
   checkbox_ch: {fileID: 0}
-  team: []
 --- !u!1 &5873977621896845535
 GameObject:
   m_ObjectHideFlags: 0

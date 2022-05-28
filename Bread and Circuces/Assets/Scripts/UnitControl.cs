@@ -13,14 +13,14 @@ public class UnitControl: MonoBehaviour
     private Board board;
     private TurnManager turnManager;
     private DistanceFinder distanceFinder;
-    //public ButtonsContainer buttonsContainer;
+    public ButtonsContainer buttonsContainer;
 
     void Start()
     {
         board = FindObjectOfType<Board>();
         turnManager = FindObjectOfType<TurnManager>();
         distanceFinder = FindObjectOfType<DistanceFinder>();
-        //buttonsContainer = FindObjectOfType<ButtonsContainer>();     
+        buttonsContainer = FindObjectOfType<ButtonsContainer>();     
 
         info = gameObject.GetComponent<UnitInfo>();
         mainCamera = Camera.allCameras[0];
@@ -31,14 +31,17 @@ public class UnitControl: MonoBehaviour
     void Update()
     {
         DispathInput();
-        DispathAction();
+        //DispathAction();
     }
 
     void OnMouseDown()
     {
-        if (!activated && !turnManager.activatedUnits.Contains(info))
-            ActivateFigure();
-        else DeactivateFigure();
+        if (!turnManager.inAction)
+        {
+            if (!activated && !turnManager.activatedUnits.Contains(info))
+                ActivateFigure();
+            else DeactivateFigure();
+        }
     }
 
     void DispathInput()
@@ -50,7 +53,7 @@ public class UnitControl: MonoBehaviour
 
             if(hit.collider != null)
             {
-                if (activated)
+                if (activated && !turnManager.movingEnemy)
                 {
                     if (hit.collider.tag == "Hex")
                     {
@@ -62,6 +65,16 @@ public class UnitControl: MonoBehaviour
                             else 
                                 HandleAttack(hittedTile);
                         }
+                    }
+                }
+                else if(!activated && turnManager.movingEnemy && 
+                    turnManager.targetUnit != null && turnManager.targetUnit == gameObject)
+                {
+                    var hittedTile = hit.collider.gameObject.GetComponent<HexTile>();
+                    if (hittedTile.isChosen)
+                    {
+                        if (!hittedTile.isOccupied)
+                            HandleMovement(hittedTile);
                     }
                 }
             }
@@ -127,6 +140,8 @@ public class UnitControl: MonoBehaviour
         Debug.Log("DMG = " + info.damage);
         Debug.Log("DEF = " + enemyUnit.defence);
         var damageDealt = info.damage - enemyUnit.defence;
+        if (damageDealt < 0)
+            damageDealt = 0;
         enemyUnit.SufferDamage(damageDealt);
         info.OnAttackEnd(enemyUnit);
         enemyUnit.OnDefenceEnd();
@@ -151,7 +166,7 @@ public class UnitControl: MonoBehaviour
 
         if(info.teamSide == Team.Player)
             FindObjectOfType<GameManagerScript>().ShowPlayableCards(Card.CardType.Attack, info);
-        //buttonsContainer.ActivateUnitButtons();
+        buttonsContainer.ActivateUnitButtons();
         activated = true;
         var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
         turnManager.SetActiveUnit(this.gameObject);
@@ -160,7 +175,7 @@ public class UnitControl: MonoBehaviour
 
     public void DeactivateFigure()
     {
-        //buttonsContainer.DeactivateUnitButtons();
+        buttonsContainer.DeactivateUnitButtons();
         turnManager.ClearActiveUnit();
         activated = false;
         var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
