@@ -9,21 +9,19 @@ public class CardInfoScript : MonoBehaviour
     public CardController CC;
 
     public Image Logo;
-    public TextMeshProUGUI Name, Manacost;
-    public GameObject AttackCard, DefenseCard;
+    public TextMeshProUGUI Name, Descsription;
 
     public void ShowCardInfo()
     {
         Logo.sprite = CC.Card.Logo;
         Logo.preserveAspect = true;
         Name.text = CC.Card.Name;
-
-        ManacostRefresh();
+        Descsription.text = CC.Card.Description;
     }
 
     public void ManacostRefresh()
     {
-        Manacost.text = CC.Card.Manacost.ToString();
+        //Manacost.text = CC.Card.Manacost.ToString();
     }
 
     //public void HiglightManaAvaliability(int currentMana)
