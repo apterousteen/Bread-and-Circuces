@@ -1110,7 +1110,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9bc357be704264b44809fd1f653cef72, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7db104e1f5d727e45a3e305c0ebc5d81, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2598,13 +2598,13 @@ MonoBehaviour:
     image: {fileID: 21300000, guid: 4ed889b2afb2c514f904aa6e3ba0e93e, type: 3}
   icons:
   - name: Scissor
-    image: {fileID: 21300000, guid: 139a93cdef5ba994f9acfd2b668a8e83, type: 3}
+    image: {fileID: 21300000, guid: 6eb6968aa9cb8a445a06e71ee04d4766, type: 3}
   - name: Murmillo
-    image: {fileID: 21300000, guid: f04f93cc256ce8a4ea4b4c45264a7a6b, type: 3}
+    image: {fileID: 21300000, guid: 9be2a3b9c0741c64fa23703b560df567, type: 3}
   - name: Hoplomachus
-    image: {fileID: 21300000, guid: 68d22d12b3a0d6b49b3761080bb9dfe3, type: 3}
+    image: {fileID: 21300000, guid: 16cb42651950e45408b062136e9a62f3, type: 3}
   - name: Retiarius
-    image: {fileID: 21300000, guid: 15f6cd0082a6fdd4687c52014b995bc3, type: 3}
+    image: {fileID: 21300000, guid: c2f51902938374d4fb54a5c7d4727e06, type: 3}
   winPopup: {fileID: 5796988136213073229}
   failPopup: {fileID: 7022545018934802703}
   pausePopup: {fileID: 8031404906995848072}
@@ -7189,7 +7189,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f20ae24501857d54299af949405c672f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f221f5ee8b1e14e4b914f15b7503ef8a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
