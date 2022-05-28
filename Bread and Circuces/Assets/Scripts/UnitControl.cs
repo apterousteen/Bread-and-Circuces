@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UnitControl: MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class UnitControl: MonoBehaviour
     private Board board;
     private TurnManager turnManager;
     private DistanceFinder distanceFinder;
-    public ButtonsContainer buttonsContainer;
+    private ButtonsContainer buttonsContainer;
 
     void Start()
     {
@@ -42,6 +43,7 @@ public class UnitControl: MonoBehaviour
                 ActivateFigure();
             else DeactivateFigure();
         }
+        UiController.Instance.UpdateSidePanel(gameObject);
     }
 
     void DispathInput()
@@ -60,7 +62,7 @@ public class UnitControl: MonoBehaviour
                         var hittedTile = hit.collider.gameObject.GetComponent<HexTile>();
                         if (hittedTile.isChosen)
                         {
-                            if (!hittedTile.isOccupied)
+                            if (!hittedTile.isOccupied || hittedTile.transform == transform.parent)
                                 HandleMovement(hittedTile);
                             else 
                                 HandleAttack(hittedTile);
@@ -168,9 +170,11 @@ public class UnitControl: MonoBehaviour
             FindObjectOfType<GameManagerScript>().ShowPlayableCards(Card.CardType.Attack, info);
         buttonsContainer.ActivateUnitButtons();
         activated = true;
-        var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
+        //var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
         turnManager.SetActiveUnit(this.gameObject);
-        figureRenderer.material.SetColor("_Color", Color.yellow);
+        //figureRenderer.material.SetColor("_Color", Color.yellow);
+        var hexToColor = gameObject.transform.parent.GetComponent<HexTile>().GetComponent<SpriteRenderer>();
+        hexToColor.material.SetColor("_Color", Color.grey);
     }
 
     public void DeactivateFigure()
@@ -178,8 +182,8 @@ public class UnitControl: MonoBehaviour
         buttonsContainer.DeactivateUnitButtons();
         turnManager.ClearActiveUnit();
         activated = false;
-        var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
-        figureRenderer.material.SetColor("_Color", Color.white);
+        //var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
+        //figureRenderer.material.SetColor("_Color", Color.white);
 
         HideArea();
     }
@@ -249,5 +253,12 @@ public class UnitControl: MonoBehaviour
             tileRenderer.material.SetColor("_Color", Color.white);
             tile.isChosen = false;
         }
+    }
+
+    public void HighlighParenttHex()
+    {
+        HideArea();
+        var hexToColor = gameObject.transform.parent.GetComponent<HexTile>().GetComponent<SpriteRenderer>();
+        hexToColor.material.SetColor("_Color", Color.grey);
     }
 }

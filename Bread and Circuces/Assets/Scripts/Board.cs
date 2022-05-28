@@ -21,8 +21,8 @@ public class Board : MonoBehaviour
     public GameObject gridObject;
     public List<GameObject> Units;
 
-    public int gridSizeX = 10;
-    public int gridSizeY = 10;
+    public int gridSizeX = 12;
+    public int gridSizeY = 7;
 
     private float dx = 0.86f;
     private float dy = 0.74f;
@@ -61,10 +61,10 @@ public class Board : MonoBehaviour
         }
 
         spawnPoints = new List<SpawnPoint>();
-        spawnPoints.Add(new SpawnPoint(4, 4));
-        spawnPoints.Add(new SpawnPoint(4, 6));
-        spawnPoints.Add(new SpawnPoint(6, 4));
-        spawnPoints.Add(new SpawnPoint(6, 6));
+        spawnPoints.Add(new SpawnPoint(1, 1));
+        spawnPoints.Add(new SpawnPoint(1, 5));
+        spawnPoints.Add(new SpawnPoint(12, 1));
+        spawnPoints.Add(new SpawnPoint(12, 5));
     }
 
     public void SpawnUnits(Player player)

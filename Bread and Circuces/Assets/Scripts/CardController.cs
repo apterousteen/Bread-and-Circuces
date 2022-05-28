@@ -43,8 +43,10 @@ public class CardController : MonoBehaviour
         }
 
         Card.IsPlaced = true;
-        Unit = turnManager.activeUnit.GetComponent<UnitInfo>();
-        UnitControl = turnManager.activeUnit.GetComponent<UnitControl>();
+        if(turnManager.currTeam == Team.Player)
+            Unit = turnManager.activeUnit.GetComponent<UnitInfo>();
+        else Unit = turnManager.targetUnit.GetComponent<UnitInfo>();
+        //UnitControl = turnManager.activeUnit.GetComponent<UnitControl>();
 
         if (turnManager.currTeam == Unit.teamSide)
             turnManager.playedCards++;
@@ -76,6 +78,7 @@ public class CardController : MonoBehaviour
 
             case Card.CardEffect.Defense:// confirmed
                 unit.defence += card.SpellValue;
+                turnManager.defCardPlayed = true;
                 break;
 
             case Card.CardEffect.ShieldedDefense:
@@ -83,6 +86,7 @@ public class CardController : MonoBehaviour
                     unit.defence += card.SpellValue;
                     if (unit.withShield)
                         unit.defence += 1;
+                    turnManager.defCardPlayed = true;
                 }
                 break;
 

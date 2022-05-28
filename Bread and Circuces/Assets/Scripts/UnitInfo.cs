@@ -57,6 +57,8 @@ public abstract class UnitInfo : MonoBehaviour
 
     public virtual void ChangeStance(Stance newStance)
     {
+        if (teamSide == Team.Player)
+            Debug.Log("Changed stance on " + newStance.ToString());
         stanceToChange = newStance;
     }
 

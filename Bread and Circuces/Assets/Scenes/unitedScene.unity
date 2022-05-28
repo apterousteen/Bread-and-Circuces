@@ -422,7 +422,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveButton: {fileID: 0}
-  attackButton: {fileID: 0}
 --- !u!114 &69904266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -453,8 +452,8 @@ MonoBehaviour:
   - {fileID: 3630177870721904072, guid: 48cae1f3fbe876848ad75f91fafab2ca, type: 3}
   - {fileID: 5977966914783954603, guid: 577590b75f9022f4e8071d213155a1ff, type: 3}
   - {fileID: 4677609092252160450, guid: 0c4089b743962224d8f58b04a295002c, type: 3}
-  gridSizeX: 10
-  gridSizeY: 10
+  gridSizeX: 14
+  gridSizeY: 7
 --- !u!4 &69904268
 Transform:
   m_ObjectHideFlags: 0
@@ -648,8 +647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   State: 0
   ActivationState: 0
-  Button: {fileID: 535970045}
-  allButtons: []
+  Button: {fileID: 535970047}
 --- !u!1 &244762436
 GameObject:
   m_ObjectHideFlags: 0
@@ -1720,7 +1718,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: -3, z: -10}
+  m_LocalPosition: {x: 6, y: -2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1747,8 +1745,10 @@ MonoBehaviour:
   PlayerDiscardPanel: {fileID: 893702052}
   CardInfo: {fileID: 0}
   CardPref: {fileID: 4310692873211168539, guid: 14e398207625fd04fa5dff6041e03a84, type: 3}
+  StartHandSize: 6
   playerDeckSize: 0
   enemyHandSize: 6
+  discardedCards: 0
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1769,6 +1769,9 @@ MonoBehaviour:
   Turn: 0
   activationNum: 0
   inAction: 0
+  movingEnemy: 0
+  defCardPlayed: 0
+  playedCards: 0
   actionsLeft: 0
 --- !u!1 &535970045
 GameObject:

@@ -27,7 +27,8 @@ public class BasicUnitAI : MonoBehaviour
         var unitsAlive = FindObjectsOfType<UnitInfo>()
             .Where(x => x.teamSide == Team.Enemy).Count();
         var actionsLeft = gameManager.CurrentGame.Enemy.Mana;
-        if (actionsLeft == 0 || (unitsAlive == 2 && turnManager.activatedUnits.Count < 3 && actionsLeft < 3))
+        var cardsInHand = gameManager.enemyHandSize;
+        if (cardsInHand == 0 || actionsLeft == 0 || (unitsAlive == 2 && turnManager.activationNum < 2 && actionsLeft < 3))
         {
             Debug.Log("Returned");
             turnManager.EndPlayerActivation();
@@ -192,6 +193,7 @@ public class BasicUnitAI : MonoBehaviour
 
             case Card.CardEffect.Defense:// confirmed
                 unit.defence += card.SpellValue;
+                turnManager.defCardPlayed = true;
                 break;
 
             case Card.CardEffect.ShieldedDefense:
@@ -199,6 +201,7 @@ public class BasicUnitAI : MonoBehaviour
                     unit.defence += card.SpellValue;
                     if (unit.withShield)
                         unit.defence += 1;
+                    turnManager.defCardPlayed = true;
                 }
                 break;
 

@@ -60,7 +60,7 @@ public class TurnManager : MonoBehaviour
     public Queue<Action> actionQueue;
     public bool inAction;
     public bool movingEnemy = false;
-    private bool defCardPlayed;
+    public bool defCardPlayed;
     public int playedCards = 0;
     private HexTile startHex;
 
@@ -71,7 +71,7 @@ public class TurnManager : MonoBehaviour
         gameManager = FindObjectOfType<GameManagerScript>();
         distanceFinder = FindObjectOfType<DistanceFinder>();
         buttonsContainer = FindObjectOfType<ButtonsContainer>();
-        teamWithInitiative = (Team)Random.Range(0, 1);
+        teamWithInitiative = (Team)Random.Range(0, 2);
         currTeam = teamWithInitiative;
         isReactionTime = false;
         inAction = false;
@@ -100,7 +100,7 @@ public class TurnManager : MonoBehaviour
     {
         if (isReactionTime && action.type != ActionType.DrawIfAlive)
         {
-            defCardPlayed = true;
+            //defCardPlayed = true;
             var temp = new Queue<Action>();
             for (int i = 0; i < actionQueue.Count; i++)
                 temp.Enqueue(actionQueue.Dequeue());
@@ -276,7 +276,10 @@ public class TurnManager : MonoBehaviour
         if(actionQueue.Count == 0)
         {
             if (activeUnit != null)
+            {
                 activeUnit.GetComponent<UnitInfo>().UpdateStance();
+                activeUnit.GetComponent<UnitControl>().HighlighParenttHex();
+            }
             if (targetUnit != null)
                 targetUnit.GetComponent<UnitInfo>().UpdateStance();
         }
@@ -302,8 +305,8 @@ public class TurnManager : MonoBehaviour
     public IEnumerator TurnFunc()
     {
         if (stoppedTurnTime != 0)
-            TurnTime = System.Math.Min(60, stoppedTurnTime + 10);
-        else TurnTime = 60;
+            TurnTime = System.Math.Min(90, stoppedTurnTime + 10);
+        else TurnTime = 90;
         stoppedTurnTime = 0;
 
         UiController.Instance.UpdateTurnTime(TurnTime);
@@ -443,14 +446,14 @@ public class TurnManager : MonoBehaviour
 
     public IEnumerator ReactionFunc()
     {
-        TurnTime = 30;
+        TurnTime = 45;
 
         UiController.Instance.UpdateTurnTime(TurnTime);
-
-        gameManager.ShowPlayableCards(Card.CardType.Defense, targetUnit.GetComponent<UnitInfo>());
+        //gameManager.ShowPlayableCards(Card.CardType.Defense, targetUnit.GetComponent<UnitInfo>());
 
         while (TurnTime-- > 0)
         {
+            gameManager.ShowPlayableCards(Card.CardType.Defense, targetUnit.GetComponent<UnitInfo>());
             if (defCardPlayed && actionQueue.Count == 0)
                 break;
             UiController.Instance.UpdateTurnTime(TurnTime);
