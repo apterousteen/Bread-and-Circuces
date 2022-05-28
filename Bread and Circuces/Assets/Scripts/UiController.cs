@@ -18,11 +18,21 @@ public class UiController : MonoBehaviour
     public GameObject discardWindow;
     private bool isTurnEndButton;
 
-    private TurnManager turnManager;
+    public TurnManager turnManager;
     public TextMeshProUGUI playerName, playerHealth, playerAttac, playerMove;
     public TextMeshProUGUI enemyName, enemyHealth, enemyAttac, enemyMove;
     public GameObject playerStance;
     public GameObject enemyStance;
+
+    public GameObject player1;
+    public GameObject player2;
+    public GameObject enemy1;
+    public GameObject enemy2;
+
+    public TextMeshProUGUI turnText;
+
+    public string[] enemies;
+    public string[] players;
 
     [Serializable]
     public struct stanceSprites
@@ -31,6 +41,14 @@ public class UiController : MonoBehaviour
         public Sprite image;
     }
     public stanceSprites[] stances;
+
+    [Serializable]
+    public struct iconSprites
+    {
+        public string name;
+        public Sprite image;
+    }
+    public stanceSprites[] icons;
 
     /// from determined
     [Header("Popups")]
@@ -70,6 +88,7 @@ public class UiController : MonoBehaviour
         failPopup.SetActive(false);
         pausePopup = GameObject.Find("PausePanel");
         pausePopup.SetActive(false);
+        turnManager = FindObjectOfType<TurnManager>();
     }
 
     /// from determined
@@ -116,6 +135,10 @@ public class UiController : MonoBehaviour
         EndTurnBtn.interactable = true;
         isTurnEndButton = true;
         UpdateMana();
+
+        enemies = GameManagerScript.Instance.CurrentGame.Enemy.units.units;
+        players = GameManagerScript.Instance.CurrentGame.Player.units.units;
+        UpdateIcons();
     }
 
     public void UpdateMana()
@@ -140,8 +163,8 @@ public class UiController : MonoBehaviour
         isTurnEndButton = !isTurnEndButton;
         var buttonText = EndTurnBtn.GetComponentInChildren<TextMeshProUGUI>();
         if (isTurnEndButton)
-            buttonText.text = "END TURN";
-        else buttonText.text = "PASS";
+            buttonText.text = "ХОД";
+        else buttonText.text = "ПАС";
     }
 
     public void MakeDiscardWindowActive(bool active)
@@ -184,5 +207,34 @@ public class UiController : MonoBehaviour
             enemyAttac.text = unit.GetComponent<UnitInfo>().attackReachDistance.ToString();
             enemyMove.text = unit.GetComponent<UnitInfo>().moveDistance.ToString();
         }
-    }    
+    }
+
+    public void UpdateTurn()
+    {
+        if (turnManager.GetCurrTeam() == Team.Player)
+        {
+            turnText.text = "ваш ход";
+        }
+        else if (turnManager.GetCurrTeam() == Team.Enemy) {
+            turnText.text = "ход врага";
+        }
+    }
+
+    public void UpdateIcons()
+    {
+        foreach (var icon in icons)
+        {
+            if (icon.name == players[0])
+                player1.GetComponent<Image>().sprite = icon.image;
+
+            if (icon.name == players[1])
+                player2.GetComponent<Image>().sprite = icon.image;
+
+            if (icon.name == enemies[0])
+                enemy1.GetComponent<Image>().sprite = icon.image;
+
+            if (icon.name == enemies[1])
+                enemy2.GetComponent<Image>().sprite = icon.image;
+        }
+    }
 }

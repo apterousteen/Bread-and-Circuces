@@ -27,7 +27,7 @@ public class InfoUpdater : MonoBehaviour
             if (gameObject.tag != charInfo.charTag)
             {
                 charInfo.cards.SetActive(false);
-                charInfo.charObj.transform.GetChild(2).GetComponent<Image>().color = new Color(1, 1, 1, 0.6f);
+                charInfo.charObj.transform.GetChild(2).GetComponent<Image>().color = new Color(1, 1, 1, 0.8f);
                 charInfo.charObj.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 1, 1, 0.4f);
                 charInfo.charObj.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
                 continue;
