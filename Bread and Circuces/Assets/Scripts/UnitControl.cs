@@ -202,7 +202,7 @@ public class UnitControl: MonoBehaviour
         foreach (var tile in tiles)
         {
             var tileRenderer = tile.gameObject.GetComponent<SpriteRenderer>();
-            tileRenderer.material.SetColor("_Color", Color.green);
+            tileRenderer.material.SetColor("_Color", Color.gray);
             tile.isChosen = true;
         }
     }

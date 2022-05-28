@@ -318,6 +318,7 @@ public class TurnManager : MonoBehaviour
         stoppedTurnTime = 0;
 
         UiController.Instance.UpdateTurnTime(TurnTime);
+        UiController.Instance.UpdateTurn();
 
         //gameManager.CheckCardsForManaAvaliability();
 

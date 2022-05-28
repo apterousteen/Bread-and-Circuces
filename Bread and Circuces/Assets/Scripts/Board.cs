@@ -21,7 +21,7 @@ public class Board : MonoBehaviour
     public GameObject gridObject;
     public List<GameObject> Units;
 
-    public int gridSizeX = 12;
+    public int gridSizeX = 10;
     public int gridSizeY = 7;
 
     private float dx = 0.86f;
@@ -63,8 +63,8 @@ public class Board : MonoBehaviour
         spawnPoints = new List<SpawnPoint>();
         spawnPoints.Add(new SpawnPoint(1, 1));
         spawnPoints.Add(new SpawnPoint(1, 5));
-        spawnPoints.Add(new SpawnPoint(10, 1));
-        spawnPoints.Add(new SpawnPoint(10, 5));
+        spawnPoints.Add(new SpawnPoint(8, 1));
+        spawnPoints.Add(new SpawnPoint(8, 5));
     }
 
     public void SpawnUnits(Player player)
@@ -84,5 +84,10 @@ public class Board : MonoBehaviour
         var newUnit = Instantiate(unit, startPos.transform.position, gridObject.transform.rotation);
         newUnit.GetComponent<UnitInfo>().teamSide = team;
         newUnit.transform.parent = startPos.gameObject.transform;
+
+        if (newUnit.GetComponent<UnitInfo>().teamSide == Team.Enemy)
+        {
+            newUnit.transform.localRotation = Quaternion.Euler(0, 180, 0);
+        }
     }
 }
