@@ -14,7 +14,7 @@ public class UiController : MonoBehaviour
 
     public TextMeshProUGUI TurnTime;
     public Button EndTurnBtn;
-    public GameObject discardWindow, discardPilePanel;
+    public GameObject discardWindow;
     private bool isTurnEndButton;
 
     /// from determined
@@ -25,7 +25,7 @@ public class UiController : MonoBehaviour
 
     private void Awake()
     {
-
+        
         if (!Instance)
         {
             Instance = this;
@@ -35,9 +35,9 @@ public class UiController : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
+ 
         DontDestroyOnLoad(this);
-
+        
     }
 
     public void HandleUI()
@@ -57,8 +57,8 @@ public class UiController : MonoBehaviour
 
         PlayerMana = GameObject.Find("PlayerMana").GetComponent<TextMeshProUGUI>();
         EnemyMana = GameObject.Find("EnemyMana").GetComponent<TextMeshProUGUI>();
-        TurnTime = GameObject.Find("TurnTimeTXT").GetComponent<TextMeshProUGUI>();
-        EndTurnBtn = GameObject.Find("EndTurnBtn").GetComponent<Button>();
+        TurnTime = GameObject.Find("TurnTimeTXT").GetComponent<TextMeshProUGUI>(); 
+        EndTurnBtn = GameObject.Find("EndTurnBtn").GetComponent<Button>(); 
         discardWindow = GameObject.Find("Discard Panel");
         discardWindow.SetActive(false);
         winPopup = GameObject.Find("WinPanel");
@@ -149,25 +149,5 @@ public class UiController : MonoBehaviour
     public void UpdateDiscardButton()
     {
         discardWindow.GetComponentInChildren<Button>().interactable = FindObjectOfType<DiscardWindow>().IsButtonActive();
-    }
-
-    public void GiveCardToDiscardPileOneByOne(bool setActive)
-    {
-        if (setActive)
-        {
-            discardPilePanel.gameObject.SetActive(setActive);
-            for (int i = 0; i < GameManagerScript.Instance.CurrentGame.Player.DiscardPile.Count; i++)
-            {
-                GameObject cardGG = Instantiate(GameManagerScript.Instance.CardPref, GameManagerScript.Instance.PlayerDiscardPanel);
-                CardController cardCard = cardGG.GetComponent<CardController>();
-                cardCard.Init(GameManagerScript.Instance.CurrentGame.Player.DiscardPile[i], true);
-            }
-        }
-        else
-        {
-            discardPilePanel.gameObject.SetActive(setActive);
-            for (int k = 0; k < GameManagerScript.Instance.PlayerDiscardPanel.childCount; k++)
-                Destroy(GameManagerScript.Instance.PlayerDiscardPanel.GetChild(k).gameObject);
-        }
     }
 }

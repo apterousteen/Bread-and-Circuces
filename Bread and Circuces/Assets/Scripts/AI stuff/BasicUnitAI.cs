@@ -33,7 +33,7 @@ public class BasicUnitAI : MonoBehaviour
             turnManager.EndPlayerActivation();
             return;
         }
-        if (CheckForPlayerUnitsInDistance(info.attackReachDistance))
+        if(CheckForPlayerUnitsInDistance(info.attackReachDistance))
         {
             turnManager.targetUnit = targetUnit.gameObject;
             GenerateAttack();
@@ -259,16 +259,6 @@ public class BasicUnitAI : MonoBehaviour
                 break;
         }
 
-        LastCard(card);
         gameManager.enemyHandSize--;
-    }
-    void LastCard(Card card)
-    {
-        Destroy(gameObject);
-        if (gameManager.EnemyCardPanel.childCount != 0)
-            Destroy(gameManager.EnemyCardPanel.GetChild(0).gameObject);
-        GameObject cardGG = Instantiate(gameManager.CardPref, gameManager.EnemyCardPanel);
-        CardController cardCard = cardGG.GetComponent<CardController>();
-        cardCard.Init(card, true);
     }
 }
