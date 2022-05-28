@@ -22,7 +22,8 @@ public class Game
 
         Enemy = new Player();
         Enemy.team = Team.Enemy;
-        Enemy.units.SelectUnits("Retiarius", "Murmillo");
+        //Enemy.units.SelectUnits("Retiarius", "Murmillo");
+        GenerateUnits(Enemy);
 
         Enemy.Deck = GiveDeckCard(Enemy);
         Player.Deck = GiveDeckCard(Player);
@@ -33,6 +34,15 @@ public class Game
         Player.DiscardPile = new List<Card>();
     }
 
+    void GenerateUnits(Player player)
+    {
+        var units = new string[4] { "Hoplomachus", "Murmillo", "Scissor", "Retiarius" };
+        int first = Random.Range(0, 4);
+        var second = -1;
+        while (second == first || second < 0)
+            second = Random.Range(0, 4);
+        player.units.SelectUnits(units[first], units[second]);
+    }
 
     //List<Card> GiveDeckCard()
     //{
@@ -219,8 +229,11 @@ public class GameManagerScript : MonoBehaviour
 
     public void ShowPlayableCards(Card.CardType type, UnitInfo unit)
     {
-        if (type == Card.CardType.Attack && CurrentGame.Player.Mana == 0)
+        if (type == Card.CardType.Attack && CurrentGame.Player.Mana < 1)
+        {
             MakeAllCardsUnplayable();
+            return;
+        }
         foreach (var card in CurrentGame.Player.HandCards)
         {
             var cardInfo = card.Card;

@@ -26,8 +26,16 @@ public class BasicUnitAI : MonoBehaviour
     {
         var unitsAlive = FindObjectsOfType<UnitInfo>()
             .Where(x => x.teamSide == Team.Enemy).Count();
+        var playerUnits = FindObjectsOfType<UnitInfo>()
+            .Where(x => x.teamSide == Team.Player).Count();
         var actionsLeft = gameManager.CurrentGame.Enemy.Mana;
         var cardsInHand = gameManager.enemyHandSize;
+
+        if (playerUnits == 0)
+        {
+            MenuManager.Instance.CheckWinCondition();
+            return;
+        }
         if (cardsInHand == 0 || actionsLeft == 0 || (unitsAlive == 2 && turnManager.activationNum < 2 && actionsLeft < 3))
         {
             Debug.Log("Returned");
@@ -193,7 +201,7 @@ public class BasicUnitAI : MonoBehaviour
 
             case Card.CardEffect.Defense:// confirmed
                 unit.defence += card.SpellValue;
-                turnManager.defCardPlayed = true;
+                //turnManager.defCardPlayed = true;
                 break;
 
             case Card.CardEffect.ShieldedDefense:
@@ -201,7 +209,7 @@ public class BasicUnitAI : MonoBehaviour
                     unit.defence += card.SpellValue;
                     if (unit.withShield)
                         unit.defence += 1;
-                    turnManager.defCardPlayed = true;
+                    //turnManager.defCardPlayed = true;
                 }
                 break;
 
@@ -272,6 +280,16 @@ public class BasicUnitAI : MonoBehaviour
                 break;
         }
 
+        LastCard(card);
         gameManager.enemyHandSize--;
+    }
+
+    void LastCard(Card card)
+    {
+        if (gameManager.EnemyCardPanel.childCount != 0)
+            Destroy(gameManager.EnemyCardPanel.GetChild(0).gameObject);
+        GameObject cardGG = Instantiate(gameManager.CardPref, gameManager.EnemyCardPanel);
+        CardController cardCard = cardGG.GetComponent<CardController>();
+        cardCard.Init(card, true);
     }
 }

@@ -184,5 +184,5 @@ public class UiController : MonoBehaviour
             enemyAttac.text = unit.GetComponent<UnitInfo>().attackReachDistance.ToString();
             enemyMove.text = unit.GetComponent<UnitInfo>().moveDistance.ToString();
         }
-    }
+    }    
 }

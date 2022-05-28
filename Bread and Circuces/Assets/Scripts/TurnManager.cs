@@ -100,7 +100,8 @@ public class TurnManager : MonoBehaviour
     {
         if (isReactionTime && action.type != ActionType.DrawIfAlive)
         {
-            //defCardPlayed = true;
+            if(action.team == Team.Player)
+                defCardPlayed = true;
             var temp = new Queue<Action>();
             for (int i = 0; i < actionQueue.Count; i++)
                 temp.Enqueue(actionQueue.Dequeue());
@@ -136,8 +137,11 @@ public class TurnManager : MonoBehaviour
 
             case ActionType.Push:
                 var unitToMove = activeUnit;
-                if (isReactionTime)
+                if (action.team != currTeam)
+                {
                     unitToMove = targetUnit;
+                    movingEnemy = true;
+                }
                 unitToMove.GetComponent<UnitInfo>().ChangeMotionType(MotionType.StraightType);
                 if (action.team == Team.Player)
                     unitToMove.GetComponent<UnitControl>().TriggerMove(action.value);
@@ -251,7 +255,7 @@ public class TurnManager : MonoBehaviour
                 break;
 
             case ActionType.PushEnemy:
-                if(currTeam == Team.Player)
+                if(action.team == Team.Player)
                 {
                     movingEnemy = true;
                     targetUnit.GetComponent<UnitControl>().TriggerMove(action.value);
@@ -264,24 +268,25 @@ public class TurnManager : MonoBehaviour
         }
         if (isReactionTime && currTeam == Team.Player && actionQueue.Where(x => x.team == Team.Enemy).Count() == 0)
             EndReactionWindow();
-        
     }
 
     public void EndAction()
     {
         inAction = false;
         movingEnemy = false;
-        //if (isReactionTime && currTeam == Team.Enemy && actionQueue.Where(x => x.team == Team.Player).Count() == 0)
-        //    EndReactionWindow();
         if(actionQueue.Count == 0)
         {
             if (activeUnit != null)
             {
                 activeUnit.GetComponent<UnitInfo>().UpdateStance();
                 activeUnit.GetComponent<UnitControl>().HighlighParenttHex();
+                UiController.Instance.UpdateSidePanel(activeUnit);
             }
             if (targetUnit != null)
+            {
                 targetUnit.GetComponent<UnitInfo>().UpdateStance();
+                UiController.Instance.UpdateSidePanel(targetUnit);
+            }
         }
         if (currTeam == Team.Player && gameManager.CurrentGame.Player.Mana == 0)
             buttonsContainer.DeactivateUnitButtons();
@@ -290,6 +295,9 @@ public class TurnManager : MonoBehaviour
             Debug.Log("Refreshed Cards");
             gameManager.ShowPlayableCards(Card.CardType.Attack, activeUnit.GetComponent<UnitInfo>());
         }
+
+        //if (isReactionTime && currTeam == Team.Enemy && actionQueue.Where(x => x.team == Team.Player).Count() == 0)
+            //EndReactionWindow();
     }
 
     public Team GetCurrTeam()
@@ -345,7 +353,8 @@ public class TurnManager : MonoBehaviour
 
     bool CheckIfPlayerCanActivate(Player player)
     {
-        return player.activatedUnits < 2 && player.Mana != 0;
+        var unitsAlive = FindObjectsOfType<UnitInfo>().Where(x => x.teamSide == player.team).Count();
+        return player.activatedUnits < unitsAlive && player.Mana != 0;
     }
 
     public void EndPlayerActivation()
@@ -413,6 +422,11 @@ public class TurnManager : MonoBehaviour
     {
         StopAllCoroutines();
         var activeUnitInfo = activeUnit.GetComponent<UnitInfo>();
+        if(target == null)
+        {
+            EndReactionWindow();
+            return;
+        }
         var targetInfo = target.GetComponent<UnitInfo>();
         isReactionTime = true;
         targetUnit = target;
@@ -435,7 +449,8 @@ public class TurnManager : MonoBehaviour
         StopAllCoroutines();
         defCardPlayed = false;
         Debug.Log("Reaction window ended");
-        activeUnit.GetComponent<UnitControl>().MakeAtack(targetUnit.GetComponent<UnitInfo>());
+        if(targetUnit != null)
+            activeUnit.GetComponent<UnitControl>().MakeAtack(targetUnit.GetComponent<UnitInfo>());
         isReactionTime = false;
         if (currTeam == Team.Enemy)
             gameManager.MakeAllCardsUnplayable();
@@ -453,8 +468,10 @@ public class TurnManager : MonoBehaviour
 
         while (TurnTime-- > 0)
         {
+            if (targetUnit == null)
+                break;
             gameManager.ShowPlayableCards(Card.CardType.Defense, targetUnit.GetComponent<UnitInfo>());
-            if (defCardPlayed && actionQueue.Count == 0)
+            if (defCardPlayed && actionQueue.Count == 0 && !inAction)
                 break;
             UiController.Instance.UpdateTurnTime(TurnTime);
             yield return new WaitForSeconds(1);

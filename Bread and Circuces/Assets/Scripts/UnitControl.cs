@@ -41,7 +41,8 @@ public class UnitControl: MonoBehaviour
         {
             if (!activated && !turnManager.activatedUnits.Contains(info))
                 ActivateFigure();
-            else DeactivateFigure();
+            else if(!turnManager.activatedUnits.Contains(info))
+                DeactivateFigure();
         }
         UiController.Instance.UpdateSidePanel(gameObject);
     }

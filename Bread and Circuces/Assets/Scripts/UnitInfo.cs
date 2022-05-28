@@ -78,6 +78,7 @@ public abstract class UnitInfo : MonoBehaviour
     {
         if (health <= 0)
         {
+            MenuManager.Instance.CheckWinCondition();
             Die();
             return false;
         }
@@ -87,6 +88,7 @@ public abstract class UnitInfo : MonoBehaviour
 
     private void Die()
     {
+        transform.parent.GetComponent<HexTile>().isOccupied = false;
         Destroy(gameObject);
     }
 

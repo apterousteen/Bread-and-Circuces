@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using System.Linq;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    public static MenuManager instance;
+    public static MenuManager Instance;
 
     public GameObject Popup;
     public GameObject CharPanel;
@@ -24,7 +25,15 @@ public class MenuManager : MonoBehaviour
     }
 
     public static List<string> team = new List<string>(); 
-    public static GameObject chosen; 
+    public static GameObject chosen;
+
+    private void Awake()
+    {
+
+        if (Instance == null)
+            Instance = this;
+
+    }
 
     public void AddToTeam()
     {
@@ -77,7 +86,25 @@ public class MenuManager : MonoBehaviour
     public void Restart()
     {
         Time.timeScale = 1f;
-        //SceneManager.LoadScene("choiceMenu");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void NewMatch()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("choiceMenu");
+    }
+
+    public void CheckWinCondition()
+    {
+        Debug.Log("Check");
+        Time.timeScale = 0f;
+        var playerUnitsNum = FindObjectsOfType<UnitInfo>().Where(x => x.teamSide == Team.Player).Count();
+        var enemyUnitsNum = FindObjectsOfType<UnitInfo>().Where(x => x.teamSide == Team.Enemy).Count();
+        if (playerUnitsNum == 0)
+            UiController.Instance.failPopup.SetActive(true);//Lose
+        else if (enemyUnitsNum == 0)
+            UiController.Instance.winPopup.SetActive(true);//Win
+        else Time.timeScale = 1f;
     }
 }

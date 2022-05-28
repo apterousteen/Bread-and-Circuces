@@ -78,7 +78,7 @@ public class CardController : MonoBehaviour
 
             case Card.CardEffect.Defense:// confirmed
                 unit.defence += card.SpellValue;
-                turnManager.defCardPlayed = true;
+                //turnManager.defCardPlayed = true;
                 break;
 
             case Card.CardEffect.ShieldedDefense:
@@ -86,7 +86,7 @@ public class CardController : MonoBehaviour
                     unit.defence += card.SpellValue;
                     if (unit.withShield)
                         unit.defence += 1;
-                    turnManager.defCardPlayed = true;
+                    //turnManager.defCardPlayed = true;
                 }
                 break;
 
@@ -186,12 +186,12 @@ public class CardController : MonoBehaviour
         }
         */
     }
-    void LastCard(Card card, Player player, Transform playerCardPanle)
+    void LastCard(Card card, Player player, Transform playerCardPanel)
     {
         Destroy(gameObject);
-        if(playerCardPanle.childCount != 0)
-            Destroy(playerCardPanle.GetChild(0).gameObject);
-        GameObject cardGG = Instantiate(gameManager.CardPref, playerCardPanle);
+        if(playerCardPanel.childCount != 0)
+            Destroy(playerCardPanel.GetChild(0).gameObject);
+        GameObject cardGG = Instantiate(gameManager.CardPref, playerCardPanel);
         CardController cardCard = cardGG.GetComponent<CardController>();
         cardCard.Init(card, true);
     }

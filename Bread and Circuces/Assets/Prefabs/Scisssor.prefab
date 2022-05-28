@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 0.49056602, g: 0.48316124, b: 0.48316124, a: 1}
+  m_Color: {r: 0.5754717, g: 0.07817725, b: 0.07817725, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -131,5 +131,6 @@ MonoBehaviour:
   defence: 0
   teamSide: 0
   currentStance: 0
+  stanceToChange: 0
   motionType: 0
   withShield: 0

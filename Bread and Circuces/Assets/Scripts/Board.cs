@@ -63,8 +63,8 @@ public class Board : MonoBehaviour
         spawnPoints = new List<SpawnPoint>();
         spawnPoints.Add(new SpawnPoint(1, 1));
         spawnPoints.Add(new SpawnPoint(1, 5));
-        spawnPoints.Add(new SpawnPoint(12, 1));
-        spawnPoints.Add(new SpawnPoint(12, 5));
+        spawnPoints.Add(new SpawnPoint(10, 1));
+        spawnPoints.Add(new SpawnPoint(10, 5));
     }
 
     public void SpawnUnits(Player player)
