@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UnitControl: MonoBehaviour
 {
@@ -37,8 +38,12 @@ public class UnitControl: MonoBehaviour
     void OnMouseDown()
     {
         if (!activated && !turnManager.activatedUnits.Contains(info))
+        {
             ActivateFigure();
+        }      
         else DeactivateFigure();
+
+        UiController.Instance.UpdateSidePanel(gameObject);
     }
 
     void DispathInput()
@@ -150,9 +155,11 @@ public class UnitControl: MonoBehaviour
             FindObjectOfType<GameManagerScript>().ShowPlayableCards(Card.CardType.Attack, info);
         //buttonsContainer.ActivateUnitButtons();
         activated = true;
-        var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
+        //var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
         turnManager.SetActiveUnit(this.gameObject);
-        figureRenderer.material.SetColor("_Color", Color.yellow);
+        //figureRenderer.material.SetColor("_Color", Color.yellow);
+        var hexToColor = gameObject.transform.parent.GetComponent<HexTile>().GetComponent<SpriteRenderer>();
+        hexToColor.material.SetColor("_Color", Color.grey);
     }
 
     public void DeactivateFigure()
@@ -160,8 +167,10 @@ public class UnitControl: MonoBehaviour
         //buttonsContainer.DeactivateUnitButtons();
         turnManager.ClearActiveUnit();
         activated = false;
-        var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
-        figureRenderer.material.SetColor("_Color", Color.white);
+        //var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
+        //figureRenderer.material.SetColor("_Color", Color.white);
+        var hexToColor = gameObject.transform.parent.GetComponent<HexTile>().GetComponent<SpriteRenderer>();
+        hexToColor.material.SetColor("_Color", Color.white);
 
         HideArea();
     }

@@ -28,6 +28,7 @@ public class InfoUpdater : MonoBehaviour
             {
                 charInfo.cards.SetActive(false);
                 charInfo.charObj.transform.GetChild(2).GetComponent<Image>().color = new Color(1, 1, 1, 0.6f);
+                charInfo.charObj.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 1, 1, 0.4f);
                 charInfo.charObj.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
                 continue;
             }
@@ -35,6 +36,7 @@ public class InfoUpdater : MonoBehaviour
             MenuManager.chosen = charInfo.charObj;
 
             charInfo.charObj.transform.GetChild(2).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            charInfo.charObj.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 1, 1, 1);
             charInfo.charObj.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
 
             CIP.charName.text = charInfo.charName;
