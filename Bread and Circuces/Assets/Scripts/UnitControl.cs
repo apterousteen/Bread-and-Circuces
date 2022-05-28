@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UnitControl: MonoBehaviour
 {
@@ -14,14 +13,14 @@ public class UnitControl: MonoBehaviour
     private Board board;
     private TurnManager turnManager;
     private DistanceFinder distanceFinder;
-    //public ButtonsContainer buttonsContainer;
+    public ButtonsContainer buttonsContainer;
 
     void Start()
     {
         board = FindObjectOfType<Board>();
         turnManager = FindObjectOfType<TurnManager>();
         distanceFinder = FindObjectOfType<DistanceFinder>();
-        //buttonsContainer = FindObjectOfType<ButtonsContainer>();     
+        buttonsContainer = FindObjectOfType<ButtonsContainer>();     
 
         info = gameObject.GetComponent<UnitInfo>();
         mainCamera = Camera.allCameras[0];
@@ -32,18 +31,17 @@ public class UnitControl: MonoBehaviour
     void Update()
     {
         DispathInput();
-        DispathAction();
+        //DispathAction();
     }
 
     void OnMouseDown()
     {
-        if (!activated && !turnManager.activatedUnits.Contains(info))
+        if (!turnManager.inAction)
         {
-            ActivateFigure();
-        }      
-        else DeactivateFigure();
-
-        UiController.Instance.UpdateSidePanel(gameObject);
+            if (!activated && !turnManager.activatedUnits.Contains(info))
+                ActivateFigure();
+            else DeactivateFigure();
+        }
     }
 
     void DispathInput()
@@ -55,7 +53,7 @@ public class UnitControl: MonoBehaviour
 
             if(hit.collider != null)
             {
-                if (activated)
+                if (activated && !turnManager.movingEnemy)
                 {
                     if (hit.collider.tag == "Hex")
                     {
@@ -67,6 +65,16 @@ public class UnitControl: MonoBehaviour
                             else 
                                 HandleAttack(hittedTile);
                         }
+                    }
+                }
+                else if(!activated && turnManager.movingEnemy && 
+                    turnManager.targetUnit != null && turnManager.targetUnit == gameObject)
+                {
+                    var hittedTile = hit.collider.gameObject.GetComponent<HexTile>();
+                    if (hittedTile.isChosen)
+                    {
+                        if (!hittedTile.isOccupied)
+                            HandleMovement(hittedTile);
                     }
                 }
             }
@@ -120,6 +128,7 @@ public class UnitControl: MonoBehaviour
 
     void MoveObject(){
         transform.position = new Vector3(posX, posY, transform.position.z);
+        info.OnMoveEnd();
         info.ChangeMotionType(MotionType.RadiusType);
         turnManager.EndAction();
     }
@@ -128,7 +137,11 @@ public class UnitControl: MonoBehaviour
     {
         info.OnAttackStart(enemyUnit);
         enemyUnit.OnDefenceStart();
+        Debug.Log("DMG = " + info.damage);
+        Debug.Log("DEF = " + enemyUnit.defence);
         var damageDealt = info.damage - enemyUnit.defence;
+        if (damageDealt < 0)
+            damageDealt = 0;
         enemyUnit.SufferDamage(damageDealt);
         info.OnAttackEnd(enemyUnit);
         enemyUnit.OnDefenceEnd();
@@ -153,24 +166,20 @@ public class UnitControl: MonoBehaviour
 
         if(info.teamSide == Team.Player)
             FindObjectOfType<GameManagerScript>().ShowPlayableCards(Card.CardType.Attack, info);
-        //buttonsContainer.ActivateUnitButtons();
+        buttonsContainer.ActivateUnitButtons();
         activated = true;
-        //var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
+        var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
         turnManager.SetActiveUnit(this.gameObject);
-        //figureRenderer.material.SetColor("_Color", Color.yellow);
-        var hexToColor = gameObject.transform.parent.GetComponent<HexTile>().GetComponent<SpriteRenderer>();
-        hexToColor.material.SetColor("_Color", Color.grey);
+        figureRenderer.material.SetColor("_Color", Color.yellow);
     }
 
     public void DeactivateFigure()
     {
-        //buttonsContainer.DeactivateUnitButtons();
+        buttonsContainer.DeactivateUnitButtons();
         turnManager.ClearActiveUnit();
         activated = false;
-        //var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
-        //figureRenderer.material.SetColor("_Color", Color.white);
-        var hexToColor = gameObject.transform.parent.GetComponent<HexTile>().GetComponent<SpriteRenderer>();
-        hexToColor.material.SetColor("_Color", Color.white);
+        var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
+        figureRenderer.material.SetColor("_Color", Color.white);
 
         HideArea();
     }
@@ -178,7 +187,9 @@ public class UnitControl: MonoBehaviour
     void ShowMovementArea(int distance)
     {
         List<HexTile> tiles = new List<HexTile>();
-        if(info.motionType == MotionType.RadiusType)
+        if (info.OnMoveStart())
+            distance++;
+        if (info.motionType == MotionType.RadiusType)
             tiles = distanceFinder.FindPaths(transform.parent.GetComponent<HexTile>(), distance);
         else if(info.motionType == MotionType.StraightType)
             tiles = distanceFinder.FindStraightPaths(transform.parent.GetComponent<HexTile>(), distance);
@@ -210,6 +221,22 @@ public class UnitControl: MonoBehaviour
                 tileRenderer.material.SetColor("_Color", Color.blue);
             }
         }
+    }
+
+    public bool CheckForEnemiesInBTB()
+    {
+        var tiles = distanceFinder.GetTilesInRadius(transform.parent.GetComponent<HexTile>(), 1);
+        foreach (var tile in tiles)
+        {
+            if (tile.isOccupied)
+            {
+                if (tile.transform.GetChild(0).GetComponent<UnitInfo>().IsEnemy(info))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     void HideArea()

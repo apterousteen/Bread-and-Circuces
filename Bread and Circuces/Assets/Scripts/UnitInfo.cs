@@ -32,6 +32,7 @@ public abstract class UnitInfo : MonoBehaviour
     public int defence;
     public Team teamSide;
     public Stance currentStance;
+    public Stance stanceToChange;
     public MotionType motionType;
     public bool withShield;
     public List<Card> UnitDeck;
@@ -43,6 +44,7 @@ public abstract class UnitInfo : MonoBehaviour
     {
         motionType = MotionType.RadiusType;
         currentStance = Stance.Advance;
+        stanceToChange = Stance.Advance;
         baseDamage = damage;
         baseDefence = defence;
         UnitDeck = new List<Card>();
@@ -55,7 +57,7 @@ public abstract class UnitInfo : MonoBehaviour
 
     public virtual void ChangeStance(Stance newStance)
     {
-        currentStance = newStance;
+        stanceToChange = newStance;
     }
 
     public void ChangeMotionType(MotionType typeIn)
@@ -98,12 +100,22 @@ public abstract class UnitInfo : MonoBehaviour
         damage = baseDamage;
     }
 
-    public abstract void OnMove();
+    public virtual bool OnMoveStart()
+    {
+        return false;
+    }
+
+    public abstract void OnMoveEnd();
 
     public abstract void OnDefenceStart();
 
     public virtual void OnDefenceEnd()
     {
         defence = baseDefence;
+    }
+
+    public void UpdateStance()
+    {
+        currentStance = stanceToChange;
     }
 }

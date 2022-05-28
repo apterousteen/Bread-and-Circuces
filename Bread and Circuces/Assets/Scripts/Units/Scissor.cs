@@ -6,7 +6,7 @@ public class Scissor : UnitInfo
 {
     protected override void Start()
     {
-        damage = 3;
+        damage = 0;
 
         health = 14;
         defence = 1;
@@ -19,13 +19,11 @@ public class Scissor : UnitInfo
 
     public override void ChangeStance(Stance newStance)
     {
-        if (currentStance == Stance.Raging && newStance == Stance.Attacking)
+        if (currentStance == Stance.Raging && newStance == Stance.Attacking
+            || currentStance == Stance.Raging && newStance == Stance.Raging)
             return;
         if (newStance == Stance.Defensive)
             newStance = Stance.Advance;
-        if (newStance == Stance.Raging)
-            damage += 1;
-        else damage -= 1;
         base.ChangeStance(newStance);
     }
 
@@ -36,7 +34,8 @@ public class Scissor : UnitInfo
 
     public override void OnAttackStart(UnitInfo target)
     {
-
+        if (currentStance == Stance.Raging)
+            damage++;
     }
 
     public override void OnDefenceStart()
@@ -49,7 +48,7 @@ public class Scissor : UnitInfo
         base.OnDefenceEnd();
     }
 
-    public override void OnMove()
+    public override void OnMoveEnd()
     {
 
     }

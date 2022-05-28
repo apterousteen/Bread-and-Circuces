@@ -8,7 +8,7 @@ public class Hoplomachus : UnitInfo
     protected override void Start()
 
     {
-        damage = 3;
+        damage = 0;
 
         health = 15;
         defence = 0;
@@ -44,7 +44,14 @@ public class Hoplomachus : UnitInfo
         base.OnDefenceEnd();
     }
 
-    public override void OnMove()
+    public override bool OnMoveStart()
+    {
+        if (motionType == MotionType.StraightType)
+            return true;
+        else return false;
+    }
+
+    public override void OnMoveEnd()
     {
 
     }

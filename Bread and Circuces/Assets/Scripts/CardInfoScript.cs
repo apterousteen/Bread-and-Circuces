@@ -26,25 +26,25 @@ public class CardInfoScript : MonoBehaviour
         Manacost.text = CC.Card.Manacost.ToString();
     }
 
-    public void HiglightManaAvaliability(int currentMana)
-    {
-        GetComponent<CanvasGroup>().alpha = currentMana >= CC.Card.Manacost ? 1 : .5f;
-    }
+    //public void HiglightManaAvaliability(int currentMana)
+    //{
+    //    GetComponent<CanvasGroup>().alpha = currentMana >= CC.Card.Manacost ? 1 : .5f;
+    //}
 
 
-    public void HiglightTypeCard(bool typeCard_Attack )
-    {
-        if(typeCard_Attack)
-            AttackCard.SetActive(true);
-        else
-            DefenseCard.SetActive(false);
-        /*
-        if (card.Type == Card.CardType.Attack)
-            CardInfo.HiglightTypeCard(true);
-        else
-            CardInfo.HiglightTypeCard(false);
-        */
-    }
+    //public void HiglightTypeCard(bool typeCard_Attack )
+    //{
+    //    if(typeCard_Attack)
+    //        AttackCard.SetActive(true);
+    //    else
+    //        DefenseCard.SetActive(false);
+    //    /*
+    //    if (card.Type == Card.CardType.Attack)
+    //        CardInfo.HiglightTypeCard(true);
+    //    else
+    //        CardInfo.HiglightTypeCard(false);
+    //    */
+    //}
 
     public void HiglightCard(bool highlight)
     {

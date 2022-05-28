@@ -1,26 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 public class ButtonHandler : MonoBehaviour
 {
     public bool State = false;
-    public bool ActivationState = false;
-    public GameObject Button;
+    public bool ActivationState;
+    public Button Button;
 
-    public List<ButtonHandler> allButtons;
 
     void Start()
     {
-        ActivateDeactivateButton(ActivationState);
+        ActivateDeactivateButton(false);
     }
 
     public void ActivateDeactivateButton(bool activationStateIn)
     {
-        ActivationState = activationStateIn;
-
-        //Button.SetActive(ActivationState);
+        Debug.Log("Changed Button State");
+        Button.interactable = activationStateIn;
     }
 
     public void resetButton()
