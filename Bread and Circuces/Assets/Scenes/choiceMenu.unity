@@ -1459,6 +1459,7 @@ GameObject:
   - component: {fileID: 107849315}
   - component: {fileID: 107849317}
   - component: {fileID: 107849316}
+  - component: {fileID: 107849318}
   m_Layer: 5
   m_Name: hexImage
   m_TagString: Untagged
@@ -1524,6 +1525,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 107849314}
   m_CullTransparentMesh: 1
+--- !u!114 &107849318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107849314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d327ac4ac9b3b0a4b883784a08e93e74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: "\u0414\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u044C \u043F\u0435\u0440\u0435\u0434\u0432\u0438\u0436\u0435\u043D\u0438\u044F"
+  content: "\u041A\u043E\u043B-\u0432\u043E \u0433\u0435\u043A\u0441\u043E\u0432,
+    \u043D\u0430 \u043A\u043E\u0442\u043E\u0440\u043E\u0435 \u0433\u0435\u0440\u043E\u0439
+    \u043C\u043E\u0436\u0435\u0442 \u043F\u0435\u0440\u0435\u043C\u0435\u0441\u0442\u0438\u0442\u044C\u0441\u044F
+    \u0437\u0430 1 \u0445\u043E\u0434"
 --- !u!1 &130690769
 GameObject:
   m_ObjectHideFlags: 0
@@ -6886,6 +6904,7 @@ GameObject:
   - component: {fileID: 661281899}
   - component: {fileID: 661281901}
   - component: {fileID: 661281900}
+  - component: {fileID: 661281902}
   m_Layer: 5
   m_Name: hexImage (1)
   m_TagString: Untagged
@@ -6951,6 +6970,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 661281898}
   m_CullTransparentMesh: 1
+--- !u!114 &661281902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661281898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef99e84cfd8ba0547ba676d82891e7af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: "\u0414\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u044C \u0430\u0442\u0430\u043A\u0438"
+  content: "\u041A\u043E\u043B-\u0432\u043E \u0433\u0435\u043A\u043E\u0432, \u043D\u0430
+    \u043A\u043E\u0442\u043E\u0440\u043E\u0435 \u0433\u0435\u0440\u043E\u0439 \u043C\u043E\u0436\u0435\u0442
+    \u043F\u0435\u0440\u0435\u043C\u0435\u0441\u0442\u0438\u0442\u044C\u0441\u044F
+    \u0434\u043B\u044F \u0430\u0442\u0430\u043A\u0438"
 --- !u!1 &675213286
 GameObject:
   m_ObjectHideFlags: 0
@@ -7598,7 +7634,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -113.6, y: 88.2}
+  m_AnchoredPosition: {x: -114.7, y: 96.5}
   m_SizeDelta: {x: 256, y: 100}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &728207423
@@ -7726,7 +7762,11 @@ GameObject:
   - component: {fileID: 728470738}
   - component: {fileID: 728470740}
   - component: {fileID: 728470739}
+  - component: {fileID: 728470744}
+  - component: {fileID: 728470743}
+  - component: {fileID: 728470742}
   - component: {fileID: 728470741}
+  - component: {fileID: 728470745}
   m_Layer: 5
   m_Name: Panel (1)
   m_TagString: Untagged
@@ -7804,10 +7844,87 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67c9b4070e136014b9d5bf6e78f12866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  header: "\u041D\u0430\u0441\u0442\u0443\u043F\u0430\u0442\u0435\u043B\u044C\u043D\u0430\u044F"
+  header: "\u041D\u0430\u0441\u0442\u0443\u043F\u0430\u0442\u0435\u043B\u044C\u043D\u0430\u044F
+    \u0441\u0442\u043E\u0439\u043A\u0430"
   content: "\u042D\u0444\u0444\u0435\u043A\u0442: +1 \u043A \u0434\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0438
     \u043F\u0435\u0440\u0435\u043C\u0435\u0449\u0435\u043D\u0438\u044F \u043E\u0442
     \u044D\u0444\u0444\u0435\u043A\u0442\u043E\u0432 \u043A\u0430\u0440\u0442"
+--- !u!114 &728470742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728470737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deb22aba1af13454f99ebd8ff9805aa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: "\u041D\u0430\u0441\u0442\u0443\u043F\u0430\u0442\u0435\u043B\u044C\u043D\u0430\u044F
+    \u0441\u0442\u043E\u0439\u043A\u0430"
+  content: "\u0423\u043D\u0438\u0432\u0435\u0440\u0441\u0430\u043B\u044C\u043D\u0430\u044F
+    \u0441\u0442\u043E\u0439\u043A\u0430 \u0441 \u0434\u043E\u0441\u0442\u0443\u043F\u043E\u043C
+    \u043A \u0437\u0430\u0449\u0438\u0442\u043D\u044B\u043C \u0438 \u0430\u0442\u0430\u043A\u0443\u044E\u0449\u0438\u043C
+    \u043A\u0430\u0440\u0442\u0430\u043C. \u0412\u0441\u0435 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0438
+    \u043D\u0430\u0447\u0438\u043D\u0430\u044E\u0442 \u0431\u043E\u0439 \u0432 \u043D\u0435\u0439"
+--- !u!114 &728470743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728470737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f891055aa7fe1fa4e8945e5b56248f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: "\u041D\u0430\u0441\u0442\u0443\u043F\u0430\u0442\u0435\u043B\u044C\u043D\u0430\u044F
+    \u0441\u0442\u043E\u0439\u043A\u0430"
+  content: "\u0423\u043D\u0438\u0432\u0435\u0440\u0441\u0430\u043B\u044C\u043D\u0430\u044F
+    \u0441\u0442\u043E\u0439\u043A\u0430 \u0441 \u0434\u043E\u0441\u0442\u0443\u043F\u043E\u043C
+    \u043A \u0437\u0430\u0449\u0438\u0442\u043D\u044B\u043C \u0438 \u0430\u0442\u0430\u043A\u0443\u044E\u0449\u0438\u043C
+    \u043A\u0430\u0440\u0442\u0430\u043C. \u0412\u0441\u0435 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0438
+    \u043D\u0430\u0447\u0438\u043D\u0430\u044E\u0442 \u0431\u043E\u0439 \u0432 \u043D\u0435\u0439"
+--- !u!114 &728470744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728470737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51a7bccfe7259ab499149e535bff1b85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: "\u041D\u0430\u0441\u0442\u0443\u043F\u0430\u0442\u0435\u043B\u044C\u043D\u0430\u044F
+    \u0441\u0442\u043E\u0439\u043A\u0430"
+  content: "\u0423\u043D\u0438\u0432\u0435\u0440\u0441\u0430\u043B\u044C\u043D\u0430\u044F
+    \u0441\u0442\u043E\u0439\u043A\u0430 \u0441 \u0434\u043E\u0441\u0442\u0443\u043F\u043E\u043C
+    \u043A \u0437\u0430\u0449\u0438\u0442\u043D\u044B\u043C \u0438 \u0430\u0442\u0430\u043A\u0443\u044E\u0449\u0438\u043C
+    \u043A\u0430\u0440\u0442\u0430\u043C. \u0412\u0441\u0435 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0438
+    \u043D\u0430\u0447\u0438\u043D\u0430\u044E\u0442 \u0431\u043E\u0439 \u0432 \u043D\u0435\u0439"
+--- !u!114 &728470745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728470737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9cc21c2ac4834d48b54b16106d46310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: "\u041D\u0430\u0441\u0442\u0443\u043F\u0430\u0442\u0435\u043B\u044C\u043D\u0430\u044F
+    \u0441\u0442\u043E\u0439\u043A\u0430"
+  content: "\u0423\u043D\u0438\u0432\u0435\u0440\u0441\u0430\u043B\u044C\u043D\u0430\u044F
+    \u0441\u0442\u043E\u0439\u043A\u0430 \u0441 \u0434\u043E\u0441\u0442\u0443\u043F\u043E\u043C
+    \u043A \u0437\u0430\u0449\u0438\u0442\u043D\u044B\u043C \u0438 \u0430\u0442\u0430\u043A\u0443\u044E\u0449\u0438\u043C
+    \u043A\u0430\u0440\u0442\u0430\u043C. \u0412\u0441\u0435 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0438
+    \u043D\u0430\u0447\u0438\u043D\u0430\u044E\u0442 \u0431\u043E\u0439 \u0432 \u043D\u0435\u0439"
 --- !u!1 &752865585
 GameObject:
   m_ObjectHideFlags: 0
@@ -9161,7 +9278,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -113.420044, y: 0}
+  m_AnchoredPosition: {x: -113.420074, y: 0}
   m_SizeDelta: {x: -226.83, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &863761505
@@ -14623,6 +14740,7 @@ GameObject:
   - component: {fileID: 1373954914}
   - component: {fileID: 1373954916}
   - component: {fileID: 1373954915}
+  - component: {fileID: 1373954917}
   m_Layer: 5
   m_Name: hpImage
   m_TagString: Untagged
@@ -14688,6 +14806,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1373954913}
   m_CullTransparentMesh: 1
+--- !u!114 &1373954917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1373954913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a107e55d52c067488a4797c3695c2b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: "\u0417\u0434\u043E\u0440\u043E\u0432\u044C\u0435"
+  content: "\u041A\u043E\u043B-\u0432\u043E \u0443\u0440\u043E\u043D\u0430, \u043A\u043E\u0442\u043E\u0440\u043E\u0435
+    \u043C\u043E\u0436\u0435\u0442 \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C
+    \u0433\u0435\u0440\u043E\u0439"
 --- !u!1 &1398244082
 GameObject:
   m_ObjectHideFlags: 0
@@ -17693,7 +17827,11 @@ GameObject:
   - component: {fileID: 1700223615}
   - component: {fileID: 1700223617}
   - component: {fileID: 1700223616}
+  - component: {fileID: 1700223621}
+  - component: {fileID: 1700223620}
+  - component: {fileID: 1700223619}
   - component: {fileID: 1700223618}
+  - component: {fileID: 1700223622}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -17771,12 +17909,76 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67c9b4070e136014b9d5bf6e78f12866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  header: "\u0410\u0442\u0430\u043A\u0443\u044E\u0449\u0430\u044F"
+  header: "\u0410\u0442\u0430\u043A\u0443\u044E\u0449\u0430\u044F \u0441\u0442\u043E\u0439\u043A\u0430"
   content: "\u042D\u0444\u0444\u0435\u043A\u0442: \u0415\u0441\u043B\u0438 \u0446\u0435\u043B\u044C
     \u0430\u0442\u0430\u043A\u0438 \u044D\u0442\u043E\u0433\u043E \u0431\u043E\u0439\u0446\u0430
     \u043D\u0430\u0445\u043E\u0434\u0438\u0442\u0441\u044F \u043D\u0430 \u0441\u043E\u0441\u0435\u0434\u043D\u0435\u043C
     \u0433\u0435\u043A\u0441\u0435, \u0443 \u0430\u0442\u0430\u043A\u0438 +1 \u043A
     \u0443\u0440\u043E\u043D\u0443"
+--- !u!114 &1700223619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700223614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deb22aba1af13454f99ebd8ff9805aa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: "\u0410\u0442\u0430\u043A\u0443\u044E\u0449\u0430\u044F \u0441\u0442\u043E\u0439\u043A\u0430"
+  content: "\u0410\u0433\u0440\u0435\u0441\u0441\u0438\u0432\u043D\u0430\u044F \u0441\u0442\u043E\u0439\u043A\u0430,
+    \u0441 \u0432\u044B\u0431\u043E\u0440\u043E\u043C \u0441 \u0441\u0438\u043B\u044C\u043D\u044B\u0445
+    \u0430\u0442\u0430\u043A\u0443\u044E\u0449\u0438\u0445 \u043A\u0430\u0440\u0442"
+--- !u!114 &1700223620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700223614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f891055aa7fe1fa4e8945e5b56248f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: "\u0410\u0442\u0430\u043A\u0443\u044E\u0449\u0430\u044F \u0441\u0442\u043E\u0439\u043A\u0430"
+  content: "\u0410\u0433\u0440\u0435\u0441\u0441\u0438\u0432\u043D\u0430\u044F \u0441\u0442\u043E\u0439\u043A\u0430,
+    \u0441 \u0432\u044B\u0431\u043E\u0440\u043E\u043C \u0441 \u0441\u0438\u043B\u044C\u043D\u044B\u0445
+    \u0430\u0442\u0430\u043A\u0443\u044E\u0449\u0438\u0445 \u043A\u0430\u0440\u0442"
+--- !u!114 &1700223621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700223614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51a7bccfe7259ab499149e535bff1b85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: "\u0410\u0442\u0430\u043A\u0443\u044E\u0449\u0430\u044F \u0441\u0442\u043E\u0439\u043A\u0430"
+  content: "\u0410\u0433\u0440\u0435\u0441\u0441\u0438\u0432\u043D\u0430\u044F \u0441\u0442\u043E\u0439\u043A\u0430,
+    \u0441 \u0432\u044B\u0431\u043E\u0440\u043E\u043C \u0441 \u0441\u0438\u043B\u044C\u043D\u044B\u0445
+    \u0430\u0442\u0430\u043A\u0443\u044E\u0449\u0438\u0445 \u043A\u0430\u0440\u0442"
+--- !u!114 &1700223622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700223614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9cc21c2ac4834d48b54b16106d46310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: "\u0410\u0442\u0430\u043A\u0443\u044E\u0449\u0430\u044F \u0441\u0442\u043E\u0439\u043A\u0430"
+  content: "\u0410\u0433\u0440\u0435\u0441\u0441\u0438\u0432\u043D\u0430\u044F \u0441\u0442\u043E\u0439\u043A\u0430,
+    \u0441 \u0432\u044B\u0431\u043E\u0440\u043E\u043C \u0441 \u0441\u0438\u043B\u044C\u043D\u044B\u0445
+    \u0430\u0442\u0430\u043A\u0443\u044E\u0449\u0438\u0445 \u043A\u0430\u0440\u0442"
 --- !u!1 &1704736696
 GameObject:
   m_ObjectHideFlags: 0
@@ -22412,9 +22614,13 @@ GameObject:
   - component: {fileID: 2136108117}
   - component: {fileID: 2136108119}
   - component: {fileID: 2136108118}
+  - component: {fileID: 2136108123}
+  - component: {fileID: 2136108122}
+  - component: {fileID: 2136108121}
   - component: {fileID: 2136108120}
+  - component: {fileID: 2136108124}
   m_Layer: 5
-  m_Name: Panel (2)
+  m_Name: panel_defense
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22487,9 +22693,85 @@ MonoBehaviour:
   m_GameObject: {fileID: 2136108116}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67c9b4070e136014b9d5bf6e78f12866, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: "\u041E\u0431\u043E\u0440\u043E\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u0430\u044F
+    \u0441\u0442\u043E\u0439\u043A\u0430"
+  content: "\u0421\u0442\u043E\u0439\u043A\u0430 \u0441 \u0434\u043E\u0441\u0442\u0443\u043F\u043E\u043C
+    \u043A \u0431\u043E\u043B\u0435\u0435 \u0441\u0438\u043B\u044C\u043D\u044B\u043C
+    \u0437\u0430\u0449\u0438\u0442\u043D\u044B\u043C \u043A\u0430\u0440\u0442\u0430\u043C"
+--- !u!114 &2136108121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136108116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deb22aba1af13454f99ebd8ff9805aa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: "\u041E\u0431\u043E\u0440\u043E\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u0430\u044F
+    \u0441\u0442\u043E\u0439\u043A\u0430"
+  content: "\u0421\u0442\u043E\u0439\u043A\u0430 \u0441 \u0434\u043E\u0441\u0442\u0443\u043F\u043E\u043C
+    \u043A \u0431\u043E\u043B\u0435\u0435 \u0441\u0438\u043B\u044C\u043D\u044B\u043C
+    \u0437\u0430\u0449\u0438\u0442\u043D\u044B\u043C \u043A\u0430\u0440\u0442\u0430\u043C"
+--- !u!114 &2136108122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136108116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f891055aa7fe1fa4e8945e5b56248f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: "\u041E\u0431\u043E\u0440\u043E\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u0430\u044F
+    \u0441\u0442\u043E\u0439\u043A\u0430"
+  content: "\u0421\u0442\u043E\u0439\u043A\u0430 \u0441 \u0434\u043E\u0441\u0442\u0443\u043F\u043E\u043C
+    \u043A \u0431\u043E\u043B\u0435\u0435 \u0441\u0438\u043B\u044C\u043D\u044B\u043C
+    \u0437\u0430\u0449\u0438\u0442\u043D\u044B\u043C \u043A\u0430\u0440\u0442\u0430\u043C"
+--- !u!114 &2136108123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136108116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51a7bccfe7259ab499149e535bff1b85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  header: "\u042F\u0440\u043E\u0441\u0442\u043D\u0430\u044F \u0441\u0442\u043E\u0439\u043A\u0430"
+  content: "\u042D\u0444\u0444\u0435\u043A\u0442: \u0412 \u044D\u0442\u043E\u0439
+    \u0441\u0442\u043E\u0439\u043A\u0435 \u043C\u043E\u0436\u043D\u043E \u0440\u0430\u0437\u044B\u0433\u0440\u044B\u0432\u0430\u0442\u044C
+    \u043A\u0430\u0440\u0442\u044B \u0430\u0442\u0430\u043A\u0443\u044E\u0449\u0435\u0439
+    \u0441\u0442\u043E\u0439\u043A\u0438.  \u041A\u0430\u0440\u0442\u044B \u0430\u0442\u0430\u043A\u0438
+    \u043F\u043E\u043B\u0443\u0447\u0430\u044E\u0442 +1 \u043A \u0443\u0440\u043E\u043D\u0443. 
+    \u041D\u0435 \u043C\u043E\u0436\u0435\u0442 \u043F\u0435\u0440\u0435\u0445\u043E\u0434\u0438\u0442\u044C
+    \u0432 \u0430\u0442\u0430\u043A\u0443\u044E\u0449\u0443\u044E \u0441\u0442\u043E\u0439\u043A\u0443"
+--- !u!114 &2136108124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136108116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9cc21c2ac4834d48b54b16106d46310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: "\u041E\u0431\u043E\u0440\u043E\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u0430\u044F
+    \u0441\u0442\u043E\u0439\u043A\u0430"
+  content: "\u0421\u0442\u043E\u0439\u043A\u0430 \u0441 \u0434\u043E\u0441\u0442\u0443\u043F\u043E\u043C
+    \u043A \u0431\u043E\u043B\u0435\u0435 \u0441\u0438\u043B\u044C\u043D\u044B\u043C
+    \u0437\u0430\u0449\u0438\u0442\u043D\u044B\u043C \u043A\u0430\u0440\u0442\u0430\u043C"
 --- !u!4 &1604349861605561154
 Transform:
   m_ObjectHideFlags: 0
@@ -22540,6 +22822,8 @@ MonoBehaviour:
   InTeam: {fileID: 1104876899}
   ChooseButton: {fileID: 8871086740521794534}
   PlayButton: {fileID: 458835421}
+  rage: {fileID: 21300000, guid: 0fa50e5e3d6b8fd46b5e0aa802a571fc, type: 3}
+  defence: {fileID: 21300000, guid: cefcd4a262de8e9409ca486dc0b27243, type: 3}
   checkbox_ch: {fileID: 21300000, guid: 0e9a07dfafad9004996785a5de49a1f9, type: 3}
   checkbox_unch: {fileID: 21300000, guid: 330adbdd6ba094b4a9c191212da37fe7, type: 3}
 --- !u!212 &1604349861605561166

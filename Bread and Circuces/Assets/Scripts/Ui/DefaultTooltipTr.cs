@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class HoploTooltipTr : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class DefaultTooltipTr : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public string header;
     public string content;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (MenuManager.chosen != null && MenuManager.chosen.CompareTag("Hoplomachus"))
+        if (MenuManager.chosen == null)
         {
             TooltipSystem.Show(content, header);
         }

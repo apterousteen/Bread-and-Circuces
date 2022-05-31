@@ -49,6 +49,17 @@ public class InfoUpdater : MonoBehaviour
             CIP.info.text = charInfo.info;
             charInfo.cards.SetActive(true);
             CIP.cardPanel = charInfo.cards;
+
+            if (MenuManager.chosen.CompareTag("Scissor"))
+            {
+                GameObject.Find("panel_defense").GetComponent<Image>().sprite = MenuManager.Instance.rage;
+                GameObject.Find("panel_defense").GetComponentInChildren<TextMeshProUGUI>().text = "ﬂ–Œ—“‹";
+            }
+            else
+            {
+                GameObject.Find("panel_defense").GetComponent<Image>().sprite = MenuManager.Instance.defence;
+                GameObject.Find("panel_defense").GetComponentInChildren<TextMeshProUGUI>().text = "Œ¡Œ–ŒÕ¿";
+            }
         }
     }
 }
