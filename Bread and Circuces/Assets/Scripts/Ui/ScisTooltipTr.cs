@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ScisTooltipTr : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    public string header;
+    public string content;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (MenuManager.chosen.CompareTag("Scissor"))
-        {
-            TooltipSystem.Show("Эффект: В этой стойке можно разыгрывать карты атакующей стойки. Карты атаки получают + 1 к урону. Не может переходить в атакующую стойку", "Яростная");
+        if (MenuManager.chosen != null && MenuManager.chosen.CompareTag("Scissor"))
+        { 
+            TooltipSystem.Show(content, header);
         }
     }
 

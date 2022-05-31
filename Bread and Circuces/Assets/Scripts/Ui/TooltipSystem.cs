@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class TooltipSystem : MonoBehaviour
 {
@@ -15,6 +16,14 @@ public class TooltipSystem : MonoBehaviour
 
     public static void Show(string content, string header = "")
     {
+        current.tooltip.gameObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
+        current.tooltip.SetText(content, header);  
+        current.tooltip.gameObject.SetActive(true);
+    }
+
+    public static void ShowSpecial(string content, string header = "")
+    {
+        current.tooltip.gameObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
         current.tooltip.SetText(content, header);
         current.tooltip.gameObject.SetActive(true);
     }

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class HoploTooltipTr : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class RetiTooltipTr : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public string header;
     public string content;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (MenuManager.chosen != null && MenuManager.chosen.CompareTag("Hoplomachus"))
+        if (MenuManager.chosen != null && MenuManager.chosen.CompareTag("Retiarius"))
         {
             TooltipSystem.Show(content, header);
         }
@@ -21,3 +21,4 @@ public class HoploTooltipTr : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         TooltipSystem.Hide();
     }
 }
+

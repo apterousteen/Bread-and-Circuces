@@ -16,6 +16,8 @@ public class MenuManager : MonoBehaviour
     public TextMeshProUGUI InTeam;
     public Button ChooseButton, PlayButton;
 
+    public Sprite rage, defence;
+
     [Header("checkbox")]
     [SerializeField] private Sprite checkbox_ch = null;
     [SerializeField] private Sprite checkbox_unch = null;
