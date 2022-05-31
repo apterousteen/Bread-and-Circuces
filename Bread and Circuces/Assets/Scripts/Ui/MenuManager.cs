@@ -14,10 +14,11 @@ public class MenuManager : MonoBehaviour
     public GameObject Popup;
     public GameObject CharPanel;
     public TextMeshProUGUI InTeam;
-    public Button ChooseButton;
+    public Button ChooseButton, PlayButton;
 
     [Header("checkbox")]
     [SerializeField] private Sprite checkbox_ch = null;
+    [SerializeField] private Sprite checkbox_unch = null;
 
     public void LoadScene(string sceneName)
     {
@@ -36,18 +37,60 @@ public class MenuManager : MonoBehaviour
     }
 
     public void AddToTeam()
-    {
-        if (!team.Contains(chosen.tag))
+    {      
+        if (!team.Contains(chosen.tag) && team.Count < 2)
         {
             team.Add(chosen.tag);
             chosen.transform.GetChild(3).GetComponent<Image>().sprite = checkbox_ch;
             InTeam.text = team.Count.ToString();
+            PlayButton.interactable = false;
         }
         if (team.Count == 2)
         {
-            ChooseButton.interactable = false;
+            PlayButton.interactable = true;
             RunInfo.Instance.Player.units.SelectUnits(team[0], team[1]);
         }
+
+        ChangeChoiceButton();
+    }
+
+    public void DeleteFromTeam()
+    {
+        team.Remove(chosen.tag);
+        chosen.transform.GetChild(3).GetComponent<Image>().sprite = checkbox_unch;
+        InTeam.text = team.Count.ToString();
+
+        ChangeChoiceButton();
+
+        if (team.Count <= 2)
+        {
+            PlayButton.interactable = false;
+        }
+
+        if (team.Count == 2)
+        {
+            PlayButton.interactable = true;
+            RunInfo.Instance.Player.units.SelectUnits(team[0], team[1]);
+        }
+    }
+
+    public void ChangeChoiceButton()
+    {
+        if (team.Contains(chosen.tag))
+        {
+            ChooseButton.GetComponentInChildren<TextMeshProUGUI>().text = "Œ“Ã≈Õ»“‹ ¬€¡Œ–";
+            ChooseButton.onClick.AddListener(DeleteFromTeam);
+        }
+        else
+        {
+            ChooseButton.GetComponentInChildren<TextMeshProUGUI>().text = "¬€¡–¿“‹";
+            ChooseButton.onClick.AddListener(AddToTeam);
+        }
+    }
+    
+    public void ResetTeam()
+    {
+        team.Clear();
     }
 
     public void OpenPopup()
