@@ -40,6 +40,8 @@ public abstract class UnitInfo : MonoBehaviour
     private int baseDamage;
     private int baseDefence;
 
+    public Sprite altSkin;
+
     protected virtual void Start()
     {
         motionType = MotionType.RadiusType;

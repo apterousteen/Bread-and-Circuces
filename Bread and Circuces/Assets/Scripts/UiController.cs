@@ -30,6 +30,7 @@ public class UiController : MonoBehaviour
     public GameObject enemy2;
 
     public TextMeshProUGUI turnText;
+    public Image timerOutline;
 
     public string[] enemies;
     public string[] players;
@@ -73,7 +74,7 @@ public class UiController : MonoBehaviour
         
     }
 
-    public void HandleUI()
+    public void FindUI()
     {
 
         PlayerMana = GameObject.Find("PlayerMana").GetComponent<TextMeshProUGUI>();
@@ -89,49 +90,31 @@ public class UiController : MonoBehaviour
         pausePopup = GameObject.Find("PausePanel");
         pausePopup.SetActive(false);
         turnManager = FindObjectOfType<TurnManager>();
+
+        playerName = GameObject.Find("playerName").GetComponent<TextMeshProUGUI>();
+        playerHealth = GameObject.Find("playerHealth").GetComponent<TextMeshProUGUI>();
+        playerAttac = GameObject.Find("playerAttac").GetComponent<TextMeshProUGUI>();
+        playerMove = GameObject.Find("playerMove").GetComponent<TextMeshProUGUI>();
+        enemyName = GameObject.Find("enemyName").GetComponent<TextMeshProUGUI>();
+        enemyHealth = GameObject.Find("enemyHealth").GetComponent<TextMeshProUGUI>();
+        enemyAttac = GameObject.Find("enemyAttac").GetComponent<TextMeshProUGUI>();
+        enemyMove = GameObject.Find("enemyMove").GetComponent<TextMeshProUGUI>();
+        playerStance = GameObject.Find("playerStance");
+        enemyStance = GameObject.Find("enemyStance");
+        player1 = GameObject.Find("player1");
+        enemy1 = GameObject.Find("enemy1");
+        player2 = GameObject.Find("player2");
+        enemy2 = GameObject.Find("enemy2");
+
+        turnText = GameObject.Find("turnText").GetComponent<TextMeshProUGUI>();
+        timerOutline = GameObject.Find("timerOutline").GetComponent<Image>();
     }
 
-    /// from determined
     public bool GameIsPaused = false;
-
-    /*
-    public void OpenWinPopup()
-    {
-
-        if (resultBoard.levelWasWon)
-        {
-            Debug.Log("Level Was Won");
-            FindObjectsOfType<Button>().Where(x => x.gameObject.tag == "Result Button").First().enabled = false;
-            StartCoroutine(WaitAndShow(winPopup, 2.0f));
-            resultBoard.levelWasWon = false;
-        }//4 secs
-    }
-
-    IEnumerator WaitAndShow(GameObject go, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        go.SetActive(true);
-    }
-
-        [Header("Menus")]
-    [SerializeField] private GameObject failMenu = null;
-
-    bool gameHasEnded;
-
-    void Update()
-    {
-        if (healthValue == 0 && gameHasEnded == false)
-        {
-            gameHasEnded = true;
-            Debug.Log("fail screen");
-            failMenu.SetActive(true);
-        }
-    */
-    /// end of code from determined
 
     public void StartGame()
     {
-        HandleUI();
+        FindUI();
         EndTurnBtn.interactable = true;
         isTurnEndButton = true;
         UpdateMana();
@@ -214,9 +197,12 @@ public class UiController : MonoBehaviour
         if (turnManager.GetCurrTeam() == Team.Player)
         {
             turnText.text = "ваш ход";
+            timerOutline.enabled = true;
         }
-        else if (turnManager.GetCurrTeam() == Team.Enemy) {
+        else if (turnManager.GetCurrTeam() == Team.Enemy) 
+        {
             turnText.text = "ход врага";
+            timerOutline.enabled = false;
         }
     }
 

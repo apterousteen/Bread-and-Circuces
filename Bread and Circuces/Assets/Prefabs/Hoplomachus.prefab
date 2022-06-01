@@ -134,3 +134,4 @@ MonoBehaviour:
   stanceToChange: 0
   motionType: 0
   withShield: 0
+  altSkin: {fileID: 21300000, guid: d5f12c2c7a858f948829bb30b8efd29d, type: 3}

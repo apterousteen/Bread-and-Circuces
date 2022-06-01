@@ -88,6 +88,7 @@ public class Board : MonoBehaviour
         if (newUnit.GetComponent<UnitInfo>().teamSide == Team.Enemy)
         {
             newUnit.transform.localRotation = Quaternion.Euler(0, 180, 0);
+            newUnit.GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitInfo>().altSkin;
         }
     }
 }
