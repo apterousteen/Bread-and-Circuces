@@ -19,8 +19,8 @@ public class UiController : MonoBehaviour
     private bool isTurnEndButton;
 
     public TurnManager turnManager;
-    public TextMeshProUGUI playerName, playerHealth, playerAttac, playerMove;
-    public TextMeshProUGUI enemyName, enemyHealth, enemyAttac, enemyMove;
+    public TextMeshProUGUI playerName, playerHealth, playerAttac, playerMove, playerHandSize;
+    public TextMeshProUGUI enemyName, enemyHealth, enemyAttac, enemyMove, enemyHandSize;
     public GameObject playerStance, playerIcon;
     public GameObject enemyStance, enemyIcon;
 
@@ -95,10 +95,13 @@ public class UiController : MonoBehaviour
         playerHealth = GameObject.Find("playerHealth").GetComponent<TextMeshProUGUI>();
         playerAttac = GameObject.Find("playerAttac").GetComponent<TextMeshProUGUI>();
         playerMove = GameObject.Find("playerMove").GetComponent<TextMeshProUGUI>();
+        playerHandSize = GameObject.Find("playerHandSize").GetComponent<TextMeshProUGUI>();
         enemyName = GameObject.Find("enemyName").GetComponent<TextMeshProUGUI>();
         enemyHealth = GameObject.Find("enemyHealth").GetComponent<TextMeshProUGUI>();
         enemyAttac = GameObject.Find("enemyAttac").GetComponent<TextMeshProUGUI>();
         enemyMove = GameObject.Find("enemyMove").GetComponent<TextMeshProUGUI>();
+        enemyHandSize = GameObject.Find("enemyHandSize").GetComponent<TextMeshProUGUI>();
+
         playerStance = GameObject.Find("playerStance");
         enemyStance = GameObject.Find("enemyStance");
         playerIcon = GameObject.Find("playerIcon");
@@ -162,7 +165,7 @@ public class UiController : MonoBehaviour
         discardWindow.GetComponentInChildren<Button>().interactable = FindObjectOfType<DiscardWindow>().IsButtonActive();
     }
 
-    public void UpdateSidePanel(GameObject unit)
+    public void UpdateInfoPanels(GameObject unit)
     {
         if (unit.GetComponent<UnitInfo>().teamSide.ToString() == "Player")
         {
@@ -187,6 +190,7 @@ public class UiController : MonoBehaviour
 
             playerAttac.text = unit.GetComponent<UnitInfo>().attackReachDistance.ToString();
             playerMove.text = unit.GetComponent<UnitInfo>().moveDistance.ToString();
+            playerHandSize.text = GameManagerScript.Instance.PlayerHand.childCount.ToString();
         }
         else if (unit.GetComponent<UnitInfo>().teamSide.ToString() == "Enemy")
         {
@@ -211,6 +215,7 @@ public class UiController : MonoBehaviour
 
             enemyAttac.text = unit.GetComponent<UnitInfo>().attackReachDistance.ToString();
             enemyMove.text = unit.GetComponent<UnitInfo>().moveDistance.ToString();
+            enemyHandSize.text = GameManagerScript.Instance.enemyHandSize.ToString();
         }
     }
 

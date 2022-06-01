@@ -56,6 +56,8 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
             return;
         transform.SetParent(DefaultParent);
         GetComponent<CanvasGroup>().blocksRaycasts = true;
+
+        UiController.Instance.playerHandSize.text = GameManagerScript.Instance.PlayerHand.childCount.ToString();
     }
 
     public void OnPointerClick(PointerEventData eventData)
