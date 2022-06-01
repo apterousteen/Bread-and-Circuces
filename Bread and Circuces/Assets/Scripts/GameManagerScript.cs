@@ -22,6 +22,7 @@ public class Game
 
         Enemy = new Player();
         Enemy.team = Team.Enemy;
+
         //Enemy.units.SelectUnits("Retiarius", "Murmillo");
         GenerateUnits(Enemy);
 

@@ -21,8 +21,8 @@ public class UiController : MonoBehaviour
     public TurnManager turnManager;
     public TextMeshProUGUI playerName, playerHealth, playerAttac, playerMove;
     public TextMeshProUGUI enemyName, enemyHealth, enemyAttac, enemyMove;
-    public GameObject playerStance;
-    public GameObject enemyStance;
+    public GameObject playerStance, playerIcon;
+    public GameObject enemyStance, enemyIcon;
 
     public GameObject player1;
     public GameObject player2;
@@ -32,8 +32,8 @@ public class UiController : MonoBehaviour
     public TextMeshProUGUI turnText;
     public Image timerOutline;
 
-    public string[] enemies;
     public string[] players;
+    public string[] enemies;
 
     [Serializable]
     public struct stanceSprites
@@ -49,7 +49,7 @@ public class UiController : MonoBehaviour
         public string name;
         public Sprite image;
     }
-    public stanceSprites[] icons;
+    public iconSprites[] icons;
 
     /// from determined
     [Header("Popups")]
@@ -101,6 +101,8 @@ public class UiController : MonoBehaviour
         enemyMove = GameObject.Find("enemyMove").GetComponent<TextMeshProUGUI>();
         playerStance = GameObject.Find("playerStance");
         enemyStance = GameObject.Find("enemyStance");
+        playerIcon = GameObject.Find("playerIcon");
+        enemyIcon = GameObject.Find("enemyIcon");
         player1 = GameObject.Find("player1");
         enemy1 = GameObject.Find("enemy1");
         player2 = GameObject.Find("player2");
@@ -121,7 +123,7 @@ public class UiController : MonoBehaviour
 
         enemies = GameManagerScript.Instance.CurrentGame.Enemy.units.units;
         players = GameManagerScript.Instance.CurrentGame.Player.units.units;
-        UpdateIcons();
+        UpdateIcons(gameObject);
     }
 
     public void UpdateMana()
@@ -165,12 +167,22 @@ public class UiController : MonoBehaviour
         if (unit.GetComponent<UnitInfo>().teamSide.ToString() == "Player")
         {
             playerName.text = unit.GetComponent<UnitInfo>().unitName;
-            playerHealth.text = unit.GetComponent<UnitInfo>().health.ToString();
+
+            if (unit.GetComponent<UnitInfo>().health <= 0)
+                playerHealth.text = "";
+            else
+                playerHealth.text = unit.GetComponent<UnitInfo>().health.ToString();
 
             foreach (var stance in stances)
             {
                 if (stance.name == unit.GetComponent<UnitInfo>().currentStance.ToString())
                     playerStance.GetComponent<Image>().sprite = stance.image;
+            }
+
+            foreach (var icon in icons)
+            {
+                if (icon.name == unit.tag)
+                    playerIcon.GetComponent<Image>().sprite = icon.image;
             }
 
             playerAttac.text = unit.GetComponent<UnitInfo>().attackReachDistance.ToString();
@@ -179,12 +191,22 @@ public class UiController : MonoBehaviour
         else if (unit.GetComponent<UnitInfo>().teamSide.ToString() == "Enemy")
         {
             enemyName.text = unit.GetComponent<UnitInfo>().unitName;
-            enemyHealth.text = unit.GetComponent<UnitInfo>().health.ToString();
+
+            if (unit.GetComponent<UnitInfo>().health <= 0)
+                enemyHealth.text = "";
+            else
+                enemyHealth.text = unit.GetComponent<UnitInfo>().health.ToString();
 
             foreach (var stance in stances)
             {
                 if (stance.name == unit.GetComponent<UnitInfo>().currentStance.ToString())
                     enemyStance.GetComponent<Image>().sprite = stance.image;
+            }
+
+            foreach (var icon in icons)
+            {
+                if (icon.name == unit.tag)
+                    enemyIcon.GetComponent<Image>().sprite = icon.image;
             }
 
             enemyAttac.text = unit.GetComponent<UnitInfo>().attackReachDistance.ToString();
@@ -206,21 +228,41 @@ public class UiController : MonoBehaviour
         }
     }
 
-    public void UpdateIcons()
+    public void UpdateIcons(GameObject gameObject)
     {
         foreach (var icon in icons)
         {
             if (icon.name == players[0])
+            {
                 player1.GetComponent<Image>().sprite = icon.image;
 
+                if (icon.name == gameObject.tag && gameObject.GetComponent<UnitInfo>().teamSide == Team.Player)
+                    player1.transform.GetChild(0).GetComponent<Image>().enabled = true;
+            }
+
             if (icon.name == players[1])
+            {
                 player2.GetComponent<Image>().sprite = icon.image;
 
+                if (icon.name == gameObject.tag && gameObject.GetComponent<UnitInfo>().teamSide == Team.Player)
+                    player2.transform.GetChild(0).GetComponent<Image>().enabled = true;
+            }
+
             if (icon.name == enemies[0])
+            {
                 enemy1.GetComponent<Image>().sprite = icon.image;
 
+                if (icon.name == gameObject.tag && gameObject.GetComponent<UnitInfo>().teamSide == Team.Enemy)
+                    enemy1.transform.GetChild(0).GetComponent<Image>().enabled = true;
+            }
+                
             if (icon.name == enemies[1])
+            {
                 enemy2.GetComponent<Image>().sprite = icon.image;
+
+                if (icon.name == gameObject.tag && gameObject.GetComponent<UnitInfo>().teamSide == Team.Enemy)
+                    enemy2.transform.GetChild(0).GetComponent<Image>().enabled = true; 
+            }
         }
     }
 }

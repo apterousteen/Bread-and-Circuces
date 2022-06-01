@@ -91,6 +91,7 @@ public abstract class UnitInfo : MonoBehaviour
     private void Die()
     {
         transform.parent.GetComponent<HexTile>().isOccupied = false;
+        UiController.Instance.UpdateIcons(gameObject);
         Destroy(gameObject);
     }
 
