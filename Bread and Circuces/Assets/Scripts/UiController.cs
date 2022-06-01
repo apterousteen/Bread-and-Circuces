@@ -21,8 +21,8 @@ public class UiController : MonoBehaviour
     public TurnManager turnManager;
     public TextMeshProUGUI playerName, playerHealth, playerAttac, playerMove;
     public TextMeshProUGUI enemyName, enemyHealth, enemyAttac, enemyMove;
-    public GameObject playerStance;
-    public GameObject enemyStance;
+    public GameObject playerStance, playerIcon;
+    public GameObject enemyStance, enemyIcon;
 
     public GameObject player1;
     public GameObject player2;
@@ -30,9 +30,10 @@ public class UiController : MonoBehaviour
     public GameObject enemy2;
 
     public TextMeshProUGUI turnText;
+    public Image timerOutline;
 
-    public string[] enemies;
     public string[] players;
+    public string[] enemies;
 
     [Serializable]
     public struct stanceSprites
@@ -48,7 +49,7 @@ public class UiController : MonoBehaviour
         public string name;
         public Sprite image;
     }
-    public stanceSprites[] icons;
+    public iconSprites[] icons;
 
     /// from determined
     [Header("Popups")]
@@ -73,7 +74,7 @@ public class UiController : MonoBehaviour
         
     }
 
-    public void HandleUI()
+    public void FindUI()
     {
 
         PlayerMana = GameObject.Find("PlayerMana").GetComponent<TextMeshProUGUI>();
@@ -89,56 +90,40 @@ public class UiController : MonoBehaviour
         pausePopup = GameObject.Find("PausePanel");
         pausePopup.SetActive(false);
         turnManager = FindObjectOfType<TurnManager>();
+
+        playerName = GameObject.Find("playerName").GetComponent<TextMeshProUGUI>();
+        playerHealth = GameObject.Find("playerHealth").GetComponent<TextMeshProUGUI>();
+        playerAttac = GameObject.Find("playerAttac").GetComponent<TextMeshProUGUI>();
+        playerMove = GameObject.Find("playerMove").GetComponent<TextMeshProUGUI>();
+        enemyName = GameObject.Find("enemyName").GetComponent<TextMeshProUGUI>();
+        enemyHealth = GameObject.Find("enemyHealth").GetComponent<TextMeshProUGUI>();
+        enemyAttac = GameObject.Find("enemyAttac").GetComponent<TextMeshProUGUI>();
+        enemyMove = GameObject.Find("enemyMove").GetComponent<TextMeshProUGUI>();
+        playerStance = GameObject.Find("playerStance");
+        enemyStance = GameObject.Find("enemyStance");
+        playerIcon = GameObject.Find("playerIcon");
+        enemyIcon = GameObject.Find("enemyIcon");
+        player1 = GameObject.Find("player1");
+        enemy1 = GameObject.Find("enemy1");
+        player2 = GameObject.Find("player2");
+        enemy2 = GameObject.Find("enemy2");
+
+        turnText = GameObject.Find("turnText").GetComponent<TextMeshProUGUI>();
+        timerOutline = GameObject.Find("timerOutline").GetComponent<Image>();
     }
 
-    /// from determined
     public bool GameIsPaused = false;
-
-    /*
-    public void OpenWinPopup()
-    {
-
-        if (resultBoard.levelWasWon)
-        {
-            Debug.Log("Level Was Won");
-            FindObjectsOfType<Button>().Where(x => x.gameObject.tag == "Result Button").First().enabled = false;
-            StartCoroutine(WaitAndShow(winPopup, 2.0f));
-            resultBoard.levelWasWon = false;
-        }//4 secs
-    }
-
-    IEnumerator WaitAndShow(GameObject go, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        go.SetActive(true);
-    }
-
-        [Header("Menus")]
-    [SerializeField] private GameObject failMenu = null;
-
-    bool gameHasEnded;
-
-    void Update()
-    {
-        if (healthValue == 0 && gameHasEnded == false)
-        {
-            gameHasEnded = true;
-            Debug.Log("fail screen");
-            failMenu.SetActive(true);
-        }
-    */
-    /// end of code from determined
 
     public void StartGame()
     {
-        HandleUI();
+        FindUI();
         EndTurnBtn.interactable = true;
         isTurnEndButton = true;
         UpdateMana();
 
         enemies = GameManagerScript.Instance.CurrentGame.Enemy.units.units;
         players = GameManagerScript.Instance.CurrentGame.Player.units.units;
-        UpdateIcons();
+        UpdateIcons(gameObject);
     }
 
     public void UpdateMana()
@@ -182,12 +167,22 @@ public class UiController : MonoBehaviour
         if (unit.GetComponent<UnitInfo>().teamSide.ToString() == "Player")
         {
             playerName.text = unit.GetComponent<UnitInfo>().unitName;
-            playerHealth.text = unit.GetComponent<UnitInfo>().health.ToString();
+
+            if (unit.GetComponent<UnitInfo>().health <= 0)
+                playerHealth.text = "";
+            else
+                playerHealth.text = unit.GetComponent<UnitInfo>().health.ToString();
 
             foreach (var stance in stances)
             {
                 if (stance.name == unit.GetComponent<UnitInfo>().currentStance.ToString())
                     playerStance.GetComponent<Image>().sprite = stance.image;
+            }
+
+            foreach (var icon in icons)
+            {
+                if (icon.name == unit.tag)
+                    playerIcon.GetComponent<Image>().sprite = icon.image;
             }
 
             playerAttac.text = unit.GetComponent<UnitInfo>().attackReachDistance.ToString();
@@ -196,12 +191,22 @@ public class UiController : MonoBehaviour
         else if (unit.GetComponent<UnitInfo>().teamSide.ToString() == "Enemy")
         {
             enemyName.text = unit.GetComponent<UnitInfo>().unitName;
-            enemyHealth.text = unit.GetComponent<UnitInfo>().health.ToString();
+
+            if (unit.GetComponent<UnitInfo>().health <= 0)
+                enemyHealth.text = "";
+            else
+                enemyHealth.text = unit.GetComponent<UnitInfo>().health.ToString();
 
             foreach (var stance in stances)
             {
                 if (stance.name == unit.GetComponent<UnitInfo>().currentStance.ToString())
                     enemyStance.GetComponent<Image>().sprite = stance.image;
+            }
+
+            foreach (var icon in icons)
+            {
+                if (icon.name == unit.tag)
+                    enemyIcon.GetComponent<Image>().sprite = icon.image;
             }
 
             enemyAttac.text = unit.GetComponent<UnitInfo>().attackReachDistance.ToString();
@@ -214,27 +219,50 @@ public class UiController : MonoBehaviour
         if (turnManager.GetCurrTeam() == Team.Player)
         {
             turnText.text = "ваш ход";
+            timerOutline.enabled = true;
         }
-        else if (turnManager.GetCurrTeam() == Team.Enemy) {
+        else if (turnManager.GetCurrTeam() == Team.Enemy) 
+        {
             turnText.text = "ход врага";
+            timerOutline.enabled = false;
         }
     }
 
-    public void UpdateIcons()
+    public void UpdateIcons(GameObject gameObject)
     {
         foreach (var icon in icons)
         {
             if (icon.name == players[0])
+            {
                 player1.GetComponent<Image>().sprite = icon.image;
 
+                if (icon.name == gameObject.tag && gameObject.GetComponent<UnitInfo>().teamSide == Team.Player)
+                    player1.transform.GetChild(0).GetComponent<Image>().enabled = true;
+            }
+
             if (icon.name == players[1])
+            {
                 player2.GetComponent<Image>().sprite = icon.image;
 
+                if (icon.name == gameObject.tag && gameObject.GetComponent<UnitInfo>().teamSide == Team.Player)
+                    player2.transform.GetChild(0).GetComponent<Image>().enabled = true;
+            }
+
             if (icon.name == enemies[0])
+            {
                 enemy1.GetComponent<Image>().sprite = icon.image;
 
+                if (icon.name == gameObject.tag && gameObject.GetComponent<UnitInfo>().teamSide == Team.Enemy)
+                    enemy1.transform.GetChild(0).GetComponent<Image>().enabled = true;
+            }
+                
             if (icon.name == enemies[1])
+            {
                 enemy2.GetComponent<Image>().sprite = icon.image;
+
+                if (icon.name == gameObject.tag && gameObject.GetComponent<UnitInfo>().teamSide == Team.Enemy)
+                    enemy2.transform.GetChild(0).GetComponent<Image>().enabled = true; 
+            }
         }
     }
 }

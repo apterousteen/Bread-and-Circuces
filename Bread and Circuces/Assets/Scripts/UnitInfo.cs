@@ -40,6 +40,8 @@ public abstract class UnitInfo : MonoBehaviour
     private int baseDamage;
     private int baseDefence;
 
+    public Sprite altSkin;
+
     protected virtual void Start()
     {
         motionType = MotionType.RadiusType;
@@ -89,6 +91,7 @@ public abstract class UnitInfo : MonoBehaviour
     private void Die()
     {
         transform.parent.GetComponent<HexTile>().isOccupied = false;
+        UiController.Instance.UpdateIcons(gameObject);
         Destroy(gameObject);
     }
 
