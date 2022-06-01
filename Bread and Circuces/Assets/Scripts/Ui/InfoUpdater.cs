@@ -42,6 +42,7 @@ public class InfoUpdater : MonoBehaviour
             charInfo.charObj.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
             charInfo.charObj.transform.GetChild(2).GetComponent<Outline>().enabled = true;
 
+            CIP.charIcon.GetComponent<Image>().sprite = charInfo.charIcon;
             CIP.charName.text = charInfo.charName;
             CIP.health.text = charInfo.health.ToString();
             CIP.moveDistance.text = charInfo.moveDistance.ToString();

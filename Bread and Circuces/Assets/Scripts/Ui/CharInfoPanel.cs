@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class CharInfoPanel : MonoBehaviour
 {
@@ -19,4 +20,6 @@ public class CharInfoPanel : MonoBehaviour
     public TextMeshProUGUI info;
 
     public GameObject cardPanel;
+
+    public GameObject charIcon;
 }
