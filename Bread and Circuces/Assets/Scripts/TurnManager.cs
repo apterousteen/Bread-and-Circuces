@@ -280,12 +280,12 @@ public class TurnManager : MonoBehaviour
             {
                 activeUnit.GetComponent<UnitInfo>().UpdateStance();
                 activeUnit.GetComponent<UnitControl>().HighlighParenttHex();
-                UiController.Instance.UpdateSidePanel(activeUnit);
+                UiController.Instance.UpdateInfoPanels(activeUnit);
             }
             if (targetUnit != null)
             {
                 targetUnit.GetComponent<UnitInfo>().UpdateStance();
-                UiController.Instance.UpdateSidePanel(targetUnit);
+                UiController.Instance.UpdateInfoPanels(targetUnit);
             }
         }
         if (currTeam == Team.Player && gameManager.CurrentGame.Player.Mana == 0)

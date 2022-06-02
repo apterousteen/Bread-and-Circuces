@@ -13,4 +13,6 @@ public class CharInfo : MonoBehaviour
     public string info;
     public string charTag;
     public GameObject cards;
+
+    public Sprite charIcon;
 }

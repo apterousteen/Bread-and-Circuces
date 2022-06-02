@@ -44,7 +44,7 @@ public class UnitControl: MonoBehaviour
             else if(!turnManager.activatedUnits.Contains(info))
                 DeactivateFigure();
         }
-        UiController.Instance.UpdateSidePanel(gameObject);
+        UiController.Instance.UpdateInfoPanels(gameObject);
     }
 
     void DispathInput()
