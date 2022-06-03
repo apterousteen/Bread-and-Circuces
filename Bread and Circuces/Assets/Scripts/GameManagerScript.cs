@@ -12,7 +12,12 @@ public class Game
     public Game()
     {
         if(RunInfo.Instance != null)
+        {
             Player = RunInfo.Instance.Player;
+            Player.UpdateForNewGame();
+            //Player.Deck = new List<Card>();
+            //Player.HandCards = new List<CardController>();
+        }
         else
         {
             Player = new Player();
@@ -131,6 +136,8 @@ public class GameManagerScript : MonoBehaviour
     private void Update()
     {
         playerDeckSize = CurrentGame.Player.Deck.Count;
+        if (CurrentGame.Enemy.units.unitsAlive == 0)
+            MenuManager.Instance.CheckWinCondition();
     }
 
     void StartGame()
@@ -238,8 +245,8 @@ public class GameManagerScript : MonoBehaviour
         foreach (var card in CurrentGame.Player.HandCards)
         {
             var cardInfo = card.Card;
-            if (cardInfo.Type == type && cardInfo.StartStance == unit.currentStance && (cardInfo.Restriction == CardRestriction.Universal
-                || cardInfo.Restriction.ToString() == unit.gameObject.tag.ToString()))
+            if (cardInfo.Type == type && (cardInfo.StartStance == unit.currentStance || unit.currentStance == Stance.Raging && cardInfo.StartStance == Stance.Attacking) 
+                && (cardInfo.Restriction == CardRestriction.Universal|| cardInfo.Restriction.ToString() == unit.gameObject.tag.ToString()))
             {
                 card.Info.HiglightCard(true);
                 card.Movement.CanBePlayed = true;

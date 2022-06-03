@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public enum Team
 {
@@ -92,6 +93,9 @@ public abstract class UnitInfo : MonoBehaviour
     {
         transform.parent.GetComponent<HexTile>().isOccupied = false;
         UiController.Instance.UpdateIcons(gameObject);
+        if (teamSide == Team.Player)
+            GameManagerScript.Instance.CurrentGame.Player.units.unitsAlive--;
+        else GameManagerScript.Instance.CurrentGame.Enemy.units.unitsAlive--;
         Destroy(gameObject);
     }
 

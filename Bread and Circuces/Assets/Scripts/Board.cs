@@ -76,6 +76,7 @@ public class Board : MonoBehaviour
             spawnPoint.occupied = true;
             SpawnUnit(unit, spawnPoint.point, player.team);
         }
+        player.units.unitsAlive = 2;
     }
 
     void SpawnUnit(GameObject unit, Vector2 coordinates, Team team)

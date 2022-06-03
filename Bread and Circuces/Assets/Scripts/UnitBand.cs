@@ -5,7 +5,7 @@ using UnityEngine;
 public class UnitBand
 {
     public List<UnitInfo> bandMembers;
-
+    public int unitsAlive;
     public string[] units;
 
     public UnitBand()

@@ -79,8 +79,8 @@ public class TurnManager : MonoBehaviour
         actionQueue = new Queue<Action>();
         activatedUnits = new List<UnitInfo>();
         gameManager.MakeAllCardsUnplayable();
-        StartCoroutine(TurnFunc());
         StartMulligan();
+        StartCoroutine(TurnFunc());        
     }
 
     void Update()
@@ -98,7 +98,7 @@ public class TurnManager : MonoBehaviour
 
     public void AddAction(Action action)
     {
-        if (isReactionTime && action.type != ActionType.DrawIfAlive)
+        if (isReactionTime)
         {
             if(action.team == Team.Player)
                 defCardPlayed = true;
@@ -162,7 +162,11 @@ public class TurnManager : MonoBehaviour
                     discardWindow.SetParams(action.value);
                     discardWindow.SetCards();
                 }
-                else gameManager.enemyHandSize -= action.value;
+                else
+                {
+                    gameManager.enemyHandSize -= action.value;
+                    EndAction();
+                }
                 break;
 
             case ActionType.DiscardActivePlayer:
@@ -173,7 +177,12 @@ public class TurnManager : MonoBehaviour
                     discardWindow.SetCards();
                     discardWindow.SetParams(action.value, true);
                 }
-                else gameManager.enemyHandSize -= 1;
+                else
+                {
+                    gameManager.enemyHandSize -= 1;
+                    gameManager.discardedCards = 1;
+                    EndAction();
+                }
                 break;
 
             case ActionType.DiscardForMove:
@@ -191,7 +200,7 @@ public class TurnManager : MonoBehaviour
                 break;
 
             case ActionType.DrawIfAlive:
-                if (targetUnit != null)
+                if (activeUnit.GetComponent<UnitInfo>().damage < targetUnit.GetComponent<UnitInfo>().health)
                     gameManager.DrawCards(action.team, action.value);
                 else EndAction();
                 break;
@@ -248,18 +257,21 @@ public class TurnManager : MonoBehaviour
                 break;
 
             case ActionType.NearDraw:
-                var enemyIsNear = activeUnit.GetComponent<UnitControl>().CheckForEnemiesInBTB();
+                var enemyIsNear = false;
+                if(targetUnit != null)
+                    enemyIsNear = activeUnit.GetComponent<UnitControl>().CheckForEnemiesInBTB();
                 if (!enemyIsNear)
                     gameManager.DrawCards(action.team, action.value);
                 else EndAction();
                 break;
 
             case ActionType.PushEnemy:
-                if(action.team == Team.Player)
+                if (action.team == Team.Player)
                 {
                     movingEnemy = true;
                     targetUnit.GetComponent<UnitControl>().TriggerMove(action.value);
                 }
+                else EndAction();
                 break;
 
             case ActionType.Skip:
@@ -316,7 +328,6 @@ public class TurnManager : MonoBehaviour
             TurnTime = System.Math.Min(90, stoppedTurnTime + 10);
         else TurnTime = 90;
         stoppedTurnTime = 0;
-
         UiController.Instance.UpdateTurnTime(TurnTime);
         UiController.Instance.UpdateTurn();
 
@@ -332,18 +343,21 @@ public class TurnManager : MonoBehaviour
         }
         else
         {
-            if(activeUnit == null)
-            {
-                var unit = FindObjectsOfType<UnitInfo>()
-                    .Where(x => x.teamSide == Team.Enemy && !activatedUnits.Contains(x))
-                    .FirstOrDefault().gameObject;
-                unit.GetComponent<UnitControl>().ActivateFigure();
-            }
             while (TurnTime-- > 0)
             {
-                if (actionQueue.Count == 0)
+                if(TurnTime < 88)
                 {
-                    activeUnit.GetComponent<BasicUnitAI>().GenerateAction();
+                    if (activeUnit == null)
+                    {
+                        var unit = FindObjectsOfType<UnitInfo>()
+                            .Where(x => x.teamSide == Team.Enemy && !activatedUnits.Contains(x))
+                            .FirstOrDefault().gameObject;
+                        unit.GetComponent<UnitControl>().ActivateFigure();
+                    }
+                    if (actionQueue.Count == 0)
+                    {
+                        activeUnit.GetComponent<BasicUnitAI>().GenerateAction();
+                    }
                 }
                 UiController.Instance.UpdateTurnTime(TurnTime);
                 yield return new WaitForSeconds(1);
@@ -472,7 +486,7 @@ public class TurnManager : MonoBehaviour
             if (targetUnit == null)
                 break;
             gameManager.ShowPlayableCards(Card.CardType.Defense, targetUnit.GetComponent<UnitInfo>());
-            if (defCardPlayed && actionQueue.Count == 0 && !inAction)
+            if (defCardPlayed && !inAction)
                 break;
             UiController.Instance.UpdateTurnTime(TurnTime);
             yield return new WaitForSeconds(1);
@@ -511,6 +525,8 @@ public class TurnManager : MonoBehaviour
 
     public void ClearActiveUnit()
     {
+        if (currTeam == Team.Player)
+            gameManager.MakeAllCardsUnplayable();
         activeUnit = null;
     }
 

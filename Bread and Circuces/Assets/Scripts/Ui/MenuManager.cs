@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Agava.YandexGames;
 using System;
 
 public class MenuManager : MonoBehaviour
@@ -147,10 +148,16 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 0f;
         var playerUnitsNum = FindObjectsOfType<UnitInfo>().Where(x => x.teamSide == Team.Player).Count();
         var enemyUnitsNum = FindObjectsOfType<UnitInfo>().Where(x => x.teamSide == Team.Enemy).Count();
+        Debug.Log("PLayer units: " + playerUnitsNum + ". Enemy units: " + enemyUnitsNum);
         if (playerUnitsNum == 0)
             UiController.Instance.failPopup.SetActive(true);//Lose
-        else if (enemyUnitsNum == 0)
+        if (enemyUnitsNum == 0)
             UiController.Instance.winPopup.SetActive(true);//Win
         else Time.timeScale = 1f;
+    }
+
+    public void ShowVideoAd()
+    {
+        VideoAd.Show();
     }
 }

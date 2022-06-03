@@ -210,6 +210,7 @@ public class UnitControl: MonoBehaviour
     void ShowAttackArea(int distance)
     {
         var tiles = distanceFinder.GetTilesInRadius(transform.parent.GetComponent<HexTile>(), distance);
+        int foundEnemies = 0;
         foreach (var tile in tiles)
         {
             var tileRenderer = tile.gameObject.GetComponent<SpriteRenderer>();
@@ -219,12 +220,18 @@ public class UnitControl: MonoBehaviour
                 {
                     tileRenderer.material.SetColor("_Color", Color.red);
                     tile.isChosen = true;
+                    foundEnemies++;
                 }
             }
             else
             {
                 tileRenderer.material.SetColor("_Color", Color.blue);
             }
+        }
+        if(foundEnemies == 0)
+        {
+            HideArea();
+            turnManager.EndAction();
         }
     }
 

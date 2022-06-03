@@ -155,8 +155,11 @@ public class BasicUnitAI : MonoBehaviour
             && x.StartStance == info.currentStance).ToList();
         Debug.Log("All cards = " + gameManager.CurrentGame.Enemy.Deck.Count);
         Debug.Log("Available cards = " + availableCards.Count);
-        if (availableCards.Count == 0)
+        if (availableCards.Count == 0 || !CanPlayCard())
+        {
+            turnManager.EndPlayerActivation();
             return;
+        }
         var card = availableCards[UnityEngine.Random.Range(0, availableCards.Count)];
         UseCard(card, info);
     }
@@ -166,8 +169,11 @@ public class BasicUnitAI : MonoBehaviour
         var availableCards = gameManager.CurrentGame.Enemy.Deck
             .Where(x => x.Restriction == CardRestriction.Universal && x.Type == Card.CardType.Defense
             && x.StartStance == info.currentStance).ToList();
-        if (availableCards.Count == 0)
+        if (availableCards.Count == 0 || !CanPlayCard())
+        {
+            turnManager.AddAction(new Action(ActionType.Skip, Team.Enemy, 0));
             return;
+        }
         var card = availableCards[UnityEngine.Random.Range(0, availableCards.Count)];
         UseCard(card, info);
     }
@@ -291,5 +297,11 @@ public class BasicUnitAI : MonoBehaviour
         GameObject cardGG = Instantiate(gameManager.CardPref, gameManager.EnemyCardPanel);
         CardController cardCard = cardGG.GetComponent<CardController>();
         cardCard.Init(card, true);
+    }
+
+    bool CanPlayCard()
+    {
+        var randomizedNum = UnityEngine.Random.Range(0,3);
+        return gameManager.enemyHandSize > randomizedNum;
     }
 }
