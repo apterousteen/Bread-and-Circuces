@@ -3,47 +3,55 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerClickHandler
+public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public CardController CC;
 
     Camera MainCamera;
     Vector3 offset;
     public Transform DefaultParent;
-    public bool IsDraggable;
-    public bool IsClickable;
-    public bool CanBePlayed;
+    public bool isDraggable, isClickable, canBePlayed, isPlayerLastCard;
     private bool selected;
 
     void Awake()
     {
         MainCamera = Camera.allCameras[0];
-        IsClickable = false;
-        selected = false;
-        CanBePlayed = false;
+        isClickable = selected = canBePlayed = false;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        CC.transform.position += new Vector3(0, 0.4f, 0);
+        CC.transform.localScale += new Vector3(0.4f, 0.4f, 0);
+
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        CC.transform.position -= new Vector3(0, 0.4f, 0);
+        CC.transform.localScale -= new Vector3(0.4f, 0.4f, 0);
     }
 
     public void OnBeginDrag(PointerEventData eventData) //Как только НАЧНЕМ двигать объект-сработает все что внутри метода(по сути будет работать за один кадр)
     {
-        //if (!CanBePlayed || IsClickable)
+        //if (!canBePlayed || isClickable)
         //    return;
         offset = transform.position - MainCamera.WorldToScreenPoint(eventData.position); // Хранит в себе значение отступа центра карты от места карты по которой нажали(без этого карта будет дергаться )
         DefaultParent = transform.parent;
 
-        IsDraggable = /*GameManagerScript.Instance.IsPlayerTurn &&*/
+        isDraggable = /*GameManagerScript.Instance.IsPlayerTurn &&*/
                      DefaultParent.GetComponent<DropPlaceScript>().Type == FieldType.SelfHand &&
-                     CanBePlayed;
+                     canBePlayed;
         transform.SetParent(DefaultParent);
 
-        
+
         GetComponent<CanvasGroup>().blocksRaycasts = false;
-        if (!IsDraggable)
+        if (!isDraggable)
             return;
     }
 
     public void OnDrag(PointerEventData eventData) //Будет работать все время пока мы ДВИГАЕМ карту
     {
-        if (!IsDraggable)
+        if (!isDraggable)
             return;
         Vector3 newPos = MainCamera.ScreenToWorldPoint(eventData.position);
         newPos.z = 0;
@@ -52,7 +60,7 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
 
     public void OnEndDrag(PointerEventData eventData) //Как только ОТПУСТИМ объект-сработает все что внутри метода(по сути будет работать за один кадр)
     {
-        if(!IsDraggable)
+        if (!isDraggable)
             return;
         transform.SetParent(DefaultParent);
         GetComponent<CanvasGroup>().blocksRaycasts = true;
@@ -62,7 +70,7 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!IsClickable)
+        if (!isClickable)
             return;
         var discardWindow = FindObjectOfType<DiscardWindow>();
         Debug.Log("Card clicked");

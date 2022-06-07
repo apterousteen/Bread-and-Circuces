@@ -249,12 +249,12 @@ public class GameManagerScript : MonoBehaviour
                 && (cardInfo.Restriction == CardRestriction.Universal|| cardInfo.Restriction.ToString() == unit.gameObject.tag.ToString()))
             {
                 card.Info.HiglightCard(true);
-                card.Movement.CanBePlayed = true;
+                card.Movement.canBePlayed = true;
             }
             else
             {
                 card.Info.HiglightCard(false);
-                card.Movement.CanBePlayed = false;
+                card.Movement.canBePlayed = false;
             }
 
         }
@@ -266,7 +266,7 @@ public class GameManagerScript : MonoBehaviour
         foreach (var card in CurrentGame.Player.HandCards)
         {
             card.Info.HiglightCard(false);
-            card.Movement.CanBePlayed = false;
+            card.Movement.canBePlayed = false;
         }
     }
 }

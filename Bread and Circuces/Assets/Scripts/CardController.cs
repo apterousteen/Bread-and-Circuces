@@ -194,6 +194,7 @@ public class CardController : MonoBehaviour
         GameObject cardGG = Instantiate(gameManager.CardPref, playerCardPanel);
         CardController cardCard = cardGG.GetComponent<CardController>();
         cardCard.Init(card, true);
+        cardCard.transform.localScale += new Vector3(0.5f,0.7f,0);
     }
 
     void RemoveCardFromList(List<CardController> list)

@@ -71,8 +71,8 @@ public class DiscardWindow : MonoBehaviour
         {
             card.SetParent(transform);
             var cardScript = card.GetComponent<CardMovementScript>();
-            cardScript.IsClickable = true;
-            cardScript.IsDraggable = false;
+            cardScript.isClickable = true;
+            cardScript.isDraggable = false;
             card.GetComponent<CardInfoScript>().HiglightCard(false);
         }
         FindObjectOfType<TurnManager>().StopAllCoroutines();
@@ -91,8 +91,8 @@ public class DiscardWindow : MonoBehaviour
         {
             card.SetParent(hand);
             var cardScript = card.GetComponent<CardMovementScript>();
-            cardScript.IsClickable = false;
-            cardScript.IsDraggable = true;
+            cardScript.isClickable = false;
+            cardScript.isDraggable = true;
         }
     }
 }
