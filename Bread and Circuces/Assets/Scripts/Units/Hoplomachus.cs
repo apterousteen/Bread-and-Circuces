@@ -15,9 +15,7 @@ public class Hoplomachus : UnitInfo
         attackReachDistance = 2;
         moveDistance = 3;
         withShield = true;
-
         distanceFinder = FindObjectOfType<DistanceFinder>();
-
         base.Start();
     }
     public override void OnAttackEnd(UnitInfo target)

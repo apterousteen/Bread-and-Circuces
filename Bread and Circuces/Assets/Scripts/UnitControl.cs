@@ -218,14 +218,14 @@ public class UnitControl: MonoBehaviour
             {
                 if(tile.transform.GetChild(0).GetComponent<UnitInfo>().IsEnemy(info))
                 {
-                    tileRenderer.material.SetColor("_Color", Color.red);
+                    tileRenderer.material.SetColor("_Color", Color.black);
                     tile.isChosen = true;
                     foundEnemies++;
                 }
             }
             else
             {
-                tileRenderer.material.SetColor("_Color", Color.blue);
+                tileRenderer.material.SetColor("_Color", Color.red);
             }
         }
         if(foundEnemies == 0)
