@@ -275,9 +275,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CC: {fileID: 1178559833514050680}
   DefaultParent: {fileID: 0}
-  IsDraggable: 0
-  IsClickable: 0
-  CanBePlayed: 0
+  isDraggable: 0
+  isClickable: 0
+  canBePlayed: 0
+  isPlayerLastCard: 0
 --- !u!225 &4310692873211168548
 CanvasGroup:
   m_ObjectHideFlags: 0

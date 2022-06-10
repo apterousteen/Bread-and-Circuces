@@ -21,14 +21,18 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        CC.transform.position += new Vector3(0, 0.4f, 0);
-        CC.transform.localScale += new Vector3(0.4f, 0.4f, 0);
+        //if (EventSystem.current.IsPointerOverGameObject()))
+            //Debug.Log("mmmmmmmm");
+        transform.position += new Vector3(0, 0.4f, 0);
+        //transform.localPosition += new Vector3(0, 0.4f, 0);
+        //transform.localScale += new Vector3(0.4f, 0.4f, 0);
 
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        CC.transform.position -= new Vector3(0, 0.4f, 0);
-        CC.transform.localScale -= new Vector3(0.4f, 0.4f, 0);
+        transform.position -= new Vector3(0, 0.4f, 0);
+        //transform.localPosition -= new Vector3(0, 0.4f, 0);
+        //transform.localScale -= new Vector3(0.4f, 0.4f, 0);
     }
 
     public void OnBeginDrag(PointerEventData eventData) //Как только НАЧНЕМ двигать объект-сработает все что внутри метода(по сути будет работать за один кадр)
