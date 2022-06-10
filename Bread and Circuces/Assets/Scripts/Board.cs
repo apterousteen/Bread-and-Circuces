@@ -88,8 +88,12 @@ public class Board : MonoBehaviour
 
         if (newUnit.GetComponent<UnitInfo>().teamSide == Team.Enemy)
         {
-            newUnit.transform.localRotation = Quaternion.Euler(0, 180, 0);
+            newUnit.GetComponent<SpriteRenderer>().flipX = true;
             newUnit.GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitInfo>().altSkin;
+            newUnit.transform.GetChild(0).transform.localPosition = new Vector3(newUnit.transform.GetChild(0).transform.localPosition.x,
+                                                                                newUnit.transform.GetChild(0).transform.localPosition.y, -7f);
+            newUnit.transform.GetChild(1).transform.localPosition = new Vector3(newUnit.transform.GetChild(1).transform.localPosition.x,
+                                                                                newUnit.transform.GetChild(1).transform.localPosition.y, -8f);
         }
     }
 }

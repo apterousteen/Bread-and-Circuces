@@ -42,6 +42,8 @@ public abstract class UnitInfo : MonoBehaviour
     private int baseDefence;
 
     public Sprite altSkin;
+    public HealthBar healthbar;
+    public float maxHealth;
 
     protected virtual void Start()
     {
@@ -51,6 +53,9 @@ public abstract class UnitInfo : MonoBehaviour
         baseDamage = damage;
         baseDefence = defence;
         UnitDeck = new List<Card>();
+
+        maxHealth = health;
+        healthbar.SetHealth(health, maxHealth);
     }
 
     public bool IsEnemy(UnitInfo otherUnit)
@@ -73,6 +78,8 @@ public abstract class UnitInfo : MonoBehaviour
     public void SufferDamage(int damageValue)
     {
         health -= damageValue;
+
+        healthbar.SetHealth(health, maxHealth);
         displayInfo();
         CheckForAlive();
     }
