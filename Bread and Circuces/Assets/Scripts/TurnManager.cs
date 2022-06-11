@@ -462,10 +462,10 @@ public class TurnManager : MonoBehaviour
     public void EndReactionWindow()
     {
         StopAllCoroutines();
-        defCardPlayed = false;
         Debug.Log("Reaction window ended");
         if(targetUnit != null)
             activeUnit.GetComponent<UnitControl>().MakeAtack(targetUnit.GetComponent<UnitInfo>());
+        defCardPlayed = false;
         isReactionTime = false;
         if (currTeam == Team.Enemy)
             gameManager.MakeAllCardsUnplayable();

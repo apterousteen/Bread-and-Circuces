@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Murmillo : UnitInfo
 {
+    private TurnManager turnManager;
+
     protected override void Start()
     {
         damage = 0;
@@ -14,6 +16,7 @@ public class Murmillo : UnitInfo
         moveDistance = 3;
         withShield = true;
 
+        turnManager = FindObjectOfType<TurnManager>();
         base.Start();
     }
 
@@ -29,7 +32,8 @@ public class Murmillo : UnitInfo
 
     public override void OnDefenceStart()
     {
-        defence++;
+        if(turnManager.defCardPlayed)
+            defence++;
     }
 
     public override void OnDefenceEnd()
