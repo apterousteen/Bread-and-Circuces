@@ -13,6 +13,7 @@ public class Game
     {
         if(RunInfo.Instance != null)
         {
+            RunInfo.Instance.isTutorial = false;
             Player = RunInfo.Instance.Player;
             Player.UpdateForNewGame();
             //Player.Deck = new List<Card>();
@@ -35,7 +36,6 @@ public class Game
         Player.Deck = GiveDeckCard(Player);
         var allPlayerCards = Player.Deck.Count;
         var notUniversalCards = Player.Deck.Where(x => x.Restriction == CardRestriction.Scissor).Count();
-        Debug.Log("Всего карт " + allPlayerCards + ". Универсальных карт " + notUniversalCards);
         Enemy.DiscardPile = new List<Card>();
         Player.DiscardPile = new List<Card>();
     }

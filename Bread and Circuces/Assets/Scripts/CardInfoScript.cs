@@ -10,6 +10,7 @@ public class CardInfoScript : MonoBehaviour
 
     public Image Logo;
     public TextMeshProUGUI Name, Descsription;
+    bool highlighted = false;
 
     public void ShowCardInfo()
     {
@@ -46,7 +47,14 @@ public class CardInfoScript : MonoBehaviour
 
     public void HiglightCard(bool highlight)
     {
-        GetComponent<CanvasGroup>().alpha = highlight ? 1 : .5f;
+        //<CanvasGroup>().alpha = highlight ? 1 : .5f;
+        var outline = GetComponentInChildren<Outline>();
+        outline.enabled = highlight;
+        if(highlight && !highlighted)
+            transform.position += new Vector3(0, 0.4f, 0);
+        else if(highlighted)
+            transform.position -= new Vector3(0, 0.4f, 0);
+        highlighted = highlight;
     }
 
 

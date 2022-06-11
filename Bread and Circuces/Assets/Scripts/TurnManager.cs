@@ -41,7 +41,7 @@ public class Action
 
 public class TurnManager : MonoBehaviour
 {
-
+    public bool tutorialLevel;
     public Team currTeam;
     private Team teamWithInitiative;
     private GameManagerScript gameManager;
@@ -72,7 +72,6 @@ public class TurnManager : MonoBehaviour
         distanceFinder = FindObjectOfType<DistanceFinder>();
         buttonsContainer = FindObjectOfType<ButtonsContainer>();
         teamWithInitiative = (Team)Random.Range(0, 2);
-        currTeam = teamWithInitiative;
         isReactionTime = false;
         inAction = false;
         defCardPlayed = false;
@@ -80,6 +79,13 @@ public class TurnManager : MonoBehaviour
         activatedUnits = new List<UnitInfo>();
         gameManager.MakeAllCardsUnplayable();
         StartMulligan();
+        if(tutorialLevel)
+        {
+            teamWithInitiative = Team.Player;
+            Time.timeScale = 0f;
+            UiController.Instance.GameIsPaused = true;
+        }
+        currTeam = teamWithInitiative;
         StartCoroutine(TurnFunc());        
     }
 

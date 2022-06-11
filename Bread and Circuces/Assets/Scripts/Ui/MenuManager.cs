@@ -29,6 +29,13 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    public void LoadLevel()
+    {
+        if (RunInfo.Instance.isTutorial)
+            LoadScene("TutorialScene");
+        else LoadScene("FightScene");
+    }
+
     public static List<string> team = new List<string>(); 
     public static GameObject chosen;
 

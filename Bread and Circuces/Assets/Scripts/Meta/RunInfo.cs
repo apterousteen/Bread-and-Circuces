@@ -6,6 +6,7 @@ public class RunInfo : MonoBehaviour
 {
     public static RunInfo Instance;
     public Player Player;
+    public bool isTutorial = false;
 
     private void Awake()
     {
@@ -25,5 +26,10 @@ public class RunInfo : MonoBehaviour
 
         DontDestroyOnLoad(this);
 
+    }
+
+    public void SetTutorial()
+    {
+        isTutorial = true;
     }
 }

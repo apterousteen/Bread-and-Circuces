@@ -2409,7 +2409,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &340679393
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3432,6 +3432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f8db0c0e59645a4c9ce9b44bc24de09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialLevel: 0
   currTeam: 0
   isReactionTime: 0
   activeUnit: {fileID: 0}
@@ -4279,7 +4280,7 @@ MonoBehaviour:
     m_Top: 5
     m_Bottom: 5
   m_ChildAlignment: 4
-  m_Spacing: 5
+  m_Spacing: 100
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -7211,7 +7212,7 @@ MonoBehaviour:
     m_Top: 5
     m_Bottom: 5
   m_ChildAlignment: 4
-  m_Spacing: 5
+  m_Spacing: 15
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -7397,7 +7398,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 110.73389, y: -18.98}
+  m_AnchoredPosition: {x: 110.73389, y: 0.00001144409}
   m_SizeDelta: {x: 221.47, y: 674.43}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1300811835
@@ -9549,7 +9550,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0432\u044B\u0431\u0435\u0440\u0438 \u043A\u0430\u0440\u0442\u0443 \u0434\u043B\u044F
+  m_text: "\u0432\u044B\u0431\u0435\u0440\u0438 \u043A\u0430\u0440\u0442\u044B \u0434\u043B\u044F
     \u0441\u0431\u0440\u043E\u0441\u0430"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5837f8d19e8f0d64e8c7861673e182db, type: 2}
