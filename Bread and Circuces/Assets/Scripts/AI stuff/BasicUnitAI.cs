@@ -298,6 +298,8 @@ public class BasicUnitAI : MonoBehaviour
         GameObject cardGG = Instantiate(gameManager.CardPref, gameManager.EnemyCardPanel);
         CardController cardCard = cardGG.GetComponent<CardController>();
         cardCard.Init(card, true);
+        cardCard.transform.localScale += new Vector3(0.5f, 0.7f, 0);
+        cardCard.GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
     bool CanPlayCard()
