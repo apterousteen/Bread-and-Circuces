@@ -21,11 +21,11 @@ public class Board : MonoBehaviour
     public GameObject gridObject;
     public List<GameObject> Units;
 
-    public int gridSizeX = 10;
+    public int gridSizeX = 12;
     public int gridSizeY = 7;
 
-    private float dx = 0.86f;
-    private float dy = 0.74f;
+    private float dx = 0.9f;
+    private float dy = 0.6f;
 
     public HexTile[][] board;
 
