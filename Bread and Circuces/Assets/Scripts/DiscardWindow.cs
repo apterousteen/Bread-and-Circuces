@@ -92,7 +92,6 @@ public class DiscardWindow : MonoBehaviour
             card.SetParent(hand);
             var cardScript = card.GetComponent<CardMovementScript>();
             cardScript.isClickable = false;
-            cardScript.isDraggable = true;
         }
     }
 }

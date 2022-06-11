@@ -175,6 +175,7 @@ public class BasicUnitAI : MonoBehaviour
             return;
         }
         var card = availableCards[UnityEngine.Random.Range(0, availableCards.Count)];
+        turnManager.defCardPlayed = true;
         UseCard(card, info);
     }
 
