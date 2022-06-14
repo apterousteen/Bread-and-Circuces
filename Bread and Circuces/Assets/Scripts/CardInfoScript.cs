@@ -52,7 +52,7 @@ public class CardInfoScript : MonoBehaviour
         outline.enabled = highlight;
         if(highlight && !highlighted)
             transform.position += new Vector3(0, 0.4f, 0);
-        else if(highlighted && !highlight)
+        else if (highlighted && !highlight)
             transform.position -= new Vector3(0, 0.4f, 0);
         highlighted = highlight;
     }

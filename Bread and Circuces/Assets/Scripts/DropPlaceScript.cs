@@ -12,7 +12,7 @@ public enum FieldType
     PlayerLastCardCast,
     PlayerLastCardInfo,
     EnemyLastCardCast,
-    EnemyLastCardInfo
+    EnemyLastCardInfo,
 }
 public class DropPlaceScript : MonoBehaviour, IDropHandler
 {
