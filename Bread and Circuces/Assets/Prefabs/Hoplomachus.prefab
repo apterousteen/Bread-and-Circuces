@@ -288,7 +288,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: a5f8c6b8538064e419d0800932a0e034, type: 3}
-  m_Color: {r: 0.7830189, g: 0.13182472, b: 0.040628344, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -310,10 +310,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7735eb31c1adcaf46860931cee18a71d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Slider: {fileID: 0}
-  Low: {r: 0, g: 0, b: 0, a: 0}
-  High: {r: 0, g: 0, b: 0, a: 0}
-  Offset: {x: 0, y: 0, z: 0}
   bar: {fileID: 2561729651231645074}
 --- !u!1 &2788233229456586316
 GameObject:
@@ -546,10 +542,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7735eb31c1adcaf46860931cee18a71d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Slider: {fileID: 6468422447719388347}
-  Low: {r: 0, g: 0, b: 0, a: 1}
-  High: {r: 1, g: 0, b: 0, a: 1}
-  Offset: {x: 0, y: 1.5, z: 0}
   bar: {fileID: 0}
 --- !u!1 &7320312653056759428
 GameObject:
