@@ -45,6 +45,11 @@ public class UnitControl: MonoBehaviour
                 DeactivateFigure();
         }
         UiController.Instance.UpdateInfoPanels(gameObject);
+        
+        if (turnManager.tutorialLevel)
+        {
+            TutorialManager.Instance.ControlOutline(gameObject);
+        }
     }
 
     void DispathInput()

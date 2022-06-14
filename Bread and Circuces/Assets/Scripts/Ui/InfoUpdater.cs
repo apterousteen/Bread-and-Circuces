@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class InfoUpdater : MonoBehaviour
 {
@@ -62,5 +63,6 @@ public class InfoUpdater : MonoBehaviour
                 GameObject.Find("panel_defense").GetComponentInChildren<TextMeshProUGUI>().text = "Œ¡Œ–ŒÕ¿";
             }
         }
+
     }
 }
