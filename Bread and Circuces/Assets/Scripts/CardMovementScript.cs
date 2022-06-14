@@ -23,7 +23,7 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
     {
         if (isClickable)
             return;
-        transform.position += new Vector3(0, 0.4f, 0.4f);
+        transform.localPosition += new Vector3(0, 0.4f, 0.4f);
         //transform.localPosition += new Vector3(0, 0.4f, 0);
         transform.localScale += new Vector3(0.4f, 0.4f, 0);
 
@@ -32,7 +32,7 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
     {
         if (isClickable || Input.GetMouseButtonUp(0))
             return;
-        transform.position -= new Vector3(0, 0.4f, 0.4f);
+        transform.localPosition -= new Vector3(0, 0.4f, 0.4f);
         //transform.localPosition -= new Vector3(0, 0.4f, 0);
         transform.localScale -= new Vector3(0.4f, 0.4f, 0);
     }
