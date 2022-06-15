@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using TMPro;
 
 public enum ActionType
 {
@@ -452,6 +453,8 @@ public class TurnManager : MonoBehaviour
         isReactionTime = true;
         targetUnit = target;
         UiController.Instance.ChangeEndButtonText();
+        UiController.Instance.hintPanel.GetComponentInChildren<TextMeshProUGUI>().text = "отреагируйте на атаку врага";
+        UiController.Instance.hintPanel.SetActive(true);
         if (activeUnitInfo.teamSide == Team.Player)
         {
             //targetInfo.defence += Random.Range(0, 4);
@@ -477,6 +480,7 @@ public class TurnManager : MonoBehaviour
             gameManager.MakeAllCardsUnplayable();
         //else gameManager.ShowPlayableCards(Card.CardType.Attack, activeUnit.GetComponent<UnitInfo>());
         UiController.Instance.ChangeEndButtonText();
+        UiController.Instance.hintPanel.SetActive(false);
         StartCoroutine(TurnFunc());
     }
 

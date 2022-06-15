@@ -6545,6 +6545,7 @@ MonoBehaviour:
   enemy2: {fileID: 2086287560}
   turnText: {fileID: 142902266}
   timerOutline: {fileID: 0}
+  hintPanel: {fileID: 0}
   players: []
   enemies: []
   stances:

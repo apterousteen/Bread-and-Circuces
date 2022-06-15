@@ -31,6 +31,7 @@ public class UiController : MonoBehaviour
 
     public TextMeshProUGUI turnText;
     public Image timerOutline;
+    public GameObject hintPanel;
 
     public string[] players;
     public string[] enemies;
@@ -113,6 +114,8 @@ public class UiController : MonoBehaviour
 
         turnText = GameObject.Find("turnText").GetComponent<TextMeshProUGUI>();
         timerOutline = GameObject.Find("timerOutline").GetComponent<Image>();
+        hintPanel = GameObject.Find("HintPanel");
+        hintPanel.SetActive(false);
     }
 
     public bool GameIsPaused = false;
@@ -224,7 +227,16 @@ public class UiController : MonoBehaviour
         if (turnManager.GetCurrTeam() == Team.Player)
         {
             turnText.text = "ваш ход";
-            timerOutline.enabled = true;
+            timerOutline.enabled = true;          
+            if (turnManager.ActiveUnitExist())
+            {
+                hintPanel.SetActive(false);
+            }
+            else
+            {
+                hintPanel.GetComponentInChildren<TextMeshProUGUI>().text = "сделайте ход";
+                hintPanel.SetActive(true);
+            }
         }
         else if (turnManager.GetCurrTeam() == Team.Enemy) 
         {
