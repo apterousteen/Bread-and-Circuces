@@ -114,8 +114,12 @@ public class UiController : MonoBehaviour
 
         turnText = GameObject.Find("turnText").GetComponent<TextMeshProUGUI>();
         timerOutline = GameObject.Find("timerOutline").GetComponent<Image>();
-        hintPanel = GameObject.Find("HintPanel");
-        hintPanel.SetActive(false);
+
+        if (!turnManager.tutorialLevel)
+        {
+            hintPanel = GameObject.Find("HintPanel");
+            hintPanel.SetActive(false);
+        }
     }
 
     public bool GameIsPaused = false;
@@ -227,16 +231,19 @@ public class UiController : MonoBehaviour
         if (turnManager.GetCurrTeam() == Team.Player)
         {
             turnText.text = "ваш ход";
-            timerOutline.enabled = true;          
-            if (turnManager.ActiveUnitExist())
+            timerOutline.enabled = true;
+            if (!turnManager.tutorialLevel)
             {
-                hintPanel.SetActive(false);
-            }
-            else
-            {
-                hintPanel.GetComponentInChildren<TextMeshProUGUI>().text = "сделайте ход";
-                hintPanel.SetActive(true);
-            }
+                if (turnManager.ActiveUnitExist())
+                {
+                    hintPanel.SetActive(false);
+                }
+                else
+                {
+                    hintPanel.GetComponentInChildren<TextMeshProUGUI>().text = "сделайте ход";
+                    hintPanel.SetActive(true);
+                }
+            }     
         }
         else if (turnManager.GetCurrTeam() == Team.Enemy) 
         {

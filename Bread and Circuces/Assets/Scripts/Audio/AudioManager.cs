@@ -7,16 +7,17 @@ using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
-    private static AudioManager instance;
+    public static AudioManager Instance;
 
-    //MenuController menuController;
-
-    [Header("Audio Sprites")]
+    [Header("Audio Elements")]
     [SerializeField] public Sprite mutedSprite = null;
     [SerializeField] public Sprite unmutedSprite = null;
-    [SerializeField] public Sprite mutedSpriteMini = null;
-    [SerializeField] public Sprite unmutedSpriteMini = null;
-    [SerializeField] public Toggle toggle = null;
+    [SerializeField] public GameObject soundButton = null;
+
+    /*[Header("Volume")]
+    [SerializeField] private Slider volumeSlider = null;
+    [SerializeField] private float defaultVolume = 0.5f;
+    [SerializeField] private float savedVolume;*/
 
     public bool muted;
 
@@ -24,14 +25,13 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        //menuController = FindObjectOfType<MenuController>();
 
-        if (instance != null)
+        if (Instance != null)
         {
             Destroy(gameObject);
             return;
         }
-        instance = this;
+        Instance = this;
 
         DontDestroyOnLoad(gameObject);
 
@@ -42,24 +42,57 @@ public class AudioManager : MonoBehaviour
             sound.source.volume = sound.volume;
             sound.source.loop = sound.loop;
         }
+
+        unmutedSprite = Resources.Load<Sprite>("Sprites/UI/icon_sound_on");
+        mutedSprite = Resources.Load<Sprite>("Sprites/UI/icon_sound_off");
     }
 
     private void Update()
     {
-        if (muted)
+        try
         {
-            AudioListener.volume = 0;
+            soundButton = GameObject.FindGameObjectWithTag("SoundButton");
+            UpdateSoundUI();
         }
-        else
+        catch (Exception)
         {
-            //menuController.Unmute();
-        }
+        };
     }
 
-    public void SetVolume(float volume)
+    /*public void SetVolume(float volume)
     {
         AudioListener.volume = volume;
         PlayerPrefs.SetFloat("masterVolume", AudioListener.volume);
+        savedVolume = AudioListener.volume;
+    }*/
+
+    public void Mute()
+    {
+        AudioListener.volume = 0;
+        PlayerPrefs.SetFloat("masterVolume", AudioListener.volume);
+        muted = true;
+        UpdateSoundUI();
+    }
+
+    public void Unmute()
+    {
+        AudioListener.volume = 0.5f;
+        //AudioListener.volume = savedVolume;
+        PlayerPrefs.SetFloat("masterVolume", AudioListener.volume);
+        muted = false;
+        UpdateSoundUI();
+    }
+
+    public void UpdateSoundUI()
+    {
+        if (muted)
+        {
+            soundButton.transform.GetChild(0).GetComponent<Image>().sprite = mutedSprite;
+        }
+        else
+        {
+            soundButton.transform.GetChild(0).GetComponent<Image>().sprite = unmutedSprite;
+        }
     }
 
     private void Start()

@@ -19,6 +19,8 @@ TagManager:
   - FailPanel
   - InfoPanel
   - DiscardPanel
+  - SoundButton
+  - AudioManager
   layers:
   - Default
   - TransparentFX
