@@ -176,11 +176,10 @@ public class UnitControl: MonoBehaviour
             FindObjectOfType<GameManagerScript>().ShowPlayableCards(Card.CardType.Attack, info);
         buttonsContainer.ActivateUnitButtons();
         activated = true;
-        //var figureRenderer = gameObject.GetComponent<SpriteRenderer>();
         turnManager.SetActiveUnit(this.gameObject);
-        //figureRenderer.material.SetColor("_Color", Color.yellow);
         var hexToColor = gameObject.transform.parent.GetComponent<HexTile>().GetComponent<SpriteRenderer>();
         hexToColor.material.SetColor("_Color", Color.grey);
+        
     }
 
     public void DeactivateFigure()
@@ -207,7 +206,7 @@ public class UnitControl: MonoBehaviour
         foreach (var tile in tiles)
         {
             var tileRenderer = tile.gameObject.GetComponent<SpriteRenderer>();
-            tileRenderer.material.SetColor("_Color", Color.gray);
+            tileRenderer.material.SetColor("_Color", new Color(0.8f, 0.8f, 0.8f, 1f));
             tile.isChosen = true;
         }
     }
@@ -223,14 +222,14 @@ public class UnitControl: MonoBehaviour
             {
                 if(tile.transform.GetChild(0).GetComponent<UnitInfo>().IsEnemy(info))
                 {
-                    tileRenderer.material.SetColor("_Color", Color.black);
+                    tileRenderer.material.SetColor("_Color", new Color(1f, 0.5647059f, 0.5647059f, 1f));
                     tile.isChosen = true;
                     foundEnemies++;
                 }
             }
-            else
+            else 
             {
-                tileRenderer.material.SetColor("_Color", Color.red);
+                tileRenderer.material.SetColor("_Color", new Color(0.8f, 0.8f, 0.8f, 1f));
             }
         }
         if(foundEnemies == 0)

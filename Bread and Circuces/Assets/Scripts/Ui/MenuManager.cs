@@ -24,6 +24,8 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Sprite checkbox_ch = null;
     [SerializeField] private Sprite checkbox_unch = null;
 
+    public AudioManager audioManager;
+
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
@@ -44,7 +46,7 @@ public class MenuManager : MonoBehaviour
 
         if (Instance == null)
             Instance = this;
-
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
 
     public void AddToTeam()
@@ -166,5 +168,17 @@ public class MenuManager : MonoBehaviour
     public void ShowVideoAd()
     {
         VideoAd.Show();
+    }
+
+    public void ControlAudio()
+    {
+        if (audioManager.muted)
+        {
+            audioManager.Unmute();
+        }
+        else
+        {
+            audioManager.Mute();
+        }
     }
 }
