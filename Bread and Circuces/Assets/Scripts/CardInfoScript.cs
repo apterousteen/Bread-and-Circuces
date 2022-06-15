@@ -51,9 +51,9 @@ public class CardInfoScript : MonoBehaviour
         var outline = GetComponentInChildren<Outline>();
         outline.enabled = highlight;
         if(highlight && !highlighted)
-            transform.position += new Vector3(0, 0.4f, 0);
-        else if(highlighted && !highlight)
-            transform.position -= new Vector3(0, 0.4f, 0);
+            transform.localPosition += new Vector3(0, 0.4f, 0);
+        else if (highlighted && !highlight)
+            transform.localPosition -= new Vector3(0, 0.4f, 0);
         highlighted = highlight;
     }
 
