@@ -240,7 +240,7 @@ public class TurnManager : MonoBehaviour
                 break;
 
             case ActionType.ChangeEnemyStance:
-                targetUnit.GetComponent<UnitInfo>().ChangeStance(Stance.Advance);
+                targetUnit.GetComponent<UnitInfo>().ChangeStance(Stance.Attacking);
                 EndAction();
                 break;
 

@@ -241,7 +241,7 @@ public class UnitControl: MonoBehaviour
     void ShowMovementArea(int distance)
     {
         List<HexTile> tiles = new List<HexTile>();
-        if (info.OnMoveStart())
+        if (info.OnMoveStart() && turnManager.currTeam == info.teamSide)
             distance++;
         if (info.motionType == MotionType.RadiusType)
             tiles = distanceFinder.FindPaths(transform.parent.GetComponent<HexTile>(), distance);

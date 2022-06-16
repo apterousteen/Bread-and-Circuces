@@ -57,7 +57,7 @@ public class MenuManager : MonoBehaviour
         if (!team.Contains(chosen.tag) && team.Count < 2)
         {
             team.Add(chosen.tag);
-            chosen.transform.GetChild(3).GetComponent<Image>().sprite = checkbox_ch;
+            chosen.transform.GetChild(2).GetComponent<Image>().sprite = checkbox_ch;
             InTeam.text = team.Count.ToString();
             PlayButton.interactable = false;
         }
@@ -73,7 +73,7 @@ public class MenuManager : MonoBehaviour
     public void DeleteFromTeam()
     {
         team.Remove(chosen.tag);
-        chosen.transform.GetChild(3).GetComponent<Image>().sprite = checkbox_unch;
+        chosen.transform.GetChild(2).GetComponent<Image>().sprite = checkbox_unch;
         InTeam.text = team.Count.ToString();
 
         ChangeChoiceButton();

@@ -10,7 +10,7 @@ public class Retiarius : UnitInfo
     {
         damage = 0;
 
-        health = 15;
+        health = 16;
         defence = 0;
         attackReachDistance = 2;
         moveDistance = 3;
