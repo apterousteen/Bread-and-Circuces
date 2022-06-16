@@ -28,11 +28,14 @@ public class MenuManager : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
+        if (sceneName == "MainMenu")
+            AudioManager.Instance.ChangeMusicOnMain();
         SceneManager.LoadScene(sceneName);
     }
 
     public void LoadLevel()
     {
+        AudioManager.Instance.ChangeMusicOnBattle();
         if (RunInfo.Instance.isTutorial)
             LoadScene("TutorialScene");
         else LoadScene("FightScene");
@@ -180,5 +183,10 @@ public class MenuManager : MonoBehaviour
         {
             audioManager.Mute();
         }
+    }
+
+    public void PlayButtonSound()
+    {
+        audioManager.Play("Choice");
     }
 }

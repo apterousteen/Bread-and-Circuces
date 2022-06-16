@@ -115,4 +115,38 @@ public class DistanceFinder : MonoBehaviour
         result.Remove(tile);
         return result;
     }
+    
+    public List<HexTile> FindClosestPath(HexTile start, HexTile end)
+    {
+        var frontier = new Queue<HexTile>();
+        frontier.Enqueue(start);
+        var cameFrom = new Dictionary<HexTile, HexTile>();
+        cameFrom[start] = null;
+        while(frontier.Count != 0)
+        {
+            var current = frontier.Dequeue();
+            for (int j = 0; j < 6; j++)
+            {
+                var neighbor = GetNeighbor(current, j);
+                if (neighbor != null)
+                {
+                    if (!neighbor.isOccupied
+                    && !cameFrom.ContainsKey(neighbor))
+                    {
+                        frontier.Enqueue(neighbor);
+                        cameFrom[neighbor] = current;
+                    }
+                }
+            }
+        }
+        var currentPoint = end;
+        var path = new List<HexTile>();
+        while(currentPoint != start)
+        {
+            path.Add(currentPoint);
+            currentPoint = cameFrom[currentPoint];
+        }
+        path.Reverse();
+        return path;
+    }
 }

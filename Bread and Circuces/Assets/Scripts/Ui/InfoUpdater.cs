@@ -31,7 +31,7 @@ public class InfoUpdater : MonoBehaviour
                 charInfo.charObj.transform.GetChild(2).GetComponent<Image>().color = new Color(1, 1, 1, 0.8f);
                 charInfo.charObj.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 1, 1, 0.4f);
                 charInfo.charObj.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
-                charInfo.charObj.transform.GetChild(2).GetComponent<Outline>().enabled = false;
+                //charInfo.charObj.transform.GetChild(2).GetComponent<Outline>().enabled = false;
                 continue;
             }
 
@@ -41,7 +41,7 @@ public class InfoUpdater : MonoBehaviour
             charInfo.charObj.transform.GetChild(2).GetComponent<Image>().color = new Color(1, 1, 1, 1);
             charInfo.charObj.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 1, 1, 1);
             charInfo.charObj.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-            charInfo.charObj.transform.GetChild(2).GetComponent<Outline>().enabled = true;
+            //charInfo.charObj.transform.GetChild(2).GetComponent<Outline>().enabled = true;
 
             CIP.charIcon.GetComponent<Image>().sprite = charInfo.charIcon;
             CIP.charName.text = charInfo.charName;

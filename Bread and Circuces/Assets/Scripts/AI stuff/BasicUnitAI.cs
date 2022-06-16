@@ -155,9 +155,10 @@ public class BasicUnitAI : MonoBehaviour
             && x.StartStance == info.currentStance).ToList();
         Debug.Log("All cards = " + gameManager.CurrentGame.Enemy.Deck.Count);
         Debug.Log("Available cards = " + availableCards.Count);
-        if (availableCards.Count == 0 || !CanPlayCard())
+        if (availableCards.Count == 0 || !CanPlayAttackCard())
         {
-            turnManager.EndPlayerActivation();
+            //turnManager.EndPlayerActivation();
+            MakeMove();
             return;
         }
         var card = availableCards[UnityEngine.Random.Range(0, availableCards.Count)];
@@ -169,7 +170,7 @@ public class BasicUnitAI : MonoBehaviour
         var availableCards = gameManager.CurrentGame.Enemy.Deck
             .Where(x => x.Restriction == CardRestriction.Universal && x.Type == Card.CardType.Defense
             && x.StartStance == info.currentStance).ToList();
-        if (availableCards.Count == 0 || !CanPlayCard())
+        if (availableCards.Count == 0 || !CanPlayDefenceCard())
         {
             turnManager.AddAction(new Action(ActionType.Skip, Team.Enemy, 0));
             return;
@@ -302,9 +303,15 @@ public class BasicUnitAI : MonoBehaviour
         cardCard.GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
-    bool CanPlayCard()
+    bool CanPlayAttackCard()
     {
-        var randomizedNum = UnityEngine.Random.Range(0,3);
+        var randomizedNum = UnityEngine.Random.Range(0,4);
+        return gameManager.enemyHandSize > randomizedNum;
+    }
+
+    bool CanPlayDefenceCard()
+    {
+        var randomizedNum = UnityEngine.Random.Range(0, 5);
         return gameManager.enemyHandSize > randomizedNum;
     }
 }

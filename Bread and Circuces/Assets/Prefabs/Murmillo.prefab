@@ -95,10 +95,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7735eb31c1adcaf46860931cee18a71d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Slider: {fileID: 0}
-  Low: {r: 0, g: 0, b: 0, a: 0}
-  High: {r: 0, g: 0, b: 0, a: 0}
-  Offset: {x: 0, y: 0, z: 0}
   bar: {fileID: 773547397990158040}
 --- !u!1 &3327977386121874142
 GameObject:
@@ -193,8 +189,9 @@ GameObject:
   - component: {fileID: 3630177870721904069}
   - component: {fileID: 3630177870721904070}
   - component: {fileID: 3630177870721904071}
-  - component: {fileID: 617598865249110880}
   - component: {fileID: 7389475672126134387}
+  - component: {fileID: 4595250726131787929}
+  - component: {fileID: 2323345349870628396}
   m_Layer: 7
   m_Name: Murmillo
   m_TagString: Murmillo
@@ -282,19 +279,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wasActivated: 0
---- !u!65 &617598865249110880
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3630177870721904072}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3.5761018, y: 4.387359, z: 0}
-  m_Center: {x: 0.16367555, y: 1.693679, z: 0}
+  faceRight: 1
+  path: []
 --- !u!114 &7389475672126134387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,3 +307,50 @@ MonoBehaviour:
   altSkin: {fileID: 21300000, guid: 16d52924b8fb05641842d399c4f816b6, type: 3}
   healthbar: {fileID: 3121046630571749837}
   maxHealth: 0
+--- !u!61 &4595250726131787929
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3630177870721904072}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.2, y: 1.7}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.40015647, y: 0.1188057}
+    oldSize: {x: 4.38, y: 5.25}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.7, y: 4.4}
+  m_EdgeRadius: 0
+--- !u!50 &2323345349870628396
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3630177870721904072}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

@@ -7,6 +7,8 @@ public class ChoiceTutorialManager : MonoBehaviour
     public static ChoiceTutorialManager Instance;
 
     public GameObject charPanel;
+    public GameObject cardInfoPanel;
+    private bool showedCardsPanel;
 
     private void Awake()
     {
@@ -19,6 +21,17 @@ public class ChoiceTutorialManager : MonoBehaviour
         {
             Destroy(gameObject);
             return;
+        }
+
+        showedCardsPanel = false;
+    }
+
+    public void MakeCardInfoPanelActiveOnce()
+    {
+        if(!showedCardsPanel)
+        {
+            cardInfoPanel.SetActive(true);
+            showedCardsPanel = true;
         }
     }
 

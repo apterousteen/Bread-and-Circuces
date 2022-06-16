@@ -10,7 +10,8 @@ public class CardInfoScript : MonoBehaviour
 
     public Image Logo;
     public TextMeshProUGUI Name, Descsription;
-    bool highlighted = false;
+    public bool highlighted = false;
+    public float previousY;
 
     public void ShowCardInfo()
     {
@@ -50,11 +51,19 @@ public class CardInfoScript : MonoBehaviour
         //<CanvasGroup>().alpha = highlight ? 1 : .5f;
         var outline = GetComponentInChildren<Outline>();
         outline.enabled = highlight;
-        if(highlight && !highlighted)
-            transform.localPosition += new Vector3(0, 0.4f, 0);
-        else if (highlighted && !highlight)
-            transform.localPosition -= new Vector3(0, 0.4f, 0);
-        highlighted = highlight;
+        //if (highlight && !highlighted)
+        //{
+        //    previousY = transform.position.y;
+        //    transform.position += new Vector3(0, 0.4f, 0);
+        //}
+        //else if (highlighted && !highlight)
+        //{
+        //    //transform.position = new Vector3(transform.position.x, previousY, transform.position.z);
+        //    transform.position -= new Vector3(0, 0.4f, 0);
+
+        //    Debug.Log("Changed card position");
+        //}
+        //highlighted = highlight;
     }
 
 

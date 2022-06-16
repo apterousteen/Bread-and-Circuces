@@ -150,7 +150,7 @@ public class UiController : MonoBehaviour
 
     public void DisableTurnBtn()
     {
-        EndTurnBtn.interactable = GameManagerScript.Instance.IsPlayerTurn;
+        EndTurnBtn.interactable = (turnManager.currTeam == Team.Player);
     }
 
     public void ChangeEndButtonText()
@@ -160,6 +160,7 @@ public class UiController : MonoBehaviour
         if (isTurnEndButton)
             buttonText.text = "ХОД";
         else buttonText.text = "ПАС";
+        EndTurnBtn.interactable = !isTurnEndButton;
     }
 
     public void MakeDiscardWindowActive(bool active)
@@ -231,6 +232,7 @@ public class UiController : MonoBehaviour
         if (turnManager.GetCurrTeam() == Team.Player)
         {
             turnText.text = "ваш ход";
+            //AudioManager.Instance.Play("Turn Start");
             timerOutline.enabled = true;
             if (!turnManager.tutorialLevel)
             {
@@ -248,6 +250,7 @@ public class UiController : MonoBehaviour
         else if (turnManager.GetCurrTeam() == Team.Enemy) 
         {
             turnText.text = "ход врага";
+            //AudioManager.Instance.Play("Reaction Time Start");
             timerOutline.enabled = false;
         }
     }

@@ -387,8 +387,6 @@ public class TurnManager : MonoBehaviour
         StopAllCoroutines();
         targetUnit = null;
 
-        UiController.Instance.DisableTurnBtn();
-
         if (currTeam == Team.Player)
         {
             gameManager.CurrentGame.Player.activatedUnits++;
@@ -412,9 +410,10 @@ public class TurnManager : MonoBehaviour
         }
         else if (playerCanActivate && (currTeam == Team.Enemy || !enemyCanActivate))
         {
+            AudioManager.Instance.Play("Turn Start");
             currTeam = Team.Player;
         }
-
+        UiController.Instance.DisableTurnBtn();
         if (playerCanActivate || enemyCanActivate)
         {
             StartCoroutine(TurnFunc());
@@ -454,7 +453,6 @@ public class TurnManager : MonoBehaviour
         var targetInfo = target.GetComponent<UnitInfo>();
         isReactionTime = true;
         targetUnit = target;
-        UiController.Instance.ChangeEndButtonText();
         if (!tutorialLevel)
         {
             UiController.Instance.hintPanel.GetComponentInChildren<TextMeshProUGUI>().text = "отреагируйте на атаку врага";
@@ -469,7 +467,10 @@ public class TurnManager : MonoBehaviour
         }
         else
         {
+
+            UiController.Instance.ChangeEndButtonText();
             stoppedTurnTime = TurnTime;
+            AudioManager.Instance.Play("Reaction Time Start");
             StartCoroutine(ReactionFunc());
         }
     }
@@ -483,9 +484,11 @@ public class TurnManager : MonoBehaviour
         defCardPlayed = false;
         isReactionTime = false;
         if (currTeam == Team.Enemy)
+        {
+            UiController.Instance.ChangeEndButtonText();
             gameManager.MakeAllCardsUnplayable();
-        //else gameManager.ShowPlayableCards(Card.CardType.Attack, activeUnit.GetComponent<UnitInfo>());
-        UiController.Instance.ChangeEndButtonText();
+        }
+        //else gameManager.ShowPlayableCards(Card.CardType.Attack, activeUnit.GetComponent<UnitInfo>());        
         if (!tutorialLevel)
             UiController.Instance.hintPanel.SetActive(false);
         StartCoroutine(TurnFunc());

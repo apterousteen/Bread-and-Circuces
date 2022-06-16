@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DiscardWindow : MonoBehaviour
 {
-    private List<GameObject> cardsToDiscard;
+    public List<GameObject> cardsToDiscard;
     public int numforDiscard;
     private bool isFreeChoice;
     private GameManagerScript gameManager;
@@ -54,6 +54,7 @@ public class DiscardWindow : MonoBehaviour
             gameManager.discardedCards = cardsToDiscard.Count;
         turnManager.EndAction();
         turnManager.ContinueTurnCoroutine();
+        cardsToDiscard = new List<GameObject>();
         UiController.Instance.MakeDiscardWindowActive(false);
     }
 
@@ -77,7 +78,7 @@ public class DiscardWindow : MonoBehaviour
             card.GetComponent<CardInfoScript>().HiglightCard(false);
         }
         FindObjectOfType<TurnManager>().StopAllCoroutines();
-        UiController.Instance.UpdateDiscardButton();
+        //UiController.Instance.UpdateDiscardButton();
     }
 
     private void ResetCards()

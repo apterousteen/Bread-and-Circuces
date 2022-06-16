@@ -21,6 +21,8 @@ public class AudioManager : MonoBehaviour
 
     public bool muted;
 
+    private bool introStartedPlaying = false;
+    private Sound intro;
     public Sound[] sounds;
 
     private void Awake()
@@ -97,6 +99,30 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
+        intro = Array.Find(sounds, sound => sound.name == "Fight Theme Intro");
+        Play("Theme");
+    }
+
+    private void FixedUpdate()
+    {
+        if(!intro.source.isPlaying && introStartedPlaying)
+        {
+            introStartedPlaying = false;
+            Play("Fight Theme");
+        }
+    }
+
+    public void ChangeMusicOnBattle()
+    {
+        Stop("Theme");
+        Play("Fight Theme Intro");
+        introStartedPlaying = true;
+    }
+
+    public void ChangeMusicOnMain()
+    {
+        Stop("Fight Theme Intro");
+        Stop("Fight Theme");
         Play("Theme");
     }
 
@@ -104,5 +130,11 @@ public class AudioManager : MonoBehaviour
     {
         var sound = Array.Find(sounds, sound => sound.name == name);
         sound.source.Play();
+    }
+
+    public void Stop(string name)
+    {
+        var sound = Array.Find(sounds, sound => sound.name == name);
+        sound.source.Stop();
     }
 }

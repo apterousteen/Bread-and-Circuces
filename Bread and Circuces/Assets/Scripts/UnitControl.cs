@@ -15,13 +15,19 @@ public class UnitControl: MonoBehaviour
     private TurnManager turnManager;
     private DistanceFinder distanceFinder;
     private ButtonsContainer buttonsContainer;
+    private Rigidbody2D rb2d;
+    
+    public bool faceRight = true;
+
+    public List<HexTile> path;
 
     void Start()
     {
         board = FindObjectOfType<Board>();
         turnManager = FindObjectOfType<TurnManager>();
         distanceFinder = FindObjectOfType<DistanceFinder>();
-        buttonsContainer = FindObjectOfType<ButtonsContainer>();     
+        buttonsContainer = FindObjectOfType<ButtonsContainer>();
+        rb2d = GetComponent<Rigidbody2D>();
 
         info = gameObject.GetComponent<UnitInfo>();
         mainCamera = Camera.allCameras[0];
@@ -126,19 +132,58 @@ public class UnitControl: MonoBehaviour
 
     public void MoveFigureOnObject(HexTile targetHex)
     {
+        path = distanceFinder.FindClosestPath(transform.parent.GetComponent<HexTile>(), targetHex);
         posX = targetHex.transform.position.x;
         posY = targetHex.transform.position.y;
-        var previoisHex = transform.parent.gameObject.GetComponent<HexTile>();
+        var previousHex = transform.parent.gameObject.GetComponent<HexTile>();
         transform.parent = targetHex.transform;
-        previoisHex.isOccupied = false;
+        previousHex.isOccupied = false;
         MoveObject();
     }
 
     void MoveObject(){
-        transform.position = new Vector3(posX, posY, transform.position.z);
+        //transform.position = new Vector3(posX, posY, transform.position.z);
+        //var endPos = new Vector3(posX, posY, transform.position.z);
+        StartCoroutine(SmoothMovement());
+        //info.OnMoveEnd();
+        //info.ChangeMotionType(MotionType.RadiusType);
+        //turnManager.EndAction();
+    }
+
+    IEnumerator SmoothMovement()
+    {
+        //isMoving = true;
+        var previousX = transform.position.x;
+        foreach(var point in path)
+        {
+            var end = new Vector3(point.transform.position.x, point.transform.position.y, transform.position.z);
+            var diffX = end.x - previousX;
+            if (diffX > 0 && !faceRight)
+                Flip();
+            if (diffX < 0 && faceRight)
+                Flip();
+            float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+            while (sqrRemainingDistance > 0f /*&& isMoving*/)
+            {
+                Vector3 newPosition = Vector3.MoveTowards(rb2d.position, end, 10f * Time.deltaTime);
+                rb2d.MovePosition(newPosition);
+                sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+                yield return null;
+            }
+            previousX = end.x;
+            yield return new WaitForSeconds(0.05f);
+        }
+        //isMoving = false;
         info.OnMoveEnd();
         info.ChangeMotionType(MotionType.RadiusType);
         turnManager.EndAction();
+    }
+
+    void Flip()
+    {
+        faceRight = !faceRight;
+        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        transform.localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, -transform.localEulerAngles.z);
     }
 
     public void MakeAtack(UnitInfo enemyUnit)

@@ -89,6 +89,7 @@ public class Board : MonoBehaviour
         if (newUnit.GetComponent<UnitInfo>().teamSide == Team.Enemy)
         {
             newUnit.GetComponent<SpriteRenderer>().flipX = true;
+            newUnit.GetComponent<UnitControl>().faceRight = false;
             newUnit.GetComponent<SpriteRenderer>().sprite = newUnit.GetComponent<UnitInfo>().altSkin;
             newUnit.transform.GetChild(0).transform.localPosition = new Vector3(newUnit.transform.GetChild(0).transform.localPosition.x,
                                                                                 newUnit.transform.GetChild(0).transform.localPosition.y, -7f);

@@ -12,6 +12,7 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
     public Transform DefaultParent;
     public bool isDraggable, isClickable, canBePlayed, isPlayerLastCard;
     private bool selected;
+    private float previousY;
 
     void Awake()
     {
@@ -23,16 +24,17 @@ public class CardMovementScript : MonoBehaviour, IBeginDragHandler, IEndDragHand
     {
         if (isClickable)
             return;
-        transform.localPosition += new Vector3(0, 0.4f, 0.4f);
+        previousY = transform.position.y;
+        transform.position += new Vector3(0, 0.4f, 0.4f);
         //transform.localPosition += new Vector3(0, 0.4f, 0);
         transform.localScale += new Vector3(0.4f, 0.4f, 0);
 
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (isClickable || Input.GetMouseButtonUp(0))
+        if (isClickable || Input.GetMouseButtonDown(0))
             return;
-        transform.localPosition -= new Vector3(0, 0.4f, 0.4f);
+        transform.position = new Vector3(transform.position.x, previousY, transform.position.z);
         //transform.localPosition -= new Vector3(0, 0.4f, 0);
         transform.localScale -= new Vector3(0.4f, 0.4f, 0);
     }
