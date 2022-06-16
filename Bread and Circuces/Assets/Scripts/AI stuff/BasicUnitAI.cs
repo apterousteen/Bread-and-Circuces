@@ -49,7 +49,7 @@ public class BasicUnitAI : MonoBehaviour
         }
         else
         {
-            MakeMove();
+            MakeMove(true);
         }
     }
 
@@ -72,10 +72,12 @@ public class BasicUnitAI : MonoBehaviour
         return false;
     }
 
-    public void MakeMove()
+    public void MakeMove(bool forward)
     {
         gameManager.ReduceMana(false, 1);
-        MoveToClosestPlayerUnit(info.moveDistance);
+        if (forward)
+            MoveToClosestPlayerUnit(info.moveDistance);
+        else MoveAwayFromClosestPlayerUnit(info.moveDistance);
     }
 
     public UnitInfo GetClosestPlayerUnit()
@@ -117,7 +119,7 @@ public class BasicUnitAI : MonoBehaviour
             .Select(x => x.Item1).FirstOrDefault();
         unitControl.MoveFigureOnObject(hexToMove);
         Debug.Log("Moved");
-        turnManager.EndAction();
+        //turnManager.EndAction();
     }
 
     public void MoveAwayFromClosestPlayerUnit(int distance)
@@ -158,7 +160,7 @@ public class BasicUnitAI : MonoBehaviour
         if (availableCards.Count == 0 || !CanPlayAttackCard())
         {
             //turnManager.EndPlayerActivation();
-            MakeMove();
+            MakeMove(false);
             return;
         }
         var card = availableCards[UnityEngine.Random.Range(0, availableCards.Count)];

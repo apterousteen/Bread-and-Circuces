@@ -14150,7 +14150,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &728046081894032791
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15483,6 +15483,7 @@ MonoBehaviour:
   defensePanel: {fileID: 75218011}
   enemyOutlinePanel: {fileID: 1498625057}
   playerOutlinePanel: {fileID: 629388563}
+  enemyPanelExplained: 0
 --- !u!1 &7022545017973205456
 GameObject:
   m_ObjectHideFlags: 0

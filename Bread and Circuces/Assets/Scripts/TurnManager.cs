@@ -453,11 +453,8 @@ public class TurnManager : MonoBehaviour
         var targetInfo = target.GetComponent<UnitInfo>();
         isReactionTime = true;
         targetUnit = target;
-        if (!tutorialLevel)
-        {
-            UiController.Instance.hintPanel.GetComponentInChildren<TextMeshProUGUI>().text = "отреагируйте на атаку врага";
-            UiController.Instance.hintPanel.SetActive(true);
-        }
+        UiController.Instance.hintPanel.GetComponentInChildren<TextMeshProUGUI>().text = "отреагируйте на атаку врага";
+        UiController.Instance.hintPanel.SetActive(true);
 
         if (activeUnitInfo.teamSide == Team.Player)
         {
@@ -489,8 +486,7 @@ public class TurnManager : MonoBehaviour
             gameManager.MakeAllCardsUnplayable();
         }
         //else gameManager.ShowPlayableCards(Card.CardType.Attack, activeUnit.GetComponent<UnitInfo>());        
-        if (!tutorialLevel)
-            UiController.Instance.hintPanel.SetActive(false);
+        UiController.Instance.hintPanel.SetActive(false);
         StartCoroutine(TurnFunc());
     }
 
