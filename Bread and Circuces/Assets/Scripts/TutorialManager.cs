@@ -15,7 +15,7 @@ public class TutorialManager : MonoBehaviour
     private bool actionsExplained = false;
     private bool turnOrderExplained = false;
     private bool defenseExplained = false;
-    private bool enemyPanelExplained = false;
+    public bool enemyPanelExplained = false;
 
     private TurnManager turnManager;
 

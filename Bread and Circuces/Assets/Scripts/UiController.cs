@@ -115,11 +115,8 @@ public class UiController : MonoBehaviour
         turnText = GameObject.Find("turnText").GetComponent<TextMeshProUGUI>();
         timerOutline = GameObject.Find("timerOutline").GetComponent<Image>();
 
-        if (!turnManager.tutorialLevel)
-        {
-            hintPanel = GameObject.Find("HintPanel");
-            hintPanel.SetActive(false);
-        }
+        hintPanel = GameObject.Find("HintPanel");
+        hintPanel.SetActive(false);
     }
 
     public bool GameIsPaused = false;

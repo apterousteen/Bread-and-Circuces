@@ -43,6 +43,14 @@ public class UnitControl: MonoBehaviour
 
     void OnMouseDown()
     {
+        if (turnManager.tutorialLevel)
+        {
+            if (info.teamSide == Team.Enemy && !TutorialManager.Instance.enemyPanelExplained)
+                TutorialManager.Instance.ControlOutline(gameObject);
+            else if (!TutorialManager.Instance.enemyPanelExplained)
+                return;
+        }
+
         if (!turnManager.inAction)
         {
             if (!activated && !turnManager.activatedUnits.Contains(info))
@@ -51,11 +59,6 @@ public class UnitControl: MonoBehaviour
                 DeactivateFigure();
         }
         UiController.Instance.UpdateInfoPanels(gameObject);
-        
-        if (turnManager.tutorialLevel)
-        {
-            TutorialManager.Instance.ControlOutline(gameObject);
-        }
     }
 
     void DispathInput()
@@ -79,6 +82,12 @@ public class UnitControl: MonoBehaviour
                             else 
                                 HandleAttack(hittedTile);
                         }
+                    }
+                    else if (hit.collider.tag != "")
+                    {
+                        var targetTile = hit.collider.gameObject.transform.parent.GetComponent<HexTile>();
+                        if (targetTile.isChosen)
+                            HandleAttack(targetTile);
                     }
                 }
                 else if(!activated && turnManager.movingEnemy && 
