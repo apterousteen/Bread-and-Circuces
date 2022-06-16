@@ -36,7 +36,8 @@ public class MenuManager : MonoBehaviour
     public void LoadLevel()
     {
         AudioManager.Instance.ChangeMusicOnBattle();
-        if (RunInfo.Instance.isTutorial)
+        //if (RunInfo.Instance.isTutorial)
+        if (SceneManager.GetActiveScene().name == "choiceMenuTutorial")
             LoadScene("TutorialScene");
         else LoadScene("FightScene");
     }
@@ -138,6 +139,12 @@ public class MenuManager : MonoBehaviour
 
     public void GoToMenu()
     {
+        ResetTeam();
+        if (SceneManager.GetActiveScene().name == "choiceMenu" || SceneManager.GetActiveScene().name == "choiceMenuTutorial")
+        {
+            ChooseButton.GetComponentInChildren<TextMeshProUGUI>().text = "¬€¡–¿“‹";
+            ChooseButton.onClick.AddListener(AddToTeam);
+        }
         Time.timeScale = 1f;
         SceneManager.LoadScene("mainMenu");
     }
