@@ -177,7 +177,7 @@ public class MenuManager : MonoBehaviour
 
     public void ShowVideoAd()
     {
-        VideoAd.Show();
+        //VideoAd.Show();
     }
 
     public void ControlAudio()

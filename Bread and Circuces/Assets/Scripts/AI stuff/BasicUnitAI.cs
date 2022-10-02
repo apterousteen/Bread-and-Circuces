@@ -159,7 +159,6 @@ public class BasicUnitAI : MonoBehaviour
         Debug.Log("Available cards = " + availableCards.Count);
         if (availableCards.Count == 0 || !CanPlayAttackCard())
         {
-            //turnManager.EndPlayerActivation();
             MakeMove(false);
             return;
         }
@@ -211,7 +210,6 @@ public class BasicUnitAI : MonoBehaviour
 
             case Card.CardEffect.Defense:// confirmed
                 unit.defence += card.SpellValue;
-                //turnManager.defCardPlayed = true;
                 break;
 
             case Card.CardEffect.ShieldedDefense:
@@ -219,7 +217,6 @@ public class BasicUnitAI : MonoBehaviour
                     unit.defence += card.SpellValue;
                     if (unit.withShield)
                         unit.defence += 1;
-                    //turnManager.defCardPlayed = true;
                 }
                 break;
 

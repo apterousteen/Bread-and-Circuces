@@ -16,8 +16,6 @@ public class Game
             RunInfo.Instance.isTutorial = false;
             Player = RunInfo.Instance.Player;
             Player.UpdateForNewGame();
-            //Player.Deck = new List<Card>();
-            //Player.HandCards = new List<CardController>();
         }
         else
         {
@@ -29,7 +27,6 @@ public class Game
         Enemy = new Player();
         Enemy.team = Team.Enemy;
 
-        //Enemy.units.SelectUnits("Retiarius", "Murmillo");
         GenerateUnits(Enemy);
 
         Enemy.Deck = GiveDeckCard(Enemy);
@@ -49,20 +46,6 @@ public class Game
             second = Random.Range(0, 4);
         player.units.SelectUnits(units[first], units[second]);
     }
-
-    //List<Card> GiveDeckCard()
-    //{
-    //    List<Card> list = new List<Card>();
-
-    //    for (int i = 0; i < 10; i++)
-    //    {
-    //        var card = CardManager.AllCards[Random.Range(0, CardManager.AllCards.Count)];
-
-    //        list.Add(card.GetCopy());
-
-    //    }
-    //    return list;
-    //}
 
     List<Card> GiveDeckCard(Player player)
     {
@@ -166,7 +149,7 @@ public class GameManagerScript : MonoBehaviour
     void GiveCardToHand(Player player, Transform hand)
     {
         if (player.Deck.Count == 0)
-            ReshuffleDiscardPile(player); //- нужно эффективнее передавать дискард, без удал€ющихс€ карт он сейчас бесполезен и вызовет ошибку
+            ReshuffleDiscardPile(player);
 
         CreateCardPref(player.Deck[0], hand);
 
@@ -175,7 +158,7 @@ public class GameManagerScript : MonoBehaviour
 
 
     void ReshuffleDiscardPile(Player player)
-    {  //перенос сброса и колоды в класс игрока тут бы очень помог
+    {
         player.Deck.AddRange(player.DiscardPile);
         player.DiscardPile.Clear();
         CurrentGame.ShuffleDeck(player.Deck);
@@ -195,7 +178,7 @@ public class GameManagerScript : MonoBehaviour
         
     }
 
-    void DrawFullHand(Player player, Transform hand) // вместо добора одной карты на начало хода добираетс§ полна§ рука из 6 карт
+    void DrawFullHand(Player player, Transform hand)
     {
         int i = CurrentGame.Player.HandCards.Count;
         Debug.Log("Players hand: " + i);
@@ -228,12 +211,6 @@ public class GameManagerScript : MonoBehaviour
 
         UiController.Instance.UpdateMana();
     }
-
-    //public void CheckCardsForManaAvaliability()
-    //{
-    //    foreach (var card in CurrentGame.Player.HandCards)
-    //        card.Info.HiglightManaAvaliability(CurrentGame.Player.Mana);
-    //}
 
     public void ShowPlayableCards(Card.CardType type, UnitInfo unit)
     {

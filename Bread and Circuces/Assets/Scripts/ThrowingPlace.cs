@@ -10,7 +10,7 @@ public class ThrowingPlace : MonoBehaviour, IDropHandler
     {
         CardMovementScript card = eventData.pointerDrag.GetComponent<CardMovementScript>();
 
-        if (card)
+        if (card != null)
             card.DefaultParent = transform;
     }
 }

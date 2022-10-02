@@ -2,16 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//public enum TileState
-//{
-//    Occupied,
-//    Free, 
-//    Chosen
-//}
 
 public class HexTile : MonoBehaviour
 {
-    //public TileState currentState;
     public int gridX;
     public int gridY;
     public bool isOccupied;
@@ -19,7 +12,6 @@ public class HexTile : MonoBehaviour
 
     private void Start()
     {
-        //currentState = TileState.Free;
         isChosen = false;
         isOccupied = false;
     }

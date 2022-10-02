@@ -21,7 +21,7 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
     {
         CardController card = eventData.pointerDrag.GetComponent<CardController>();
 
-        if (card && card.gameObject.GetComponent<CardMovementScript>().canBePlayed /*&& !card.Card.IsPlaced*/)
+        if (card.gameObject.GetComponent<CardMovementScript>().canBePlayed)
             card.OnCast();
     }
 }

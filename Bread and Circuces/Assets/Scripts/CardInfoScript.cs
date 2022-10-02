@@ -65,14 +65,4 @@ public class CardInfoScript : MonoBehaviour
         //}
         //highlighted = highlight;
     }
-
-
-    /* подсвет карты(пока не нужно)
-    public void HighlightAsSpellTarget(bool higlight)
-    {
-        GetComponent<Image>().color = higlight ?
-                                      Color.red :
-                                      Color.green;
-    }
-    */
 }
