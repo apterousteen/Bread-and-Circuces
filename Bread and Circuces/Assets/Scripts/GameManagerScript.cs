@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using UnityEngine.UI;
-using TMPro;
+
 
 public class Game
 {
@@ -32,7 +30,7 @@ public class Game
         Enemy.Deck = GiveDeckCard(Enemy);
         Player.Deck = GiveDeckCard(Player);
         var allPlayerCards = Player.Deck.Count;
-        var notUniversalCards = Player.Deck.Where(x => x.Restriction == CardRestriction.Scissor).Count();
+        var notUniversalCards = Player.Deck.Where(x => x.Restriction == EnumCard.CardRestriction.Scissor).Count();
         Enemy.DiscardPile = new List<Card>();
         Player.DiscardPile = new List<Card>();
     }
@@ -50,7 +48,7 @@ public class Game
     List<Card> GiveDeckCard(Player player)
     {
         List<Card> list = new List<Card>();
-        Debug.Log(CardManager.AllCards.Where(x => x.Restriction != CardRestriction.Universal).Count());
+        Debug.Log(CardManager.AllCards.Where(x => x.Restriction != EnumCard.CardRestriction.Universal).Count());
         foreach (var unit in player.units.units)
         {
             var unitDeck = CardManager.AllCards.Where(x => x.Set.ToString() == unit);
@@ -223,7 +221,7 @@ public class GameManagerScript : MonoBehaviour
         {
             var cardInfo = card.Card;
             if (cardInfo.Type == type && (cardInfo.StartStance == unit.currentStance || unit.currentStance == Stance.Raging && cardInfo.StartStance == Stance.Attacking) 
-                && (cardInfo.Restriction == CardRestriction.Universal|| cardInfo.Restriction.ToString() == unit.gameObject.tag.ToString()))
+                && (cardInfo.Restriction == EnumCard.CardRestriction.Universal|| cardInfo.Restriction.ToString() == unit.gameObject.tag.ToString()))
             {
                 card.Info.HiglightCard(true);
                 card.Movement.canBePlayed = true;

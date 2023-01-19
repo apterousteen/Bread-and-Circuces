@@ -153,8 +153,8 @@ public class BasicUnitAI : MonoBehaviour
     public void GenerateAttack()
     {
         var availableCards = gameManager.CurrentGame.Enemy.Deck
-            .Where(x => x.Restriction == CardRestriction.Universal && x.Type == Card.CardType.Attack
-            && x.StartStance == info.currentStance).ToList();
+            .Where(x => x.Restriction == EnumCard.CardRestriction.Universal && x.Type == Card.CardType.Attack
+                                                                            && x.StartStance == info.currentStance).ToList();
         Debug.Log("All cards = " + gameManager.CurrentGame.Enemy.Deck.Count);
         Debug.Log("Available cards = " + availableCards.Count);
         if (availableCards.Count == 0 || !CanPlayAttackCard())
@@ -169,8 +169,8 @@ public class BasicUnitAI : MonoBehaviour
     public void GenerateDefence()
     {
         var availableCards = gameManager.CurrentGame.Enemy.Deck
-            .Where(x => x.Restriction == CardRestriction.Universal && x.Type == Card.CardType.Defense
-            && x.StartStance == info.currentStance).ToList();
+            .Where(x => x.Restriction == EnumCard.CardRestriction.Universal && x.Type == Card.CardType.Defense
+                                                                            && x.StartStance == info.currentStance).ToList();
         if (availableCards.Count == 0 || !CanPlayDefenceCard())
         {
             turnManager.AddAction(new Action(ActionType.Skip, Team.Enemy, 0));
@@ -183,7 +183,7 @@ public class BasicUnitAI : MonoBehaviour
 
     public void UseCard(Card card, UnitInfo unit)
     {
-        Debug.Log("—ыграно " + card.Name);
+        Debug.Log("??????? " + card.Name);
         gameManager.ReduceMana(false, card.Manacost);
 
         var spellCard = card;
@@ -204,7 +204,7 @@ public class BasicUnitAI : MonoBehaviour
                 }
                 break;
 
-            case Card.CardEffect.DamageFinisher: // нужно добавить обнуление numberCard в методе смены хода(он пока у нас не робит)
+            case Card.CardEffect.DamageFinisher: // ????? ???????? ????????? numberCard ? ?????? ????? ????(?? ???? ? ??? ?? ?????)
                 turnManager.AddAction(new Action(ActionType.FinisherAttack, Team.Enemy, card.SpellValue));
                 break;
 

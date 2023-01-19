@@ -453,7 +453,7 @@ public class TurnManager : MonoBehaviour
         var targetInfo = target.GetComponent<UnitInfo>();
         isReactionTime = true;
         targetUnit = target;
-        UiController.Instance.hintPanel.GetComponentInChildren<TextMeshProUGUI>().text = "отреагируйте на атаку врага";
+        UiController.Instance.hintPanel.GetComponentInChildren<TextMeshProUGUI>().text = "???????????? ?? ????? ?????";
         UiController.Instance.hintPanel.SetActive(true);
 
         if (activeUnitInfo.teamSide == Team.Player)

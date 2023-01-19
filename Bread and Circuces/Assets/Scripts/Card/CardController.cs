@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,7 +25,7 @@ public class CardController : MonoBehaviour
 
     public void OnCast()
     {
-        LastCard(this.Card, gameManager.CurrentGame.Player, gameManager.PlayerCardPanel);
+        LastCard(Card, gameManager.CurrentGame.Player, gameManager.PlayerCardPanel);
         if (IsPlayerCard)
         {
             gameManager.CurrentGame.Player.HandCards.Remove(this);
@@ -56,11 +55,11 @@ public class CardController : MonoBehaviour
         unit.ChangeStance(card.EndStance);
         switch (card.FirstCardEff)
         {
-            case Card.CardEffect.Damage://confirmed
+            case EnumCard.CardEffect.Damage://confirmed
                 turnManager.AddAction(new Action(ActionType.Attack, Team.Player, card.SpellValue));
                 break;
 
-            case Card.CardEffect.PushBackEnemy:
+            case EnumCard.CardEffect.PushBackEnemy:
                 {
                     turnManager.AddAction(new Action(ActionType.Attack, Team.Player, card.SpellValue));
 
@@ -68,15 +67,15 @@ public class CardController : MonoBehaviour
                 }
                 break;
 
-            case Card.CardEffect.DamageFinisher: // нужно добавить обнуление numberCard в методе смены хода(он пока у нас не робит)
+            case EnumCard.CardEffect.DamageFinisher: // ????? ???????? ????????? numberCard ? ?????? ????? ????(?? ???? ? ??? ?? ?????)
                 turnManager.AddAction(new Action(ActionType.FinisherAttack, Team.Player, card.SpellValue));
                 break;
 
-            case Card.CardEffect.Defense:// confirmed
+            case EnumCard.CardEffect.Defense:// confirmed
                 unit.defence += card.SpellValue;
                 break;
 
-            case Card.CardEffect.ShieldedDefense:
+            case EnumCard.CardEffect.ShieldedDefense:
                 {
                     unit.defence += card.SpellValue;
                     if (unit.withShield)
@@ -84,69 +83,69 @@ public class CardController : MonoBehaviour
                 }
                 break;
 
-            case Card.CardEffect.Movement:// confirmed
+            case EnumCard.CardEffect.Movement:// confirmed
                 turnManager.AddAction(new Action(ActionType.Push, Team.Player, card.SpellValue));
                 break;
 
-            case Card.CardEffect.ChargeStart:
+            case EnumCard.CardEffect.ChargeStart:
                 turnManager.AddAction(new Action(ActionType.ChargeStart, Team.Player, card.SpellValue));
                 break;
 
-            case Card.CardEffect.DiscardSelf:
+            case EnumCard.CardEffect.DiscardSelf:
                 turnManager.AddAction(new Action(ActionType.DiscardActivePlayer, Team.Player, card.SpellValue));
                 break;
         }
         switch (card.FirstCardEffTwo)
         {
-            case Card.CardEffect.Damage:// confirmed
+            case EnumCard.CardEffect.Damage:// confirmed
                 turnManager.AddAction(new Action(ActionType.Attack, Team.Player, card.SecondSpellValue));
                 break;
 
-            case Card.CardEffect.DamageAfterDiscard:
+            case EnumCard.CardEffect.DamageAfterDiscard:
                 turnManager.AddAction(new Action(ActionType.AttackWithDiscardBuff, Team.Player, card.SecondSpellValue));
                 break;
 
-            case Card.CardEffect.Movement:// confirmed
+            case EnumCard.CardEffect.Movement:// confirmed
                 turnManager.AddAction(new Action(ActionType.Push, Team.Player, card.SecondSpellValue));
                 break;
 
-            case Card.CardEffect.CardDrow:// confirmed
+            case EnumCard.CardEffect.CardDrow:// confirmed
                 turnManager.AddAction(new Action(ActionType.Draw, Team.Player, card.SecondSpellValue));
                 break;
 
-            case Card.CardEffect.AliveCardDrow:
+            case EnumCard.CardEffect.AliveCardDrow:
                 turnManager.AddAction(new Action(ActionType.DrawIfAlive, Team.Player, card.SecondSpellValue));
                 break;
 
-            case Card.CardEffect.Stun:
+            case EnumCard.CardEffect.Stun:
                 turnManager.AddAction(new Action(ActionType.ChangeEnemyStance, Team.Player, card.SecondSpellValue));
                 turnManager.AddAction(new Action(ActionType.DiscardOpponent, Team.Player, card.SecondSpellValue));
                 break;
 
-            case Card.CardEffect.NearCardDrow:
+            case EnumCard.CardEffect.NearCardDrow:
                 turnManager.AddAction(new Action(ActionType.NearDraw, Team.Player, card.SecondSpellValue));
                 break;
 
-            case Card.CardEffect.DiscardEnemy:
+            case EnumCard.CardEffect.DiscardEnemy:
                 turnManager.AddAction(new Action(ActionType.DiscardOpponent, Team.Player, card.SecondSpellValue));
                 break;
 
-            case Card.CardEffect.ManaAdd:
+            case EnumCard.CardEffect.ManaAdd:
                 {
                     gameManager.CurrentGame.Player.SpellManapool();
                     UiController.Instance.UpdateMana();
                 }
                 break;
 
-            case Card.CardEffect.ChargeEnd:
+            case EnumCard.CardEffect.ChargeEnd:
                 turnManager.AddAction(new Action(ActionType.ChargeEnd, Team.Player, card.SecondSpellValue));
                 break;
 
-            case Card.CardEffect.CancelCard:
+            case EnumCard.CardEffect.CancelCard:
                 turnManager.AddAction(new Action(ActionType.CancelCard, Team.Player, card.SecondSpellValue));
                 break;
 
-            case Card.CardEffect.No:
+            case EnumCard.CardEffect.No:
                 turnManager.AddAction(new Action(ActionType.Skip, Team.Player, card.SecondSpellValue));
                 break;
         }
@@ -156,8 +155,8 @@ public class CardController : MonoBehaviour
 
     public void DiscardCard()
     {
-        gameManager.CurrentGame.Player.DiscardPile.Add(this.Card);
-        GiveCardToDiscardPile(this.Card, gameManager.CurrentGame.Player, gameManager.PlayerDiscardPanel);
+        gameManager.CurrentGame.Player.DiscardPile.Add(Card);
+        GiveCardToDiscardPile(Card, gameManager.CurrentGame.Player, gameManager.PlayerDiscardPanel);
         Movement.OnEndDrag(null);
         RemoveCardFromList(gameManager.CurrentGame.Player.HandCards);
 
