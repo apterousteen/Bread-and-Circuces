@@ -95,12 +95,12 @@ namespace Ui
         {
             if (team.Contains(chosen.tag))
             {
-                ChooseButton.GetComponentInChildren<TextMeshProUGUI>().text = "???????? ?????";
+                ChooseButton.GetComponentInChildren<TextMeshProUGUI>().text = "Отменить выбор";
                 ChooseButton.onClick.AddListener(DeleteFromTeam);
             }
             else
             {
-                ChooseButton.GetComponentInChildren<TextMeshProUGUI>().text = "???????";
+                ChooseButton.GetComponentInChildren<TextMeshProUGUI>().text = "Выбрать";
                 ChooseButton.onClick.AddListener(AddToTeam);
             }
         }

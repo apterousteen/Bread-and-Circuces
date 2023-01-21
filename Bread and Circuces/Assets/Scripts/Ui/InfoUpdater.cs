@@ -54,12 +54,12 @@ namespace Ui
                 if (MenuManager.chosen.CompareTag("Scissor"))
                 {
                     GameObject.Find("panel_defense").GetComponent<Image>().sprite = MenuManager.Instance.rage;
-                    GameObject.Find("panel_defense").GetComponentInChildren<TextMeshProUGUI>().text = "??????";
+                    GameObject.Find("panel_defense").GetComponentInChildren<TextMeshProUGUI>().text = "ярость";
                 }
                 else
                 {
                     GameObject.Find("panel_defense").GetComponent<Image>().sprite = MenuManager.Instance.defence;
-                    GameObject.Find("panel_defense").GetComponentInChildren<TextMeshProUGUI>().text = "???????";
+                    GameObject.Find("panel_defense").GetComponentInChildren<TextMeshProUGUI>().text = "ќборона";
                 }
             }
 
