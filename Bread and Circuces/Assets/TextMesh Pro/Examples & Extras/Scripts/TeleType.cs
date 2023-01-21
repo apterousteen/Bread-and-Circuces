@@ -1,8 +1,8 @@
-using UnityEngine;
 using System.Collections;
+using TMPro;
+using UnityEngine;
 
-
-namespace TMPro.Examples
+namespace TextMesh_Pro.Examples___Extras.Scripts
 {
     
     public class TeleType : MonoBehaviour
@@ -35,7 +35,7 @@ namespace TMPro.Examples
             //    gameObject.transform.SetParent(canvas.transform);
             //    canvas.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
 
-            //    // Set RectTransform Size
+            //    // CardSet RectTransform Size
             //    gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(500, 300);
             //    m_textMeshPro.fontSize = 48;
             //}

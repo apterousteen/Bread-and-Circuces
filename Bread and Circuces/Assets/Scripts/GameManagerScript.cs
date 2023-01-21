@@ -1,6 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using AI_stuff;
+using Card;
+using Meta;
+using Ui;
 
 
 public class Game
@@ -31,8 +35,8 @@ public class Game
         Player.Deck = GiveDeckCard(Player);
         var allPlayerCards = Player.Deck.Count;
         var notUniversalCards = Player.Deck.Where(x => x.Restriction == EnumCard.CardRestriction.Scissor).Count();
-        Enemy.DiscardPile = new List<Card>();
-        Player.DiscardPile = new List<Card>();
+        Enemy.DiscardPile = new List<Card.Card>();
+        Player.DiscardPile = new List<Card.Card>();
     }
 
     void GenerateUnits(Player player)
@@ -45,13 +49,13 @@ public class Game
         player.units.SelectUnits(units[first], units[second]);
     }
 
-    List<Card> GiveDeckCard(Player player)
+    List<Card.Card> GiveDeckCard(Player player)
     {
-        List<Card> list = new List<Card>();
+        List<Card.Card> list = new List<Card.Card>();
         Debug.Log(CardManager.AllCards.Where(x => x.Restriction != EnumCard.CardRestriction.Universal).Count());
         foreach (var unit in player.units.units)
         {
-            var unitDeck = CardManager.AllCards.Where(x => x.Set.ToString() == unit);
+            var unitDeck = CardManager.AllCards.Where(x => x.CardSet.ToString() == unit);
             foreach (var card in unitDeck)
                 list.Add(card.GetCopy());
         }
@@ -59,7 +63,7 @@ public class Game
         return list;
     }
 
-    public void ShuffleDeck(List<Card> deck)
+    public void ShuffleDeck(List<Card.Card> deck)
     {
         int n = deck.Count;
         while (n > 1)
@@ -80,7 +84,7 @@ public class GameManagerScript : MonoBehaviour
     public Game CurrentGame;
     public Transform EnemyHand, PlayerHand, PlayerCardPanel, PlayerInfoPanel, EnemyCardPanel, EnemyInfoPanel, PlayerDiscardPanel;
     public CardInfoScript CardInfo;
-    public Card card;
+    public Card.Card card;
     public GameObject CardPref;
 
     int Turn;
@@ -162,7 +166,7 @@ public class GameManagerScript : MonoBehaviour
         CurrentGame.ShuffleDeck(player.Deck);
     }
 
-     void CreateCardPref(Card card, Transform hand)
+     void CreateCardPref(Card.Card card, Transform hand)
     {
         GameObject cardFF = Instantiate(CardPref, hand, false);
         CardController cardC = cardFF.GetComponent<CardController>();
@@ -210,9 +214,9 @@ public class GameManagerScript : MonoBehaviour
         UiController.Instance.UpdateMana();
     }
 
-    public void ShowPlayableCards(Card.CardType type, UnitInfo unit)
+    public void ShowPlayableCards(Card.Card.CardType type, UnitInfo unit)
     {
-        if (type == Card.CardType.Attack && CurrentGame.Player.Mana < 1)
+        if (type == Card.Card.CardType.Attack && CurrentGame.Player.Mana < 1)
         {
             MakeAllCardsUnplayable();
             return;

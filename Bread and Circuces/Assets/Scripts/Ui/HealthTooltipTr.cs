@@ -1,20 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class HealthTooltipTr : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+namespace Ui
 {
-    public string header;
-    public string content;
-
-    public void OnPointerEnter(PointerEventData eventData)
+    public class HealthTooltipTr : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        TooltipSystem.Show(content, header);
-    }
+        public string header;
+        public string content;
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        TooltipSystem.Hide();
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            TooltipSystem.Show(content, header);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            TooltipSystem.Hide();
+        }
     }
 }

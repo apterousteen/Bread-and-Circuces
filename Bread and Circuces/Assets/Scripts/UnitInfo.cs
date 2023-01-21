@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Ui;
 using UnityEngine;
 
 public enum Team
@@ -34,7 +35,7 @@ public abstract class UnitInfo : MonoBehaviour
     public Stance stanceToChange;
     public MotionType motionType;
     public bool withShield;
-    public List<Card> UnitDeck;
+    public List<Card.Card> UnitDeck;
 
     private int baseDamage;
     private int baseDefence;
@@ -50,7 +51,7 @@ public abstract class UnitInfo : MonoBehaviour
         stanceToChange = Stance.Advance;
         baseDamage = damage;
         baseDefence = defence;
-        UnitDeck = new List<Card>();
+        UnitDeck = new List<Card.Card>();
 
         maxHealth = health;
         healthbar.SetHealth(health, maxHealth);

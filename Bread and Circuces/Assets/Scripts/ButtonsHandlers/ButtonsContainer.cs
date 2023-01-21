@@ -1,46 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonsContainer : MonoBehaviour
+namespace ButtonsHandlers
 {
-    public MoveButtonHandler moveButton;
-    private TurnManager turnManager;
-
-    void Start()
-    { 
-        moveButton = FindObjectOfType<MoveButtonHandler>();
-        turnManager = FindObjectOfType<TurnManager>();
-        DeactivateUnitButtons();
-    }
-
-    public int GetAction()
+    public class ButtonsContainer : MonoBehaviour
     {
-        if(moveButton.State)
-        {
-            return 1;
+        public MoveButtonHandler moveButton;
+        private TurnManager turnManager;
+
+        void Start()
+        { 
+            moveButton = FindObjectOfType<MoveButtonHandler>();
+            turnManager = FindObjectOfType<TurnManager>();
+            DeactivateUnitButtons();
         }
 
-        return -1;
-    }
-
-    public void EndAction()
-    {
-        if(moveButton.State)
+        public int GetAction()
         {
-            moveButton.State = !moveButton.State;
-        }
-    }    
+            if(moveButton.State)
+            {
+                return 1;
+            }
 
-    public void ActivateUnitButtons()
-    {
-        if (turnManager.currTeam == Team.Enemy)
-            return;
-        moveButton.ActivateDeactivateButton(true);
-    }
+            return -1;
+        }
+
+        public void EndAction()
+        {
+            if(moveButton.State)
+            {
+                moveButton.State = !moveButton.State;
+            }
+        }    
+
+        public void ActivateUnitButtons()
+        {
+            if (turnManager.currTeam == Team.Enemy)
+                return;
+            moveButton.ActivateDeactivateButton(true);
+        }
     
-    public void DeactivateUnitButtons()
-    {
-        moveButton.resetButton();
+        public void DeactivateUnitButtons()
+        {
+            moveButton.resetButton();
+        }
     }
 }

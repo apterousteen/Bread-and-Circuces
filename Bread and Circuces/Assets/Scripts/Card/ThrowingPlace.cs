@@ -1,16 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-
-public class ThrowingPlace : MonoBehaviour, IDropHandler
+namespace Card
 {
-    public void OnDrop(PointerEventData eventData)
+    public class ThrowingPlace : MonoBehaviour, IDropHandler
     {
-        CardMovementScript card = eventData.pointerDrag.GetComponent<CardMovementScript>();
+        public void OnDrop(PointerEventData eventData)
+        {
+            CardMovementScript card = eventData.pointerDrag.GetComponent<CardMovementScript>();
 
-        if (card != null)
-            card.DefaultParent = transform;
+            if (card != null)
+                card.DefaultParent = transform;
+        }
     }
 }

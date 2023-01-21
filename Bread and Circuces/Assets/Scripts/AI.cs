@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Card;
 using UnityEngine;
 
 public class AI : MonoBehaviour

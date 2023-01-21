@@ -1,19 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using UnityEngine;
 
-[Serializable]
-public class Sound
+namespace Audio
 {
-    public string name;
+    [Serializable]
+    public class Sound
+    {
+        public string name;
 
-    public AudioClip clip;
-    public bool loop;
+        public AudioClip clip;
+        public bool loop;
 
-    [Range(0f, 1f)]
-    public float volume;
+        [Range(0f, 1f)]
+        public float volume;
 
-    [HideInInspector]
-    public AudioSource source;
+        [HideInInspector]
+        public AudioSource source;
+    }
 }

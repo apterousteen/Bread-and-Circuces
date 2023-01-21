@@ -1,25 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
-public class ScisTooltipTr : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+namespace Ui
 {
-    public string header;
-    public string content;
-
-    public void OnPointerEnter(PointerEventData eventData)
+    public class ScisTooltipTr : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        if (MenuManager.chosen != null && MenuManager.chosen.CompareTag("Scissor"))
-        { 
-            TooltipSystem.Show(content, header);
+        public string header;
+        public string content;
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (MenuManager.chosen != null && MenuManager.chosen.CompareTag("Scissor"))
+            { 
+                TooltipSystem.Show(content, header);
+            }
         }
-    }
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        TooltipSystem.Hide();
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            TooltipSystem.Hide();
+        }
     }
 }

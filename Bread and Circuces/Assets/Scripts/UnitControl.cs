@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using ButtonsHandlers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -227,7 +228,7 @@ public class UnitControl: MonoBehaviour
             return;
 
         if(info.teamSide == Team.Player)
-            FindObjectOfType<GameManagerScript>().ShowPlayableCards(Card.CardType.Attack, info);
+            FindObjectOfType<GameManagerScript>().ShowPlayableCards(Card.Card.CardType.Attack, info);
         buttonsContainer.ActivateUnitButtons();
         activated = true;
         turnManager.SetActiveUnit(this.gameObject);

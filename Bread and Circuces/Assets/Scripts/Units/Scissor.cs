@@ -1,55 +1,54 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Scissor : UnitInfo
+namespace Units
 {
-    protected override void Start()
+    public class Scissor : UnitInfo
     {
-        damage = 0;
+        protected override void Start()
+        {
+            damage = 0;
 
-        health = 14;
-        defence = 1;
-        attackReachDistance = 1;
-        moveDistance = 2;
-        withShield = false;
+            health = 14;
+            defence = 1;
+            attackReachDistance = 1;
+            moveDistance = 2;
+            withShield = false;
 
-        base.Start();
-    }
+            base.Start();
+        }
 
-    public override void ChangeStance(Stance newStance)
-    {
-        if (currentStance == Stance.Raging && newStance == Stance.Attacking
-            || currentStance == Stance.Raging && newStance == Stance.Raging)
-            return;
-        if (newStance == Stance.Defensive)
-            newStance = Stance.Advance;
-        base.ChangeStance(newStance);
-    }
+        public override void ChangeStance(Stance newStance)
+        {
+            if (currentStance == Stance.Raging && newStance == Stance.Attacking
+                || currentStance == Stance.Raging && newStance == Stance.Raging)
+                return;
+            if (newStance == Stance.Defensive)
+                newStance = Stance.Advance;
+            base.ChangeStance(newStance);
+        }
 
-    public override void OnAttackEnd(UnitInfo target)
-    {
-        base.OnAttackEnd(target);
-    }
+        public override void OnAttackEnd(UnitInfo target)
+        {
+            base.OnAttackEnd(target);
+        }
 
-    public override void OnAttackStart(UnitInfo target)
-    {
-        if (currentStance == Stance.Raging)
-            damage++;
-    }
+        public override void OnAttackStart(UnitInfo target)
+        {
+            if (currentStance == Stance.Raging)
+                damage++;
+        }
 
-    public override void OnDefenceStart()
-    {
+        public override void OnDefenceStart()
+        {
 
-    }
+        }
 
-    public override void OnDefenceEnd()
-    {
-        base.OnDefenceEnd();
-    }
+        public override void OnDefenceEnd()
+        {
+            base.OnDefenceEnd();
+        }
 
-    public override void OnMoveEnd()
-    {
+        public override void OnMoveEnd()
+        {
 
+        }
     }
 }

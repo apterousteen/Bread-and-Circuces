@@ -1,35 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class RunInfo : MonoBehaviour
+namespace Meta
 {
-    public static RunInfo Instance;
-    public Player Player;
-    public bool isTutorial = false;
-
-    private void Awake()
+    public class RunInfo : MonoBehaviour
     {
+        public static RunInfo Instance;
+        public Player Player;
+        public bool isTutorial = false;
 
-        if (!Instance)
+        private void Awake()
         {
-            Instance = this;
+
+            if (!Instance)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            Player = new Player();
+            Player.team = Team.Player;
+
+            DontDestroyOnLoad(this);
+
         }
-        else
+
+        public void SetTutorial()
         {
-            Destroy(gameObject);
-            return;
+            isTutorial = true;
         }
-
-        Player = new Player();
-        Player.team = Team.Player;
-
-        DontDestroyOnLoad(this);
-
-    }
-
-    public void SetTutorial()
-    {
-        isTutorial = true;
     }
 }

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using AI_stuff;
+using Audio;
+using ButtonsHandlers;
 using TMPro;
 
 public enum ActionType
@@ -314,7 +317,7 @@ public class TurnManager : MonoBehaviour
         if (actionQueue.Count == 0 && activeUnit != null && currTeam == Team.Player)
         {
             Debug.Log("Refreshed Cards");
-            gameManager.ShowPlayableCards(Card.CardType.Attack, activeUnit.GetComponent<UnitInfo>());
+            gameManager.ShowPlayableCards(Card.Card.CardType.Attack, activeUnit.GetComponent<UnitInfo>());
         }
 
         //if (isReactionTime && currTeam == Team.Enemy && actionQueue.Where(x => x.team == Team.Player).Count() == 0)
@@ -501,7 +504,7 @@ public class TurnManager : MonoBehaviour
         {
             if (targetUnit == null)
                 break;
-            gameManager.ShowPlayableCards(Card.CardType.Defense, targetUnit.GetComponent<UnitInfo>());
+            gameManager.ShowPlayableCards(Card.Card.CardType.Defense, targetUnit.GetComponent<UnitInfo>());
             if (defCardPlayed && !inAction)
                 break;
             UiController.Instance.UpdateTurnTime(TurnTime);

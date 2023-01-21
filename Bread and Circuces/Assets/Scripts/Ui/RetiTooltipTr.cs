@@ -1,24 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class RetiTooltipTr : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+namespace Ui
 {
-    public string header;
-    public string content;
-
-    public void OnPointerEnter(PointerEventData eventData)
+    public class RetiTooltipTr : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        if (MenuManager.chosen != null && MenuManager.chosen.CompareTag("Retiarius"))
+        public string header;
+        public string content;
+
+        public void OnPointerEnter(PointerEventData eventData)
         {
-            TooltipSystem.Show(content, header);
+            if (MenuManager.chosen != null && MenuManager.chosen.CompareTag("Retiarius"))
+            {
+                TooltipSystem.Show(content, header);
+            }
         }
-    }
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        TooltipSystem.Hide();
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            TooltipSystem.Hide();
+        }
     }
 }
 

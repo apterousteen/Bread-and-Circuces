@@ -1,23 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MurmTooltipTr : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+namespace Ui
 {
-    public string header;
-    public string content;
-
-    public void OnPointerEnter(PointerEventData eventData)
+    public class MurmTooltipTr : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        if (MenuManager.chosen != null && MenuManager.chosen.CompareTag("Murmillo"))
+        public string header;
+        public string content;
+
+        public void OnPointerEnter(PointerEventData eventData)
         {
-            TooltipSystem.Show(content, header);
+            if (MenuManager.chosen != null && MenuManager.chosen.CompareTag("Murmillo"))
+            {
+                TooltipSystem.Show(content, header);
+            }
         }
-    }
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        TooltipSystem.Hide();
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            TooltipSystem.Hide();
+        }
     }
 }

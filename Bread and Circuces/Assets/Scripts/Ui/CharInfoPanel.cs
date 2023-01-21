@@ -1,25 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
+using UnityEngine;
 
-public class CharInfoPanel : MonoBehaviour
+namespace Ui
 {
-    public static CharInfoPanel instance;
+    public class CharInfoPanel : MonoBehaviour
+    {
+        public static CharInfoPanel instance;
  
-    public CharInfo charInfoRet;
-    public CharInfo charInfoMurm;
-    public CharInfo charInfoSkis;
-    public CharInfo charInfoHoplo;
+        public CharInfo charInfoRet;
+        public CharInfo charInfoMurm;
+        public CharInfo charInfoSkis;
+        public CharInfo charInfoHoplo;
 
-    public TextMeshProUGUI charName;
-    public TextMeshProUGUI health;
-    public TextMeshProUGUI moveDistance;
-    public TextMeshProUGUI attackReachDistance;
-    public TextMeshProUGUI info;
+        public TextMeshProUGUI charName;
+        public TextMeshProUGUI health;
+        public TextMeshProUGUI moveDistance;
+        public TextMeshProUGUI attackReachDistance;
+        public TextMeshProUGUI info;
 
-    public GameObject cardPanel;
+        public GameObject cardPanel;
 
-    public GameObject charIcon;
+        public GameObject charIcon;
+    }
 }

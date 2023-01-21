@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Card;
 using UnityEngine;
 
 public class Player
 {
     public int Mana, Manapool, activatedUnits;
-    public List<Card> Deck, DiscardPile;
+    public List<Card.Card> Deck, DiscardPile;
     public Team team;
     public UnitBand units; 
     public List<CardController> HandCards;
@@ -15,8 +16,8 @@ public class Player
     {
         Mana = Manapool = 4;
         activatedUnits = 0;
-        Deck = new List<Card>();
-        DiscardPile = new List<Card>();
+        Deck = new List<Card.Card>();
+        DiscardPile = new List<Card.Card>();
         HandCards = new List<CardController>();
         units = new UnitBand();
     }
@@ -25,8 +26,8 @@ public class Player
     {
         Mana = Manapool = 4;
         activatedUnits = 0;
-        Deck = new List<Card>();
-        DiscardPile = new List<Card>();
+        Deck = new List<Card.Card>();
+        DiscardPile = new List<Card.Card>();
         HandCards = new List<CardController>();
     }
 
