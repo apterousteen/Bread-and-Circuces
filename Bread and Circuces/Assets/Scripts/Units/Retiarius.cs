@@ -26,17 +26,24 @@ namespace Units
 
         public override void OnAttackStart(UnitInfo target)
         {
-
+            ChangeAnimationAttack(gameObject.name);
         }
 
         public override void OnDefenceStart()
         {
-
         }
 
-        public override void OnDefenceEnd()
+        public override void OnDefenceEnd(float blockDamage)
         {
-            base.OnDefenceEnd();
+            if (blockDamage == 0)
+            {
+                ChangeAnimationBlock(gameObject.name);
+            }
+            else
+            {
+                ChangeAnimationHit(gameObject.name);
+            }
+            base.OnDefenceEnd(blockDamage);
         }
 
         public override void OnMoveEnd()

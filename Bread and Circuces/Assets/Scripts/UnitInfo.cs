@@ -36,6 +36,8 @@ public abstract class UnitInfo : MonoBehaviour
     public MotionType motionType;
     public bool withShield;
     public List<Card.Card> UnitDeck;
+    protected Animator animator;
+    protected SpriteRenderer spriteRenderer;
 
     private int baseDamage;
     private int baseDefence;
@@ -46,6 +48,8 @@ public abstract class UnitInfo : MonoBehaviour
 
     protected virtual void Start()
     {
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         motionType = MotionType.RadiusType;
         currentStance = Stance.Advance;
         stanceToChange = Stance.Advance;
@@ -56,6 +60,70 @@ public abstract class UnitInfo : MonoBehaviour
         maxHealth = health;
         healthbar.SetHealth(health, maxHealth);
     }
+
+    protected void ChangeAnimationAttack(string characterName)
+    {
+        spriteRenderer.sortingOrder += 1;
+        if (characterName == "Hoplomachus(Clone)")
+        {
+            Debug.Log("Анимация работает");
+            animator.Play("HoplmachusInGameAttack");
+        }
+        else if (characterName == "Murmillo(Clone)")
+        {
+            animator.Play("MurmilloInGameAttack");
+        }
+        else if (characterName == "Retiarius(Clone)")
+        {
+            animator.Play("RetiariusInGameAttack");
+        }
+        else if (characterName == "Scisssor(Clone)")
+        {
+            animator.Play("ScissorInGameAttack");
+        }
+    }
+
+    protected void ChangeAnimationHit(string characterName)
+    {
+        if (spriteRenderer.sortingOrder > 1)
+        {
+            spriteRenderer.sortingOrder -= 1;
+        }
+
+        if (characterName == "Hoplomachus(Clone)")
+            animator.Play("HoplmachusInGameHit");
+        else if (characterName == "Murmillo(Clone)")
+        {
+            animator.Play("MurmilloInGameHit");
+        }
+        else if (characterName == "Retiarius(Clone)")
+        {
+            animator.Play("RetiariusInGameHit");
+        }
+        else if (characterName == "Scisssor(Clone)")
+        {
+            animator.Play("ScissorInGameHit");
+        }
+    }
+
+    protected void ChangeAnimationBlock(string characterName)
+    {
+        if (name == "Hoplomachus(Clone)")
+            animator.Play("HoplmachusInGameBlock");
+        else if (name == "Murmillo(Clone)")
+        {
+            animator.Play("MurmilloInGameBlock");
+        }
+        else if (name == "Retiarius(Clone)")
+        {
+            animator.Play("RetiariusInGameBlock");
+        }
+        else if (name == "Scisssor(Clone)")
+        {
+            animator.Play("ScissorInGameBlock");
+        }
+    }
+
 
     public bool IsEnemy(UnitInfo otherUnit)
     {
@@ -126,7 +194,7 @@ public abstract class UnitInfo : MonoBehaviour
 
     public abstract void OnDefenceStart();
 
-    public virtual void OnDefenceEnd()
+    public virtual void OnDefenceEnd(float blockDamage)
     {
         defence = baseDefence;
     }

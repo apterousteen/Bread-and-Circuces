@@ -32,23 +32,32 @@ namespace Units
 
         public override void OnAttackStart(UnitInfo target)
         {
+            ChangeAnimationAttack(gameObject.name);
             if (currentStance == Stance.Raging)
                 damage++;
         }
 
         public override void OnDefenceStart()
         {
-
+            ChangeAnimationHit(gameObject.name);
         }
 
-        public override void OnDefenceEnd()
+        public override void OnDefenceEnd(float blockDamage)
         {
-            base.OnDefenceEnd();
+            if (blockDamage == 0)
+            {
+                ChangeAnimationBlock(gameObject.name);
+            }
+            else
+            {
+                ChangeAnimationHit(gameObject.name);
+            }
+
+            base.OnDefenceEnd(blockDamage);
         }
 
         public override void OnMoveEnd()
         {
-
         }
     }
 }

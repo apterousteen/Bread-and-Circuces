@@ -4,7 +4,7 @@ using ButtonsHandlers;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UnitControl: MonoBehaviour
+public class UnitControl : MonoBehaviour
 {
     private float posX;
     private float posY;
@@ -18,7 +18,7 @@ public class UnitControl: MonoBehaviour
     private ButtonsContainer buttonsContainer;
     private Rigidbody2D rb2d;
     private Animator _animator;
-    
+
     public bool faceRight = true;
 
     public List<HexTile> path;
@@ -58,20 +58,21 @@ public class UnitControl: MonoBehaviour
         {
             if (!activated && !turnManager.activatedUnits.Contains(info))
                 ActivateFigure();
-            else if(!turnManager.activatedUnits.Contains(info))
+            else if (!turnManager.activatedUnits.Contains(info))
                 DeactivateFigure();
         }
+
         UiController.Instance.UpdateInfoPanels(gameObject);
     }
 
     void DispathInput()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             var raycastPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(raycastPosition, Vector2.zero);
 
-            if(hit.collider != null)
+            if (hit.collider != null)
             {
                 if (activated && !turnManager.movingEnemy)
                 {
@@ -82,7 +83,7 @@ public class UnitControl: MonoBehaviour
                         {
                             if (!hittedTile.isOccupied || hittedTile.transform == transform.parent)
                                 HandleMovement(hittedTile);
-                            else 
+                            else
                                 HandleAttack(hittedTile);
                         }
                     }
@@ -93,8 +94,8 @@ public class UnitControl: MonoBehaviour
                             HandleAttack(targetTile);
                     }
                 }
-                else if(!activated && turnManager.movingEnemy && 
-                    turnManager.targetUnit != null && turnManager.targetUnit == gameObject)
+                else if (!activated && turnManager.movingEnemy &&
+                         turnManager.targetUnit != null && turnManager.targetUnit == gameObject)
                 {
                     var hittedTile = hit.collider.gameObject.GetComponent<HexTile>();
                     if (hittedTile.isChosen)
@@ -109,14 +110,14 @@ public class UnitControl: MonoBehaviour
 
     void DispathAction()
     {
-        if(!activated)
+        if (!activated)
             return;
 
         //int action = buttonsContainer.GetAction();
 
         //if(action == 1)
         //    ShowMovementArea(info.moveDistance);
-        
+
         //if(action == -1)
         //    HideArea(info.moveDistance);
 
@@ -153,7 +154,8 @@ public class UnitControl: MonoBehaviour
         MoveObject();
     }
 
-    void MoveObject(){
+    void MoveObject()
+    {
         //transform.position = new Vector3(posX, posY, transform.position.z);
         //var endPos = new Vector3(posX, posY, transform.position.z);
         StartCoroutine(SmoothMovement());
@@ -166,7 +168,7 @@ public class UnitControl: MonoBehaviour
     {
         //isMoving = true;
         var previousX = transform.position.x;
-        foreach(var point in path)
+        foreach (var point in path)
         {
             var end = new Vector3(point.transform.position.x, point.transform.position.y, transform.position.z);
             var diffX = end.x - previousX;
@@ -182,9 +184,11 @@ public class UnitControl: MonoBehaviour
                 sqrRemainingDistance = (transform.position - end).sqrMagnitude;
                 yield return null;
             }
+
             previousX = end.x;
             yield return new WaitForSeconds(0.05f);
         }
+
         //isMoving = false;
         info.OnMoveEnd();
         info.ChangeMotionType(MotionType.RadiusType);
@@ -195,7 +199,8 @@ public class UnitControl: MonoBehaviour
     {
         faceRight = !faceRight;
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-        transform.localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, -transform.localEulerAngles.z);
+        transform.localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y,
+            -transform.localEulerAngles.z);
     }
 
     public void MakeAtack(UnitInfo enemyUnit)
@@ -207,9 +212,10 @@ public class UnitControl: MonoBehaviour
         var damageDealt = info.damage - enemyUnit.defence;
         if (damageDealt < 0)
             damageDealt = 0;
+
         enemyUnit.SufferDamage(damageDealt);
         info.OnAttackEnd(enemyUnit);
-        enemyUnit.OnDefenceEnd();
+        enemyUnit.OnDefenceEnd(damageDealt);
         turnManager.EndAction();
     }
 
@@ -226,17 +232,16 @@ public class UnitControl: MonoBehaviour
 
     public void ActivateFigure()
     {
-        if(turnManager.ActiveUnitExist() || turnManager.currTeam != info.teamSide)
+        if (turnManager.ActiveUnitExist() || turnManager.currTeam != info.teamSide)
             return;
 
-        if(info.teamSide == Team.Player)
+        if (info.teamSide == Team.Player)
             FindObjectOfType<GameManagerScript>().ShowPlayableCards(Card.Card.CardType.Attack, info);
         buttonsContainer.ActivateUnitButtons();
         activated = true;
         turnManager.SetActiveUnit(this.gameObject);
         var hexToColor = gameObject.transform.parent.GetComponent<HexTile>().GetComponent<SpriteRenderer>();
         hexToColor.material.SetColor("_Color", Color.grey);
-        
     }
 
     public void DeactivateFigure()
@@ -257,7 +262,7 @@ public class UnitControl: MonoBehaviour
             distance++;
         if (info.motionType == MotionType.RadiusType)
             tiles = distanceFinder.FindPaths(transform.parent.GetComponent<HexTile>(), distance);
-        else if(info.motionType == MotionType.StraightType)
+        else if (info.motionType == MotionType.StraightType)
             tiles = distanceFinder.FindStraightPaths(transform.parent.GetComponent<HexTile>(), distance);
 
         foreach (var tile in tiles)
@@ -275,21 +280,22 @@ public class UnitControl: MonoBehaviour
         foreach (var tile in tiles)
         {
             var tileRenderer = tile.gameObject.GetComponent<SpriteRenderer>();
-            if(tile.isOccupied)
+            if (tile.isOccupied)
             {
-                if(tile.transform.GetChild(0).GetComponent<UnitInfo>().IsEnemy(info))
+                if (tile.transform.GetChild(0).GetComponent<UnitInfo>().IsEnemy(info))
                 {
                     tileRenderer.material.SetColor("_Color", new Color(1f, 0.5647059f, 0.5647059f, 1f));
                     tile.isChosen = true;
                     foundEnemies++;
                 }
             }
-            else 
+            else
             {
                 tileRenderer.material.SetColor("_Color", new Color(0.8f, 0.8f, 0.8f, 1f));
             }
         }
-        if(foundEnemies == 0)
+
+        if (foundEnemies == 0)
         {
             HideArea();
             turnManager.EndAction();
@@ -309,6 +315,7 @@ public class UnitControl: MonoBehaviour
                 }
             }
         }
+
         return false;
     }
 
