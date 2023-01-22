@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 7389475672126134387}
   - component: {fileID: 4595250726131787929}
   - component: {fileID: 2323345349870628396}
+  - component: {fileID: 3450260855221714058}
   m_Layer: 7
   m_Name: Murmillo
   m_TagString: Murmillo
@@ -255,7 +256,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 1a4193a5306d53b41a1d498f280859c2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0f837b4aae86190448418ee4afa78be6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -323,8 +324,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 1.6}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.40015647, y: 0.1188057}
-    oldSize: {x: 4.38, y: 5.25}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 19.2, y: 10.8}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -354,3 +355,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &3450260855221714058
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3630177870721904072}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7295cf5729c14ca4f8feaef4c8a3ef92, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

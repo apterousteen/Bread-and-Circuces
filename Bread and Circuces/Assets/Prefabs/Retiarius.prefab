@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 4789576756454365967}
   - component: {fileID: 2598239095440854025}
   - component: {fileID: 6625506441443311623}
+  - component: {fileID: 7118131359238965056}
   m_Layer: 7
   m_Name: Retiarius
   m_TagString: Retiarius
@@ -159,7 +160,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 32a570edd2749dc4a8382287df592077, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9f5cf377c77ddc947bc777e5b0e09be9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -227,8 +228,8 @@ BoxCollider2D:
   m_Offset: {x: -0.2, y: 2.1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.53384733, y: 0.08209804}
-    oldSize: {x: 4.63, y: 5.55}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 19.2, y: 10.8}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -258,6 +259,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &7118131359238965056
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5977966914783954603}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a9dda3c40fd2bb349898c300e97e71fe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8682256905096064155
 GameObject:
   m_ObjectHideFlags: 0

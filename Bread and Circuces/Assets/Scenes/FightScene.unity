@@ -1798,6 +1798,7 @@ GameObject:
   - component: {fileID: 333080850}
   - component: {fileID: 333080849}
   - component: {fileID: 333080848}
+  - component: {fileID: 333080854}
   m_Layer: 5
   m_Name: BG
   m_TagString: Untagged
@@ -1825,7 +1826,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7db104e1f5d727e45a3e305c0ebc5d81, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8e548f1436b9942468a33ba02e891724, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1923,6 +1924,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!95 &333080854
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333080847}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8292c865b37d8a841becd9a7c9f18076, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &346118110
 GameObject:
   m_ObjectHideFlags: 0

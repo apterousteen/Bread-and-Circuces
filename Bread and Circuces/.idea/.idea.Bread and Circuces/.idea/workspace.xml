@@ -5,10 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="169a3587-18e0-4128-809e-3d1cfe17182c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Bread and Circuces/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bread and Circuces/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Bread and Circuces/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bread and Circuces/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/choiceMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/choiceMenu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Electronic Highway Sign SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Electronic Highway Sign SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Hoplomachus.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Hoplomachus/1.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Hoplomachus/1/Hoplomachus.controller" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Hoplomachus/1/Hoplomachus.controller.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Hoplomachus/1/hopl_1_idle.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Hoplomachus/1/hopl_1_idle.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Hoplomachus.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Hoplomachus.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Murmillo.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Murmillo.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Retiarius.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Retiarius.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Scisssor.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Scisssor.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/FightScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/FightScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UnitControl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UnitControl.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Units/Hoplomachus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Units/Hoplomachus.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +52,7 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.C#&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -89,7 +100,9 @@
       <workItem from="1670920215980" duration="135000" />
       <workItem from="1674157312684" duration="2092000" />
       <workItem from="1674215049603" duration="1114000" />
-      <workItem from="1674295266320" duration="7911000" />
+      <workItem from="1674295266320" duration="11757000" />
+      <workItem from="1674373984188" duration="896000" />
+      <workItem from="1674374902311" duration="1864000" />
     </task>
     <servers />
   </component>

@@ -17,6 +17,7 @@ public class UnitControl: MonoBehaviour
     private DistanceFinder distanceFinder;
     private ButtonsContainer buttonsContainer;
     private Rigidbody2D rb2d;
+    private Animator _animator;
     
     public bool faceRight = true;
 
@@ -24,6 +25,7 @@ public class UnitControl: MonoBehaviour
 
     void Start()
     {
+        //_animator = GetComponent<Animator>();
         board = FindObjectOfType<Board>();
         turnManager = FindObjectOfType<TurnManager>();
         distanceFinder = FindObjectOfType<DistanceFinder>();

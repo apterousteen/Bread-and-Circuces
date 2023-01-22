@@ -1,11 +1,19 @@
+using UnityEditor;
+using UnityEngine;
+
 namespace Units
 {
     public class Hoplomachus : UnitInfo
     {
         private DistanceFinder distanceFinder;
+        private Animator _animator;
+        private SpriteRenderer _spriteRenderer;
+
         protected override void Start()
 
         {
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _animator = GetComponent<Animator>();
             damage = 0;
 
             health = 15;
@@ -16,6 +24,7 @@ namespace Units
             distanceFinder = FindObjectOfType<DistanceFinder>();
             base.Start();
         }
+
         public override void OnAttackEnd(UnitInfo target)
         {
             base.OnAttackEnd(target);
@@ -27,12 +36,20 @@ namespace Units
             var targetHex = target.transform.parent.GetComponent<HexTile>();
             var distance = distanceFinder.GetDistanceBetweenHexes(occupiedHex, targetHex);
             if (distance == 1 && currentStance == Stance.Attacking)
-                damage += 1;
+            {
+                _animator.Play("HoplmachusInGameAttack");
+                _spriteRenderer.sortingOrder += 1;
+                target.damage += 1;
+            }
         }
 
         public override void OnDefenceStart()
         {
-
+            _animator.Play("HoplmachusInGameHit");
+            if (_spriteRenderer.sortingOrder > 1)
+            {
+                _spriteRenderer.sortingOrder -= 1;
+            }
         }
 
         public override void OnDefenceEnd()
@@ -49,7 +66,6 @@ namespace Units
 
         public override void OnMoveEnd()
         {
-
         }
     }
 }
