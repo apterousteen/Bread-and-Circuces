@@ -5,6 +5,7 @@ using UnityEngine;
 public enum Team
 {
     Player,
+    Player2,
     Enemy
 }
 
@@ -39,12 +40,13 @@ public abstract class UnitInfo : MonoBehaviour
     protected Animator animator;
     protected SpriteRenderer spriteRenderer;
 
-    private int baseDamage;
-    private int baseDefence;
+    protected int baseDamage;
+    protected int baseDefence;
 
     public Sprite altSkin;
     public HealthBar healthbar;
     public float maxHealth;
+    public Vector3 offset = new Vector3(0f, 0f, 0f);
 
     protected virtual void Start()
     {
@@ -63,7 +65,7 @@ public abstract class UnitInfo : MonoBehaviour
 
     protected void ChangeAnimationAttack(string characterName)
     {
-        spriteRenderer.sortingOrder += 1;
+        spriteRenderer.sortingOrder = 2;
         if (characterName == "Hoplomachus(Clone)")
         {
             Debug.Log("Анимация работает");
@@ -87,7 +89,7 @@ public abstract class UnitInfo : MonoBehaviour
     {
         if (spriteRenderer.sortingOrder > 1)
         {
-            spriteRenderer.sortingOrder -= 1;
+            spriteRenderer.sortingOrder = 1;
         }
 
         if (characterName == "Hoplomachus(Clone)")

@@ -5,11 +5,13 @@ namespace ButtonsHandlers
     public class ButtonsContainer : MonoBehaviour
     {
         public MoveButtonHandler moveButton;
+        public EndTurnButtonHandler endButton;
         private TurnManager turnManager;
 
         void Start()
         { 
             moveButton = FindObjectOfType<MoveButtonHandler>();
+            endButton = FindObjectOfType<EndTurnButtonHandler>();
             turnManager = FindObjectOfType<TurnManager>();
             DeactivateUnitButtons();
         }
@@ -37,11 +39,15 @@ namespace ButtonsHandlers
             if (turnManager.currTeam == Team.Enemy)
                 return;
             moveButton.ActivateDeactivateButton(true);
+            endButton.ActivateDeactivateButton(true);
         }
     
         public void DeactivateUnitButtons()
         {
             moveButton.resetButton();
+            endButton.resetButton();
         }
+
+
     }
 }

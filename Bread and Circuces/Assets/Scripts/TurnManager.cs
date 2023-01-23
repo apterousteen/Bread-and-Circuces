@@ -416,7 +416,7 @@ public class TurnManager : MonoBehaviour
             AudioManager.Instance.Play("Turn Start");
             currTeam = Team.Player;
         }
-        UiController.Instance.DisableTurnBtn();
+        //UiController.Instance.DisableTurnBtn();
         if (playerCanActivate || enemyCanActivate)
         {
             StartCoroutine(TurnFunc());
@@ -431,7 +431,7 @@ public class TurnManager : MonoBehaviour
         activationNum = 0;
         currTeam = teamWithInitiative;
 
-        UiController.Instance.DisableTurnBtn();
+        //UiController.Instance.DisableTurnBtn();
 
         activatedUnits.Clear();
         gameManager.GiveNewCards();
@@ -456,7 +456,7 @@ public class TurnManager : MonoBehaviour
         var targetInfo = target.GetComponent<UnitInfo>();
         isReactionTime = true;
         targetUnit = target;
-        UiController.Instance.hintPanel.GetComponentInChildren<TextMeshProUGUI>().text = "???????????? ?? ????? ?????";
+        UiController.Instance.hintPanel.GetComponentInChildren<TextMeshProUGUI>().text = "Отреагируйте на атаку врага";
         UiController.Instance.hintPanel.SetActive(true);
 
         if (activeUnitInfo.teamSide == Team.Player)

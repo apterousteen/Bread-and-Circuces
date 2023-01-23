@@ -14,6 +14,8 @@ namespace Units
             moveDistance = 3;
             withShield = true;
 
+            offset = new UnityEngine.Vector3(0f, 0.4f);
+
             turnManager = FindObjectOfType<TurnManager>();
             base.Start();
         }

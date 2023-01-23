@@ -146,8 +146,8 @@ public class UnitControl : MonoBehaviour
     public void MoveFigureOnObject(HexTile targetHex)
     {
         path = distanceFinder.FindClosestPath(transform.parent.GetComponent<HexTile>(), targetHex);
-        posX = targetHex.transform.position.x;
-        posY = targetHex.transform.position.y;
+        posX = targetHex.transform.position.x + info.offset.x;
+        posY = targetHex.transform.position.y + info.offset.y;
         var previousHex = transform.parent.gameObject.GetComponent<HexTile>();
         transform.parent = targetHex.transform;
         previousHex.isOccupied = false;
@@ -167,10 +167,10 @@ public class UnitControl : MonoBehaviour
     IEnumerator SmoothMovement()
     {
         //isMoving = true;
-        var previousX = transform.position.x;
+        var previousX = transform.position.x + info.offset.x;
         foreach (var point in path)
         {
-            var end = new Vector3(point.transform.position.x, point.transform.position.y, transform.position.z);
+            var end = new Vector3(point.transform.position.x + info.offset.x, point.transform.position.y + info.offset.y, transform.position.z + +info.offset.z);
             var diffX = end.x - previousX;
             if (diffX > 0 && !faceRight)
                 Flip();

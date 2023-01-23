@@ -8,9 +8,12 @@ namespace Units
 
             health = 14;
             defence = 1;
+            baseDefence = 1;
             attackReachDistance = 1;
             moveDistance = 2;
             withShield = false;
+
+            offset = new UnityEngine.Vector3(-0.1f, 0.6f);
 
             base.Start();
         }

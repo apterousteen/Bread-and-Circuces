@@ -186,7 +186,7 @@ namespace AI_stuff
 
         public void UseCard(Card.Card card, UnitInfo unit)
         {
-            Debug.Log("??????? " + card.Name);
+            Debug.Log("Сыграно " + card.Name);
             gameManager.ReduceMana(false, card.Manacost);
 
             var spellCard = card;

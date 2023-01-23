@@ -142,7 +142,7 @@ namespace Ui
             ResetTeam();
             if (SceneManager.GetActiveScene().name == "choiceMenu" || SceneManager.GetActiveScene().name == "choiceMenuTutorial")
             {
-                ChooseButton.GetComponentInChildren<TextMeshProUGUI>().text = "???????";
+                ChooseButton.GetComponentInChildren<TextMeshProUGUI>().text = "Выбрать";
                 ChooseButton.onClick.AddListener(AddToTeam);
             }
             Time.timeScale = 1f;

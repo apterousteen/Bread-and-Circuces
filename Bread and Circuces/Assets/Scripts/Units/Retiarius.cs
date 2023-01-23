@@ -14,6 +14,8 @@ namespace Units
             moveDistance = 3;
             withShield = false;
 
+            offset = new UnityEngine.Vector3(0f, 0.4f);
+
             base.Start();
 
             gameManager = FindObjectOfType<GameManagerScript>();

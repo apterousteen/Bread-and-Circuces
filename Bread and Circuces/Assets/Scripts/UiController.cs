@@ -124,7 +124,7 @@ public class UiController : MonoBehaviour
     public void StartGame()
     {
         FindUI();
-        EndTurnBtn.interactable = true;
+        //EndTurnBtn.interactable = true;
         isTurnEndButton = true;
         UpdateMana();
 

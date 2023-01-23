@@ -18,6 +18,8 @@ namespace Units
             moveDistance = 3;
             withShield = true;
             distanceFinder = FindObjectOfType<DistanceFinder>();
+
+            offset = new UnityEngine.Vector3(0f, 0.4f);
             base.Start();
             Debug.Log(this.gameObject.name);
         }
@@ -32,9 +34,10 @@ namespace Units
             var occupiedHex = transform.parent.GetComponent<HexTile>();
             var targetHex = target.transform.parent.GetComponent<HexTile>();
             var distance = distanceFinder.GetDistanceBetweenHexes(occupiedHex, targetHex);
+            ChangeAnimationAttack(gameObject.name);
             if (distance == 1 && currentStance == Stance.Attacking)
             {
-                target.damage += 1;
+                damage += 1;
             }
         }
 
@@ -54,13 +57,6 @@ namespace Units
             }
 
             base.OnDefenceEnd(blockDamage);
-        }
-
-        public override bool OnMoveStart()
-        {
-            if (motionType == MotionType.StraightType)
-                return true;
-            else return false;
         }
 
         public override void OnMoveEnd()
