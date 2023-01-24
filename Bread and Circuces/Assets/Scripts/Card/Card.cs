@@ -1,11 +1,13 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Card
 {
     public class Card : EnumCard
     {
         protected internal CardEffect FirstCardEff, FirstCardEffTwo;
-        protected internal Stance StartStance, EndStance;
+        protected internal List<Stance> StartStance; 
+        protected internal Stance EndStance;
         private TargetType SpellTarget;
         protected internal CardType Type;
         protected internal CardRestriction Restriction, CardSet;
@@ -16,7 +18,7 @@ namespace Card
         protected internal int Manacost, SpellValue, SecondSpellValue;
         protected internal bool IsPlaced;
 
-        public Card(CardRestriction cardSet, string name, string logoPath, int manacost, Stance startStance,
+        public Card(CardRestriction cardSet, string name, string logoPath, int manacost, List<Stance> startStance,
             Stance endStance, CardType type ,
             CardEffect firstCardEffect , int spellValue , CardEffect firstCardEffectTwo,
             int secondSpellValue,

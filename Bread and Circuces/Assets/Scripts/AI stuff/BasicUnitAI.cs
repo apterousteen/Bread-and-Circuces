@@ -157,7 +157,7 @@ namespace AI_stuff
         {
             var availableCards = gameManager.CurrentGame.Enemy.Deck
                 .Where(x => x.Restriction == EnumCard.CardRestriction.Universal && x.Type == Card.Card.CardType.Attack
-                    && x.StartStance == info.currentStance).ToList();
+                    && x.StartStance.Contains(info.currentStance)).ToList();
             Debug.Log("All cards = " + gameManager.CurrentGame.Enemy.Deck.Count);
             Debug.Log("Available cards = " + availableCards.Count);
             if (availableCards.Count == 0 || !CanPlayAttackCard())
@@ -173,7 +173,7 @@ namespace AI_stuff
         {
             var availableCards = gameManager.CurrentGame.Enemy.Deck
                 .Where(x => x.Restriction == EnumCard.CardRestriction.Universal && x.Type == Card.Card.CardType.Defense
-                    && x.StartStance == info.currentStance).ToList();
+                    && x.StartStance.Contains(info.currentStance)).ToList();
             if (availableCards.Count == 0 || !CanPlayDefenceCard())
             {
                 turnManager.AddAction(new Action(ActionType.Skip, Team.Enemy, 0));

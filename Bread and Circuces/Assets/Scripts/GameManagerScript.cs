@@ -224,7 +224,7 @@ public class GameManagerScript : MonoBehaviour
         foreach (var card in CurrentGame.Player.HandCards)
         {
             var cardInfo = card.Card;
-            if (cardInfo.Type == type && (cardInfo.StartStance == unit.currentStance || unit.currentStance == Stance.Raging && cardInfo.StartStance == Stance.Attacking) 
+            if (cardInfo.Type == type && (cardInfo.StartStance.Contains(unit.currentStance) || unit.currentStance == Stance.Raging && cardInfo.StartStance.Contains(Stance.Attacking)) 
                 && (cardInfo.Restriction == EnumCard.CardRestriction.Universal|| cardInfo.Restriction.ToString() == unit.gameObject.tag.ToString()))
             {
                 card.Info.HiglightCard(true);

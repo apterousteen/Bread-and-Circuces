@@ -127,7 +127,7 @@ Transform:
   m_GameObject: {fileID: 4677609092252160450}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.175, y: 0.175, z: 1}
+  m_LocalScale: {x: 0.16, y: 0.16, z: 1}
   m_Children:
   - {fileID: 7009050168443065589}
   - {fileID: 868734754393852430}
@@ -226,6 +226,7 @@ MonoBehaviour:
   altSkin: {fileID: 21300000, guid: 514d8f4d363aa9845ba8e71c94e6bbd1, type: 3}
   healthbar: {fileID: 3314325095442696576}
   maxHealth: 0
+  offset: {x: 0, y: 0, z: 0}
 --- !u!61 &4614857288752526128
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -250,7 +251,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3, y: 5}
+  m_Size: {x: 3, y: 4.5}
   m_EdgeRadius: 0
 --- !u!50 &7659842692793577843
 Rigidbody2D:

@@ -39,13 +39,13 @@ namespace ButtonsHandlers
             if (turnManager.currTeam == Team.Enemy)
                 return;
             moveButton.ActivateDeactivateButton(true);
-            endButton.ActivateDeactivateButton(true);
+            //endButton.ActivateDeactivateButton(true);
         }
     
         public void DeactivateUnitButtons()
         {
             moveButton.resetButton();
-            endButton.resetButton();
+            //endButton.resetButton();
         }
 
 

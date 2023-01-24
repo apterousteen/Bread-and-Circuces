@@ -5,7 +5,6 @@ using UnityEngine;
 public enum Team
 {
     Player,
-    Player2,
     Enemy
 }
 
@@ -14,7 +13,8 @@ public enum Stance
     Defensive,
     Advance,
     Attacking,
-    Raging
+    Raging,
+    Any
 }
 
 public enum MotionType
