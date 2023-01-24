@@ -34,7 +34,8 @@ namespace Units
             var occupiedHex = transform.parent.GetComponent<HexTile>();
             var targetHex = target.transform.parent.GetComponent<HexTile>();
             var distance = distanceFinder.GetDistanceBetweenHexes(occupiedHex, targetHex);
-            ChangeAnimationAttack(gameObject.name);
+            ChangeAnimation("Hoplomachus", animation: Animation.Attack);
+            // ChangeAnimationAttack(gameObject.name);
             if (distance == 1 && currentStance == Stance.Attacking)
             {
                 damage += 1;
@@ -49,11 +50,13 @@ namespace Units
         {
             if (blockDamage == 0)
             {
-                ChangeAnimationBlock(gameObject.name);
+                ChangeAnimation("Hoplomachus", animation: Animation.Block);
+                //ChangeAnimationBlock(gameObject.name);
             }
             else
             {
-                ChangeAnimationHit(gameObject.name);
+                ChangeAnimation("Hoplomachus", animation: Animation.Hit);
+                //ChangeAnimationHit(gameObject.name);
             }
 
             base.OnDefenceEnd(blockDamage);

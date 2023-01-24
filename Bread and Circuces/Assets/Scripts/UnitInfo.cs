@@ -23,6 +23,13 @@ public enum MotionType
     RadiusType
 }
 
+public enum Animation
+{
+    Attack,
+    Hit,
+    Block
+}
+
 public abstract class UnitInfo : MonoBehaviour
 {
     public string unitName;
@@ -63,68 +70,141 @@ public abstract class UnitInfo : MonoBehaviour
         healthbar.SetHealth(health, maxHealth);
     }
 
-    protected void ChangeAnimationAttack(string characterName)
+    protected void ChangeAnimation(string characterName, Animation animation)
     {
-        spriteRenderer.sortingOrder = 2;
-        if (characterName == "Hoplomachus(Clone)")
+        if (animation == Animation.Attack)
         {
-            Debug.Log("Анимация работает");
-            animator.Play("HoplmachusInGameAttack");
+            spriteRenderer.sortingOrder = 2;
+            characterName += "InGameAttack";
+            
+            animator.Play(characterName);
+            // if (characterName == "Hoplomachus(Clone)")
+            // {
+            //     Debug.Log("Анимация работает");
+            //     animator.Play("HoplmachusInGameAttack");
+            // }
+            // else if (characterName == "Murmillo(Clone)")
+            // {
+            //     animator.Play("MurmilloInGameAttack");
+            // }
+            // else if (characterName == "Retiarius(Clone)")
+            // {
+            //     animator.Play("RetiariusInGameAttack");
+            // }
+            // else if (characterName == "Scisssor(Clone)")
+            // {
+            //     animator.Play("ScissorInGameAttack");
+            // }
         }
-        else if (characterName == "Murmillo(Clone)")
+
+        if (animation == Animation.Hit)
         {
-            animator.Play("MurmilloInGameAttack");
+            if (spriteRenderer.sortingOrder > 1)
+            {
+                spriteRenderer.sortingOrder = 1;
+            }
+
+            characterName += "InGameHit";
+            animator.Play(characterName);
+
+            // if (characterName == "Hoplomachus(Clone)")
+            //     animator.Play("HoplmachusInGameHit");
+            // else if (characterName == "Murmillo(Clone)")
+            // {
+            //     animator.Play("MurmilloInGameHit");
+            // }
+            // else if (characterName == "Retiarius(Clone)")
+            // {
+            //     animator.Play("RetiariusInGameHit");
+            // }
+            // else if (characterName == "Scisssor(Clone)")
+            // {
+            //     animator.Play("ScissorInGameHit");
+            // }
         }
-        else if (characterName == "Retiarius(Clone)")
+
+        if (animation == Animation.Block)
         {
-            animator.Play("RetiariusInGameAttack");
-        }
-        else if (characterName == "Scisssor(Clone)")
-        {
-            animator.Play("ScissorInGameAttack");
+            characterName += "InGameBlock";
+            animator.Play(characterName);
+            // if (name == "Hoplomachus(Clone)")
+            //     animator.Play("HoplmachusInGameBlock");
+            // else if (name == "Murmillo(Clone)")
+            // {
+            //     animator.Play("MurmilloInGameBlock");
+            // }
+            // else if (name == "Retiarius(Clone)")
+            // {
+            //     animator.Play("RetiariusInGameBlock");
+            // }
+            // else if (name == "Scisssor(Clone)")
+            // {
+            //     animator.Play("ScissorInGameBlock");
+            // }
         }
     }
 
-    protected void ChangeAnimationHit(string characterName)
-    {
-        if (spriteRenderer.sortingOrder > 1)
-        {
-            spriteRenderer.sortingOrder = 1;
-        }
+    // protected void ChangeAnimationAttack(string characterName)
+    // {
+    //     spriteRenderer.sortingOrder = 2;
+    //     if (characterName == "Hoplomachus(Clone)")
+    //     {
+    //         animator.Play("HoplmachusInGameAttack");
+    //     }
+    //     else if (characterName == "Murmillo(Clone)")
+    //     {
+    //         animator.Play("MurmilloInGameAttack");
+    //     }
+    //     else if (characterName == "Retiarius(Clone)")
+    //     {
+    //         animator.Play("RetiariusInGameAttack");
+    //     }
+    //     else if (characterName == "Scisssor(Clone)")
+    //     {
+    //         animator.Play("ScissorInGameAttack");
+    //     }
+    // }
 
-        if (characterName == "Hoplomachus(Clone)")
-            animator.Play("HoplmachusInGameHit");
-        else if (characterName == "Murmillo(Clone)")
-        {
-            animator.Play("MurmilloInGameHit");
-        }
-        else if (characterName == "Retiarius(Clone)")
-        {
-            animator.Play("RetiariusInGameHit");
-        }
-        else if (characterName == "Scisssor(Clone)")
-        {
-            animator.Play("ScissorInGameHit");
-        }
-    }
+    // protected void ChangeAnimationHit(string characterName)
+    // {
+    //     if (spriteRenderer.sortingOrder > 1)
+    //     {
+    //         spriteRenderer.sortingOrder = 1;
+    //     }
+    //
+    //     if (characterName == "Hoplomachus(Clone)")
+    //         animator.Play("HoplmachusInGameHit");
+    //     else if (characterName == "Murmillo(Clone)")
+    //     {
+    //         animator.Play("MurmilloInGameHit");
+    //     }
+    //     else if (characterName == "Retiarius(Clone)")
+    //     {
+    //         animator.Play("RetiariusInGameHit");
+    //     }
+    //     else if (characterName == "Scisssor(Clone)")
+    //     {
+    //         animator.Play("ScissorInGameHit");
+    //     }
+    // }
 
-    protected void ChangeAnimationBlock(string characterName)
-    {
-        if (name == "Hoplomachus(Clone)")
-            animator.Play("HoplmachusInGameBlock");
-        else if (name == "Murmillo(Clone)")
-        {
-            animator.Play("MurmilloInGameBlock");
-        }
-        else if (name == "Retiarius(Clone)")
-        {
-            animator.Play("RetiariusInGameBlock");
-        }
-        else if (name == "Scisssor(Clone)")
-        {
-            animator.Play("ScissorInGameBlock");
-        }
-    }
+    // protected void ChangeAnimationBlock(string characterName)
+    // {
+    //     if (name == "Hoplomachus(Clone)")
+    //         animator.Play("HoplmachusInGameBlock");
+    //     else if (name == "Murmillo(Clone)")
+    //     {
+    //         animator.Play("MurmilloInGameBlock");
+    //     }
+    //     else if (name == "Retiarius(Clone)")
+    //     {
+    //         animator.Play("RetiariusInGameBlock");
+    //     }
+    //     else if (name == "Scisssor(Clone)")
+    //     {
+    //         animator.Play("ScissorInGameBlock");
+    //     }
+    // }
 
 
     public bool IsEnemy(UnitInfo otherUnit)

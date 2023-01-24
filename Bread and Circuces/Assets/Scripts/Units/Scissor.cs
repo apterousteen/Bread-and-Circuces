@@ -35,25 +35,27 @@ namespace Units
 
         public override void OnAttackStart(UnitInfo target)
         {
-            ChangeAnimationAttack(gameObject.name);
+            ChangeAnimation("Scissor", animation: Animation.Attack);
+            //ChangeAnimationAttack(gameObject.name);
             if (currentStance == Stance.Raging)
                 damage++;
         }
 
         public override void OnDefenceStart()
         {
-            ChangeAnimationHit(gameObject.name);
         }
 
         public override void OnDefenceEnd(float blockDamage)
         {
             if (blockDamage == 0)
             {
-                ChangeAnimationBlock(gameObject.name);
+                ChangeAnimation("Scissor", animation: Animation.Block);
+                //ChangeAnimationBlock(gameObject.name);
             }
             else
             {
-                ChangeAnimationHit(gameObject.name);
+                ChangeAnimation("Scissor", animation: Animation.Hit);
+                //ChangeAnimationHit(gameObject.name);
             }
 
             base.OnDefenceEnd(blockDamage);

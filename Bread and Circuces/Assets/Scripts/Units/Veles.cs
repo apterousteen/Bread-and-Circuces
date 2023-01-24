@@ -27,7 +27,8 @@ public class Veles : UnitInfo
 
     public override void OnAttackStart(UnitInfo target)
     {
-        ChangeAnimationAttack(gameObject.name);
+        ChangeAnimation("Veles", animation: Animation.Attack);
+        //ChangeAnimationAttack(gameObject.name);
     }
 
     public override void OnDefenceStart()
@@ -38,11 +39,13 @@ public class Veles : UnitInfo
     {
         if (blockDamage == 0)
         {
-            ChangeAnimationBlock(gameObject.name);
+            ChangeAnimation("Veles", animation: Animation.Block);
+            //ChangeAnimationBlock(gameObject.name);
         }
         else
         {
-            ChangeAnimationHit(gameObject.name);
+            ChangeAnimation("Veles", animation: Animation.Hit);
+            //ChangeAnimationHit(gameObject.name);
         }
 
         base.OnDefenceEnd(blockDamage);
