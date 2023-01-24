@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="169a3587-18e0-4128-809e-3d1cfe17182c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Bread and Circuces/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bread and Circuces/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/PhotonTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/PhotonTest.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Photon/PhotonTest/PhotonManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Photon/PhotonTest/PhotonManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +95,7 @@
       <workItem from="1674374902311" duration="2232000" />
       <workItem from="1674401078908" duration="7402000" />
       <workItem from="1674545796857" duration="5745000" />
-      <workItem from="1674588529656" duration="3299000" />
+      <workItem from="1674588529656" duration="3935000" />
     </task>
     <servers />
   </component>

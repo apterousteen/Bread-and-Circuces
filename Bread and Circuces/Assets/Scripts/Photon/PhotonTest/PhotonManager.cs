@@ -20,7 +20,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log($"Вы подключены к: {PhotonNetwork.CloudRegion}");
-        //PhotonNetwork.JoinLobby();
+        PhotonNetwork.JoinLobby();
     }
 
     public override void OnDisconnected(DisconnectCause cause)
