@@ -30,7 +30,6 @@ public class Thraex : UnitInfo
         if (turnManager.defCardPlayed && target.withShield)
             damage += 2;
         ChangeAnimation("Thraex", animation: Animation.Attack);
-        //ChangeAnimationAttack(gameObject.name);
     }
 
     public override void OnDefenceStart()
@@ -42,12 +41,10 @@ public class Thraex : UnitInfo
         if (blockDamage == 0)
         {
             ChangeAnimation("Thraex", animation: Animation.Block);
-            //ChangeAnimationBlock(gameObject.name);
         }
         else
         {
             ChangeAnimation("Thraex", animation: Animation.Hit);
-            //ChangeAnimationHit(gameObject.name);
         }
 
         base.OnDefenceEnd(blockDamage);
