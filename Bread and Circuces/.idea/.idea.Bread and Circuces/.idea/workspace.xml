@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="169a3587-18e0-4128-809e-3d1cfe17182c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Bread and Circuces/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bread and Circuces/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Units/Retiarius.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Units/Retiarius.cs" afterDir="false" />
-    </list>
+    <list default="true" id="169a3587-18e0-4128-809e-3d1cfe17182c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -91,7 +88,7 @@
       <workItem from="1674373984188" duration="896000" />
       <workItem from="1674374902311" duration="2232000" />
       <workItem from="1674401078908" duration="7402000" />
-      <workItem from="1674545796857" duration="5584000" />
+      <workItem from="1674545796857" duration="5745000" />
     </task>
     <servers />
   </component>
