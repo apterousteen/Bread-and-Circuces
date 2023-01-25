@@ -79,7 +79,7 @@ namespace Card
             transform.SetParent(DefaultParent);
             GetComponent<CanvasGroup>().blocksRaycasts = true;
 
-            UiController.Instance.playerHandSize.text = GameManagerScript.Instance.PlayerHand.childCount.ToString();
+            //UiController.Instance.playerHandSize.text = GameManagerScript.Instance.PlayerHand.childCount.ToString();
         }
 
         public void OnPointerClick(PointerEventData eventData)
