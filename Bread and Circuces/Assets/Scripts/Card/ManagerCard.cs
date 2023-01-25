@@ -54,6 +54,10 @@ namespace Card
                 "Sprites/LogoCards/ПротыканиеНоги", 1, attStance, Stance.Attacking, EnumCard.CardType.Attack,
                 EnumCard.CardEffect.Damage, 4, EnumCard.CardEffect.DiscardEnemy, 1, EnumCard.TargetType.Enemy,
                 "Цель должна сбросить одну карту с руки на выбор", EnumCard.CardRestriction.Retiarius));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Retiarius, "Протыкание ноги",
+                "Sprites/LogoCards/ПротыканиеНоги", 1, attStance, Stance.Attacking, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.Damage, 4, EnumCard.CardEffect.DiscardEnemy, 1, EnumCard.TargetType.Enemy,
+                "Цель должна сбросить одну карту с руки на выбор", EnumCard.CardRestriction.Retiarius));
             CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Retiarius, "Осторожный удар",
                 "Sprites/LogoCards/ОсторожныйУдар", 1, attStance, Stance.Advance, EnumCard.CardType.Attack,
                 EnumCard.CardEffect.Damage, 3, EnumCard.CardEffect.NearCardDrow, 1, EnumCard.TargetType.Enemy,
@@ -91,7 +95,7 @@ namespace Card
                 defAdvStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.Defense, 1,
                 EnumCard.CardEffect.Movement, 1, EnumCard.TargetType.This, "После атаки передвиньте этого бойца на 1 гекс"));
 
-            //Универсальные в сете "Скиссор"
+            //"Скиссор"
 
             CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Scissor, "Яростный рывок",
                 "Sprites/LogoCards/ЯростныйРывок",
@@ -167,7 +171,7 @@ namespace Card
                 EnumCard.TargetType.Enemy));
 
 
-            //Универсальные в сете "Мурмиллон"
+            //"Мурмиллон"
 
             CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Murmillo, "Оглушение щитом",
                 "Sprites/LogoCards/ОглушениеЩитом", 1, anyStance, Stance.Attacking, EnumCard.CardType.Attack,
@@ -179,9 +183,11 @@ namespace Card
                 EnumCard.CardEffect.Damage, 0, EnumCard.CardEffect.Stun, 2, EnumCard.TargetType.Enemy,
                 "Смените стойку цели на атакующую. Противник должен сбросить две карты",
                 EnumCard.CardRestriction.Murmillo));
-            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Murmillo, "Блок", "Sprites/LogoCards/Блок", 0,
-                defStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.ShieldedDefense, 2,
-                EnumCard.CardEffect.No, 0, EnumCard.TargetType.This, "+1 к защите, если этот боец Щитовик"));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Murmillo, "Оглушение щитом",
+                "Sprites/LogoCards/ОглушениеЩитом", 1, anyStance, Stance.Attacking, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.Damage, 0, EnumCard.CardEffect.Stun, 2, EnumCard.TargetType.Enemy,
+                "Смените стойку цели на атакующую. Противник должен сбросить две карты",
+                EnumCard.CardRestriction.Murmillo));
             CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Murmillo, "Блок", "Sprites/LogoCards/Блок", 0,
                 defStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.ShieldedDefense, 2,
                 EnumCard.CardEffect.No, 0, EnumCard.TargetType.This, "+1 к защите, если этот боец Щитовик"));
@@ -201,13 +207,18 @@ namespace Card
                 "+1 к урону за каждую карту, разыгранную в эту активацию"));
             CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Murmillo, "Отталкивание",
                 "Sprites/LogoCards/Отталкивание", 1,
-                anyStance, Stance.Defensive, EnumCard.CardType.Attack, EnumCard.CardEffect.PushBackEnemy, 1,
-                EnumCard.CardEffect.CardDrow, 2, EnumCard.TargetType.Enemy, "Передвиньте врага на 1 гекс. Возьмите 2 карты",
+                anyStance, Stance.Defensive, EnumCard.CardType.Attack, EnumCard.CardEffect.PushBackEnemy, 2,
+                EnumCard.CardEffect.CardDrow, 2, EnumCard.TargetType.Enemy, "Передвиньте врага на 2 гекса. Возьмите 2 карты",
                 EnumCard.CardRestriction.Murmillo));
             CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Murmillo, "Отталкивание",
                 "Sprites/LogoCards/Отталкивание", 1,
-                anyStance, Stance.Defensive, EnumCard.CardType.Attack, EnumCard.CardEffect.PushBackEnemy, 1,
-                EnumCard.CardEffect.CardDrow, 2, EnumCard.TargetType.Enemy, "Передвиньте врага на 1 гекс. Возьмите 2 карты",
+                anyStance, Stance.Defensive, EnumCard.CardType.Attack, EnumCard.CardEffect.PushBackEnemy, 2,
+                EnumCard.CardEffect.CardDrow, 2, EnumCard.TargetType.Enemy, "Передвиньте врага на 2 гекса. Возьмите 2 карты",
+                EnumCard.CardRestriction.Murmillo));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Murmillo, "Отталкивание",
+                "Sprites/LogoCards/Отталкивание", 1,
+                anyStance, Stance.Defensive, EnumCard.CardType.Attack, EnumCard.CardEffect.PushBackEnemy, 2,
+                EnumCard.CardEffect.CardDrow, 2, EnumCard.TargetType.Enemy, "Передвиньте врага на 2 гекса. Возьмите 2 карты",
                 EnumCard.CardRestriction.Murmillo));
             CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Murmillo, "Удар клинком",
                 "Sprites/LogoCards/УдарКлинком", 1,
@@ -221,22 +232,12 @@ namespace Card
                 EnumCard.TargetType.Enemy));
             CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Murmillo, "Прикрыться",
                 "Sprites/LogoCards/Прикрыться", 0,
-                defAdvStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.ShieldedDefense, 1,
+                advStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.ShieldedDefense, 1,
                 EnumCard.CardEffect.CardDrow, 1, EnumCard.TargetType.This,
                 "+1 к защите, если этот боец Щитовик. Возьмите карту"));
             CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Murmillo, "Прикрыться",
                 "Sprites/LogoCards/Прикрыться", 0,
-                defAdvStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.ShieldedDefense, 1,
-                EnumCard.CardEffect.CardDrow, 1, EnumCard.TargetType.This,
-                "+1 к защите, если этот боец Щитовик. Возьмите карту"));
-            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Murmillo, "Прикрыться",
-                "Sprites/LogoCards/Прикрыться", 0,
-                defAdvStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.ShieldedDefense, 1,
-                EnumCard.CardEffect.CardDrow, 1, EnumCard.TargetType.This,
-                "+1 к защите, если этот боец Щитовик. Возьмите карту"));
-            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Murmillo, "Прикрыться",
-                "Sprites/LogoCards/Прикрыться", 0,
-                defAdvStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.ShieldedDefense, 1,
+                advStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.ShieldedDefense, 1,
                 EnumCard.CardEffect.CardDrow, 1, EnumCard.TargetType.This,
                 "+1 к защите, если этот боец Щитовик. Возьмите карту"));
             CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Murmillo, "Внезапный удар",
@@ -249,7 +250,7 @@ namespace Card
                 EnumCard.CardEffect.CardDrow, 1, EnumCard.TargetType.Enemy, "Возьмите карту"));
 
 
-            //Универсальные в сете "Гопломах"
+            //"Гопломах"
 
             CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Hoplomachus, "Уворот",
                 "Sprites/LogoCards/Уворот", 0,
@@ -259,9 +260,6 @@ namespace Card
                 "Sprites/LogoCards/Уворот", 0,
                 defStance, Stance.Advance, EnumCard.CardType.Defense, EnumCard.CardEffect.Defense, 3,
                 EnumCard.CardEffect.Movement, 1, EnumCard.TargetType.This, "После атаки передвиньте этого бойца на 1 гекс"));
-            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Hoplomachus, "Блок", "Sprites/LogoCards/Блок", 0,
-                defStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.ShieldedDefense, 2,
-                EnumCard.CardEffect.No, 1, EnumCard.TargetType.This, "+1 к защите, если этот боец Щитовик"));
             CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Hoplomachus, "Блок", "Sprites/LogoCards/Блок", 0,
                 defStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.ShieldedDefense, 2,
                 EnumCard.CardEffect.No, 1, EnumCard.TargetType.This, "+1 к защите, если этот боец Щитовик"));
@@ -282,12 +280,12 @@ namespace Card
                 EnumCard.CardEffect.Damage, 2, EnumCard.TargetType.Enemy, "Перед атакой передвиньте этого бойца на один гекс"));
             CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Hoplomachus, "Прикрыться",
                 "Sprites/LogoCards/Прикрыться", 0,
-                advAttStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.ShieldedDefense, 1,
+                advStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.ShieldedDefense, 1,
                 EnumCard.CardEffect.CardDrow, 1, EnumCard.TargetType.This,
                 "+1 к защите, если этот боец Щитовик. Возьмите карту"));
             CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Hoplomachus, "Прикрыться",
                 "Sprites/LogoCards/Прикрыться", 0,
-                advAttStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.ShieldedDefense, 1,
+                advStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.ShieldedDefense, 1,
                 EnumCard.CardEffect.CardDrow, 1, EnumCard.TargetType.This,
                 "+1 к защите, если этот боец Щитовик. Возьмите карту"));
             CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Hoplomachus, "Тычок с отскоком",
@@ -318,6 +316,232 @@ namespace Card
                 "Sprites/LogoCards/Преследование", 1, attStance, Stance.Attacking, EnumCard.CardType.Attack,
                 EnumCard.CardEffect.Movement, 2, EnumCard.CardEffect.Damage, 4, EnumCard.TargetType.Enemy,
                 "Перед атакой передвиньте этого бойца на один гекс", EnumCard.CardRestriction.Hoplomachus));
+
+            //"Димахер"
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Уворот",
+                    "Sprites/LogoCards/Уворот", 0,
+                    defStance, Stance.Advance, EnumCard.CardType.Defense, EnumCard.CardEffect.Defense, 3,
+                    EnumCard.CardEffect.Movement, 1, EnumCard.TargetType.This, "После атаки передвиньте этого бойца на 1 гекс"));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Уворот",
+                    "Sprites/LogoCards/Уворот", 0,
+                    defStance, Stance.Advance, EnumCard.CardType.Defense, EnumCard.CardEffect.Defense, 3,
+                    EnumCard.CardEffect.Movement, 1, EnumCard.TargetType.This, "После атаки передвиньте этого бойца на 1 гекс"));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Уворот",
+                    "Sprites/LogoCards/Уворот", 0,
+                    defStance, Stance.Advance, EnumCard.CardType.Defense, EnumCard.CardEffect.Defense, 3,
+                    EnumCard.CardEffect.Movement, 1, EnumCard.TargetType.This, "После атаки передвиньте этого бойца на 1 гекс"));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Тычок с отскоком",
+                "Sprites/LogoCards/ТычокСОтскоком", 1, advAttStance, Stance.Defensive, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.Damage, 2, EnumCard.CardEffect.Movement, 1, EnumCard.TargetType.Enemy,
+                "После атаки передвиньте этого бойца на 1 гекс"));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Тычок с отскоком",
+                "Sprites/LogoCards/ТычокСОтскоком", 1, advAttStance, Stance.Defensive, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.Damage, 2, EnumCard.CardEffect.Movement, 1, EnumCard.TargetType.Enemy,
+                "После атаки передвиньте этого бойца на 1 гекс"));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Шаг назад",
+                "Sprites/LogoCards/ШагНазад", 0,
+                defAdvStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.Defense, 1,
+                EnumCard.CardEffect.Movement, 1, EnumCard.TargetType.This, "После атаки передвиньте этого бойца на 1 гекс"));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Шаг назад",
+                "Sprites/LogoCards/ШагНазад", 0,
+                defAdvStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.Defense, 1,
+                EnumCard.CardEffect.Movement, 1, EnumCard.TargetType.This, "После атаки передвиньте этого бойца на 1 гекс"));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Шаг назад",
+                "Sprites/LogoCards/ШагНазад", 0,
+                defAdvStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.Defense, 1,
+                EnumCard.CardEffect.Movement, 1, EnumCard.TargetType.This, "После атаки передвиньте этого бойца на 1 гекс"));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Непрерывный натиск",
+                "Sprites/LogoCards/НепрерывныйНатиск", 0, anyStance, Stance.Attacking, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.Movement, 1, EnumCard.CardEffect.Damage, 2, EnumCard.TargetType.Enemy,
+                "Получите 1 ОД. Перед атакой передвиньте этого бойца на 1 гекс", EnumCard.CardRestriction.Dimacher));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Непрерывный натиск",
+                "Sprites/LogoCards/НепрерывныйНатиск", 0, anyStance, Stance.Attacking, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.Movement, 1, EnumCard.CardEffect.Damage, 2, EnumCard.TargetType.Enemy,
+                "Получите 1 ОД. Перед атакой передвиньте этого бойца на 1 гекс", EnumCard.CardRestriction.Dimacher));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Непрерывный натиск",
+                "Sprites/LogoCards/НепрерывныйНатиск", 0, anyStance, Stance.Attacking, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.Movement, 1, EnumCard.CardEffect.Damage, 2, EnumCard.TargetType.Enemy,
+                "Получите 1 ОД. Перед атакой передвиньте этого бойца на 1 гекс", EnumCard.CardRestriction.Dimacher));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Непрерывный натиск",
+                "Sprites/LogoCards/НепрерывныйНатиск", 0, anyStance, Stance.Attacking, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.Movement, 1, EnumCard.CardEffect.Damage, 2, EnumCard.TargetType.Enemy,
+                "Получите 1 ОД. Перед атакой передвиньте этого бойца на 1 гекс", EnumCard.CardRestriction.Dimacher));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Непрерывный натиск",
+                "Sprites/LogoCards/НепрерывныйНатиск", 0, anyStance, Stance.Attacking, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.Movement, 1, EnumCard.CardEffect.Damage, 2, EnumCard.TargetType.Enemy,
+                "Получите 1 ОД. Перед атакой передвиньте этого бойца на 1 гекс", EnumCard.CardRestriction.Dimacher));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Непрерывный натиск",
+                "Sprites/LogoCards/НепрерывныйНатиск", 0, anyStance, Stance.Attacking, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.Movement, 1, EnumCard.CardEffect.Damage, 2, EnumCard.TargetType.Enemy,
+                "Получите 1 ОД. Перед атакой передвиньте этого бойца на 1 гекс", EnumCard.CardRestriction.Dimacher));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Вихрь клинков",
+                "Sprites/LogoCards/ВихрьКлинков", 1, attStance, Stance.Advance, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.Damage, 3, EnumCard.CardEffect.WhirlwindDamage, 1, EnumCard.TargetType.Enemy,
+                "Все противники на соседнях клетках могут сбросить карту, иначе теряют 1 здоровье", EnumCard.CardRestriction.Dimacher, true));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Вихрь клинков",
+                "Sprites/LogoCards/ВихрьКлинков", 1, attStance, Stance.Advance, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.Damage, 3, EnumCard.CardEffect.WhirlwindDamage, 1, EnumCard.TargetType.Enemy,
+                "Все противники на соседнях клетках могут сбросить карту, иначе теряют 1 здоровье", EnumCard.CardRestriction.Dimacher, true));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Вихрь клинков",
+                "Sprites/LogoCards/ВихрьКлинков", 1, attStance, Stance.Advance, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.Damage, 3, EnumCard.CardEffect.WhirlwindDamage, 1, EnumCard.TargetType.Enemy,
+                "Все противники на соседнях клетках могут сбросить карту, иначе теряют 1 здоровье", EnumCard.CardRestriction.Dimacher, true));
+
+            //"Велит"
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Veles, "Шаг назад",
+                "Sprites/LogoCards/ШагНазад", 0,
+                defAdvStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.Defense, 1,
+                EnumCard.CardEffect.Movement, 1, EnumCard.TargetType.This, "После атаки передвиньте этого бойца на 1 гекс"));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Veles, "Шаг назад",
+                "Sprites/LogoCards/ШагНазад", 0,
+                defAdvStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.Defense, 1,
+                EnumCard.CardEffect.Movement, 1, EnumCard.TargetType.This, "После атаки передвиньте этого бойца на 1 гекс"));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Veles, "Шаг назад",
+                "Sprites/LogoCards/ШагНазад", 0,
+                defAdvStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.Defense, 1,
+                EnumCard.CardEffect.Movement, 1, EnumCard.TargetType.This, "После атаки передвиньте этого бойца на 1 гекс"));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Veles, "Шаг назад",
+                "Sprites/LogoCards/ШагНазад", 0,
+                defAdvStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.Defense, 1,
+                EnumCard.CardEffect.Movement, 1, EnumCard.TargetType.This, "После атаки передвиньте этого бойца на 1 гекс"));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Veles, "Удар клинком",
+                "Sprites/LogoCards/УдарКлинком", 1,
+                attStance, Stance.Attacking, EnumCard.CardType.Attack, EnumCard.CardEffect.Damage, 3, EnumCard.CardEffect.No,
+                0,
+                EnumCard.TargetType.Enemy));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Veles, "Удар клинком",
+                "Sprites/LogoCards/УдарКлинком", 1,
+                attStance, Stance.Attacking, EnumCard.CardType.Attack, EnumCard.CardEffect.Damage, 3, EnumCard.CardEffect.No,
+                0,
+                EnumCard.TargetType.Enemy));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Veles, "Ошеломляющий выпад",
+                "Sprites/LogoCards/ОшеломляющийВыпад", 1, anyStance, Stance.Attacking, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.ShieldedRush, 1, EnumCard.CardEffect.Damage, 1, EnumCard.TargetType.Enemy, 
+                "Перед атакой подвиньте этого бойца на 1 гекс. Если этот боец щитовик, цель должна сбросить 1 карту."));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Veles, "Ошеломляющий выпад",
+                "Sprites/LogoCards/ОшеломляющийВыпад", 1, anyStance, Stance.Attacking, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.ShieldedRush, 1, EnumCard.CardEffect.Damage, 1, EnumCard.TargetType.Enemy,
+                "Перед атакой подвиньте этого бойца на 1 гекс. Если этот боец щитовик, цель должна сбросить 1 карту."));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Veles, "Ошеломляющий выпад",
+                "Sprites/LogoCards/ОшеломляющийВыпад", 1, anyStance, Stance.Attacking, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.ShieldedRush, 1, EnumCard.CardEffect.Damage, 1, EnumCard.TargetType.Enemy,
+                "Перед атакой подвиньте этого бойца на 1 гекс. Если этот боец щитовик, цель должна сбросить 1 карту."));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Veles, "Бросок дротика",
+                "Sprites/LogoCards/БросокДротика", 1, advAttStance, Stance.Advance, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.RangedAttack, 7, EnumCard.CardEffect.No, 0, EnumCard.TargetType.Enemy,
+                "Одноразовая. Дальность этой атаки равна 5 гексам. -2 урона, если цель в стандартной зоне атаки персонажа", EnumCard.CardRestriction.Veles, true));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Veles, "Бросок дротика",
+                "Sprites/LogoCards/БросокДротика", 1, advAttStance, Stance.Advance, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.RangedAttack, 7, EnumCard.CardEffect.No, 0, EnumCard.TargetType.Enemy,
+                "Одноразовая. Дальность этой атаки равна 5 гексам. -2 урона, если цель в стандартной зоне атаки персонажа", EnumCard.CardRestriction.Veles, true));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Veles, "Бросок дротика",
+                "Sprites/LogoCards/БросокДротика", 1, advAttStance, Stance.Advance, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.RangedAttack, 7, EnumCard.CardEffect.No, 0, EnumCard.TargetType.Enemy,
+                "Одноразовая. Дальность этой атаки равна 5 гексам. -2 урона, если цель в стандартной зоне атаки персонажа", EnumCard.CardRestriction.Veles, true));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Veles, "Бросок дротика",
+                "Sprites/LogoCards/БросокДротика", 1, advAttStance, Stance.Advance, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.RangedAttack, 7, EnumCard.CardEffect.No, 0, EnumCard.TargetType.Enemy,
+                "Одноразовая. Дальность этой атаки равна 5 гексам. -2 урона, если цель в стандартной зоне атаки персонажа", EnumCard.CardRestriction.Veles, true));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Veles, "Бросок дротика",
+                "Sprites/LogoCards/БросокДротика", 1, advAttStance, Stance.Advance, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.RangedAttack, 7, EnumCard.CardEffect.No, 0, EnumCard.TargetType.Enemy,
+                "Одноразовая. Дальность этой атаки равна 5 гексам. -2 урона, если цель в стандартной зоне атаки персонажа", EnumCard.CardRestriction.Veles, true));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Veles, "Отвлекающий удар",
+                "Sprites/LogoCards/ОтвлекающийУдар", 1, attStance, Stance.Advance, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.Damage, 2, EnumCard.CardEffect.Movement, 2, EnumCard.TargetType.Enemy,
+                "После атаки передвиньте этого бойца на 3 гекса", EnumCard.CardRestriction.Veles));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Veles, "Отвлекающий удар",
+                "Sprites/LogoCards/ОтвлекающийУдар", 1, attStance, Stance.Advance, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.Damage, 2, EnumCard.CardEffect.Movement, 2, EnumCard.TargetType.Enemy,
+                "После атаки передвиньте этого бойца на 3 гекса", EnumCard.CardRestriction.Veles));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Veles, "Отвлекающий удар",
+                "Sprites/LogoCards/ОтвлекающийУдар", 1, attStance, Stance.Advance, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.Damage, 2, EnumCard.CardEffect.Movement, 2, EnumCard.TargetType.Enemy,
+                "После атаки передвиньте этого бойца на 3 гекса", EnumCard.CardRestriction.Veles));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Veles, "Побег",
+                "Sprites/LogoCards/Побег", 0,
+                defStance, Stance.Advance, EnumCard.CardType.Defense, EnumCard.CardEffect.Defense, 1,
+                EnumCard.CardEffect.Movement, 1, EnumCard.TargetType.This, "После получения урона передвиньте этого бойца на 4 гекса", EnumCard.CardRestriction.Veles));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Veles, "Побег",
+                "Sprites/LogoCards/Побег", 0,
+                defStance, Stance.Advance, EnumCard.CardType.Defense, EnumCard.CardEffect.Defense, 1,
+                EnumCard.CardEffect.Movement, 1, EnumCard.TargetType.This, "После получения урона передвиньте этого бойца на 4 гекса", EnumCard.CardRestriction.Veles));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Veles, "Побег",
+                "Sprites/LogoCards/Побег", 0,
+                defStance, Stance.Advance, EnumCard.CardType.Defense, EnumCard.CardEffect.Defense, 1,
+                EnumCard.CardEffect.Movement, 1, EnumCard.TargetType.This, "После получения урона передвиньте этого бойца на 4 гекса", EnumCard.CardRestriction.Veles));
+
+
+            //"Фракиец"
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Ошеломляющий выпад",
+                "Sprites/LogoCards/ОшеломляющийВыпад", 1, anyStance, Stance.Attacking, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.ShieldedRush, 1, EnumCard.CardEffect.Damage, 1, EnumCard.TargetType.Enemy,
+                "Перед атакой подвиньте этого бойца на 1 гекс. Если этот боец щитовик, цель должна сбросить 1 карту."));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Ошеломляющий выпад",
+                "Sprites/LogoCards/ОшеломляющийВыпад", 1, anyStance, Stance.Attacking, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.ShieldedRush, 1, EnumCard.CardEffect.Damage, 1, EnumCard.TargetType.Enemy,
+                "Перед атакой подвиньте этого бойца на 1 гекс. Если этот боец щитовик, цель должна сбросить 1 карту."));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Ошеломляющий выпад",
+                "Sprites/LogoCards/ОшеломляющийВыпад", 1, anyStance, Stance.Attacking, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.ShieldedRush, 1, EnumCard.CardEffect.Damage, 1, EnumCard.TargetType.Enemy,
+                "Перед атакой подвиньте этого бойца на 1 гекс. Если этот боец щитовик, цель должна сбросить 1 карту."));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Блок", "Sprites/LogoCards/Блок", 0,
+                defStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.ShieldedDefense, 2,
+                EnumCard.CardEffect.No, 0, EnumCard.TargetType.This, "+1 к защите, если этот боец Щитовик"));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Блок", "Sprites/LogoCards/Блок", 0,
+                defStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.ShieldedDefense, 2,
+                EnumCard.CardEffect.No, 0, EnumCard.TargetType.This, "+1 к защите, если этот боец Щитовик"));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Заверщающий рубец",
+                "Sprites/LogoCards/ЗавершающийРубец", 1, attStance, Stance.Advance, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.DamageFinisher, 2, EnumCard.CardEffect.No, 0, EnumCard.TargetType.Enemy,
+                "+1 к урону за каждую карту, разыгранную в эту активацию"));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Заверщающий рубец",
+                "Sprites/LogoCards/ЗавершающийРубец", 1, attStance, Stance.Advance, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.DamageFinisher, 2, EnumCard.CardEffect.No, 0, EnumCard.TargetType.Enemy,
+                "+1 к урону за каждую карту, разыгранную в эту активацию"));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Прикрыться",
+                "Sprites/LogoCards/Прикрыться", 0,
+                advStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.ShieldedDefense, 1,
+                EnumCard.CardEffect.CardDrow, 1, EnumCard.TargetType.This,
+                "+1 к защите, если этот боец Щитовик. Возьмите карту"));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Прикрыться",
+                "Sprites/LogoCards/Прикрыться", 0,
+                advStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.ShieldedDefense, 1,
+                EnumCard.CardEffect.CardDrow, 1, EnumCard.TargetType.This,
+                "+1 к защите, если этот боец Щитовик. Возьмите карту"));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Прикрыться",
+                "Sprites/LogoCards/Прикрыться", 0,
+                advStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.ShieldedDefense, 1,
+                EnumCard.CardEffect.CardDrow, 1, EnumCard.TargetType.This,
+                "+1 к защите, если этот боец Щитовик. Возьмите карту"));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Прорезаюший клинок",
+                "Sprites/LogoCards/ПрорезающийКлинок", 1, attStance, Stance.Advance, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.DealRawDamage, 3, EnumCard.CardEffect.No, 0, EnumCard.TargetType.Enemy,
+                "Одноразовая. Урон этой атаки не может быть модифицирован дружественными эффектами и защитой цели", EnumCard.CardRestriction.Dimacher, true));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Прорезаюший клинок",
+                "Sprites/LogoCards/ПрорезающийКлинок", 1, attStance, Stance.Advance, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.DealRawDamage, 3, EnumCard.CardEffect.No, 0, EnumCard.TargetType.Enemy,
+                "Одноразовая. Урон этой атаки не может быть модифицирован дружественными эффектами и защитой цели", EnumCard.CardRestriction.Dimacher, true));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Глубокая рана",
+                "Sprites/LogoCards/ГлубокаяРана", 1, advAttStance, Stance.Attacking, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.Damage, 2, EnumCard.CardEffect.DiscardEnemy, 1, EnumCard.TargetType.Enemy,
+                "Цель должна сбросить карту", EnumCard.CardRestriction.Dimacher));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Глубокая рана",
+                "Sprites/LogoCards/ГлубокаяРана", 1, advAttStance, Stance.Attacking, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.Damage, 2, EnumCard.CardEffect.DiscardEnemy, 1, EnumCard.TargetType.Enemy,
+                "Цель должна сбросить карту", EnumCard.CardRestriction.Dimacher));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "Глубокая рана",
+                "Sprites/LogoCards/ГлубокаяРана", 1, advAttStance, Stance.Attacking, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.Damage, 2, EnumCard.CardEffect.DiscardEnemy, 1, EnumCard.TargetType.Enemy,
+                "Цель должна сбросить карту", EnumCard.CardRestriction.Dimacher));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "В слабое место",
+                "Sprites/LogoCards/ВСлабоеМесто", 1, attStance, Stance.Attacking, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.DoubleDamage, 4, EnumCard.CardEffect.No, 0, EnumCard.TargetType.Enemy,
+                "Если у оппонента нет карт на руке, удвойте урон этой атаки", EnumCard.CardRestriction.Dimacher));
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Dimacher, "В слабое место",
+                "Sprites/LogoCards/ВСлабоеМесто", 1, attStance, Stance.Attacking, EnumCard.CardType.Attack,
+                EnumCard.CardEffect.DoubleDamage, 4, EnumCard.CardEffect.No, 0, EnumCard.TargetType.Enemy,
+                "Если у оппонента нет карт на руке, удвойте урон этой атаки", EnumCard.CardRestriction.Dimacher));
         }
     }
 }

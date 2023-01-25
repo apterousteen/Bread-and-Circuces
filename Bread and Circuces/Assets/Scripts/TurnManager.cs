@@ -26,6 +26,11 @@ public enum ActionType
     ChargeEnd,
     ChangeEnemyStance,
     DrawIfAlive,
+    WhirlwindDamage,
+    ShieldedRush,
+    RangedAttack,
+    DealRawDamage,
+    DoubleDamage,
     Skip
 }
 
@@ -243,7 +248,8 @@ public class TurnManager : MonoBehaviour
                 break;
 
             case ActionType.ChangeEnemyStance:
-                targetUnit.GetComponent<UnitInfo>().ChangeStance(Stance.Attacking);
+                if(targetUnit != null)
+                    targetUnit.GetComponent<UnitInfo>().ChangeStance(Stance.Attacking);
                 EndAction();
                 break;
 
@@ -278,7 +284,7 @@ public class TurnManager : MonoBehaviour
                 break;
 
             case ActionType.PushEnemy:
-                if (action.team == Team.Player)
+                if (action.team == Team.Player && targetUnit != null)
                 {
                     movingEnemy = true;
                     targetUnit.GetComponent<UnitControl>().TriggerMove(action.value);

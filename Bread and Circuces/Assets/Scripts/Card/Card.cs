@@ -12,17 +12,19 @@ namespace Card
         protected internal CardType Type;
         protected internal CardRestriction Restriction, CardSet;
         protected internal string Description;
+        protected internal bool Exhaustable;
 
         protected internal string Name;
         protected internal Sprite Logo;
         protected internal int Manacost, SpellValue, SecondSpellValue;
         protected internal bool IsPlaced;
 
+
         public Card(CardRestriction cardSet, string name, string logoPath, int manacost, List<Stance> startStance,
             Stance endStance, CardType type ,
             CardEffect firstCardEffect , int spellValue , CardEffect firstCardEffectTwo,
             int secondSpellValue,
-            TargetType targetType = 0, string description = "", CardRestriction restriction = 0)
+            TargetType targetType = 0, string description = "", CardRestriction restriction = 0, bool exhaustable = false)
         {
             Name = name;
             Logo = Resources.Load<Sprite>(logoPath);
@@ -36,6 +38,7 @@ namespace Card
             StartStance = startStance;
             EndStance = endStance;
             Type = type;
+            Exhaustable = exhaustable;
 
             SpellTarget = targetType;
             SpellValue = spellValue;

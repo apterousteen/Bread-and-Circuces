@@ -8,7 +8,10 @@ namespace Card
             Retiarius,
             Hoplomachus,
             Murmillo,
-            Scissor
+            Scissor,
+            Thraex,
+            Veles,
+            Dimacher
         }
         public enum TargetType
         {
@@ -42,6 +45,11 @@ namespace Card
             CancelCard,
             DiscardEnemy,
             DiscardSelf,
+            WhirlwindDamage,
+            ShieldedRush,
+            RangedAttack,
+            DealRawDamage,
+            DoubleDamage,
             No
         }
     }
