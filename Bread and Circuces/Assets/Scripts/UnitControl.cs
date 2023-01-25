@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class UnitControl : MonoBehaviour
 {
-    private float posX;
-    private float posY;
+    public float posX;
+    public float posY;
     private bool activated;
     public bool wasActivated;
     private Camera mainCamera;

@@ -30,7 +30,7 @@ public class UiController : MonoBehaviour
     public GameObject enemy2;
 
     public TextMeshProUGUI turnText;
-    public Image timerOutline;
+    //public Image timerOutline;
     public GameObject hintPanel;
 
     public string[] players;
@@ -96,12 +96,12 @@ public class UiController : MonoBehaviour
         playerHealth = GameObject.Find("playerHealth").GetComponent<TextMeshProUGUI>();
         playerAttac = GameObject.Find("playerAttac").GetComponent<TextMeshProUGUI>();
         playerMove = GameObject.Find("playerMove").GetComponent<TextMeshProUGUI>();
-        playerHandSize = GameObject.Find("playerHandSize").GetComponent<TextMeshProUGUI>();
+        //playerHandSize = GameObject.Find("playerHandSize").GetComponent<TextMeshProUGUI>();
         enemyName = GameObject.Find("enemyName").GetComponent<TextMeshProUGUI>();
         enemyHealth = GameObject.Find("enemyHealth").GetComponent<TextMeshProUGUI>();
         enemyAttac = GameObject.Find("enemyAttac").GetComponent<TextMeshProUGUI>();
         enemyMove = GameObject.Find("enemyMove").GetComponent<TextMeshProUGUI>();
-        enemyHandSize = GameObject.Find("enemyHandSize").GetComponent<TextMeshProUGUI>();
+        //enemyHandSize = GameObject.Find("enemyHandSize").GetComponent<TextMeshProUGUI>();
 
         playerStance = GameObject.Find("playerStance");
         enemyStance = GameObject.Find("enemyStance");
@@ -113,7 +113,7 @@ public class UiController : MonoBehaviour
         enemy2 = GameObject.Find("enemy2");
 
         turnText = GameObject.Find("turnText").GetComponent<TextMeshProUGUI>();
-        timerOutline = GameObject.Find("timerOutline").GetComponent<Image>();
+        //timerOutline = GameObject.Find("timerOutline").GetComponent<Image>();
 
         hintPanel = GameObject.Find("HintPanel");
         hintPanel.SetActive(false);
@@ -136,8 +136,8 @@ public class UiController : MonoBehaviour
     public void UpdateMana()
     {
         //Debug.Log(GameManagerScript.Instance.CurrentGame.Player.Mana.ToString());
-        PlayerMana.text = GameManagerScript.Instance.CurrentGame.Player.Mana.ToString();
-        EnemyMana.text = GameManagerScript.Instance.CurrentGame.Enemy.Mana.ToString();
+        PlayerMana.text = $"{GameManagerScript.Instance.CurrentGame.Player.Mana.ToString()}/4";
+        EnemyMana.text = $"{GameManagerScript.Instance.CurrentGame.Enemy.Mana.ToString()}/4";
     }
 
     public void UpdateTurnTime(int time)
@@ -195,7 +195,7 @@ public class UiController : MonoBehaviour
 
             playerAttac.text = unit.GetComponent<UnitInfo>().attackReachDistance.ToString();
             playerMove.text = unit.GetComponent<UnitInfo>().moveDistance.ToString();
-            playerHandSize.text = GameManagerScript.Instance.PlayerHand.childCount.ToString();
+            //playerHandSize.text = GameManagerScript.Instance.PlayerHand.childCount.ToString();
         }
         else if (unit.GetComponent<UnitInfo>().teamSide.ToString() == "Enemy")
         {
@@ -220,7 +220,7 @@ public class UiController : MonoBehaviour
 
             enemyAttac.text = unit.GetComponent<UnitInfo>().attackReachDistance.ToString();
             enemyMove.text = unit.GetComponent<UnitInfo>().moveDistance.ToString();
-            enemyHandSize.text = GameManagerScript.Instance.enemyHandSize.ToString();
+            //enemyHandSize.text = GameManagerScript.Instance.enemyHandSize.ToString();
         }
     }
 
@@ -230,7 +230,7 @@ public class UiController : MonoBehaviour
         {
             turnText.text = "ваш ход";
             //AudioManager.Instance.Play("Turn Start");
-            timerOutline.enabled = true;
+            //timerOutline.enabled = true;
             if (!turnManager.tutorialLevel)
             {
                 if (turnManager.ActiveUnitExist())
@@ -248,7 +248,7 @@ public class UiController : MonoBehaviour
         {
             turnText.text = "ход врага";
             //AudioManager.Instance.Play("Reaction Time Start");
-            timerOutline.enabled = false;
+            //timerOutline.enabled = false;
         }
     }
 
