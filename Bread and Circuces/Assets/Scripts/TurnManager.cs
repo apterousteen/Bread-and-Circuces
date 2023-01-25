@@ -71,6 +71,7 @@ public class TurnManager : MonoBehaviour
     public bool movingEnemy = false;
     public bool defCardPlayed;
     public int playedCards = 0;
+    public bool resistedDamage = true;
     private HexTile startHex;
 
     public int actionsLeft;
@@ -292,6 +293,44 @@ public class TurnManager : MonoBehaviour
                 else EndAction();
                 break;
 
+            case ActionType.DealRawDamage:
+                resistedDamage = false;
+                if (action.team == Team.Player)
+                {
+                    activeUnit.GetComponent<UnitControl>().TriggerAttack(action.value);
+                }
+                else
+                {
+                    activeUnit.GetComponent<UnitInfo>().damage += action.value;
+                    StartReactionWindow(targetUnit);
+                }
+                break;
+
+            case ActionType.RangedAttack:
+                activeUnit.GetComponent<UnitInfo>().attackReachDistance = 5;
+                var damage = action.value;
+                var enemyNear = false;
+                enemyNear = activeUnit.GetComponent<UnitControl>().CheckForEnemiesInBTB();
+                if (enemyNear)
+                    damage -= 2;
+                if (action.team == Team.Player)
+                {
+                    activeUnit.GetComponent<UnitControl>().TriggerAttack(action.value);
+                }
+                else
+                {
+                    activeUnit.GetComponent<UnitInfo>().damage += action.value;
+                    StartReactionWindow(targetUnit);
+                }
+                break;
+
+            case ActionType.WhirlwindDamage:
+                activeUnit.GetComponent<UnitControl>().DealAreaDamage(action.value);
+                break;
+
+
+
+
             case ActionType.Skip:
                 EndAction();
                 break;
@@ -486,8 +525,9 @@ public class TurnManager : MonoBehaviour
         StopAllCoroutines();
         Debug.Log("Reaction window ended");
         if(targetUnit != null)
-            activeUnit.GetComponent<UnitControl>().MakeAtack(targetUnit.GetComponent<UnitInfo>());
+            activeUnit.GetComponent<UnitControl>().MakeAtack(targetUnit.GetComponent<UnitInfo>(), resistedDamage);
         defCardPlayed = false;
+        resistedDamage = true;
         isReactionTime = false;
         if (currTeam == Team.Enemy)
         {

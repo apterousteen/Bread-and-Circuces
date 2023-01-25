@@ -203,16 +203,17 @@ public class UnitControl : MonoBehaviour
             -transform.localEulerAngles.z);
     }
 
-    public void MakeAtack(UnitInfo enemyUnit)
+    public void MakeAtack(UnitInfo enemyUnit, bool resistedDamage)
     {
         info.OnAttackStart(enemyUnit);
         enemyUnit.OnDefenceStart();
         Debug.Log("DMG = " + info.damage);
         Debug.Log("DEF = " + enemyUnit.defence);
-        var damageDealt = info.damage - enemyUnit.defence;
+        var damageDealt = info.damage;
+        if (resistedDamage)
+            damageDealt -= enemyUnit.defence;
         if (damageDealt < 0)
             damageDealt = 0;
-
         enemyUnit.SufferDamage(damageDealt);
         info.OnAttackEnd(enemyUnit);
         enemyUnit.OnDefenceEnd(damageDealt);
@@ -317,6 +318,23 @@ public class UnitControl : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void DealAreaDamage(int damage)
+    {
+        var tiles = distanceFinder.GetTilesInRadius(transform.parent.GetComponent<HexTile>(), 1);
+        foreach (var tile in tiles)
+        {
+            if (tile.isOccupied)
+            {
+                var unit = tile.transform.GetChild(0).GetComponent<UnitInfo>();
+                if (unit.IsEnemy(info))
+                {
+                    unit.SufferDamage(damage);
+                }
+            }
+        }
+
     }
 
     void HideArea()

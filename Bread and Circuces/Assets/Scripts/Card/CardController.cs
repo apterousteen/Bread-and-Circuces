@@ -96,6 +96,25 @@ namespace Card
                 case EnumCard.CardEffect.DiscardSelf:
                     turnManager.AddAction(new Action(ActionType.DiscardActivePlayer, Team.Player, card.SpellValue));
                     break;
+
+                case EnumCard.CardEffect.DealRawDamage:
+                    turnManager.AddAction(new Action(ActionType.DealRawDamage, Team.Player, card.SpellValue));
+                    break;
+
+                case EnumCard.CardEffect.ShieldedRush:
+                    turnManager.AddAction(new Action(ActionType.Move, Team.Player, card.SpellValue));
+                    if(turnManager.activeUnit.GetComponent<UnitInfo>().withShield)
+                        turnManager.AddAction(new Action(ActionType.DiscardOpponent, Team.Player, card.SpellValue));
+                    break;
+
+                case EnumCard.CardEffect.RangedAttack:
+                    turnManager.AddAction(new Action(ActionType.RangedAttack, Team.Player, card.SpellValue));
+                    break;
+
+                case EnumCard.CardEffect.DoubleDamage:
+                    turnManager.AddAction(new Action(ActionType.DoubleDamage, Team.Player, card.SpellValue));
+                    break;
+                
             }
             switch (card.FirstCardEffTwo)
             {
@@ -145,6 +164,14 @@ namespace Card
 
                 case EnumCard.CardEffect.CancelCard:
                     turnManager.AddAction(new Action(ActionType.CancelCard, Team.Player, card.SecondSpellValue));
+                    break;
+
+                case EnumCard.CardEffect.DealRawDamage:
+                    turnManager.AddAction(new Action(ActionType.DealRawDamage, Team.Player, card.SecondSpellValue));
+                    break;
+
+                case EnumCard.CardEffect.WhirlwindDamage:
+                    turnManager.AddAction(new Action(ActionType.WhirlwindDamage, Team.Player, card.SpellValue));
                     break;
 
                 case EnumCard.CardEffect.No:

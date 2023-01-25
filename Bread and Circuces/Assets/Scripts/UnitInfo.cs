@@ -49,6 +49,7 @@ public abstract class UnitInfo : MonoBehaviour
 
     protected int baseDamage;
     protected int baseDefence;
+    protected int baseAttackReachDistance;
 
     public Sprite altSkin;
     public HealthBar healthbar;
@@ -157,6 +158,7 @@ public abstract class UnitInfo : MonoBehaviour
     public virtual void OnAttackEnd(UnitInfo target)
     {
         damage = baseDamage;
+        attackReachDistance = baseAttackReachDistance;
     }
 
     public virtual bool OnMoveStart()
