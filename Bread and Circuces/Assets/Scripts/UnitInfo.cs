@@ -65,6 +65,7 @@ public abstract class UnitInfo : MonoBehaviour
         stanceToChange = Stance.Advance;
         baseDamage = damage;
         baseDefence = defence;
+        baseAttackReachDistance = attackReachDistance;
         UnitDeck = new List<Card.Card>();
 
         maxHealth = health;
