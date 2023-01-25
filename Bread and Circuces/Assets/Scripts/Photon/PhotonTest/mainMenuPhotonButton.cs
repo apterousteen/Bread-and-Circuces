@@ -8,3 +8,4 @@ public class mainMenuPhotonButton : MonoBehaviour
         SceneManager.LoadScene("PhotonTest");
     }
 }
+ 

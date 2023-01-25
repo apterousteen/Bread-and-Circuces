@@ -11,12 +11,14 @@ GameObject:
   - component: {fileID: 1043549258136488978}
   - component: {fileID: 1043549258136488977}
   - component: {fileID: 1043549258136488976}
-  - component: {fileID: 7125710821846110083}
+  - component: {fileID: 9070159263046678299}
   - component: {fileID: 771729444164306025}
   - component: {fileID: 7133125819691203070}
   - component: {fileID: 4734411932903936424}
+  - component: {fileID: -6365604842006484677}
+  - component: {fileID: -51771932704038871}
   m_Layer: 7
-  m_Name: Thraex
+  m_Name: Hoplomachus
   m_TagString: Hoplomachus
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +81,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 6f6510af54c5b704f830670fe1d0ddbb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 78759900e7e41674a97538c0a387de8e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -105,7 +107,7 @@ MonoBehaviour:
   wasActivated: 0
   faceRight: 1
   path: []
---- !u!114 &7125710821846110083
+--- !u!114 &9070159263046678299
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,10 +116,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1043549258136488991}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2be2d3d7f3d176e48b60f30920ea8052, type: 3}
+  m_Script: {fileID: 11500000, guid: 65ae48bb9abc29c43a0dc1b91d5d7af2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: 
+  unitName: "\u0413\u043E\u043F\u043B\u043E\u043C\u0430\u0445"
   health: 0
   moveDistance: 0
   attackReachDistance: 0
@@ -128,7 +130,7 @@ MonoBehaviour:
   stanceToChange: 0
   motionType: 0
   withShield: 0
-  altSkin: {fileID: 0}
+  altSkin: {fileID: 21300000, guid: d5f12c2c7a858f948829bb30b8efd29d, type: 3}
   healthbar: {fileID: 171428804369474183}
   maxHealth: 0
   offset: {x: 0, y: 0, z: 0}
@@ -189,7 +191,7 @@ Animator:
   m_GameObject: {fileID: 1043549258136488991}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6a886d052378a954ebb6a0167412e411, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2b2637b5c2b76f74a87de7df81766cd7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -198,6 +200,44 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-6365604842006484677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043549258136488991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &-51771932704038871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043549258136488991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &2470683990599084812
 GameObject:
   m_ObjectHideFlags: 0

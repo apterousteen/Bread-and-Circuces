@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1183554167116557960}
   - component: {fileID: 1183554167116557961}
   m_Layer: 5
-  m_Name: RoomNme
+  m_Name: RoomName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -201,7 +201,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1183554167379688451}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -1826547234040556396}
+        m_TargetAssemblyTypeName: ListItem, Assembly-CSharp
+        m_MethodName: JoinToListRoom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &-1826547234040556396
 MonoBehaviour:
   m_ObjectHideFlags: 0
