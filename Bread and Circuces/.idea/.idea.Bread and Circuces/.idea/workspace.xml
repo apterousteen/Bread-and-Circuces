@@ -6,32 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="169a3587-18e0-4128-809e-3d1cfe17182c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Bread and Circuces/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bread and Circuces/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Dimacher.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Dimacher.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Hoplomachus.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Hoplomachus.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Murmillo.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Murmillo.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Retiarius.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Retiarius.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Scisssor.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Scisssor.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Thraex.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Thraex.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Veles.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Veles.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/mainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/mainMenu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UnitInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UnitInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Units/Dimacher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Units/Dimacher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Units/Hoplomachus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Units/Hoplomachus.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Units/Murmillo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Units/Murmillo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Units/Retiarius.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Units/Retiarius.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Units/Scissor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Units/Scissor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Units/Thraex.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Units/Thraex.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Units/Veles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Units/Veles.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/choiseMenu/Hoplomachus/HoplomachusIdle.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/choiseMenu/Hoplomachus/HoplomachusIdle.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/choiceMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/choiceMenu.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +108,7 @@
       <workItem from="1674545796857" duration="5745000" />
       <workItem from="1674588529656" duration="4735000" />
       <workItem from="1674635032953" duration="1088000" />
-      <workItem from="1674654018638" duration="24933000" />
+      <workItem from="1674654018638" duration="26337000" />
     </task>
     <servers />
   </component>
