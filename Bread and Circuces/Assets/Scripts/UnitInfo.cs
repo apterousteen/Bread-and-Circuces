@@ -32,6 +32,8 @@ public enum Animation
 
 public abstract class UnitInfo : MonoBehaviour
 {
+    [SerializeField] private AudioSource AttackSound;
+    [SerializeField] private AudioSource BlockSound;
     public string unitName;
     public int health;
     public int moveDistance;
@@ -80,6 +82,7 @@ public abstract class UnitInfo : MonoBehaviour
             characterName += "InGameAttack";
 
             animator.Play(characterName);
+            AttackSound.Play();
         }
 
         if (animation == Animation.Hit)
@@ -97,6 +100,12 @@ public abstract class UnitInfo : MonoBehaviour
         {
             characterName += "InGameBlock";
             animator.Play(characterName);
+            float i = 0;
+            while (i < 1)
+            {
+                i += Time.deltaTime;
+            }
+            BlockSound.Play();
         }
     }
 

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Units
 {
     public class Scissor : UnitInfo
