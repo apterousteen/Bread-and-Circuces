@@ -14,5 +14,7 @@ namespace Ui
         public GameObject cards;
 
         public Sprite charIcon;
+
+        public GameObject button;
     }
 }

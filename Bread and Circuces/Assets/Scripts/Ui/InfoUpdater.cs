@@ -27,20 +27,16 @@ namespace Ui
                 if (gameObject.tag != charInfo.charTag)
                 {
                     charInfo.cards.SetActive(false);
-                    //charInfo.charObj.transform.GetChild(2).GetComponent<Image>().color = new Color(1, 1, 1, 0.8f);
-                    charInfo.charObj.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 1, 1, 0.4f);
-                    charInfo.charObj.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
-                    charInfo.charObj.transform.GetChild(1).GetComponent<Outline>().enabled = false;
+                    charInfo.charObj.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 1, 1, 0.0f);
+                    
                     continue;
                 }
 
                 MenuManager.chosen = charInfo.charObj;
+                MenuManager.chosenButton = charInfo.button;
                 MenuManager.Instance.ChangeChoiceButton();
 
-                //charInfo.charObj.transform.GetChild(2).GetComponent<Image>().color = new Color(1, 1, 1, 1);
                 charInfo.charObj.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-                charInfo.charObj.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-                charInfo.charObj.transform.GetChild(1).GetComponent<Outline>().enabled = true;
 
                 CIP.charIcon.GetComponent<Image>().sprite = charInfo.charIcon;
                 CIP.charName.text = charInfo.charName;
