@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="169a3587-18e0-4128-809e-3d1cfe17182c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Bread and Circuces/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bread and Circuces/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/choiseMenu/Hoplomachus/HoplomachusIdle.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/choiseMenu/Hoplomachus/HoplomachusIdle.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/choiceMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/choiceMenu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/choiceMenuTutorial.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/choiceMenuTutorial.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Electronic Highway Sign SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Electronic Highway Sign SDF.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +107,7 @@
       <workItem from="1674545796857" duration="5745000" />
       <workItem from="1674588529656" duration="4735000" />
       <workItem from="1674635032953" duration="1088000" />
-      <workItem from="1674654018638" duration="26337000" />
+      <workItem from="1674654018638" duration="27310000" />
     </task>
     <servers />
   </component>
