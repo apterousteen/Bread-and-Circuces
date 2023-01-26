@@ -5,31 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="169a3587-18e0-4128-809e-3d1cfe17182c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Photon/PhotonTest/GameManagerPhoton.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Photon/PhotonTest/GameManagerPhoton.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Bread and Circuces/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bread and Circuces/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/CharactersPrefabs/Dimacher.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/CharactersPrefabs/Dimacher.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/CharactersPrefabs/Hoplomachus.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/CharactersPrefabs/Hoplomachus.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/CharactersPrefabs/Murmillo.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/CharactersPrefabs/Murmillo.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/CharactersPrefabs/Retiarius.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/CharactersPrefabs/Retiarius.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/CharactersPrefabs/Scisssor.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/CharactersPrefabs/Scisssor.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/CharactersPrefabs/Thraex.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/CharactersPrefabs/Thraex.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/CharactersPrefabs/Veles.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/CharactersPrefabs/Veles.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Photon/PhotonTest/ButtonListItem.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Photon/PhotonTest/ButtonListItem.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/PhotonSceneTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/PhotonSceneTest.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/PhotonTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/PhotonTest.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Photon/PhotonTest/ListItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Photon/PhotonTest/ListItem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Photon/PhotonTest/PhotonManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Photon/PhotonTest/PhotonManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Photon/PhotonTest/mainMenuPhotonButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Photon/PhotonTest/mainMenuPhotonButton.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/choiceMenuTutorial.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/choiceMenuTutorial.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Electronic Highway Sign SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Electronic Highway Sign SDF.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,7 +107,7 @@
       <workItem from="1674545796857" duration="5745000" />
       <workItem from="1674588529656" duration="4735000" />
       <workItem from="1674635032953" duration="1088000" />
-      <workItem from="1674654018638" duration="21453000" />
+      <workItem from="1674654018638" duration="27310000" />
     </task>
     <servers />
   </component>

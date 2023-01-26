@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Audio;
@@ -20,9 +21,11 @@ namespace Ui
 
         public Sprite rage, defence;
 
-        [Header("checkbox")]
-        [SerializeField] private Sprite checkbox_ch = null;
-        [SerializeField] private Sprite checkbox_unch = null;
+        [Header("mini_panel_bg")]
+        [SerializeField] private Sprite panel_chosen = null;
+        [SerializeField] private Sprite panel_not_chosen = null;
+
+        public string activePosition = "left";
 
         public AudioManager audioManager;
 
@@ -42,8 +45,12 @@ namespace Ui
             else LoadScene("FightScene");
         }
 
-        public static List<string> team = new List<string>(); 
+        public static List<string> team = new List<string>();
+
+        public static Vector3 left;
+        public static Vector3 right;
         public static GameObject chosen;
+        public static GameObject chosenButton;
 
         private void Awake()
         {
@@ -58,7 +65,19 @@ namespace Ui
             if (!team.Contains(chosen.tag) && team.Count < 2)
             {
                 team.Add(chosen.tag);
-                chosen.transform.GetChild(2).GetComponent<Image>().sprite = checkbox_ch;
+
+                if (activePosition == "left")
+                {
+                    chosen.transform.GetChild(1).transform.localPosition = left;
+                    activePosition = "right";
+                }
+                else
+                {
+                    chosen.transform.GetChild(1).transform.localPosition = right;
+                    activePosition = "left";
+                }
+
+                chosenButton.transform.GetComponent<Image>().sprite = panel_chosen;
                 InTeam.text = team.Count.ToString();
                 PlayButton.interactable = false;
             }
@@ -73,8 +92,9 @@ namespace Ui
 
         public void DeleteFromTeam()
         {
+            // add logic
             team.Remove(chosen.tag);
-            chosen.transform.GetChild(2).GetComponent<Image>().sprite = checkbox_unch;
+            chosenButton.transform.GetComponent<Image>().sprite = panel_not_chosen;
             InTeam.text = team.Count.ToString();
 
             ChangeChoiceButton();

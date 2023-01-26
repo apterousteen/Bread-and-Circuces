@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -27,20 +28,27 @@ namespace Ui
                 if (gameObject.tag != charInfo.charTag)
                 {
                     charInfo.cards.SetActive(false);
-                    //charInfo.charObj.transform.GetChild(2).GetComponent<Image>().color = new Color(1, 1, 1, 0.8f);
-                    charInfo.charObj.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 1, 1, 0.4f);
-                    charInfo.charObj.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
-                    charInfo.charObj.transform.GetChild(1).GetComponent<Outline>().enabled = false;
+                    if ((!MenuManager.team.Contains(charInfo.charObj.tag)))
+                        charInfo.charObj.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 1, 1, 0.0f);
                     continue;
                 }
 
+                MenuManager.left = charInfo.leftPosition;
+                MenuManager.right = charInfo.rightPosition;
                 MenuManager.chosen = charInfo.charObj;
+                MenuManager.chosenButton = charInfo.button;
                 MenuManager.Instance.ChangeChoiceButton();
 
-                //charInfo.charObj.transform.GetChild(2).GetComponent<Image>().color = new Color(1, 1, 1, 1);
                 charInfo.charObj.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-                charInfo.charObj.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-                charInfo.charObj.transform.GetChild(1).GetComponent<Outline>().enabled = true;
+
+                if (MenuManager.Instance.activePosition == "left")
+                {
+                    charInfo.charObj.transform.GetChild(1).transform.localPosition = charInfo.leftPosition;
+                }
+                else if (!MenuManager.team.Contains(charInfo.charObj.tag))
+                {
+                    charInfo.charObj.transform.GetChild(1).transform.localPosition = charInfo.rightPosition;
+                }
 
                 CIP.charIcon.GetComponent<Image>().sprite = charInfo.charIcon;
                 CIP.charName.text = charInfo.charName;
