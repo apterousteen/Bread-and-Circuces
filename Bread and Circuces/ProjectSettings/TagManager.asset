@@ -21,6 +21,9 @@ TagManager:
   - DiscardPanel
   - SoundButton
   - AudioManager
+  - Dimacher
+  - Thraex
+  - Veles
   layers:
   - Default
   - TransparentFX

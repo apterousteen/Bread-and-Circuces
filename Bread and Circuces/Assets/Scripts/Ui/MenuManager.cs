@@ -20,9 +20,9 @@ namespace Ui
 
         public Sprite rage, defence;
 
-        [Header("checkbox")]
-        [SerializeField] private Sprite checkbox_ch = null;
-        [SerializeField] private Sprite checkbox_unch = null;
+        [Header("mini_panel_bg")]
+        [SerializeField] private Sprite panel_chosen = null;
+        [SerializeField] private Sprite panel_not_chosen = null;
 
         public AudioManager audioManager;
 
@@ -44,6 +44,7 @@ namespace Ui
 
         public static List<string> team = new List<string>(); 
         public static GameObject chosen;
+        public static GameObject chosenButton;
 
         private void Awake()
         {
@@ -58,7 +59,7 @@ namespace Ui
             if (!team.Contains(chosen.tag) && team.Count < 2)
             {
                 team.Add(chosen.tag);
-                chosen.transform.GetChild(2).GetComponent<Image>().sprite = checkbox_ch;
+                chosenButton.transform.GetComponent<Image>().sprite = panel_chosen;
                 InTeam.text = team.Count.ToString();
                 PlayButton.interactable = false;
             }
@@ -74,7 +75,7 @@ namespace Ui
         public void DeleteFromTeam()
         {
             team.Remove(chosen.tag);
-            chosen.transform.GetChild(2).GetComponent<Image>().sprite = checkbox_unch;
+            chosenButton.transform.GetComponent<Image>().sprite = panel_not_chosen;
             InTeam.text = team.Count.ToString();
 
             ChangeChoiceButton();
