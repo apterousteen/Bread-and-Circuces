@@ -850,6 +850,8 @@ MonoBehaviour:
   cards: {fileID: 793223802}
   charIcon: {fileID: 21300000, guid: af9a8b0d3e77d484e8da7804260e0d43, type: 3}
   button: {fileID: 1825167648}
+  leftPosition: {x: 15.5, y: 14.2, z: 0}
+  rightPosition: {x: 130.5, y: -27.6, z: 0}
 --- !u!1 &71675273
 GameObject:
   m_ObjectHideFlags: 0
@@ -870,7 +872,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &71675274
 RectTransform:
   m_ObjectHideFlags: 0
@@ -932,6 +934,8 @@ MonoBehaviour:
   cards: {fileID: 1978679724}
   charIcon: {fileID: 21300000, guid: ab461d0a12cfae94fb10e6bfa1628495, type: 3}
   button: {fileID: 1369509768}
+  leftPosition: {x: 0, y: 0, z: 0}
+  rightPosition: {x: 0, y: 0, z: 0}
 --- !u!61 &71675277
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1598,6 +1602,8 @@ MonoBehaviour:
   cards: {fileID: 708057496}
   charIcon: {fileID: 21300000, guid: ffc0f7796649e174486d00a629c1adec, type: 3}
   button: {fileID: 1117583045}
+  leftPosition: {x: 90.6, y: 51.105, z: 0}
+  rightPosition: {x: 207.51, y: 9.6, z: 0}
 --- !u!1 &107849314
 GameObject:
   m_ObjectHideFlags: 0
@@ -2374,6 +2380,8 @@ MonoBehaviour:
   cards: {fileID: 1978679724}
   charIcon: {fileID: 21300000, guid: ab461d0a12cfae94fb10e6bfa1628495, type: 3}
   button: {fileID: 1369509768}
+  leftPosition: {x: -243.5, y: 54.6, z: 0}
+  rightPosition: {x: -129.3, y: 8, z: 0}
 --- !u!1 &155714324
 GameObject:
   m_ObjectHideFlags: 0
@@ -3149,7 +3157,7 @@ GameObject:
   - component: {fileID: 196185521}
   - component: {fileID: 196185523}
   m_Layer: 5
-  m_Name: CardPanel (2)
+  m_Name: scis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8449,7 +8457,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 14.299999, y: 16.900002}
+  m_AnchoredPosition: {x: 15.5, y: 14.2}
   m_SizeDelta: {x: 400, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &699309408
@@ -8465,7 +8473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.87058824}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8522,7 +8530,7 @@ GameObject:
   - component: {fileID: 708057498}
   - component: {fileID: 708057500}
   m_Layer: 5
-  m_Name: CardPanel
+  m_Name: reti
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9901,7 +9909,7 @@ GameObject:
   - component: {fileID: 793223804}
   - component: {fileID: 793223806}
   m_Layer: 5
-  m_Name: CardPanel (3)
+  m_Name: hoplo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10420,7 +10428,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &822169549
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10482,6 +10490,8 @@ MonoBehaviour:
   cards: {fileID: 1978679724}
   charIcon: {fileID: 21300000, guid: ab461d0a12cfae94fb10e6bfa1628495, type: 3}
   button: {fileID: 1369509768}
+  leftPosition: {x: 0, y: 0, z: 0}
+  rightPosition: {x: 0, y: 0, z: 0}
 --- !u!61 &822169552
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10744,7 +10754,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e58a78b44f36d1742bab5219031fc289, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cf580b60a8024de4e96a9b03be2d520f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10794,10 +10804,10 @@ RectTransform:
   m_Father: {fileID: 1058192252}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -1.7}
-  m_SizeDelta: {x: 320.92, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &895090313
 MonoBehaviour:
@@ -10828,8 +10838,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284203004
-  m_fontColor: {r: 0.98823535, g: 0.7490196, b: 0.35686275, a: 1}
+    rgba: 4290962687
+  m_fontColor: {r: 1, g: 0.89411765, b: 0.7607843, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -10846,8 +10856,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 22
+  m_fontSizeBase: 22
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -12281,7 +12291,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0000038146973, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1023529575
@@ -13082,7 +13092,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0.56586456, y: -34.400024}
-  m_SizeDelta: {x: 340, y: 50.799988}
+  m_SizeDelta: {x: 272, y: 54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1058192253
 MonoBehaviour:
@@ -13104,7 +13114,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b4a7eee57ecd360498f341584504c6fc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 87a00f4f7c035f14cb5940e018d332c2, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -18377,7 +18387,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 12.700001, y: 22.7}
+  m_AnchoredPosition: {x: -10.4, y: 22.7}
   m_SizeDelta: {x: 400, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1467750375
@@ -18393,7 +18403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.87058824}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -18685,7 +18695,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1518357849
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18747,6 +18757,8 @@ MonoBehaviour:
   cards: {fileID: 1978679724}
   charIcon: {fileID: 21300000, guid: ab461d0a12cfae94fb10e6bfa1628495, type: 3}
   button: {fileID: 1369509768}
+  leftPosition: {x: 0, y: 0, z: 0}
+  rightPosition: {x: 0, y: 0, z: 0}
 --- !u!61 &1518357852
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -21722,6 +21734,8 @@ MonoBehaviour:
   cards: {fileID: 196185519}
   charIcon: {fileID: 21300000, guid: 822c3b17c69c4484abf5619bbb203fff, type: 3}
   button: {fileID: 698564808}
+  leftPosition: {x: -131, y: 37.3, z: 0}
+  rightPosition: {x: -16, y: -6.4, z: 0}
 --- !u!1 &1744965009
 GameObject:
   m_ObjectHideFlags: 0
@@ -21966,7 +21980,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 11.200001, y: 16}
+  m_AnchoredPosition: {x: 0, y: 0.00000047683716}
   m_SizeDelta: {x: 400, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1776623631
@@ -21982,7 +21996,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.87058824}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -23171,7 +23185,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 37.300003}
+  m_AnchoredPosition: {x: -16, y: -6.4}
   m_SizeDelta: {x: 400, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1939054228
@@ -23187,7 +23201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.87058824}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -23338,7 +23352,7 @@ GameObject:
   - component: {fileID: 1978679726}
   - component: {fileID: 1978679728}
   m_Layer: 5
-  m_Name: CardPanel (1)
+  m_Name: murm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26662,6 +26676,7 @@ MonoBehaviour:
   defence: {fileID: 21300000, guid: 8a8b0dc383716e6458e611b12e0b999f, type: 3}
   panel_chosen: {fileID: 21300000, guid: 75f6d01a76f38f144a596e84c77aec48, type: 3}
   panel_not_chosen: {fileID: 21300000, guid: 3a869654f2269084598a6ca652a3e039, type: 3}
+  activePosition: left
   audioManager: {fileID: 0}
 --- !u!212 &1604349861605561166
 SpriteRenderer:

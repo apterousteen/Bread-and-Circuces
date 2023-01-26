@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Audio;
@@ -24,6 +25,8 @@ namespace Ui
         [SerializeField] private Sprite panel_chosen = null;
         [SerializeField] private Sprite panel_not_chosen = null;
 
+        public string activePosition = "left";
+
         public AudioManager audioManager;
 
         public void LoadScene(string sceneName)
@@ -42,7 +45,10 @@ namespace Ui
             else LoadScene("FightScene");
         }
 
-        public static List<string> team = new List<string>(); 
+        public static List<string> team = new List<string>();
+
+        public static Vector3 left;
+        public static Vector3 right;
         public static GameObject chosen;
         public static GameObject chosenButton;
 
@@ -59,6 +65,18 @@ namespace Ui
             if (!team.Contains(chosen.tag) && team.Count < 2)
             {
                 team.Add(chosen.tag);
+
+                if (activePosition == "left")
+                {
+                    chosen.transform.GetChild(1).transform.localPosition = left;
+                    activePosition = "right";
+                }
+                else
+                {
+                    chosen.transform.GetChild(1).transform.localPosition = right;
+                    activePosition = "left";
+                }
+
                 chosenButton.transform.GetComponent<Image>().sprite = panel_chosen;
                 InTeam.text = team.Count.ToString();
                 PlayButton.interactable = false;
@@ -74,6 +92,7 @@ namespace Ui
 
         public void DeleteFromTeam()
         {
+            // add logic
             team.Remove(chosen.tag);
             chosenButton.transform.GetComponent<Image>().sprite = panel_not_chosen;
             InTeam.text = team.Count.ToString();

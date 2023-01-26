@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -27,16 +28,27 @@ namespace Ui
                 if (gameObject.tag != charInfo.charTag)
                 {
                     charInfo.cards.SetActive(false);
-                    charInfo.charObj.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 1, 1, 0.0f);
-                    
+                    if ((!MenuManager.team.Contains(charInfo.charObj.tag)))
+                        charInfo.charObj.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 1, 1, 0.0f);
                     continue;
                 }
 
+                MenuManager.left = charInfo.leftPosition;
+                MenuManager.right = charInfo.rightPosition;
                 MenuManager.chosen = charInfo.charObj;
                 MenuManager.chosenButton = charInfo.button;
                 MenuManager.Instance.ChangeChoiceButton();
 
                 charInfo.charObj.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+
+                if (MenuManager.Instance.activePosition == "left")
+                {
+                    charInfo.charObj.transform.GetChild(1).transform.localPosition = charInfo.leftPosition;
+                }
+                else if (!MenuManager.team.Contains(charInfo.charObj.tag))
+                {
+                    charInfo.charObj.transform.GetChild(1).transform.localPosition = charInfo.rightPosition;
+                }
 
                 CIP.charIcon.GetComponent<Image>().sprite = charInfo.charIcon;
                 CIP.charName.text = charInfo.charName;
