@@ -16,5 +16,7 @@ namespace Ui
         public Sprite charIcon;
 
         public GameObject button;
+        public Vector3 leftPosition;
+        public Vector3 rightPosition;
     }
 }
