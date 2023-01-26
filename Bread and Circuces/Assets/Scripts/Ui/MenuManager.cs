@@ -50,7 +50,7 @@ namespace Ui
 
             if (Instance == null)
                 Instance = this;
-            audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+            //audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
         }
 
         public void AddToTeam()

@@ -13,7 +13,7 @@ namespace Units
             moveDistance = 2;
             withShield = false;
 
-            offset = new UnityEngine.Vector3(0f, 0.6f);
+            offset = new UnityEngine.Vector3(0f, 0.7f);
 
             base.Start();
         }

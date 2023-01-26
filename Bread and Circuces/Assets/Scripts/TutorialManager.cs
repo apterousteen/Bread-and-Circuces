@@ -1,23 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager Instance;
 
-    public GameObject actionsPanel;
-    public GameObject turnOrderPanel;
-    public GameObject defensePanel;
-    public GameObject enemyOutlinePanel;
-    public GameObject playerOutlinePanel;
+    public GameObject movementPanel;
+    public GameObject discardPanel;
+    public GameObject attackPanel;
+    public GameObject apPanel;
+    public GameObject endPanel;
+    public GameObject defencePanel;
+    public GameObject congratsPanel;
 
-    private bool actionsExplained = false;
-    private bool turnOrderExplained = false;
-    private bool defenseExplained = false;
-    public bool enemyPanelExplained = false;
+    public bool unitPicked = false;
+    public bool discardedOnce = false;
+    public bool movedToEnemy = false;
+    public bool attackFinished = false;
+    public bool inAdvanceFinished = false;
+    public bool attacked = false;
+    public bool turnEnded = false;
+    public bool apShowed = false;
 
     private TurnManager turnManager;
+    private GameManagerScript gameManager;
+    private UiController uiController;
+
+    private Transform startPosition;
 
     private void Awake()
     {
@@ -36,43 +47,67 @@ public class TutorialManager : MonoBehaviour
     private void Start()
     {
         turnManager = FindObjectOfType<TurnManager>();
+        uiController = FindObjectOfType<UiController>();
+        gameManager = FindObjectOfType<GameManagerScript>();
     }
 
     private void Update()
     {
-        if (!actionsExplained && turnManager.ActiveUnitExist())
+        if (!unitPicked && turnManager.ActiveUnitExist())
         {
-            actionsPanel.SetActive(true);
-            Time.timeScale = 0f;
-            UiController.Instance.GameIsPaused = true;
-            actionsExplained = true;
-            playerOutlinePanel.SetActive(false);
+            movementPanel.SetActive(true);
+            //Time.timeScale = 0f;
+            //UiController.Instance.GameIsPaused = true;
+            unitPicked = true;
+            startPosition = turnManager.activeUnit.transform.parent;
+            //playerOutlinePanel.SetActive(false);
         }
 
-        if(!turnOrderExplained && turnManager.activatedUnits.Count > 0 && !turnManager.ActiveUnitExist())
+        if(!discardedOnce && uiController.discardWindow.active)
         {
-            turnOrderPanel.SetActive(true);
-            Time.timeScale = 0f;
-            UiController.Instance.GameIsPaused = true;
-            turnOrderExplained = true;
+            discardPanel.SetActive(true);
+            discardedOnce = true;
+            startPosition = turnManager.activeUnit.transform.parent;
         }
 
-        if(!defenseExplained && turnManager.isReactionTime && turnManager.currTeam == Team.Enemy)
+        if(!movedToEnemy && startPosition != turnManager.activeUnit.transform.parent)
         {
-            defensePanel.SetActive(true);
-            Time.timeScale = 0f;
-            UiController.Instance.GameIsPaused = true;
-            defenseExplained = true;
+            attackPanel.SetActive(true);
+            movedToEnemy = true;
         }
+
+
+        if(!inAdvanceFinished && apShowed && (turnManager.activeUnit.GetComponent<UnitInfo>().currentStance == Stance.Advance || gameManager.CurrentGame.Player.Mana == 0))
+        {
+            endPanel.SetActive(true);
+            inAdvanceFinished = true;
+        }
+
+        if(!attacked && turnManager.isReactionTime)
+        {
+            defencePanel.SetActive(true);
+            attacked = true;
+        }
+
+        if(!turnEnded && turnManager.Turn > 0)
+        {
+            congratsPanel.SetActive(true);
+            turnEnded = true;
+        }    
     }
 
-    public void ControlOutline(GameObject unit)
+    public void Showed()
     {
-        if (!enemyPanelExplained && unit.GetComponent<UnitInfo>().teamSide.ToString() == "Enemy")
-        {
-            enemyOutlinePanel.SetActive(false);
-            enemyPanelExplained = true;
-            playerOutlinePanel.SetActive(true);
-        }
+        apShowed = true;
     }
+
+    //public void ControlOutline(GameObject unit)
+    //{
+    //    if (!enemyPanelExplained && unit.GetComponent<UnitInfo>().teamSide.ToString() == "Enemy")
+    //    {
+    //        enemyOutlinePanel.SetActive(false);
+    //        enemyPanelExplained = true;
+    //        playerOutlinePanel.SetActive(true);
+    //    }
+    //}
 }

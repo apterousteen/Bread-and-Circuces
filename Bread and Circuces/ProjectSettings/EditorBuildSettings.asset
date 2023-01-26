@@ -5,28 +5,31 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/mainMenu.unity
     guid: 8554cc6f311172040add4aa6ddef5d0c
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/choiceMenu.unity
     guid: 04754df4ad5dd1d428c708ac925a59de
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/FightScene.unity
     guid: a734d454c72c1384ab091ff4c079b897
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/TutorialScene.unity
     guid: f69fd77f833893244b5223685bc815a4
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/choiceMenuTutorial.unity
     guid: 73c993c04e9854a40b6d08eb560e630d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/PhotonTest.unity
     guid: ee532cbb5aee5b24ca6e474552e275b8
   - enabled: 0
     path: Assets/Scenes/PhotonSceneTest.unity
     guid: 31b65ef195c7bc144b454ca68b351d4e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/PhotonRoom.unity
     guid: fd4e1c0332f3a204c88905e7964620c5
+  - enabled: 1
+    path: Assets/Scenes/TutorialLevel01.unity
+    guid: d04c4504dd5295547b611700c7b47de4
   m_configObjects: {}

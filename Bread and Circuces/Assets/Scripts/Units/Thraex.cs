@@ -16,6 +16,7 @@ public class Thraex : UnitInfo
         moveDistance = 3;
         withShield = true;
 
+        offset = new UnityEngine.Vector3(0f, 0.45f);
         turnManager = FindObjectOfType<TurnManager>();
         base.Start();
     }

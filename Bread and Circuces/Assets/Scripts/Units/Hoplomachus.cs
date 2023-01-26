@@ -19,7 +19,7 @@ namespace Units
             withShield = true;
             distanceFinder = FindObjectOfType<DistanceFinder>();
 
-            offset = new UnityEngine.Vector3(0f, 0.4f);
+            offset = new UnityEngine.Vector3(0f, 0.45f);
             base.Start();
             Debug.Log(this.gameObject.name);
         }

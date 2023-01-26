@@ -46,13 +46,13 @@ public class UnitControl : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (turnManager.tutorialLevel)
-        {
-            if (info.teamSide == Team.Enemy && !TutorialManager.Instance.enemyPanelExplained)
-                TutorialManager.Instance.ControlOutline(gameObject);
-            else if (!TutorialManager.Instance.enemyPanelExplained)
-                return;
-        }
+        //if (turnManager.tutorialLevel)
+        //{
+        //    if (info.teamSide == Team.Enemy && !TutorialManager.Instance.enemyPanelExplained)
+        //        TutorialManager.Instance.ControlOutline(gameObject);
+        //    else if (!TutorialManager.Instance.enemyPanelExplained)
+        //        return;
+        //}
 
         if (!turnManager.inAction)
         {
@@ -217,6 +217,11 @@ public class UnitControl : MonoBehaviour
         enemyUnit.SufferDamage(damageDealt);
         info.OnAttackEnd(enemyUnit);
         enemyUnit.OnDefenceEnd(damageDealt);
+        if(turnManager.tutorialLevel && !FindObjectOfType<TutorialManager>().attackFinished)
+        {
+            FindObjectOfType<TutorialManager>().apPanel.SetActive(true);
+            FindObjectOfType<TutorialManager>().attackFinished = true; ;
+        }
         turnManager.EndAction();
     }
 

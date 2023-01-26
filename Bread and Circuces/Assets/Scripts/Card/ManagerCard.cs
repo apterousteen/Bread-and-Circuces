@@ -197,11 +197,11 @@ namespace Card
             CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Murmillo, "Блок", "Sprites/LogoCards/Блок", 0,
                 defStance, Stance.Defensive, EnumCard.CardType.Defense, EnumCard.CardEffect.ShieldedDefense, 2,
                 EnumCard.CardEffect.No, 0, EnumCard.TargetType.This, "+1 к защите, если этот боец Щитовик"));
-            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Murmillo, "Заверщающий рубец",
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Murmillo, "Завершающий рубец",
                 "Sprites/LogoCards/ЗавершающийРубец", 1, attStance, Stance.Advance, EnumCard.CardType.Attack,
                 EnumCard.CardEffect.DamageFinisher, 2, EnumCard.CardEffect.No, 0, EnumCard.TargetType.Enemy,
                 "+1 к урону за каждую карту, разыгранную в эту активацию"));
-            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Murmillo, "Заверщающий рубец",
+            CardManager.AllCards.Add(new Card(EnumCard.CardRestriction.Murmillo, "Завершающий рубец",
                 "Sprites/LogoCards/ЗавершающийРубец", 1, attStance, Stance.Advance, EnumCard.CardType.Attack,
                 EnumCard.CardEffect.DamageFinisher, 2, EnumCard.CardEffect.No, 0, EnumCard.TargetType.Enemy,
                 "+1 к урону за каждую карту, разыгранную в эту активацию"));

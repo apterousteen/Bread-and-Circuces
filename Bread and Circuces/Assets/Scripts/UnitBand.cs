@@ -13,6 +13,11 @@ public class UnitBand
         bandMembers = new List<UnitInfo>();
     }
 
+    public void SelectUnits(string unit)
+    {
+        units = new string[1] { unit };
+    }
+
     public void SelectUnits(string unitA, string unitB)
     {
         units = new string[2] { unitA, unitB };

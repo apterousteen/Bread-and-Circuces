@@ -6,77 +6,6 @@ using Card;
 using Meta;
 using Ui;
 
-
-public class Game
-{
-    public Player Player, Enemy;
-
-    public Game()
-    {
-        if(RunInfo.Instance != null)
-        {
-            RunInfo.Instance.isTutorial = false;
-            Player = RunInfo.Instance.Player;
-            Player.UpdateForNewGame();
-        }
-        else
-        {
-            Player = new Player();
-            Player.team = Team.Player;
-            Player.units.SelectUnits("Hoplomachus", "Murmillo");
-        }
-
-        Enemy = new Player();
-        Enemy.team = Team.Enemy;
-
-        GenerateUnits(Enemy);
-
-        Enemy.Deck = GiveDeckCard(Enemy);
-        Player.Deck = GiveDeckCard(Player);
-        var allPlayerCards = Player.Deck.Count;
-        var notUniversalCards = Player.Deck.Where(x => x.Restriction == EnumCard.CardRestriction.Scissor).Count();
-        Enemy.DiscardPile = new List<Card.Card>();
-        Player.DiscardPile = new List<Card.Card>();
-    }
-
-    void GenerateUnits(Player player)
-    {
-        var units = new string[4] { "Hoplomachus", "Murmillo", "Scissor", "Retiarius" };
-        int first = Random.Range(0, 4);
-        var second = -1;
-        while (second == first || second < 0)
-            second = Random.Range(0, 4);
-        player.units.SelectUnits(units[first], units[second]);
-    }
-
-    List<Card.Card> GiveDeckCard(Player player)
-    {
-        List<Card.Card> list = new List<Card.Card>();
-        Debug.Log(CardManager.AllCards.Where(x => x.Restriction != EnumCard.CardRestriction.Universal).Count());
-        foreach (var unit in player.units.units)
-        {
-            var unitDeck = CardManager.AllCards.Where(x => x.CardSet.ToString() == unit);
-            foreach (var card in unitDeck)
-                list.Add(card.GetCopy());
-        }
-        ShuffleDeck(list);
-        return list;
-    }
-
-    public void ShuffleDeck(List<Card.Card> deck)
-    {
-        int n = deck.Count;
-        while (n > 1)
-        {
-            n--;
-            int k = Random.Range(0, n + 1);
-            var value = deck[k];
-            deck[k] = deck[n];
-            deck[n] = value;
-        }
-    }
-}
-
 public class GameManagerScript : MonoBehaviour
 {
     public static GameManagerScript Instance;
@@ -86,6 +15,7 @@ public class GameManagerScript : MonoBehaviour
     public CardInfoScript CardInfo;
     public Card.Card card;
     public GameObject CardPref;
+    public int level;
 
     int Turn;
 
@@ -115,7 +45,20 @@ public class GameManagerScript : MonoBehaviour
     {
         turnManager = FindObjectOfType<TurnManager>();
         board = FindObjectOfType<Board>();
-        StartGame();
+        switch(level)
+        {
+            case 0:
+                StartGame();
+                break;
+
+            case 1:
+                StartTutorial01();
+                break;
+
+            case 2:
+                StartTutorial02();
+                break;
+        }
     }
 
     private void Update()
@@ -125,10 +68,57 @@ public class GameManagerScript : MonoBehaviour
             MenuManager.Instance.CheckWinCondition();
     }
 
+    void StartTutorial01()
+    {
+        Turn = 0;
+        CurrentGame = new Game(true);
+        board.SpawnUnits(CurrentGame.Player);
+        CurrentGame.Enemy.units.SelectUnits("Hoplomachus");
+        board.SpawnUnits(CurrentGame.Enemy);
+        var enemyUnits = FindObjectsOfType<UnitInfo>().Where(x => x.teamSide == Team.Enemy).ToList();
+        foreach (var unit in enemyUnits)
+            unit.gameObject.AddComponent<BasicUnitAI>();
+
+        //GiveHandCards(CurrentGame.Enemy, EnemyHand);
+        var handOfCards = new List<string>() { "Внезапный удар", "Прикрыться", "Завершающий рубец", "Удар клинком", "Прикрыться", "Блок" };
+        GivePresetedHand(handOfCards, CurrentGame.Player, PlayerHand);
+        UiController.Instance.StartGame();
+        turnManager.StartActivity();
+    }
+
+    void StartTutorial02()
+    {
+        Turn = 0;
+        CurrentGame = new Game(false);
+        board.SpawnUnits(CurrentGame.Player);
+        board.SpawnUnits(CurrentGame.Enemy);
+        var enemyUnits = FindObjectsOfType<UnitInfo>().Where(x => x.teamSide == Team.Enemy).ToList();
+        foreach (var unit in enemyUnits)
+            unit.gameObject.AddComponent<BasicUnitAI>();
+
+        //GiveHandCards(CurrentGame.Enemy, EnemyHand);
+        var handOfCards = new List<string>();
+        GivePresetedHand(handOfCards, CurrentGame.Player, PlayerHand);
+        UiController.Instance.StartGame();
+        turnManager.StartActivity();
+    }
+
+    void GivePresetedHand(List<string> cards, Player player, Transform hand)
+    {
+        foreach (var cardName in cards)
+            GiveCard(player, hand, cardName);
+    }
+
+    void GiveCard(Player player, Transform hand, string Name)
+    {
+        var presetCard = player.Deck.Find(x => x.Name == Name);
+        CreateCardPref(presetCard, hand);
+    }
+
     void StartGame()
     {
         Turn = 0;
-        CurrentGame = new Game();
+        CurrentGame = new Game(false);
         board.SpawnUnits(CurrentGame.Player);
         board.SpawnUnits(CurrentGame.Enemy);
         var enemyUnits = FindObjectsOfType<UnitInfo>().Where(x => x.teamSide == Team.Enemy).ToList();

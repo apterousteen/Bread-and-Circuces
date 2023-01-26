@@ -131,7 +131,6 @@ public abstract class UnitInfo : MonoBehaviour
     {
         if (health <= 0)
         {
-            MenuManager.Instance.CheckWinCondition();
             Die();
             return false;
         }

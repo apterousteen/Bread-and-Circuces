@@ -254,6 +254,8 @@ public class UiController : MonoBehaviour
 
     public void UpdateIcons(GameObject gameObject)
     {
+        if (FindObjectOfType<GameManagerScript>().level == 1)
+            return;
         foreach (var icon in icons)
         {
             if (icon.name == players[0])

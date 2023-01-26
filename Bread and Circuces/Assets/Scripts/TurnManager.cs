@@ -6,6 +6,7 @@ using AI_stuff;
 using Audio;
 using ButtonsHandlers;
 using TMPro;
+using Ui;
 
 public enum ActionType
 {
@@ -51,9 +52,11 @@ public class Action
 public class TurnManager : MonoBehaviour
 {
     public bool tutorialLevel;
+    public bool againstBot = true;
     public Team currTeam;
     private Team teamWithInitiative;
     private GameManagerScript gameManager;
+    private MenuManager menuManager;
     private DistanceFinder distanceFinder;
     private ButtonsContainer buttonsContainer;
     public bool isReactionTime;
@@ -79,17 +82,19 @@ public class TurnManager : MonoBehaviour
     public void StartActivity()
     {
         gameManager = FindObjectOfType<GameManagerScript>();
+        menuManager = FindObjectOfType<MenuManager>();
         distanceFinder = FindObjectOfType<DistanceFinder>();
         buttonsContainer = FindObjectOfType<ButtonsContainer>();
-        teamWithInitiative = (Team)Random.Range(0, 2);
+        teamWithInitiative = tutorialLevel? Team.Player : (Team)Random.Range(0, 2);
         isReactionTime = false;
         inAction = false;
         defCardPlayed = false;
         actionQueue = new Queue<Action>();
         activatedUnits = new List<UnitInfo>();
         gameManager.MakeAllCardsUnplayable();
-        StartMulligan();
-        if(tutorialLevel)
+        if(gameManager.level != 1)
+            StartMulligan();
+        if (tutorialLevel)
         {
             teamWithInitiative = Team.Player;
             Time.timeScale = 0f;
@@ -137,14 +142,14 @@ public class TurnManager : MonoBehaviour
         switch(action.type)
         {
             case ActionType.Attack:
-                if (action.team == Team.Player)
-                {
-                    activeUnit.GetComponent<UnitControl>().TriggerAttack(action.value);
-                }    
-                else
+                if (action.team == Team.Enemy && againstBot)
                 {
                     activeUnit.GetComponent<UnitInfo>().damage += action.value;
                     StartReactionWindow(targetUnit);
+                }  
+                else
+                {
+                    activeUnit.GetComponent<UnitControl>().TriggerAttack(action.value);
                 }
                 break;
 
@@ -161,11 +166,13 @@ public class TurnManager : MonoBehaviour
                     movingEnemy = true;
                 }
                 unitToMove.GetComponent<UnitInfo>().ChangeMotionType(MotionType.StraightType);
-                if (action.team == Team.Player)
+                if (action.team == Team.Enemy && againstBot)
+                {
+                    if (isReactionTime)
+                        unitToMove.GetComponent<BasicUnitAI>().MoveAwayFromClosestPlayerUnit(action.value);
+                    else unitToMove.GetComponent<BasicUnitAI>().MoveToClosestPlayerUnit(action.value);
+                }
                     unitToMove.GetComponent<UnitControl>().TriggerMove(action.value);
-                else if (isReactionTime)
-                    unitToMove.GetComponent<BasicUnitAI>().MoveAwayFromClosestPlayerUnit(action.value);
-                else unitToMove.GetComponent<BasicUnitAI>().MoveToClosestPlayerUnit(action.value);
                 break;
 
             case ActionType.Draw:
@@ -180,7 +187,7 @@ public class TurnManager : MonoBehaviour
                     discardWindow.SetParams(action.value);
                     discardWindow.SetCards();
                 }
-                else
+                else if(againstBot)
                 {
                     gameManager.enemyHandSize -= action.value;
                     EndAction();
@@ -195,7 +202,7 @@ public class TurnManager : MonoBehaviour
                     discardWindow.SetCards();
                     discardWindow.SetParams(action.value, true);
                 }
-                else
+                else if(againstBot)
                 {
                     gameManager.enemyHandSize -= 1;
                     gameManager.discardedCards = 1;
@@ -226,7 +233,7 @@ public class TurnManager : MonoBehaviour
             case ActionType.AttackWithDiscardBuff:
                 if (action.team == Team.Player)
                     activeUnit.GetComponent<UnitControl>().TriggerAttack(action.value + gameManager.discardedCards * 2);
-                else
+                else if(againstBot)
                 {
                     activeUnit.GetComponent<UnitInfo>().damage += action.value + 2;
                     StartReactionWindow(targetUnit);
@@ -236,7 +243,7 @@ public class TurnManager : MonoBehaviour
             case ActionType.FinisherAttack:
                 if (action.team == Team.Player)
                     activeUnit.GetComponent<UnitControl>().TriggerAttack(action.value + playedCards);
-                else
+                else if(againstBot)
                 {
                     activeUnit.GetComponent<UnitInfo>().damage += action.value + playedCards;
                     StartReactionWindow(targetUnit);
@@ -259,7 +266,8 @@ public class TurnManager : MonoBehaviour
                 activeUnit.GetComponent<UnitInfo>().ChangeMotionType(MotionType.StraightType);
                 if (action.team == Team.Player)
                     activeUnit.GetComponent<UnitControl>().TriggerMove(action.value);
-                else activeUnit.GetComponent<BasicUnitAI>().MoveToClosestPlayerUnit(action.value);
+                else if(againstBot)
+                    activeUnit.GetComponent<BasicUnitAI>().MoveToClosestPlayerUnit(action.value);
                 break;
 
             case ActionType.ChargeEnd:
@@ -268,7 +276,7 @@ public class TurnManager : MonoBehaviour
                 Debug.Log("DMG = " + dmg);
                 if (action.team == Team.Player)
                     activeUnit.GetComponent<UnitControl>().TriggerAttack(dmg);
-                else
+                else if(againstBot)
                 {
                     activeUnit.GetComponent<UnitInfo>().damage += dmg;
                     StartReactionWindow(targetUnit);
@@ -276,7 +284,7 @@ public class TurnManager : MonoBehaviour
                 break;
 
             case ActionType.NearDraw:
-                var enemyIsNear = false;
+                var enemyIsNear = true;
                 if(targetUnit != null)
                     enemyIsNear = activeUnit.GetComponent<UnitControl>().CheckForEnemiesInBTB();
                 if (!enemyIsNear)
@@ -295,14 +303,14 @@ public class TurnManager : MonoBehaviour
 
             case ActionType.DealRawDamage:
                 resistedDamage = false;
-                if (action.team == Team.Player)
-                {
-                    activeUnit.GetComponent<UnitControl>().TriggerAttack(action.value);
-                }
-                else
+                if (action.team == Team.Enemy && againstBot)
                 {
                     activeUnit.GetComponent<UnitInfo>().damage += action.value;
                     StartReactionWindow(targetUnit);
+                }
+                else
+                {
+                    activeUnit.GetComponent<UnitControl>().TriggerAttack(action.value);
                 }
                 break;
 
@@ -313,22 +321,20 @@ public class TurnManager : MonoBehaviour
                 enemyNear = activeUnit.GetComponent<UnitControl>().CheckForEnemiesInBTB();
                 if (enemyNear)
                     damage -= 2;
-                if (action.team == Team.Player)
-                {
-                    activeUnit.GetComponent<UnitControl>().TriggerAttack(action.value);
-                }
-                else
+                if (action.team == Team.Enemy && againstBot)
                 {
                     activeUnit.GetComponent<UnitInfo>().damage += action.value;
                     StartReactionWindow(targetUnit);
+                }
+                else
+                {
+                    activeUnit.GetComponent<UnitControl>().TriggerAttack(action.value);
                 }
                 break;
 
             case ActionType.WhirlwindDamage:
                 activeUnit.GetComponent<UnitControl>().DealAreaDamage(action.value);
                 break;
-
-
 
 
             case ActionType.Skip:
@@ -364,7 +370,7 @@ public class TurnManager : MonoBehaviour
             Debug.Log("Refreshed Cards");
             gameManager.ShowPlayableCards(Card.Card.CardType.Attack, activeUnit.GetComponent<UnitInfo>());
         }
-
+        menuManager.CheckWinCondition();
         //if (isReactionTime && currTeam == Team.Enemy && actionQueue.Where(x => x.team == Team.Player).Count() == 0)
             //EndReactionWindow();
     }
@@ -398,7 +404,7 @@ public class TurnManager : MonoBehaviour
                 yield return new WaitForSeconds(1);
             }
         }
-        else
+        else if(againstBot)
         {
             while (TurnTime-- > 0)
             {
@@ -440,7 +446,7 @@ public class TurnManager : MonoBehaviour
             gameManager.CurrentGame.Player.activatedUnits++;
             gameManager.MakeAllCardsUnplayable();
         }
-        else if (currTeam == Team.Enemy)
+        else if (currTeam == Team.Enemy && againstBot)
         {
             gameManager.CurrentGame.Enemy.activatedUnits++;
         }

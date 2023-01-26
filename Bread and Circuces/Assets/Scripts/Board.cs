@@ -24,8 +24,8 @@ public class Board : MonoBehaviour
     public int gridSizeX = 12;
     public int gridSizeY = 7;
 
-    private float dx = 0.9f;
-    private float dy = 0.6f;
+    public float dx = 0.9f;
+    public float dy = 0.6f;
 
     public HexTile[][] board;
 
@@ -44,7 +44,7 @@ public class Board : MonoBehaviour
                 int diff = 0;
                 if (j % 2 != 0) //continue;
                 {
-                    xcomponent = (dx * i) + 0.43f;
+                    xcomponent = (dx * i) + 0.53f;
                     diff = 1;
                 }
 
@@ -61,14 +61,20 @@ public class Board : MonoBehaviour
         }
 
         spawnPoints = new List<SpawnPoint>();
-        spawnPoints.Add(new SpawnPoint(0, 1));
-        spawnPoints.Add(new SpawnPoint(0, 5));
-        spawnPoints.Add(new SpawnPoint(9, 1));
-        spawnPoints.Add(new SpawnPoint(9, 5));
+        spawnPoints.Add(new SpawnPoint(1, 1));
+        spawnPoints.Add(new SpawnPoint(1, 5));
+        spawnPoints.Add(new SpawnPoint(10, 1));
+        spawnPoints.Add(new SpawnPoint(10, 5));
     }
 
     public void SpawnUnits(Player player)
     {
+        if(player.units.units.Count()==1 && spawnPoints.Count >2)
+        {
+            spawnPoints = new List<SpawnPoint>();
+            spawnPoints.Add(new SpawnPoint(3, 3));
+            spawnPoints.Add(new SpawnPoint(7, 3));
+        }    
         foreach(var unitTag in player.units.units)
         {
             var unit = Units.Where(x => x.tag == unitTag).First();

@@ -16,6 +16,7 @@ public class Dimacher : UnitInfo
         moveDistance = 4;
         withShield = false;
 
+        offset = new UnityEngine.Vector3(0f, 0.45f);
         turnManager = FindObjectOfType<TurnManager>();
         base.Start();
     }
