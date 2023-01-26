@@ -11,6 +11,9 @@ namespace Ui
         public CharInfo charInfoMurm;
         public CharInfo charInfoSkis;
         public CharInfo charInfoHoplo;
+        public CharInfo charInfoDim;
+        public CharInfo charInfoVeles;
+        public CharInfo charInfoThraex;
 
         public TextMeshProUGUI charName;
         public TextMeshProUGUI health;

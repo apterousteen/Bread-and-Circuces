@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 2327314586666841063}
   m_Layer: 7
   m_Name: Thraex
-  m_TagString: Hoplomachus
+  m_TagString: Thraex
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,6 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2be2d3d7f3d176e48b60f30920ea8052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackSound: {fileID: 0}
+  BlockSound: {fileID: 0}
   unitName: 
   health: 0
   moveDistance: 0

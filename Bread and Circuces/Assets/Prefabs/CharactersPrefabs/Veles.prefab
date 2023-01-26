@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: -406056403091137114}
   m_Layer: 7
   m_Name: Veles
-  m_TagString: Hoplomachus
+  m_TagString: Veles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,6 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eb3e72e8e375d8428058a9731330c67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackSound: {fileID: 0}
+  BlockSound: {fileID: 0}
   unitName: 
   health: 0
   moveDistance: 0

@@ -98,17 +98,18 @@ namespace Ui
             InTeam.text = team.Count.ToString();
 
             ChangeChoiceButton();
+            PlayButton.interactable = false;
 
-            if (team.Count <= 2)
-            {
-                PlayButton.interactable = false;
-            }
+            //if (team.Count <= 2)
+            //{
+            //    PlayButton.interactable = false;
+            //}
 
-            if (team.Count == 2)
-            {
-                PlayButton.interactable = true;
-                RunInfo.Instance.Player.units.SelectUnits(team[0], team[1]);
-            }
+            //if (team.Count == 2)
+            //{
+            //    PlayButton.interactable = true;
+            //    RunInfo.Instance.Player.units.SelectUnits(team[0], team[1]);
+            //}
         }
 
         public void ChangeChoiceButton()
@@ -117,11 +118,13 @@ namespace Ui
             {
                 ChooseButton.GetComponentInChildren<TextMeshProUGUI>().text = "Отменить выбор";
                 ChooseButton.onClick.AddListener(DeleteFromTeam);
+                //ChooseButton.onClick.RemoveListener(AddToTeam);
             }
             else
             {
                 ChooseButton.GetComponentInChildren<TextMeshProUGUI>().text = "Выбрать";
                 ChooseButton.onClick.AddListener(AddToTeam);
+                //ChooseButton.onClick.RemoveListener(DeleteFromTeam);
             }
         }
     

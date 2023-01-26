@@ -20,7 +20,10 @@ namespace Ui
                 CIP.charInfoRet,
                 CIP.charInfoMurm,
                 CIP.charInfoSkis,
-                CIP.charInfoHoplo
+                CIP.charInfoHoplo,
+                CIP.charInfoDim,
+                CIP.charInfoThraex,
+                CIP.charInfoVeles
             };
 
             foreach (var charInfo in heroes)
@@ -33,22 +36,27 @@ namespace Ui
                     continue;
                 }
 
-                MenuManager.left = charInfo.leftPosition;
-                MenuManager.right = charInfo.rightPosition;
-                MenuManager.chosen = charInfo.charObj;
-                MenuManager.chosenButton = charInfo.button;
-                MenuManager.Instance.ChangeChoiceButton();
-
-                charInfo.charObj.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-
-                if (MenuManager.Instance.activePosition == "left")
+                if(MenuManager.team.Count < 2)
                 {
-                    charInfo.charObj.transform.GetChild(1).transform.localPosition = charInfo.leftPosition;
+                    MenuManager.left = charInfo.leftPosition;
+                    MenuManager.right = charInfo.rightPosition;
+                    MenuManager.chosen = charInfo.charObj;
+                    MenuManager.chosenButton = charInfo.button;
+                    MenuManager.Instance.ChangeChoiceButton();
+
+                    charInfo.charObj.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+
+                    if (MenuManager.Instance.activePosition == "left")
+                    {
+                        charInfo.charObj.transform.GetChild(1).transform.localPosition = charInfo.leftPosition;
+                    }
+                    else if (!MenuManager.team.Contains(charInfo.charObj.tag))
+                    {
+                        charInfo.charObj.transform.GetChild(1).transform.localPosition = charInfo.rightPosition;
+                    }
                 }
-                else if (!MenuManager.team.Contains(charInfo.charObj.tag))
-                {
-                    charInfo.charObj.transform.GetChild(1).transform.localPosition = charInfo.rightPosition;
-                }
+
+
 
                 CIP.charIcon.GetComponent<Image>().sprite = charInfo.charIcon;
                 CIP.charName.text = charInfo.charName;

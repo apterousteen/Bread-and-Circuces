@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4734411932903936424}
   m_Layer: 7
   m_Name: Dimacher
-  m_TagString: Hoplomachus
+  m_TagString: Dimacher
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,7 +137,6 @@ MonoBehaviour:
   healthbar: {fileID: 171428804369474183}
   maxHealth: 0
   offset: {x: 0, y: 0, z: 0}
-  attackSound: {fileID: 8291525025076190869}
 --- !u!61 &771729444164306025
 BoxCollider2D:
   m_ObjectHideFlags: 0

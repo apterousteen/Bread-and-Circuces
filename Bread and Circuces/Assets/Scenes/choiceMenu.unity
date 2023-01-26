@@ -699,6 +699,9 @@ MonoBehaviour:
   charInfoMurm: {fileID: 151422960}
   charInfoSkis: {fileID: 1743371711}
   charInfoHoplo: {fileID: 58823811}
+  charInfoDim: {fileID: 822169551}
+  charInfoVeles: {fileID: 71675276}
+  charInfoThraex: {fileID: 1518357851}
   charName: {fileID: 1182071233}
   health: {fileID: 2089080482}
   moveDistance: {fileID: 1139643273}
@@ -868,11 +871,11 @@ GameObject:
   - component: {fileID: 71675275}
   m_Layer: 5
   m_Name: Veles
-  m_TagString: Dimacher
+  m_TagString: Veles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &71675274
 RectTransform:
   m_ObjectHideFlags: 0
@@ -893,7 +896,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -742, y: 108}
+  m_AnchoredPosition: {x: 91, y: -184}
   m_SizeDelta: {x: 100.63, y: 148.39}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &71675275
@@ -923,19 +926,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charObj: {fileID: 71675273}
-  charName: "\u041C\u0443\u0440\u043C\u0438\u043B\u043B\u043E\u043D"
-  health: 15
-  moveDistance: 3
+  charName: "\u0412\u0435\u043B\u0438\u0442"
+  health: 14
+  moveDistance: 2
   attackReachDistance: 1
-  info: "\u0429\u0438\u0442\u043E\u0432\u0438\u043A. +1 \u043A \u0437\u0430\u0449\u0438\u0442\u0435
-    \u0434\u043B\u044F \u0443\u043D\u0438\u0432\u0435\u0440\u0441\u0430\u043B\u044C\u043D\u044B\u0445
+  info: "\u0429\u0438\u0442\u043E\u0432\u0438\u043A. +1 \u043A \u0434\u0438\u0441\u0442\u0430\u043D\u0446\u0438\u0438
+    \u043F\u0435\u0440\u0435\u043C\u0435\u0449\u0435\u043D\u0438\u044F \u043E\u0442
+    \u044D\u0444\u0444\u0435\u043A\u0442\u043E\u0432 \u0434\u0440\u0443\u0436\u0435\u0441\u0442\u0432\u0435\u043D\u043D\u044B\u0445
+    \u0443\u043D\u0438\u0432\u0435\u0440\u0441\u0430\u043B\u044C\u043D\u044B\u0445
     \u043A\u0430\u0440\u0442"
-  charTag: Murmillo
+  charTag: Veles
   cards: {fileID: 1978679724}
-  charIcon: {fileID: 21300000, guid: ab461d0a12cfae94fb10e6bfa1628495, type: 3}
-  button: {fileID: 1369509768}
-  leftPosition: {x: 0, y: 0, z: 0}
-  rightPosition: {x: 0, y: 0, z: 0}
+  charIcon: {fileID: 21300000, guid: 7bdbee6df713e4545a0ca5aec9b721d2, type: 3}
+  button: {fileID: 720098654}
+  leftPosition: {x: -170, y: 260, z: 0}
+  rightPosition: {x: -70, y: 210, z: 0}
 --- !u!61 &71675277
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3455,7 +3460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.87058824}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4962,7 +4967,7 @@ GameObject:
   - component: {fileID: 367165098}
   m_Layer: 5
   m_Name: Text (TMP)
-  m_TagString: Untagged
+  m_TagString: Veles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6088,18 +6093,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1604349861605561165}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: PlayButtonSound
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &458835422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6359,8 +6352,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 16
+  m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6395,7 +6388,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: -16.292397, z: 0, w: -17.650074}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -10428,7 +10421,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &822169549
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10449,7 +10442,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -438, y: 7.2}
+  m_AnchoredPosition: {x: 91, y: -98}
   m_SizeDelta: {x: 100.63, y: 148.39}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &822169550
@@ -10479,19 +10472,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charObj: {fileID: 822169548}
-  charName: "\u041C\u0443\u0440\u043C\u0438\u043B\u043B\u043E\u043D"
-  health: 15
-  moveDistance: 3
+  charName: "\u0414\u0438\u043C\u0430\u0445\u0435\u0440"
+  health: 16
+  moveDistance: 4
   attackReachDistance: 1
-  info: "\u0429\u0438\u0442\u043E\u0432\u0438\u043A. +1 \u043A \u0437\u0430\u0449\u0438\u0442\u0435
-    \u0434\u043B\u044F \u0443\u043D\u0438\u0432\u0435\u0440\u0441\u0430\u043B\u044C\u043D\u044B\u0445
-    \u043A\u0430\u0440\u0442"
-  charTag: Murmillo
+  info: 
+  charTag: DImacher
   cards: {fileID: 1978679724}
-  charIcon: {fileID: 21300000, guid: ab461d0a12cfae94fb10e6bfa1628495, type: 3}
-  button: {fileID: 1369509768}
-  leftPosition: {x: 0, y: 0, z: 0}
-  rightPosition: {x: 0, y: 0, z: 0}
+  charIcon: {fileID: 21300000, guid: 59e9cf642c16b9a4eb3d62af9b860ad7, type: 3}
+  button: {fileID: 958033301}
+  leftPosition: {x: -240, y: 160, z: 0}
+  rightPosition: {x: -130, y: 12, z: 0}
 --- !u!61 &822169552
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13564,7 +13555,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.87058824}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -18691,11 +18682,11 @@ GameObject:
   - component: {fileID: 1518357850}
   m_Layer: 5
   m_Name: Thraex
-  m_TagString: Dimacher
+  m_TagString: Thraex
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1518357849
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18716,7 +18707,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -592, y: -123}
+  m_AnchoredPosition: {x: 159.90002, y: -98}
   m_SizeDelta: {x: 100.63, y: 148.39}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1518357850
@@ -18746,19 +18737,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charObj: {fileID: 1518357848}
-  charName: "\u041C\u0443\u0440\u043C\u0438\u043B\u043B\u043E\u043D"
+  charName: "\u0424\u0440\u0430\u043A\u0438\u0435\u0446"
   health: 15
   moveDistance: 3
   attackReachDistance: 1
-  info: "\u0429\u0438\u0442\u043E\u0432\u0438\u043A. +1 \u043A \u0437\u0430\u0449\u0438\u0442\u0435
-    \u0434\u043B\u044F \u0443\u043D\u0438\u0432\u0435\u0440\u0441\u0430\u043B\u044C\u043D\u044B\u0445
-    \u043A\u0430\u0440\u0442"
-  charTag: Murmillo
+  info: "\u0429\u0438\u0442\u043E\u0432\u0438\u043A.  +2 \u043A \u0443\u0440\u043E\u043D\u0443,
+    \u0435\u0441\u043B\u0438 \u0446\u0435\u043B\u044C \u0429\u0438\u0442\u043E\u0432\u0438\u043A
+    \u0438 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442 \u043A\u0430\u0440\u0442\u0443
+    \u0437\u0430\u0449\u0438\u0442\u044B"
+  charTag: Thraex
   cards: {fileID: 1978679724}
-  charIcon: {fileID: 21300000, guid: ab461d0a12cfae94fb10e6bfa1628495, type: 3}
-  button: {fileID: 1369509768}
-  leftPosition: {x: 0, y: 0, z: 0}
-  rightPosition: {x: 0, y: 0, z: 0}
+  charIcon: {fileID: 21300000, guid: 8cbd3452220761e498bb4dba420056c2, type: 3}
+  button: {fileID: 688284649}
+  leftPosition: {x: -240, y: 160, z: 0}
+  rightPosition: {x: -129.3, y: 120, z: 0}
 --- !u!61 &1518357852
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -22426,7 +22418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.87058824}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -23669,7 +23661,7 @@ GameObject:
   - component: {fileID: 1991480521}
   m_Layer: 5
   m_Name: Text (TMP)
-  m_TagString: Untagged
+  m_TagString: Dimacher
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23959,8 +23951,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.57999, y: -50.5}
-  m_SizeDelta: {x: 213, y: 118.70001}
+  m_AnchoredPosition: {x: 0.57999, y: -68.83}
+  m_SizeDelta: {x: 213, y: 155.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1995885098
 MonoBehaviour:
@@ -26122,7 +26114,7 @@ GameObject:
   - component: {fileID: 2124910149}
   m_Layer: 5
   m_Name: Text (TMP)
-  m_TagString: Untagged
+  m_TagString: Thraex
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26799,7 +26791,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8871086740177211550
 RectTransform:
   m_ObjectHideFlags: 0
@@ -26977,18 +26969,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: choiceMenu
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1604349861605561165}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: PlayButtonSound
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &8871086740521794535
