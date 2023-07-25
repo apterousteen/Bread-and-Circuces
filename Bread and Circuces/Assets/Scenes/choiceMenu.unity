@@ -855,6 +855,7 @@ MonoBehaviour:
   button: {fileID: 1825167648}
   leftPosition: {x: 15.5, y: 14.2, z: 0}
   rightPosition: {x: 130.5, y: -27.6, z: 0}
+  slotPosition: 
 --- !u!1 &71675273
 GameObject:
   m_ObjectHideFlags: 0
@@ -941,6 +942,7 @@ MonoBehaviour:
   button: {fileID: 720098654}
   leftPosition: {x: -170, y: 260, z: 0}
   rightPosition: {x: -70, y: 210, z: 0}
+  slotPosition: 
 --- !u!61 &71675277
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1609,6 +1611,7 @@ MonoBehaviour:
   button: {fileID: 1117583045}
   leftPosition: {x: 90.6, y: 51.105, z: 0}
   rightPosition: {x: 207.51, y: 9.6, z: 0}
+  slotPosition: 
 --- !u!1 &107849314
 GameObject:
   m_ObjectHideFlags: 0
@@ -2387,6 +2390,7 @@ MonoBehaviour:
   button: {fileID: 1369509768}
   leftPosition: {x: -243.5, y: 54.6, z: 0}
   rightPosition: {x: -129.3, y: 8, z: 0}
+  slotPosition: 
 --- !u!1 &155714324
 GameObject:
   m_ObjectHideFlags: 0
@@ -10477,12 +10481,13 @@ MonoBehaviour:
   moveDistance: 4
   attackReachDistance: 1
   info: 
-  charTag: DImacher
+  charTag: Dimacher
   cards: {fileID: 1978679724}
   charIcon: {fileID: 21300000, guid: 59e9cf642c16b9a4eb3d62af9b860ad7, type: 3}
   button: {fileID: 958033301}
   leftPosition: {x: -240, y: 160, z: 0}
   rightPosition: {x: -130, y: 12, z: 0}
+  slotPosition: 
 --- !u!61 &822169552
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10722,7 +10727,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -113.420105, y: 0}
+  m_AnchoredPosition: {x: -113.420074, y: 0}
   m_SizeDelta: {x: -226.83, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &863761505
@@ -18751,6 +18756,7 @@ MonoBehaviour:
   button: {fileID: 688284649}
   leftPosition: {x: -240, y: 160, z: 0}
   rightPosition: {x: -129.3, y: 120, z: 0}
+  slotPosition: 
 --- !u!61 &1518357852
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -21728,6 +21734,7 @@ MonoBehaviour:
   button: {fileID: 698564808}
   leftPosition: {x: -131, y: 37.3, z: 0}
   rightPosition: {x: -16, y: -6.4, z: 0}
+  slotPosition: 
 --- !u!1 &1744965009
 GameObject:
   m_ObjectHideFlags: 0
@@ -26958,19 +26965,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8871086740521794535}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1604349861605561165}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: AddToTeam
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: choiceMenu
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &8871086740521794535
 MonoBehaviour:
   m_ObjectHideFlags: 0

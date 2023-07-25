@@ -49,6 +49,7 @@ namespace Ui
 
         public static Vector3 left;
         public static Vector3 right;
+        public static CharInfo charInfo;
         public static GameObject chosen;
         public static GameObject chosenButton;
 
@@ -61,19 +62,25 @@ namespace Ui
         }
 
         public void AddToTeam()
-        {      
+        {
+            Debug.Log("AddToTeam Method Invoked");
             if (!team.Contains(chosen.tag) && team.Count < 2)
             {
+
                 team.Add(chosen.tag);
 
                 if (activePosition == "left")
                 {
+                    Debug.Log("Rendered on the left");
                     chosen.transform.GetChild(1).transform.localPosition = left;
+                    charInfo.slotPosition = "left";
                     activePosition = "right";
                 }
                 else
                 {
+                    Debug.Log("Rendered on the right");
                     chosen.transform.GetChild(1).transform.localPosition = right;
+                    charInfo.slotPosition = "right";
                     activePosition = "left";
                 }
 
@@ -92,7 +99,13 @@ namespace Ui
 
         public void DeleteFromTeam()
         {
-            // add logic
+            Debug.Log("DeleteFromTeam Method Invoked");
+            // added logic: left and right side
+            Debug.Log("charinfo now " + charInfo.charName);
+            Debug.Log("chosen now " + chosen);
+            activePosition = charInfo.slotPosition;
+            charInfo.slotPosition = "";
+
             team.Remove(chosen.tag);
             chosenButton.transform.GetComponent<Image>().sprite = panel_not_chosen;
             InTeam.text = team.Count.ToString();
@@ -116,15 +129,20 @@ namespace Ui
         {
             if (team.Contains(chosen.tag))
             {
+                ChooseButton.interactable = true;
                 ChooseButton.GetComponentInChildren<TextMeshProUGUI>().text = "Отменить выбор";
-                ChooseButton.onClick.AddListener(DeleteFromTeam);
                 //ChooseButton.onClick.RemoveListener(AddToTeam);
+                ChooseButton.onClick.RemoveAllListeners();
+                ChooseButton.onClick.AddListener(DeleteFromTeam);
             }
             else
             {
                 ChooseButton.GetComponentInChildren<TextMeshProUGUI>().text = "Выбрать";
-                ChooseButton.onClick.AddListener(AddToTeam);
                 //ChooseButton.onClick.RemoveListener(DeleteFromTeam);
+                ChooseButton.onClick.RemoveAllListeners();
+                ChooseButton.onClick.AddListener(AddToTeam);
+                if (team.Count == 2)
+                    ChooseButton.interactable = false;
             }
         }
     
