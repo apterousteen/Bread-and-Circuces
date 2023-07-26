@@ -18,5 +18,6 @@ namespace Ui
         public GameObject button;
         public Vector3 leftPosition;
         public Vector3 rightPosition;
+        public string slotPosition;
     }
 }

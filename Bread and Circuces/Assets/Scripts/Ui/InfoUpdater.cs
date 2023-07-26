@@ -36,13 +36,21 @@ namespace Ui
                     continue;
                 }
 
-                if(MenuManager.team.Count < 2)
+                /*MenuManager.chosen = charInfo.charObj;
+                MenuManager.charInfo = charInfo;*/
+                MenuManager.chosen = charInfo.charObj;
+                MenuManager.charInfo = charInfo;
+                MenuManager.chosenButton = charInfo.button;
+                MenuManager.Instance.ChangeChoiceButton();
+
+                if (MenuManager.team.Count < 2)
                 {
                     MenuManager.left = charInfo.leftPosition;
                     MenuManager.right = charInfo.rightPosition;
-                    MenuManager.chosen = charInfo.charObj;
-                    MenuManager.chosenButton = charInfo.button;
-                    MenuManager.Instance.ChangeChoiceButton();
+                    /*                    MenuManager.chosen = charInfo.charObj;
+                                        MenuManager.charInfo = charInfo;
+                                        MenuManager.chosenButton = charInfo.button; */
+                    
 
                     charInfo.charObj.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 1, 1, 1);
 
